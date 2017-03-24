@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition  xmlns=""  name="bbsp_demo_applybill" prod-no="bill201102">
+
+
+	<start-state name="承兑申请">
+		<transition to="人工受理"></transition>
+	</start-state>
+
+
+	<task-node name="人工受理" task-type="1">
+		<task name="applybill_firstAudit">
+			<assignment class="com.leadmind.bbsp.demo.bpm.applybill.FirstAuditAssignment"></assignment>
+		</task>
+		<transition to="result1"></transition>
+	</task-node>
+
+	<task-node name="风险审核" task-type="1">
+		<task name="applybill_riskAudit">
+			<assignment class="com.leadmind.bbsp.demo.bpm.applybill.RiskAuditAssignment"></assignment>
+		</task>
+		<transition to="result2"></transition>
+	</task-node>
+
+	<task-node name="承兑出票" task-type="1">
+		<task name="applybill_applyAccount">
+			<assignment class="com.leadmind.bbsp.demo.bpm.applybill.ApplyAccountAssignment"></assignment>
+		</task>
+		<transition to="结束"></transition>
+	</task-node>
+
+	<decision name="result2">
+		<handler class="com.leadmind.bbsp.demo.bpm.applybill.AuditDecisionHandler"></handler>
+		<transition to="承兑出票" name="pass"></transition>
+		<transition to="结束" name="refuse"></transition>
+	</decision>
+
+	<decision name="result1">
+		<handler class="com.leadmind.bbsp.demo.bpm.applybill.AuditDecisionHandler"></handler>
+		<transition to="风险审核" name="pass"></transition>
+		<transition to="结束" name="refuse"></transition>
+	</decision>
+
+
+	<end-state name="结束"></end-state>
+
+
+</process-definition>

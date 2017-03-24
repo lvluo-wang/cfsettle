@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="dictionary" namespace="/dictionary" extends="pkg-base">	 
+		<action name="code_*" class="com.upg.ucars.basesystem.dictionary.action.CodeAction" method="{1}">
+			<result name="success">/platform/module/basesystem/dictionary/code/{1}.jsp</result>
+		</action>
+		<action name="fieldcodemap_*" class="com.upg.ucars.basesystem.dictionary.action.FieldCodeMapAction" method="{1}">
+			<result name="success">/platform/module/basesystem/dictionary/fieldcodemap/{1}.jsp</result>
+		</action>
+		<action name="codeMeta_*" class="com.upg.ucars.basesystem.dictionary.action.CodeMetaAction" method="{1}">
+			<result name="success">/platform/module/basesystem/dictionary/codemeta/{1}.jsp</result>
+		</action>
+		<action name="dictionary_*" class="com.upg.ucars.basesystem.dictionary.action.DictionaryAction" method="{1}">
+		</action>
+		
+		
+		
+		<!-- 行业类别 -->
+  		<action name="trade_*" class="com.upg.ucars.basesystem.dictionary.action.DictTradeAction" method="{1}">
+  			
+  			<result name="toSelectTrade">/platform/module/basesystem/dictionary/trade/selectTrade.jsp</result>
+  			<result name="table" type="stream">
+				<param name="inputName">jsonStream</param>
+			</result>
+			
+  		</action>
+  		
+	</package>
+</struts>

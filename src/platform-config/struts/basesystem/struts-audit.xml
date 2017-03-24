@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="audit" namespace="/audit" extends="pkg-base">
+		<action name="audit_*" class="com.upg.ucars.basesystem.audit.action.AuditAction" method="{1}">
+			<result name="auditRouteMain">/platform/module/basesystem/audit/auditRouteMain.jsp</result>
+			<result name="auditRouteAdd">/platform/module/basesystem/audit/auditRouteAdd.jsp</result>
+			<result name="auditRouteEdit">/platform/module/basesystem/audit/auditRouteEdit.jsp</result>
+			<result name="auditNodeAdd">/platform/module/basesystem/audit/auditNodeAdd.jsp</result>
+			<result name="auditNodeEdit">/platform/module/basesystem/audit/auditNodeEdit.jsp</result>
+			<result name="auditStationAdd">/platform/module/basesystem/audit/auditStationAdd.jsp</result>
+			<result name="auditStationEdit">/platform/module/basesystem/audit/auditStationEdit.jsp</result>
+			<result name="auditRouteSet">/platform/module/basesystem/audit/auditRouteSet.jsp</result>
+			<result name="auditRouteView">/platform/module/basesystem/audit/auditRouteView.jsp</result>
+			<result name="auditNodeView">/platform/module/basesystem/audit/auditNodeView.jsp</result>
+			<result name="auditStationView">/platform/module/basesystem/audit/auditStationView.jsp</result>
+			<result name="auditProductMain">/platform/module/basesystem/audit/productAuditMain.jsp</result>
+			<result name="productAuditRouteSet">/platform/module/basesystem/audit/productAuditRouteSet.jsp</result>
+			<result name="toAssignStation">/platform/module/basesystem/audit/stationAssign.jsp</result>
+			<result name="auditStationUserMain">/platform/module/basesystem/audit/stationUserMain.jsp</result>
+			<result name="userMutilSelect">/platform/module/basesystem/audit/stationUserSelect.jsp</result>
+			<result name="auditMain">/platform/module/basesystem/audit/auditMain.jsp</result>
+			<result name="audit">/platform/module/basesystem/audit/audit.jsp</result>
+			<result name="auditTaskHist">/platform/module/basesystem/audit/auditHistQuery.jsp</result>
+		</action>
+	</package>
+</struts>

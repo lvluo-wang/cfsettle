@@ -1,0 +1,44 @@
+.err_wrap{
+	border:#f2f2f2 3px solid;
+	padding:20px;
+	margin:120px auto;
+	width:580px;
+}
+.err_content{
+	padding-left:58px;
+	padding-top:6px;
+	padding-bottom:6px;
+	padding-right:0px;
+	line-height:160%;
+	min-height:40px;
+	height:auto !important;
+	font-size:14px;
+	font-weight:normal; 
+	background: no-repeat 8px 8px;
+	background-image:url(../images/prompt/messager_error.gif);
+}
+.err_title{
+	margin:0px;
+	font-size:14px;
+	color:#444;
+
+}
+.err_detail{
+margin:0px;
+font-size:12px;
+font-weight:normal; 
+}
+.err_help{
+margin:0px;
+font-size:12px;
+font-weight:normal; 
+}
+.btn_return{
+	margin:0px;
+	margin-top:8px;
+}
+.btn_return a{
+	
+	color:#369;
+	text-decoration:none;
+}

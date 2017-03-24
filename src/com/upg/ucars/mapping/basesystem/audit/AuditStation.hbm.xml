@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.upg.ucars.mapping.basesystem.audit.AuditStation" table="AUDIT_STATION">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="22" scale="0" />
+            <generator class="native"></generator>
+        </id>
+        <!--version标签必须跟在id标签后面-->
+    	<version name="version" column="VER" type="java.lang.Long"/>
+        <property name="auditNodeId" type="java.lang.Long">
+            <column name="AN_ID" />
+        </property>
+        <property name="auditRouteId" type="java.lang.Long">
+            <column name="AR_ID" />
+        </property>
+        <property name="auditStationName" type="java.lang.String">
+            <column name="AS_NAME" length="50"/>
+        </property>
+        <property name="auditStationPrivilege" type="java.math.BigDecimal">
+            <column name="AS_PRIVILEGE" />
+        </property>
+        <property name="createBrchId" type="java.lang.Long">
+            <column name="CREATE_BRCH_ID" />
+        </property>
+        <property name="bindBrchId" type="java.lang.Long">
+            <column name="BIND_BRCH_ID" />
+        </property>
+        <property name="sortNo" type="java.lang.Long">
+        	<column name="SORT_NO" />
+        </property>
+        <property name="auditStationRemark" type="java.lang.String">
+            <column name="AS_REMARK" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>

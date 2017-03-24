@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.upg.ucars.mapping.basesystem.product.MemberProductInfo" table="MEMBER_PROD_INFO">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="22" scale="0" />
+            <generator class="native"></generator>
+        </id>
+        <!--version标签必须跟在id标签后面-->
+    	<version name="version" column="VER" type="java.lang.Long"/>
+      	<property name="miNo" type="java.lang.String">
+           	<column name="MI_NO" length="50" />
+        </property>
+        <property name="prodId" type="java.lang.Long">
+            <column name="PROD_ID" precision="22" scale="0"  />
+        </property>
+        <property name="prodAlias" type="java.lang.String">
+            <column name="PROD_ALIAS" length="50" />
+        </property>
+        <property name="parentProdId" type="java.lang.Long">
+        	<column name="PARENT_PROD_ID"/>
+        </property>
+        <property name="sortNo" type="java.lang.Long">
+        	<column name="SORT_NO" />
+        </property>
+        <property name="isCheck" type="java.lang.String">
+            <column name="IS_CHECK" length="1" />
+        </property>
+        <property name="isAudit" type="java.lang.String">
+            <column name="IS_AUDIT" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

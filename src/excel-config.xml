@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 资源总配置文件 -->
+<root>
+	<include path="platform-config/excel/demo-excel.xml"/>
+	
+	<format name="yyyy-MM-dd" remark="日期(yyyy-mm-dd)" class="com.upg.ucars.tools.imp.excel.format.Data_YYYY_MM_DD_Formatter"/>
+	<format name="#,##0.00" remark="金额(#,##0.00)" class="com.upg.ucars.tools.imp.excel.format.Double_MoneyFormatter1"/>
+	<format name="STRING" remark="字符串" class="com.upg.ucars.tools.imp.excel.DefaultFormatter"/>
+	<format name="MONEY" remark="金额(#,##0.00)" class="com.upg.ucars.tools.imp.excel.format.BigDecimal_MoneyFormatter"/>
+</root>

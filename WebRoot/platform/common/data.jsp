@@ -1,0 +1,1 @@
+﻿<%@ page contentType="text/html;charset=UTF-8"%><%=request.getAttribute(com.upg.ucars.framework.base.BaseActionConstant.XCAS_DATA) == null ? "" : request.getAttribute(com.upg.ucars.framework.base.BaseActionConstant.XCAS_DATA) %>

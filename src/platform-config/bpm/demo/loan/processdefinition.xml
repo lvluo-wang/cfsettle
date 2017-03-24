@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition  xmlns=""  name="loan" prod-no="demo01">
+
+	<description>
+		DEMO贷款
+	</description>
+
+
+	<start-state name="start-state1">
+		<transition to="accept">
+		</transition>		
+	</start-state>
+
+	<task-node name="accept">
+		<description>
+			受理借款业务
+		</description>
+		<task name="accept" task-type="1">
+			<description>
+				业务受理
+			</description>
+			<assignment class="com.upg.demo.loan.bpm.OtherTaskAssignmentHandler"></assignment>
+		</task>
+		<event type="node-enter">
+			<action name="status" class="com.upg.demo.loan.bpm.EntityStateAction"></action>
+		</event>
+		<transition to="decision1">
+			<condition expression="#{isAgree==true}"></condition>
+		</transition>
+		<transition to="end-state1" name="to_end-state1">
+			<condition expression="#{isAgree==false}"></condition>
+		</transition>
+	</task-node>
+
+	<task-node name="commonAudit" >
+		<task name="commonAudit" task-type="1">
+			<description>
+				普通审批
+			</description>
+		</task>
+		<event type="node-enter">
+			<action name="status" class="com.upg.demo.loan.bpm.EntityStateAction"></action>
+		</event>
+		<transition to="payment">
+			<condition expression="#{isAgree==true}"></condition>
+		</transition>
+		<transition to="accept" name="to_accept">
+			<condition expression="#{isAgree==false}"></condition>
+		</transition>
+	</task-node>
+
+	<task-node name="advancedAudit" >
+		<task name="advancedAudit" task-type="1">
+			<description>
+				高级审批
+			</description>
+		</task>
+		<event type="node-enter">
+			<action name="status" class="com.upg.demo.loan.bpm.EntityStateAction"></action>
+		</event>
+		<transition to="payment">
+			<condition expression="#{isAgree==true}"></condition>
+		</transition>
+		<transition to="accept" name="to_accept">
+			<condition expression="#{isAgree==false}"></condition>
+		</transition>
+	</task-node>
+
+	<decision name="decision1" expression='#{entity.money&gt;50000? "to_advancedAudit" : "to_commonAudit"}'>
+		<transition to="commonAudit" name="to_commonAudit"></transition>
+		<transition to="advancedAudit" name="to_advancedAudit"></transition>
+	</decision>
+
+	<node name="payment">
+		<description>
+			划款
+		</description>
+		<action class="com.upg.demo.loan.bpm.PaymentActionHandler"></action>
+		<transition to="waitPaymentResult"></transition>
+	</node>	
+
+	<state name="waitPaymentResult">
+		<description>
+			等待划款结果
+		</description>
+		<event type="node-enter">
+			<action name="endStatus" class="com.upg.demo.loan.bpm.EntityStateAction"></action>
+		</event>
+		<transition to="end-state1"></transition>
+	</state>
+
+	<end-state name="end-state1">
+		<event type="node-enter">
+			<action name="endStatus" class="com.upg.demo.loan.bpm.EntityStateAction"></action>
+		</event>
+	</end-state>
+
+
+</process-definition>

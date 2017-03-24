@@ -1,0 +1,109 @@
+.orgchart-table {
+  border: 0px;
+  text-align: center;
+}
+
+.orgchart-table * {
+  margin: 0;
+  padding: 2px;
+}
+
+.orgchart-space-small {
+  width: 4px;
+  height: 1px;
+  border: 0;
+}
+
+.orgchart-space-medium {
+  width: 10px;
+  height: 1px;
+  border: 0;
+}
+
+.orgchart-space-large {
+  width: 16px;
+  height: 1px;
+  border: 0;
+}
+
+.orgchart-noderow-small {
+  height: 12px;
+  border: 0;
+}
+
+.orgchart-noderow-medium {
+  height: 30px;
+  border: 0;
+}
+
+.orgchart-noderow-large {
+  height: 46px;
+  border: 0;
+}
+
+.orgchart-connrow-small {
+  height: 2px;
+  font-size: 1px;
+}
+
+.orgchart-connrow-medium {
+  height: 6px;
+  font-size: 4px;
+}
+
+.orgchart-connrow-large {
+  height: 10px;
+  font-size: 8px;
+}
+
+.orgchart-node {
+  text-align: center;
+  vertical-align: middle;
+  font-family: arial,helvetica;
+  cursor: default;
+  border: 2px solid #b5d9ea;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 3px 3px 3px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 3px 3px 3px;
+  background-color: #edf7ff;
+  background: -webkit-gradient(linear, left top, left bottom, from(#edf7ff), to(#cde7ee));
+}
+
+.orgchart-nodesel {
+  border: 2px solid #e3ca4b;
+  background-color: #fff7ae;
+  background: -webkit-gradient(linear, left top, left bottom, from(#fff7ae), to(#eee79e));
+}
+
+.orgchart-node-small {
+  font-size: 0.6em;
+}
+
+.orgchart-node-medium {
+  font-size: 0.8em;
+}
+
+.orgchart-node-large {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.orgchart-linenode {
+  border: 0;
+}
+
+.orgchart-lineleft {
+  border-left: 1px solid #3388dd;
+}
+
+.orgchart-lineright {
+ border-right: 1px solid #3388dd;
+}
+
+.orgchart-linebottom {
+ border-bottom: 1px solid #3388dd;
+}
+.orgchart-linetop {
+  border-top: 1px solid #3388dd;
+}

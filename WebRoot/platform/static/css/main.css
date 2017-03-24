@@ -1,0 +1,126 @@
+@charset "utf-8";
+
+/* Site
+   -------------------------------- */
+
+/*
+new style for buttons inputs selects iframe form ... */
+
+/*form*/
+.inputTxt  { 
+	padding:0em;
+	padding-left:1px;
+	width:160px;
+	height:21px;
+	border:#a4bed4 1px solid;
+	/*vertical-align:middle;*/
+	line-height:21px;
+	
+} 
+.inputSel { 
+	font-size:12px;
+	text-indent: 2px;
+	border:1px solid #a4bed4;
+	background:#f6f6f6;
+	height: 20px;
+	line-height:20px;
+	width: 160px;
+	padding: 1px 2px;
+	MARGIN-LEFT: 0px;
+    
+	background-image: url(../images/tb-list.gif); 
+	background-repeat: no-repeat; 
+	background-position: right center;
+	cursor: pointer;
+} 
+
+
+
+
+.checkbox{ width:14px; height:14px; border:0px; text-align:center;}
+
+
+/* from end */
+
+
+
+
+
+
+body{
+ scrollbar-face-color:#e0ecff;
+ scrollbar-base-color:#e0ecff;
+ scrollbar-arrow-color:black;
+ scrollbar-track-color:#F5F5F5;
+ scrollbar-shadow-color:#e0ecff;
+ scrollbar-highlight-color:#e0ecff;
+ scrollbar-3dlight-color:#e0ecff;
+ scrollbar-darkshadow-Color:#e0ecff;
+ margin:0;
+}
+form{
+	margin:0px;
+	padding:0px;
+}
+/* work_page */
+
+
+#work_page div[region=north]{
+	padding:0px;
+	background:#fafafa;
+}
+#work_page div #toolsDiv{
+	/*height:28px;*/
+	background:#efefef;
+	padding:0px;padding-top:1px;padding-left:2px;
+	width:99.8%;
+	min-height:28px;
+    _height:28px;
+    border:0px;border-bottom:1px solid #ccc;
+}
+#work_page div #queryDiv{
+	padding:2px 2px;
+	background:#fafafa;
+	border:0px;
+	width:auto;
+	min-height:30px;
+    _height:30px;
+}
+#work_page div #queryDiv form{
+	margin:0px;
+}
+#choose_page div[region=north]{
+	padding:0px;
+	background:#fafafa;
+}
+#choose_page div #toolsDiv{
+	padding:0px;
+	height:28px;
+	background:#efefef;
+}
+#choose_page div #queryDiv{
+	padding:3px 0px;
+	background:#fafafa;
+	border:0px;
+}
+
+.xcarsui-disabled{
+	background:#f5f4ea;
+	color:#aca899;
+	border:#7f9dc9 solid 1px;
+	cursor:default;
+}
+
+.pic-delete{
+	color: #000;
+    width: 14px;
+    height: 14px;
+    line-height: 1;
+    text-align: center;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+}
+
+
+/* */

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="web_ui" namespace="/web_ui" extends="pkg-base">	 
+		<action name="query_*" class="com.upg.ucars.basesystem.webUtil.action.QueryComponentAction" method="{1}">
+			<result name="success" type="stream">
+				<param name="inputName">jsonStream</param>
+			</result>
+		</action>
+		<action name="message_*" class="com.upg.ucars.basesystem.webUtil.action.MessageComponentAction" method="{1}">
+			<result name="success" type="stream">
+				<param name="inputName">messageStream</param>
+			</result>
+		</action>
+		<action name="sys_status_*" class="com.upg.ucars.basesystem.webUtil.action.SysStatusComponentAction" method="{1}">
+			<result name="success" type="stream">
+				<param name="inputName">statusStream</param>
+			</result>
+		</action>
+		<action name="choose_*" class="com.upg.ucars.basesystem.webUtil.action.ChooseAction" method="{1}">
+			<result name="chooseBrchPage">/platform/common/choose/chooseBranch.jsp</result>
+			<result name="chooseTreeBrchPage">/platform/common/choose/chooseTreeBranch.jsp</result>
+			
+			<result name="chooseBrchUser">/platform/common/choose/chooseBrchUser.jsp</result>
+			
+			<result name="chooseMemberPage">/platform/common/choose/chooseMember.jsp</result>
+			<result name="ChooseProduct">/platform/common/choose/chooseProduct.jsp</result>
+			<result name="chooseNaturecorp">/platform/common/choose/chooseNaturecorp.jsp</result>
+			
+			<result name="chooseCodeMeta">/platform/common/choose/chooseCodeMeta.jsp</result>
+			<result name="success">/platform/common/choose/choose{1}.jsp</result>
+			
+		</action>
+		<action name="excel_*" class="com.upg.ucars.basesystem.webUtil.action.ExcelAction" method="{1}">
+			<result name="mainPage">/platform/common/excel/mainPage.jsp</result>
+			<result name="uploadFile" type="stream">
+				<param name="inputName">resultStream</param>
+			</result>
+			<result name="downloadFile" type="stream">
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="inputName">excelStream</param>
+			</result>
+		</action>
+		<action name="excelUpload" class="com.upg.ucars.basesystem.webUtil.action.ExcelAction" method="uploadFile">
+			<result name="uploadFile" type="stream">
+				<param name="inputName">resultStream</param>
+			</result>
+		</action>
+	</package>
+	<package name="component" namespace="/component" extends="pkg-base">
+		<action name="attachment_*" class="com.upg.ucars.basesystem.component.action.AttachmentAction" method="{1}">
+			<result name="main">/platform/common/fileuploadMain.jsp</result>
+		</action>
+	</package>
+</struts>

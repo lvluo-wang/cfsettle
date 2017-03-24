@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.upg.cfsettle.mapping.filcs.FiLcsFundAttach" table="fi_lcs_fund_attach" dynamic-update="true">
+        <id name="id" type="java.lang.Long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="fundId" type="java.lang.Long">
+            <column name="fund_id" />
+        </property>
+        <property name="path" type="java.lang.String">
+            <column name="path">
+                <comment>存放路径，可链接</comment>
+            </column>
+        </property>
+        <property name="fileName" type="java.lang.String">
+            <column name="file_name">
+                <comment>文件名称</comment>
+            </column>
+        </property>
+        <property name="luyanDesc" type="java.lang.String">
+            <column name="luyan_desc" />
+        </property>
+        <property name="sortNo" type="java.lang.Long">
+            <column name="sort_no">
+                <comment>排序号</comment>
+            </column>
+        </property>
+        <property name="ctime" type="secDate">
+            <column name="ctime" />
+        </property>
+        <property name="mtime" type="secDate">
+            <column name="mtime" />
+        </property>
+         <property name="fileType" type="java.lang.String">
+            <column name="file_type" />
+        </property> 
+        <property name="attachId" type="java.lang.Long">
+            <column name="attach_id" />
+        </property>
+    </class>
+</hibernate-mapping>

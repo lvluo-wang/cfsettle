@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.upg.ucars.mapping.basesystem.audit.AuditTask" table="AUDIT_TASK">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="22" scale="0" />
+            <generator class="native"></generator>
+        </id>
+        <!--version标签必须跟在id标签后面-->
+    	<version name="version" column="VER" type="java.lang.Long"/>
+        <property name="auditRouteId" type="java.lang.Long">
+            <column name="AR_ID" />
+        </property>
+        <property name="auditStatus" type="java.lang.String">
+            <column name="AT_STATUS" length="1" />
+        </property>
+        <property name="auditPrivilege" type="java.math.BigDecimal">
+            <column name="AUDIT_PRIVILEGE" precision="22" scale="4" />
+        </property>
+        <property name="auditTaskAuthor" type="java.lang.Long">
+            <column name="AT_AUTHOR"  />
+        </property>
+        <property name="auditTaskCreateTime" type="java.util.Date">
+            <column name="AT_CREATE_TIME" />
+        </property>
+        <property name="auditTaskDoneTime" type="java.util.Date">
+            <column name="AT_DONE_TIME"  />
+        </property>
+        <property name="auditEntityName" type="java.lang.String">
+            <column name="ENTITY_NAME" length="100" />
+        </property>
+        <property name="auditEntityId" type="java.lang.Long">
+            <column name="ENTITY_ID"  />
+        </property>
+        <property name="auditEntityService" type="java.lang.String">
+            <column name="ENTITY_SERVICE" length="50" />
+        </property>
+        <property name="auditRemark" type="java.lang.String">
+            <column name="AUDIT_REMARK" length="100" />
+        </property>
+        <property name="brchId" type="java.lang.Long">
+            <column name="BRCH_ID"  />
+        </property>
+        <property name="prodId" type="java.lang.Long">
+            <column name="PROD_ID"  />
+        </property>
+    </class>
+</hibernate-mapping>

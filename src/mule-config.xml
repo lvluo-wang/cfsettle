@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" 
+    xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:client="http://www.mulesoft.org/schema/mule/client"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.mulesoft.org/schema/mule/client http://www.mulesoft.org/schema/mule/client/3.1/mule-client.xsd
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd ">
+	 <!-- 本项配置作为开发调式用，生产环境注释掉-->
+	 <client:remote-dispatcher-agent>
+	    <client:remote-endpoint address="http://localhost:81" exchange-pattern="request-response" responseTimeout="10000"/>
+	 </client:remote-dispatcher-agent>
+	<context:property-placeholder location="mule.properties"/>
+  	<spring:bean name="componentMsgMonitor" class="com.upg.ucars.framework.esb.monitor.ESBComponentMsgMonitor"/>
+  	<!-- 
+	<spring:bean name="connectionMonitor" class="com.upg.ucars.framework.esb.monitor.ESBConnectionMonitor"/>
+	 -->
+	<spring:bean name="endpointMsgMonitor" class="com.upg.ucars.framework.esb.monitor.ESBEndpointMsgMonitor"/>
+	<spring:bean name="exceptionMonitor" class="com.upg.ucars.framework.esb.monitor.ESBExceptionMonitor"/>
+	<spring:bean name="managementMonitor" class="com.upg.ucars.framework.esb.monitor.ESBManagementMonitor"/>
+	<spring:bean name="messageProcessorMonitor" class="com.upg.ucars.framework.esb.monitor.ESBMessageProcessorMonitor"/>
+	<spring:bean name="modelMonitor" class="com.upg.ucars.framework.esb.monitor.ESBModelMonitor"/>
+	<spring:bean name="muleContextMonitor" class="com.upg.ucars.framework.esb.monitor.ESBMuleContextMonitor"/>
+	<spring:bean name="registryMonitor" class="com.upg.ucars.framework.esb.monitor.ESBRegistryMonitor"/>
+	<spring:bean name="routingMonitor" class="com.upg.ucars.framework.esb.monitor.ESBRoutingMonitor"/>
+	<spring:bean name="securityMonitor" class="com.upg.ucars.framework.esb.monitor.ESBSecurityMonitor"/>
+	<spring:bean name="serviceMonitor" class="com.upg.ucars.framework.esb.monitor.ESBServiceMonitor"/>
+	<spring:bean name="transactionMonitor" class="com.upg.ucars.framework.esb.monitor.ESBTransactionMonitor"/>
+
+    <notifications>
+        <!-- 通知机制：开发调试环境用如下配置，生成环境下直接使用注释部分替代 
+        <notification event="COMPONENT-MESSAGE"/>
+        <notification event="CONNECTION"/>
+        <notification event="ENDPOINT-MESSAGE"/>
+        <notification event="EXCEPTION"/>
+    	<notification event="MANAGEMENT"/>
+    	<notification event="MESSAGE-PROCESSOR"/>
+    	<notification event="MODEL"/>
+    	<notification event="CONTEXT"/>
+    	<notification event="REGISTRY"/>
+    	<notification event="ROUTING"/>
+    	<notification event="SECURITY"/>
+    	<notification event="SERVICE"/>
+    	<notification event="TRANSACTION"/>
+    	<notification-listener ref="componentMsgMonitor"/>
+    	<notification-listener ref="connectionMonitor"/>
+    	<notification-listener ref="endpointMsgMonitor"/>
+    	<notification-listener ref="exceptionMonitor"/>
+    	<notification-listener ref="managementMonitor"/>
+    	<notification-listener ref="messageProcessorMonitor"/>
+    	<notification-listener ref="modelMonitor"/>
+    	<notification-listener ref="muleContextMonitor"/>
+    	<notification-listener ref="registryMonitor"/>
+    	<notification-listener ref="routingMonitor"/>
+    	<notification-listener ref="securityMonitor"/>
+    	<notification-listener ref="serviceMonitor"/>
+    	<notification-listener ref="transactionMonitor"/>
+    	-->
+    	<!-- 通知机制：生成环境 下配置-->
+        <notification event="EXCEPTION"/>
+    	<notification event="MANAGEMENT"/>
+    	<notification event="MODEL"/>
+    	<notification event="CONTEXT"/>
+    	<notification event="REGISTRY"/>
+    	<notification event="SECURITY"/>
+    	<notification event="SERVICE"/>
+    	<notification-listener ref="exceptionMonitor"/>
+    	<notification-listener ref="managementMonitor"/>
+    	<notification-listener ref="modelMonitor"/>
+    	<notification-listener ref="muleContextMonitor"/>
+    	<notification-listener ref="registryMonitor"/>
+    	<notification-listener ref="securityMonitor"/>
+    	<notification-listener ref="serviceMonitor"/>
+    	
+    </notifications>
+    
+    <custom-processor name="inboundEndPointLogger" class="com.upg.ucars.framework.esb.log.InboundEndPointLogger">
+    	<spring:property name="propLimit" value="ALL"/>
+    	<spring:property name="level" value="INFO"/>
+    </custom-processor>
+    
+    <custom-processor name="outboundEndPointLogger" class="com.upg.ucars.framework.esb.log.OutboundEndPointLogger">
+		<spring:property name="propLimit" value="ALL"/>
+    	<spring:property name="level" value="INFO"/>
+    </custom-processor>
+
+ 
+   	<!-- 在这里导入各自模块的关于esb的配置 -->
+	<!-- 
+	    统一按demo,xcars,xfosc,...目录划分,然后再按各自模块划分，参考spring-config目录结构。
+	 -->
+  <spring:beans>
+    <spring:import resource="platform-config/esb/mule-demo-config.xml" />
+    <spring:import resource="platform-config/esb/mule-xcars-config.xml" />
+   
+  </spring:beans>
+</mule>

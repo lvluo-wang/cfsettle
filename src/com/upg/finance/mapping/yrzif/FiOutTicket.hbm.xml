@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.upg.finance.mapping.yrzif.FiOutTicket" table="fi_out_ticket">
+		<id name="id" type="long">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="ticketNo" type="string">
+			<column name="ticket_no" />
+		</property>
+		<property name="uid" type="long">
+			<column name="uid" />
+		</property>
+		<property name="amount" type="long">
+			<column name="amount" />
+		</property>
+		<property name="trustStatus" type="string">
+			<column name="trust_status" />
+		</property>
+		<property name="bankTxsno" type="string">
+			<column name="bank_txsno" />
+		</property>
+	</class>
+</hibernate-mapping>

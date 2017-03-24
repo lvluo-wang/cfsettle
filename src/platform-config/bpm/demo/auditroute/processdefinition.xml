@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition  xmlns=""  name="auditroute" prod-no="bill2011">
+
+	<start-state name="start-state1">
+		<transition to="audit_route_decision"></transition>
+	</start-state>
+
+
+	<task-node name="audit_route" task-type="2">
+		<task name="audit_route">
+			<assignment class="com.leadmind.common.base.bpm.AuditRouteAssignmentHandler"></assignment>
+		</task>
+		<transition to="audit_route_decision" name="audit_route_task_end"></transition>
+	</task-node>
+
+	<decision name="audit_route_decision">
+		<handler class="com.leadmind.common.base.bpm.AuditRouteDecisionHandler"></handler>
+		<transition to="audit_route" name="to_audit_route"></transition>
+		<transition to="state2" name="audit_route_end"></transition>
+		<transition to="state1" name="audit_route_refuse"></transition>
+	</decision>
+
+	<state name="state1">
+		<transition to="end-state1"></transition>
+	</state>
+
+	<state name="state2">
+		<transition to="end-state1"></transition>
+	</state>
+
+
+	<end-state name="end-state1">
+		<event type="node-enter">
+			<action expression='System.out.print("enter end.");'></action>
+		</event>
+	</end-state>
+
+
+</process-definition>

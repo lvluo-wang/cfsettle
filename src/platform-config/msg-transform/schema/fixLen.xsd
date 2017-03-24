@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns="http://www.hundsun.com/xcars/msg/fixLen" xmlns:msg="http://www.hundsun.com/xcars/msg"
+	targetNamespace="http://www.hundsun.com/xcars/msg/fixLen" elementFormDefault="qualified">
+
+	<xsd:import namespace="http://www.hundsun.com/xcars/msg" schemaLocation="basic.xsd"/>
+
+    <xsd:simpleType name="paddingStrType">
+		<xsd:annotation>
+			<xsd:documentation>填充字符类型，长度1位</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:length value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="paddingType">
+		<xsd:annotation>
+			<xsd:documentation>定长报文可能需要填充字符，定义了属性pos,表示是左填充还是右填充</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="paddingStrType">
+				<xsd:attribute name="pos" default="right">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:enumeration value="left"/>
+							<xsd:enumeration value="right"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:attribute>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	
+
+<!-- <xsd:complexType name="itemType"> -->
+	<xsd:complexType name="fixLenItemType">
+		<xsd:annotation>
+			<xsd:documentation>
+				配置某数据项，包含数据项xpath，开始位置，结束位置，填充
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="msg:abstractItemType">
+				<xsd:all>
+					<xsd:element name="startPos" type="msg:greaterOneIntType"
+						minOccurs="1" maxOccurs="1" />
+					<xsd:element name="endPos" type="msg:greaterOneIntType"
+						minOccurs="1" maxOccurs="1" />
+					<xsd:element name="padding" type="paddingType"
+						default=" " minOccurs="1" maxOccurs="1" />
+				</xsd:all>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	
+	<xsd:complexType name="fixLenItemsType">
+		<xsd:complexContent>
+			<xsd:extension base="msg:abstractItemsType">
+				<xsd:sequence>
+					 <xsd:element name="item" type="fixLenItemType" minOccurs="0" maxOccurs="unbounded"/> 
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<!-- <xsd:complexType name="fieldType"> -->
+	<xsd:complexType name="fixLenFieldType">
+		<xsd:annotation>
+			<xsd:documentation>配置循环数据单元，包含数据项xpath，顺序号，长度，填充</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="msg:abstractFieldType">
+				<xsd:sequence>
+					<xsd:element name="sn" type="msg:greaterOneIntType" minOccurs="1" maxOccurs="1"/>
+					<xsd:element name="len" type="msg:greaterOneIntType" minOccurs="1" maxOccurs="1"/>
+					<xsd:element name="padding" type="paddingType" default=" " minOccurs="1" maxOccurs="1"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+
+	<!-- <xsd:complexType name="listType"> -->
+	<xsd:complexType name="fixLenListType">
+		<xsd:annotation>
+			<xsd:documentation>配置循环数据区，包含xpath,数据项元素，循环开始位置，循环单元长度</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="msg:abstractListType">
+				<xsd:sequence>
+					<xsd:element name="field" type="fixLenFieldType" minOccurs="1" maxOccurs="unbounded"/>
+				</xsd:sequence>
+				<xsd:attribute name="cycStartPos" type="msg:greaterOneIntType" use="required"/>
+				<xsd:attribute name="cycLen" type="msg:greaterOneIntType" use="required"/>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="FixLenconfigType">
+		<xsd:annotation>
+			<xsd:documentation>配置xml根元素，数据头，循环数据区</xsd:documentation>
+		</xsd:annotation>
+		
+		<xsd:complexContent>
+			<xsd:extension base="msg:abstractConfigType">
+				<xsd:sequence>
+					<xsd:element name="items" type="fixLenItemsType" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element name="list" type="fixLenListType" minOccurs="0" maxOccurs="1"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="config" type="FixLenconfigType" />
+</xsd:schema>

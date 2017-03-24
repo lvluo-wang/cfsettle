@@ -1,0 +1,59 @@
+/*-------------xcars page css (toolbar,querybar,buttonbar)-------------*/
+.x-clear {
+    clear: both;
+    height:1px;
+    margin-top:-1px; 
+    overflow:hidden;
+}
+.x-tool{
+	height:28px;
+	background:#efefef;
+	padding:1px 2px;
+	border:0px;
+	border-bottom:1px solid #ccc;
+}
+.x-tool-sep{
+	float:left;
+	height:24px;
+	border-left:1px solid #ccc;
+	border-right:1px solid #fff;
+	margin:2px 1px;
+}
+.x-tool a{
+	float:left;
+	margin-top:1px;
+}
+.x-query{
+	
+	background:#fafafa;
+	border:0px;
+}
+.x-query form{
+	padding:2ps 5px;
+	height:38px;
+	margin:0px;
+	padding:0px;
+}
+.x-query label{
+	float:left;
+	margin-top:1em;
+	margin-right:0.5em;
+	margin-left:1em;
+	margin-bottom:2px;
+}
+.x-query input{
+	float:left;
+	margin-top:0.8em;
+	border:#a4bed4 1px solid;
+}
+.x-query a{
+	float:left;
+	margin-top:0.6em;
+	margin-bottom:2px;
+}
+.x-center{
+	overflow:hidden;
+	border:0px;
+}
+.x-button{
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ehcache.xsd">   
+  
+<diskStore path="java.io.tmpdir"/>   	
+	<defaultCache
+       maxElementsInMemory="10000"
+        eternal="false"
+        timeToIdleSeconds="300"
+        timeToLiveSeconds="600"
+        overflowToDisk="true"
+        />
+    <cache name="queryFuncIdByUserId"
+        maxElementsInMemory="3000"
+        eternal="false"
+        timeToIdleSeconds="50"
+        timeToLiveSeconds="50"
+        overflowToDisk="true"
+    />
+</ehcache>

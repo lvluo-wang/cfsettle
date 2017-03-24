@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" 
+    xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:tcp="http://www.mulesoft.org/schema/mule/tcp"
+	xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" 
+	xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
+		http://www.mulesoft.org/schema/mule/tcp http://www.mulesoft.org/schema/mule/tcp/3.1/mule-tcp.xsd
+		http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/3.1/mule-http.xsd
+        http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/3.1/mule-vm.xsd
+		http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/3.1/mule-cxf.xsd ">
+  	
+  	<!-- TCP通讯 -->
+	<tcp:connector name="tcpConnector" keepAlive="true" 
+		receiveBufferSize="2048" sendBufferSize="2048" receiveBacklog="500" 
+		serverSoTimeout="30000" keepSendSocketOpen="false" validateConnections="true">
+		<tcp:direct-protocol payloadOnly="true"/>
+	</tcp:connector>
+    <!--
+    <byte-array-to-string-transformer encoding="GBK" name="byteToStr"/>
+    -->
+  	<!-- 字串转贷款信息 -->
+	<custom-transformer name="strToLoadInfo" class="com.upg.demo.loan.esb.transformers.LoanInfoToStringTransfomer"/>
+	<custom-transformer name="strToSearchBean" class="com.upg.demo.loan.esb.transformers.StringToSearchBeanTransformer"/>  
+
+	<custom-transformer name="fixLenToXml" class="com.upg.ucars.framework.esb.transformer.MsgTransformer">
+		<spring:property name="configKey" value="demoFixLen"/>
+		<spring:property name="transformrClass" value="com.upg.ucars.tools.msg.FixLen2XmlTransformer"/>
+	</custom-transformer>
+	
+	<custom-transformer name="xmlToFixLen" class="com.upg.ucars.framework.esb.transformer.MsgTransformer">
+		<spring:property name="configKey" value="demoFixLen"/>
+		<spring:property name="transformrClass" value="com.upg.ucars.tools.msg.Xml2FixLenTransformer"/>
+	</custom-transformer>
+	
+	<custom-transformer name="spToXml" class="com.upg.ucars.framework.esb.transformer.MsgTransformer">
+		<spring:property name="configKey" value="demoSp"/>
+		<spring:property name="transformrClass" value="com.upg.ucars.tools.msg.Sp2XmlTransformer"/>
+	</custom-transformer>
+	
+	<custom-transformer name="xmlToSp" class="com.upg.ucars.framework.esb.transformer.MsgTransformer">
+		<spring:property name="configKey" value="demoSp"/>
+		<spring:property name="transformrClass" value="com.upg.ucars.tools.msg.Xml2SpTransformer"/>
+	</custom-transformer>
+	
+
+    <!-- web service发布(jaxws-service) --> 
+	<flow name="loanService">
+		<inbound-endpoint address="http://localhost:60000/loan" >
+			<processor ref="inboundEndPointLogger"/>
+			<response>
+				<processor ref="outboundEndPointLogger"/>
+			</response>
+		</inbound-endpoint>
+		<cxf:jaxws-service serviceClass="com.upg.demo.loan.esb.client.ILoanClientService"/>
+		<!-- <cxf:jaxws-service serviceClass="com.upg.demo.loan.esb.client.LoanClientServiceImpl"/> -->
+		<component>
+			<spring-object bean="esbdemo"/>
+		</component>
+
+	</flow>
+	
+	<flow name="simpleService">
+		<inbound-endpoint address="http://localhost:60000/simpledemo"/>
+		<cxf:simple-service serviceClass="com.upg.demo.loan.esb.client.SimpleServiceImpl" />
+		<component class="com.upg.demo.loan.esb.client.SimpleServiceImpl"/>
+	</flow>
+	
+ 	<model name="xcars-directtcp">
+ 		<!-- 提供socket数据接收 -->
+		<service name="msgin">
+			<inbound>
+				<tcp:inbound-endpoint connector-ref="tcpConnector" address="tcp://localhost:8888" transformer-refs="strToSearchBean">
+					<processor ref="inboundEndPointLogger"/>
+					<response>
+						<processor ref="outboundEndPointLogger"/>
+					</response>
+				</tcp:inbound-endpoint> 
+			</inbound>
+			<component class="com.upg.demo.loan.esb.adaptor.TcpProxy"/>
+		</service>
+		<!-- 发送socket数据 -->
+        <service name="service">
+            <inbound>
+                <vm:inbound-endpoint name="socketService" path="socketServicePath" exchange-pattern="request-response"/>
+            </inbound>
+            <outbound>
+            	<pass-through-router>
+            		<outbound-endpoint address="tcp://localhost:9742" exchange-pattern="request-response" />
+            	</pass-through-router>
+            </outbound>
+        </service>
+	</model>
+	
+	<flow name="testFixLen2XmlTransformer">
+		<inbound-endpoint address="http://localhost:8881/tf" name="fixLenToXmlIE"/>
+		<transformer ref="fixLenToXml"/>
+		<component class="com.upg.demo.loan.esb.MyComponent"/>
+	</flow>
+	<flow name="testXml2FixLenTransformer">
+		<inbound-endpoint address="http://localhost:8882/tf" name="xmlToFixLenIE"/>
+		<transformer ref="xmlToFixLen"/>
+		<component class="com.upg.demo.loan.esb.MyComponent"/>
+	</flow>
+	<flow name="testSp2XmlTransformer">
+		<inbound-endpoint address="http://localhost:8883/tf" name="spToXmlIE"/>
+		<transformer ref="spToXml"/>
+		<component class="com.upg.demo.loan.esb.MyComponent" />
+	</flow>
+	<flow name="testXml2SpTransformer">
+		<inbound-endpoint address="http://localhost:8884/tf" name="xmlToSpIE"/>
+		<transformer ref="xmlToSp"/>
+		<component class="com.upg.demo.loan.esb.MyComponent"/>
+	</flow>
+	
+  <!-- demo目录下可以再细分，用以下方式导入
+  <spring:beans>
+    <spring:import resource="mule-sub-config1.xml" />
+    <spring:import resource="mule-sub-config2.xml" />
+  </spring:beans>
+   --> 
+</mule>

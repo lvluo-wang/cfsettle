@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.hundsun.com/xcars/msg" targetNamespace="http://www.hundsun.com/xcars/msg" 
+ elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:simpleType name="greaterOneIntType">
+		<xsd:annotation>
+			<xsd:documentation>用于表示起始位，终止位，长度等描述用的类型，最小值为1</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:int">
+			<xsd:minInclusive value="1" />
+		</xsd:restriction>
+	</xsd:simpleType>
+    
+	<xsd:simpleType name="xpathType">
+		<xsd:annotation>
+			<xsd:documentation>支持英文字母，划线，下划线,/,@</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[a-zA-Z\-_/]{1,}([a-zA-Z\-_/@])*"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="basicType" abstract="true">
+		<xsd:attribute name="xpath" type="xpathType" use="required" />
+	</xsd:complexType>
+	
+	<xsd:complexType name="abstractItemType" abstract="true">
+		<xsd:complexContent>
+			<xsd:extension base="basicType"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="abstractItemsType" abstract="true">
+		<xsd:complexContent>
+			<xsd:extension base="basicType">
+			<!-- 
+				<xsd:sequence>
+					 <xsd:element name="item" type="fixLenItem" minOccurs="0" maxOccurs="unbounded"/> 
+				</xsd:sequence>
+				 -->
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="abstractFieldType" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>配置循环数据单元，包含数据项xpath，顺序号，长度，填充</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="basicType"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="abstractListType" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>配置循环数据区，包含xpath,数据项元素</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="basicType">
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="abstractConfigType" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>配置xml根元素，数据头，循环数据区</xsd:documentation>
+		</xsd:annotation>
+		<!--
+		<xsd:sequence>
+			<xsd:any namespace="##any" maxOccurs="unbounded" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:sequence>
+			<xsd:element name="items" type="items" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="list" type="fixLenList" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		 -->
+	</xsd:complexType>
+	
+	<xsd:element name="config" type="abstractConfigType"/>
+</xsd:schema>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014-8-26 10:10:22 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.upg.cfsettle.mapping.ficode.FiCodeItem" table="fi_code_item" dynamic-update="true">
+        <id name="id" type="java.lang.Long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="codeKey" type="string">
+            <column name="code_key" length="10" />
+        </property>
+        <property name="codeNo" type="string">
+            <column name="code_no" length="10" />
+        </property>
+        <property name="codeName" type="string">
+            <column name="code_name" length="100" />
+        </property>
+        <property name="langType" type="string">
+            <column name="lang_type" length="10" />
+        </property>
+        <property name="order" type="int">
+            <column name="order" not-null="true">
+            </column>
+        </property>
+        <property name="isPublic" type="boolean">
+            <column name="is_public" not-null="true">
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

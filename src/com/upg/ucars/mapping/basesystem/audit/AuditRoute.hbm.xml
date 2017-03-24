@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.upg.ucars.mapping.basesystem.audit.AuditRoute" table="AUDIT_ROUTE">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="22" scale="0" />
+            <generator class="native"></generator>
+        </id>
+        <!--version标签必须跟在id标签后面-->
+    	<version name="version" column="VER" type="java.lang.Long"/>
+        <property name="auditRouteName" type="java.lang.String">
+            <column name="AR_NAME" length="50" />
+        </property>
+        <property name="auditNodeExecMode" type="java.lang.String">
+            <column name="AN_EXEC_MODE" length="1" />
+        </property>
+		<property name="auditMode" type="java.lang.String">
+            <column name="AUDIT_MODE" length="1" />
+        </property>
+        <property name="miNo" type="java.lang.String">
+            <column name="MI_NO" length="50" />
+        </property>
+        <property name="auditRouteRemark" type="java.lang.String">
+            <column name="AR_REMARK" length="200" />
+        </property>
+    </class>
+</hibernate-mapping>

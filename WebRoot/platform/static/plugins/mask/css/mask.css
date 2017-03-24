@@ -1,0 +1,58 @@
+/* mask*/
+.load-mask{
+	position:absolute;
+	left:0;
+	top:0;
+	background:#ccc;
+	z-index:999999;
+	opacity:0.9;
+	filter:alpha(opacity=95);
+	display:none;
+	float:center;
+}
+.load-mask-msg{
+	position:absolute;
+	cursor1:wait;
+	width:auto;
+	height:16px;
+	padding:12px 5px 10px 30px;
+	background:#fff url('../images/loading.gif') no-repeat scroll 5px 10px;
+	font: 12px arial,sans-serif;
+	color:#222;
+	display:none;
+	z-index:999999;
+}
+
+.wf_viewdiv{
+	position:absolute;	
+	z-index:999999;
+	opacity:0.9;
+	filter:alpha(opacity=90);
+	display:none;
+	float:center;
+}
+.common-mask{
+	position:absolute;
+	left:0;
+	top:0;
+	background:#ccc;
+	opacity:0.2;
+	filter:alpha(opacity=50);
+	display:none;
+	float:center;
+	z-index:999999;
+}
+.common-mask-msg{
+	position:absolute;
+	cursor1:wait;
+	width:auto;
+	height:16px;
+	padding:12px 5px 10px 30px;
+	background:#fff url('../images/loading.gif') no-repeat scroll 5px 10px;
+	font: 12px arial,sans-serif;
+	color:#222;
+	display:none;
+	z-index:999999;
+}
+/* mask
+--------------------------------*/

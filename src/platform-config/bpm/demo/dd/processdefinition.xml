@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition  xmlns=""  name="dd" prod-no="DEMO02">
+
+
+	<start-state name="start-state1">
+		<transition to="task-node1"></transition>
+	</start-state>
+
+
+	<task-node name="task-node1" signal="first" end-tasks="true">
+		<task name="a2" taskType="2">
+			<description>
+				A2
+			</description>
+			<assignment actor-id="yangjun"></assignment>
+		</task>
+		<task name="a1" >
+			<description>
+				A1
+			</description>
+			<assignment actor-id="yaoming"></assignment>
+		</task>
+		<transition to="fork1"></transition>
+		<transition to="node1" name="to node1"></transition>
+	</task-node>
+
+	<node name="node1">
+		<transition to="fork1"></transition>
+	</node>
+
+	<fork name="fork1">
+		<transition to="task-node2"></transition>
+		<transition to="task-node3" name="to task-node3"></transition>
+	</fork>
+
+	<task-node name="task-node2" >
+		<task name="frok1" task-type="2">
+			<description>
+				FROK1
+			</description>
+			<assignment actor-id="fork1"></assignment>
+		</task>
+		<transition to="join1"></transition>
+	</task-node>
+
+	<join name="join1">
+		<event type="node-enter">
+			<action class="com.leadmind.bbsp.demo.bpm.dd.JoinEnterActoinHandler"></action>
+		</event>
+		<transition to="end-state1"></transition>
+	</join>
+
+	<task-node name="task-node3" end-tasks="true" >
+		<task name="fork2" task-type="3">
+			<description>
+				FORK2
+			</description>
+			<assignment actor-id="fork2"></assignment>
+		</task>
+		<transition to="task-node4"></transition>
+	</task-node>
+
+	<task-node name="task-node4" >
+		<task name="task4" task-type="3">
+			<description>
+				TASK4
+			</description>
+			<assignment actor-id="task4"></assignment>
+		</task>
+		<transition to="join1"></transition>
+	</task-node>
+
+
+	<end-state name="end-state1"></end-state>
+
+
+</process-definition>

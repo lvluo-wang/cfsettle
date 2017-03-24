@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition  xmlns=""  name="bbsp_demo_composite" prod-no="bill2013">
+
+
+	<start-state name="start">
+		<transition to="apply_accept"></transition>
+	</start-state>
+
+
+	<task-node name="apply_accept"  task-type="3">
+		<task name="apply_accept">
+			<description>
+				接受贴现申请
+			</description>
+			<assignment actor-id="aaa"></assignment>
+		</task>
+		<transition to="bill_audit"></transition>
+	</task-node>
+
+	<task-node name="bill_audit" task-type="2">
+		<task name="bill_audit">
+			<description>
+				票据审核
+			</description>
+			<assignment actor-id="bbb"></assignment>
+		</task>
+		<event type="node-enter">
+			<action class="com.leadmind.bbsp.demo.bpm.composite.MultiTaskEnterHandler"></action>
+		</event>
+		<transition to="apply_audit"></transition>
+	</task-node>
+
+	<fork name="fork1">
+		<transition to="count" name="to_count"></transition>
+		<transition to="bill_inquire" name="to_task"></transition>
+	</fork>
+
+	<node name="count">
+		<transition to="join_state" name="front"></transition>
+		<transition to="fork1" name="back"></transition>
+		<action class="com.leadmind.bbsp.demo.bpm.composite.ForkTaskCountActionHandler"></action>
+	</node>
+
+	<task-node name="bill_inquire" task-type="2">
+		<task name="bill_inquire">
+			<description>
+				票据查询
+			</description>
+			<assignment actor-id="ddd"></assignment>
+		</task>
+		<event type="task-create">
+			<action class="com.leadmind.bbsp.demo.bpm.composite.ForkFirstTaskActoinHandler"></action>
+		</event>
+		<transition to="bill_answer"></transition>
+	</task-node>
+
+	<task-node name="bill_answer" task-type="2">
+		<task name="bill_answer">
+			<description>
+				票据查复
+			</description>
+			<assignment actor-id="eee"></assignment>
+		</task>
+		<transition to="join_state"></transition>
+	</task-node>
+
+	<join name="join1">
+		<transition to="apply_profit"></transition>
+	</join>
+
+	<state name="join_state">
+		<event type="node-enter">
+			<action class="com.leadmind.bbsp.demo.bpm.composite.ForkJoinStateActionHandler"></action>
+		</event>
+		<transition to="join1"></transition>
+	</state>
+
+	<task-node name="apply_profit" task-type="2">
+		<task name="apply_profit">
+			<description>
+				申请记帐
+			</description>
+			<assignment actor-id="fff"></assignment>
+		</task>
+		<transition to="end"></transition>
+	</task-node>
+
+	<task-node name="apply_audit" task-type="2">
+		<task name="apply_audit">
+			<description>
+				申请审核
+			</description>
+			<assignment actor-id="ccc"></assignment>
+		</task>
+		<transition to="fork1"></transition>
+	</task-node>
+
+
+	<end-state name="end"></end-state>
+
+
+</process-definition>

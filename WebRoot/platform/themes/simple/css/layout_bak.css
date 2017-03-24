@@ -1,0 +1,160 @@
+*{
+	font-size:12px;
+}
+html,body{
+	margin:0;
+	padding:0;
+}
+body{
+    font-family:Arial,Helvetica,"Nimbus Sans L",sans-serif;
+	background:#fafafa;
+	text-align:center;
+}
+#mainwrap{
+	margin: 0 auto;
+}
+#mainPage{
+}
+#header{
+	border:0px;height:70px;
+}
+
+#footer{
+	height:23px;
+}
+#workarea{
+border-top:0px;
+border-bottom:0px;
+border-left:0px;
+}
+#menuarea{
+width:210px;
+border-top:0px;
+border-bottom:0px;
+}
+
+/* Thumbnail slider style */
+.menu_slider{
+	height:52px;
+	margin:0;
+	overflow:hidden;
+	width:320px;
+}
+.menu_items{
+	float:left;
+	}
+.prev{
+	height:52px;
+	border:0px;
+	padding:0px 0px;
+	text-decoration:none;
+	overflow:hidden;
+	color:#fff;
+	}
+.next{
+	height:52px;
+	border:0px;
+	padding:0px 0px;
+	text-decoration:none;
+	overflow:hidden;
+	color:#fff;
+	}
+.prev img{
+	height:65px;
+		border:0px;
+	}
+.next img{
+	
+	height:65px;
+		border:0px;
+	}
+
+.prev:hover{
+	text-decoration:underline;
+	}
+.next:hover{
+  text-decoration:underline;
+}
+.menu_item{
+	float:left;
+	width:80px;
+	height:52px;
+	padding:0px;
+	text-align:center;
+	
+}
+.menu_item a{
+	text-decoration:none;
+	}
+	.menu_item a:hover{
+		color:#fff;
+	text-decoration:underline;
+	}
+.menu_item img{
+	border:0px;
+	height:30px;
+}
+.menu_item_desc{
+	width:80px;
+	display:block;
+	color:#fff;
+	height:20px;
+	margin-top:2px;
+	text-align:center;
+	line-height:20px;
+	overflow:hidden;
+}
+/****head right ****/
+.s-login a { 
+	color:#badbfc; 
+	display:block; margin:0px; padding:0px; 
+	text-align:center; font-weight:bold; height:24px; 
+	overflow:hidden; float:left;
+	text-decoration:none;
+	width:60px;
+	margin-left:2px;
+	line-height:25px;
+	float:right;
+} 
+.s-login a:hover {  
+	caption-side:#fff;  color:#fff; 
+	text-decoration:underline;
+} 
+.s-login { 
+	width:205px;
+	height:25px;
+	background:url(../images/login_bg.jpg) no-repeat;
+	text-align:right; } /*FF*/
+
+.s-menu { width:100%; text-align:right; margin-top:22px; }
+.s-menu  a { 
+	color:#badbfc; 
+	text-align:center; font-weight:bold; height:24px; 
+	text-decoration:none;
+	width:60px;
+	margin-left:2px;
+	line-height:25px;
+	float:right;
+} 
+.s-menu  a:hover {  
+	caption-side:#fff;  color:#fff; 
+	text-decoration:underline;
+}
+.sys_message{
+	color:#badbfc; 
+	text-align:center; font-weight:bold; height:24px; 
+	text-decoration:none;
+	width:60px;
+	margin-left:2px;
+	line-height:25px;
+}
+.sys_message:hover{
+	caption-side:#fff;  color:#fff; 
+	text-decoration:underline;
+}
+.panel-header{
+	text-align: left;
+}
+.messager-body {
+	text-align: left;
+}

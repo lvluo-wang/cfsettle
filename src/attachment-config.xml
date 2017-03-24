@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<attachment>
+	<filePath>/tmp/attach/</filePath>
+	<temp>/tmp/zip/</temp>
+	<imgServerUrl>http://devweb.zlc.com</imgServerUrl>
+	<imgServerUpload>/Public/Upload/uploadImg</imgServerUpload>
+	<imgServerMoveFile>/Public/Upload/moveFiles</imgServerMoveFile>
+	<imgServerRelativePath>/data/xhhadmin/</imgServerRelativePath>
+	
+	<mediaServerUpload>/Public/Upload/uploadMedia</mediaServerUpload>
+	<soundServerUpload>/Public/Upload/uploadSound</soundServerUpload>
+	<fileServerUpload>/Public/Upload/uploadFile</fileServerUpload>
+	<appRootPath>/soft/tomcat/tomcat6/webapps/admin/tmpAttach/</appRootPath>
+</attachment>

@@ -1,0 +1,62 @@
+div.print {
+	padding:0 5.4pt;
+}
+div.print table{
+	width:100%;
+}
+div.print td.firstTd{
+	width:20%;
+}
+div.print td.secondTd{
+	width:40%;
+}
+div.print td.thirdTd{
+	width:20%;
+}
+div.print td.fourTd{
+	width:20%;
+}
+
+@media print{
+	div.print table{
+		width:16cm;
+	}
+	div.print td.firstTd{
+	width:24%;
+	}
+	div.print td.secondTd{
+		width:31%;
+	}
+	div.print td.thirdTd{
+		width:17%;
+	}
+	div.print td.fourTd{
+		width:18%;
+	}
+}
+@media screen,print {
+	div.print {
+		font-family: 宋体;
+		font-size: 10.5pt;
+	}
+	
+	div.print .title{
+		font-size: 16pt;
+		text-align: center;
+		font-weight:bold;
+	}
+
+	div.print table{
+		border-collapse:collapse;
+		border:1px solid black;
+	}
+	
+	div.print tr{
+		height:22.7pt;
+	}
+	
+	div.print td{
+		border:1px solid black;
+		padding:0 5.4pt;
+	}
+}

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<rule-node name="stock">
+		<para name="allValue">9900000000.0</para>
+		<rule name="市盈率">
+			<condition>100 > entity.pe</condition>
+			<execute>System.out.println(entity.getName()+":pass市盈率");</execute>
+		</rule>
+		<rule name="总市值">
+			<condition>return $para_allValue > entity.allValue </condition>
+			<execute>System.out.println(entity.getName()+":pass总市值");</execute>
+		</rule>
+	</rule-node>
+	
+	<rule-node name="userTx">
+		<import>
+			import com.upg.ucars.constant.SessionKeyConst;
+		</import>
+		<rule name="11">
+			<condition>return false</condition>
+			<execute>
+				import com.upg.ucars.basesystem.security.core.user.IUserService;
+				user.setUserName("bbc");
+				
+				((IUserService)SourceTemplate.getBean("userService")).offLine(user.userId);
+			</execute>
+		</rule>
+		<rule name="12">
+			<condition>return true</condition>
+			<execute>
+				import com.upg.ucars.constant.SessionKeyConst;
+				String s = SessionKeyConst.SYS_NEWS_PUBLISHER;
+				System.out.println(s);
+			</execute>
+		</rule>
+	</rule-node>
+	
+	<rule-node name="notice">
+		<rule name="mobile message" level="3" class="testmy.rule.exa1.ShortInfoAction"/>
+		
+		<rule name="email" level="2">
+			<condition  class="testmy.rule.exa1.MailAction"/>
+			<execute class="testmy.rule.exa1.MailAction"/>
+		</rule>
+		<rule name="email2" level="2">
+			<condition  class="testmy.rule.exa1.MailAction"/>
+			<execute>
+				System.err.println("Mail2: send to "+entity.getName());
+			</execute>
+		</rule>
+		<rule name="email3" level="2">
+			<condition >
+			 entity.getMoney() > 1000d 
+			</condition>
+			<execute class="testmy.rule.exa1.MailAction"/>
+		</rule>
+		<rule name="other" level="1" >
+			 <condition>
+			 	return entity.money>100;
+			 </condition>
+			 <execute>
+			 	System.out.println("other:"+entity.money);
+			 	entity.setMoney(8888888d);			 	
+			 </execute>
+		</rule>
+	</rule-node>
+	
+	<rule-node name="money">
+		<para name="minAge">10</para>
+		<para name="maxAge" class="testmy.rule.exa1.ParaMaxAge"/>
+		<rule name="age" level="1">
+			<condition>
+			 	return $para_maxAge > personInfo.age;
+			 </condition>
+			 <execute>
+			 	if (personInfo.age>60)
+			 		return 1.5;
+			 	if (personInfo.age>40)
+			 		return 1.2;	
+			 	if (personInfo.age>18)
+			 		return 1;
+			 	else 
+			 		return 0.5;
+			 </execute>
+		</rule>
+		<rule name="sex" level="2" >			
+			 <condition>
+			 	return true;
+			 </condition>
+			 <execute>
+			 	if (personInfo.isMale())
+			 		return 1.2;
+			 	else
+			 		return 1;
+			 </execute>
+		</rule>
+		<rule name="income" level="3" >
+			 <condition>
+			 	return true;
+			 </condition>
+			 <execute>
+			 	if (personInfo.isMale())
+					return 1.3;
+				else
+					return 1;
+			 </execute>
+		</rule>
+	</rule-node>
+	
+	<rule-node name="t1">
+		<rule name="short info" level="1" class="testmy.rule.exa1.ShortInfoAction"/>
+		<rule name="email" class="testmy.rule.exa1.MailAction" level="2"/>
+		<rule name="other" level="3" >
+			 <condition class="testmy.rule.exa1.ShortInfoAction">
+			 	return entity.money>100;
+			 </condition>
+			 <execute class="testmy.rule.exa1.ShortInfoAction">
+			 	System.out.println("other:"+entity.money);
+			 	entity.setMoney(8888888d);			 	
+			 </execute>
+		</rule>
+		<rule name="mt" level="3" 			
+			 include-member="001,002,003" exclude-member="001,004">
+			 <condition >
+			 	return true;
+			 </condition>
+			 <execute>
+			 	import com.upg.ucars.mapping.basesystem.security.Buser;
+			 	System.out.println(Buser.class.getName());
+			 	
+			 	System.out.println("mt:"+entity.money);
+			 	System.out.println("user.name:"+Buser.ROLE_STATUS_ASSIGN_AUDITING);
+			 </execute>
+		</rule>
+		<rule name="mt" level="3" 			
+			 include-member="001,002,003">
+			 <condition >
+			 	return true;
+			 </condition>
+			 <execute>
+			 	System.out.println("mt33:"+entity.money);
+			 </execute>
+		</rule>
+	</rule-node>
+	
+</root>

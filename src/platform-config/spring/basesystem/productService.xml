@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"
+           default-autowire="byName">
+  
+    <!-- ==============    product   ===============  -->
+   <bean id="productService" class="com.upg.ucars.basesystem.product.core.product.ProductServiceImp"/>
+   <bean id="busiTemplateDefService" class="com.upg.ucars.basesystem.product.core.busidef.BusiTemplateDefServiceImp" />
+   <bean id="productSysfuncService" class="com.upg.ucars.basesystem.product.core.product.ProductSysfuncServiceImpl" />
+   <bean id="productAttributeService" class="com.upg.ucars.basesystem.product.core.product.ProductAttributeServiceImpl"/>
+   <bean id="memberProductAttributeService" class="com.upg.ucars.basesystem.product.core.product.MemberProductAttributeServiceImpl"/>
+	
+	<bean id="productInfoDAO" class="com.upg.ucars.basesystem.product.core.product.ProductInfoDAOImp">
+		<property name="cacheQueries" value="true"/> 
+	</bean>
+	<bean id="memberProductInfoDAO" class="com.upg.ucars.basesystem.product.core.product.MemberProductInfoDAOImp">
+		<property name="cacheQueries" value="false"/> 
+	</bean>
+	<bean id="reBrchProdDAO" class="com.upg.ucars.basesystem.product.core.product.ReBrchProdDAOImp">
+		<property name="cacheQueries" value="false"/> 
+	</bean>
+	
+	<bean id="busiDefDao" class="com.upg.ucars.basesystem.product.core.busidef.BusiTemplateDefDAOImp">
+		<property name="cacheQueries" value="true"/> 
+	</bean>
+	<bean id="productSysfuncDAO"  class="com.upg.ucars.basesystem.product.core.product.ProductSysfuncDAOImpl">
+		<property name="cacheQueries" value="true"/>
+	</bean>
+	<bean id="productAttributeDAO" class="com.upg.ucars.basesystem.product.core.product.ProductAttributeDAOImpl">
+		<property name="cacheQueries" value="false"/>
+	</bean>
+	<bean id="memberProductAttributeDAO" class="com.upg.ucars.basesystem.product.core.product.MemberProductAttributeDAOImpl">
+		<property name="cacheQueries" value="false"/>
+	</bean>
+	 	
+</beans>

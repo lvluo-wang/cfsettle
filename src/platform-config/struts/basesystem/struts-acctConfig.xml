@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="acctConfig" namespace="/acctConfig" extends="pkg-base">
+		
+  		
+		<!-- 记账点 -->
+  		<action name="acctPointAction_*" class="com.upg.ucars.basesystem.acctrecord.actions.AcctPointAction" method="{1}">
+			<result name="LIST">/platform/module/basesystem/acctrecord/config/acctpoint/listAcctPoint.jsp</result>
+			<result name="AddAcctPoint">/platform/module/basesystem/acctrecord/config/acctpoint/addAcctPoint.jsp</result>
+  			<result name="LISTFORCHOOSE">/platform/module/basesystem/acctrecord/config/acctpoint/listAcctPointForChoose.jsp</result>
+  			
+			<result name="table" type="stream">
+				<param name="inputName">jsonStream</param>
+			</result>
+  		</action>
+  		
+  		<!-- 记账通用项 -->
+  		<action name="acctCommonItem_*" class="com.upg.ucars.basesystem.acctrecord.actions.AcctCommonItemAction" method="{1}">
+			<result name="LIST">/platform/module/basesystem/acctrecord/config/acctitem/listAcctCommonItem.jsp</result>
+			<result name="AddAcctItem">/platform/module/basesystem/acctrecord/config/acctitem/addAcctCommonItem.jsp</result>
+			<result name="EditAcctItem">/platform/module/basesystem/acctrecord/config/acctitem/editAcctCommonItem.jsp</result>
+			<result name="LISTFORCHOOSE">/platform/module/basesystem/acctrecord/config/acctitem/listAcctCommonItemForChoose.jsp</result>
+  			
+			<result name="table" type="stream">
+				<param name="inputName">jsonStream</param>
+			</result>
+  		</action>
+  		<!-- 记账项 -->
+  		<action name="acctItemAction_*" class="com.upg.ucars.basesystem.acctrecord.actions.AcctItemAction" method="{1}">
+			<result name="LIST">/platform/module/basesystem/acctrecord/config/acctitem/listAcctItem.jsp</result>
+			<result name="AddAcctItem">/platform/module/basesystem/acctrecord/config/acctitem/addAcctItem.jsp</result>
+			<result name="EditAcctItem">/platform/module/basesystem/acctrecord/config/acctitem/editAcctItem.jsp</result>
+			<result name="LISTFORCHOOSE">/platform/module/basesystem/acctrecord/config/acctitem/listAcctItemForChoose.jsp</result>
+  			
+			<result name="table" type="stream">
+				<param name="inputName">jsonStream</param>
+			</result>
+  		</action>
+  		
+		<!-- 分录结构体 -->
+  		<action name="acctRecordBodyAction_*" class="com.upg.ucars.basesystem.acctrecord.actions.AcctRecordBodyAction" method="{1}">
+			<result name="LIST">/platform/module/basesystem/acctrecord/config/acctrecordbody/listAcctRecordBody.jsp</result>
+			<result name="AddAcctRecordBody">/platform/module/basesystem/acctrecord/config/acctrecordbody/addAcctRecordBody.jsp</result>
+			<result name="EditAcctRecordBody">/platform/module/basesystem/acctrecord/config/acctrecordbody/editAcctRecordBody.jsp</result>
+			<result name="LISTFORCHOOSE">/platform/module/basesystem/acctrecord/config/acctrecordbody/listAcctRecordBodyForChoose.jsp</result>
+  			
+			<result name="table" type="stream">
+				<param name="inputName">jsonStream</param>
+			</result>
+  		</action>
+  		
+		<!-- 记账交易，表达式 -->
+  		<action name="acctTranAction_*" class="com.upg.ucars.basesystem.acctrecord.actions.AcctTranAction" method="{1}">
+			<result name="LIST">/platform/module/basesystem/acctrecord/config/accttran/listAcctTran.jsp</result>
+			<result name="AddAcctTran">/platform/module/basesystem/acctrecord/config/accttran/addAcctTran.jsp</result>
+			<result name="EditAcctTran">/platform/module/basesystem/acctrecord/config/accttran/editAcctTran.jsp</result>
+			<result name="ListAcctTranExpr">/platform/module/basesystem/acctrecord/config/accttran/listAcctTranExpr.jsp</result>
+			<result name="AddAcctTranExpr">/platform/module/basesystem/acctrecord/config/accttran/addAcctTranExpr.jsp</result>
+			<result name="LISTFORCHOOSE">/platform/module/basesystem/acctrecord/config/accttran/listAcctTranForChoose.jsp</result>
+  			
+			<result name="table" type="stream">
+				<param name="inputName">jsonStream</param>
+			</result>
+  		</action>
+  		
+		<!-- 交易项 -->
+  		<action name="tranItemAction_*" class="com.upg.ucars.basesystem.acctrecord.actions.TranItemAction" method="{1}">
+			<result name="main">/platform/module/basesystem/acctrecord/config/tranitem/tranItemMain.jsp</result>
+			<result name="trantree" type="stream">
+				<param name="inputName">treeStream</param>
+			</result>			
+			<result name="itemlist">/platform/module/basesystem/acctrecord/config/tranitem/tranItemList.jsp</result>
+			
+			<result name="LIST">/platform/module/basesystem/acctrecord/config/tranitem/listTranItem.jsp</result>
+			<result name="AddTranItem">/platform/module/basesystem/acctrecord/config/tranitem/addTranItem.jsp</result>
+			<result name="EditTranItem">/platform/module/basesystem/acctrecord/config/tranitem/editTranItem.jsp</result>
+			<result name="CopyTranItem">/platform/module/basesystem/acctrecord/config/tranitem/copyTranItem.jsp</result>
+  			
+			<result name="table" type="stream">
+				<param name="inputName">jsonStream</param>
+			</result>
+  		</action>
+	</package>
+</struts>

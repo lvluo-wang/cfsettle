@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<process proc-name="loan" proc-desc="示例流程" class="com.upg.demo.mapping.loan.LoanInfo" id="id" no="loanNo"/>
+	<process proc-name="pbdRedeem" proc-desc="先票/款后货-保证金赎货" class="com.upg.xfosc.mapping.adc.AdcRedeemApply" id="redeemApplyId" no="redeemApplyNo"/>
+	
+</root>

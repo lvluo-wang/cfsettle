@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="code" namespace="/code" extends="pkg-base">
+		<action name="codeItem_*" class="com.upg.cfsettle.code.action.CodeItemAction" method="{1}">			
+		</action>
+		<action name="codeKey_*" class="com.upg.cfsettle.code.action.CodeKeyAction" method="{1}">			
+		</action>
+	</package>
+</struts>

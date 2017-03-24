@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 资源总配置文件 -->
+<root devModel="true">
+	<include path="platform-config/audit/audit-mapping.xml"/>
+	<!-- <include path="xfosc-config/audit/config-xfosc.xml"/>  -->
+</root>

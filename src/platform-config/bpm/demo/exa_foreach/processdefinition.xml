@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition  xmlns=""  name="exa_foreach" prod-no="bill2016">
+
+
+	<description>
+		子流程实例
+	</description>
+
+
+	<start-state name="start-state1">
+		<transition to="sub-fork"></transition>
+	</start-state>
+
+
+	<state name="sub-fork">
+		<event type="node-enter">
+			<action></action>
+		</event>
+		<transition to="decision1"></transition>
+	</state>
+
+	<state name="sub-join">
+		<transition to="state2"></transition>
+	</state>
+
+	<task-node name="task-node1"  task-type="3">
+		<task name="task1">
+			<assignment class="demo.bpm.loan.bpm.TaskAssignmentHandler"></assignment>
+		</task>
+		<transition to="sub-join"></transition>
+	</task-node>
+
+	<state name="state2">
+		<transition to="end"></transition>
+	</state>
+
+	<state name="state1">
+		<transition to="sub-join"></transition>
+	</state>
+
+	<decision name="decision1" expression='#{enitity.money&gt;500?"left":"right"}'>
+		<transition to="task-node1" name="left"></transition>
+		<transition to="state1" name="right"></transition>
+	</decision>
+
+
+	<end-state name="end"></end-state>
+
+
+</process-definition>

@@ -1,0 +1,80 @@
+.flow-steps OL {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.flow-steps LI {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+
+
+.flow-steps IMG {
+	BORDER-BOTTOM: medium none; BORDER-LEFT: medium none; BORDER-TOP: medium none; BORDER-RIGHT: medium none
+}
+
+.flow-steps STRONG {
+	FONT-STYLE: normal; FONT-WEIGHT: normal
+}
+
+.flow-steps LI {
+	LIST-STYLE-TYPE: none; LIST-STYLE-IMAGE: none
+}
+
+.pointer{
+	BACKGROUND: #efefef; COLOR: #efefef; MARGIN-LEFT: 5px; OVERFLOW: hidden; WIDTH: 95%;  ;HEIGHT: 2px
+}
+.currentStep{
+	height:10px;width:95%;margin-left:5px;margin-top:5px;font-size:12px;
+}
+.currentStep .left{
+	float:left;width:50%;text-align:left;
+}
+.currentStep .right{
+	float:right;width:50%;text-align:right;
+}
+.flow-steps {
+	MARGIN: 15px 0px; OVERFLOW: hidden;WIDTH:80%; float:center;
+}
+.flow-steps .num3 LI {
+	WIDTH: 33%
+}
+.flow-steps .num4 LI {
+	WIDTH: 25%
+}
+.flow-steps .num5 LI {
+	WIDTH: 20%
+}
+.flow-steps .num6 LI {
+	WIDTH: 16%
+}
+.flow-steps LI {
+	TEXT-ALIGN: center; PADDING-BOTTOM: 0px; LINE-HEIGHT: 23px; PADDING-LEFT: 0px; PADDING-RIGHT: 15px; BACKGROUND: url(../images/flow_steps_bg.png) #e4e4e4 no-repeat 100% 0px; FLOAT: left; HEIGHT: 23px; COLOR: #404040; FONT-SIZE: 14px; OVERFLOW: hidden; FONT-WEIGHT: bold; PADDING-TOP: 0px
+}
+.flow-steps LI SPAN {
+	DISPLAY: block
+}
+.flow-steps LI STRONG {
+	DISPLAY: block
+}
+.flow-steps LI .first {
+	BACKGROUND: url(../images/flow_steps_bg.png) #e4e4e4 no-repeat -12px -69px
+}
+.flow-steps LI.last {
+	BACKGROUND-POSITION: 100% -138px
+}
+.flow-steps LI.current {
+	BACKGROUND-COLOR: #0099ff; COLOR: #fff
+}
+.flow-steps LI.current .first {
+	BACKGROUND-COLOR: #0099ff; BACKGROUND-POSITION: -12px -92px
+}
+.flow-steps LI.current-prev {
+	BACKGROUND-POSITION: 100% -23px
+}
+.flow-steps LI.done {
+	BACKGROUND-COLOR: #b0dfff; BACKGROUND-POSITION: 100% -46px; COLOR: #505050
+}
+.flow-steps LI.done .first {
+	BACKGROUND-COLOR: #b0dfff; BACKGROUND-POSITION: -12px -115px
+}
+.flow-steps LI.last-current {
+	BACKGROUND-COLOR: #0099ff; BACKGROUND-POSITION: 100% -161px; COLOR: #fff
+}

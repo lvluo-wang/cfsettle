@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- 
+-->
+<hibernate-mapping>
+    <class name="com.upg.ucars.mapping.basesystem.autotask.AutoTaskLog" table="AUTO_TASK_LOG">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="20" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="taskId" type="java.lang.Long">
+            <column name="TASK_ID" length="30"/>
+        </property>
+        <property name="name" type="java.lang.String">
+            <column name="NAME" />
+        </property>
+        <property name="taskType" type="java.lang.String">
+            <column name="TASK_TYPE" />
+        </property>    
+        <property name="startTime" type="java.util.Date">
+            <column name="START_TIME" length="10"/>
+        </property>
+        <property name="endTime" type="java.util.Date">
+            <column name="END_TIME" length="10"/>
+        </property>        
+        <property name="runDate" type="java.util.Date">
+            <column name="RUN_DATE" length="10"/>
+        </property>        
+        <property name="status" type="java.lang.String">
+            <column name="STATUS" length="5"/>
+        </property>
+         <property name="memberNo" type="java.lang.String">
+            <column name="MI_NO" length="30"/>
+        </property>        
+        <property name="errMessage" type="java.lang.String">
+            <column name="ERR_MESSAGE" length="3000"/>
+        </property>
+        
+    </class>
+</hibernate-mapping>

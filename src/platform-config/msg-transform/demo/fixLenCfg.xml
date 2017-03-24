@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.hundsun.com/xcars/msg/fixLen" 
+	xmlns:msg="http://www.hundsun.com/xcars/msg" 
+xsi:schemaLocation="http://www.hundsun.com/xcars/msg/fixLen ../schema/fixLen.xsd">
+    <items xpath="/reconciliation">
+        <item xpath="sourceSys">
+            <startPos>1</startPos>
+            <endPos>4</endPos>
+            <padding pos="right">!</padding>
+        </item>
+        <item xpath="sysDate">
+            <startPos>5</startPos>
+            <endPos>12</endPos>
+            <padding pos="right">@</padding>
+        </item>
+    </items>
+    <items xpath="/">
+        <item xpath="/reconciliation/checkCount">
+            <startPos>13</startPos>
+            <endPos>22</endPos>
+            <padding pos="left">#</padding>
+        </item>
+        <item xpath="/reconciliation/reserve">
+            <startPos>23</startPos>
+            <endPos>32</endPos>
+            <padding pos="right">$</padding>
+        </item>
+    </items>
+    <list cycLen="18" cycStartPos="33" xpath="/reconciliation/datas/data">
+        <field xpath="qBank/@v">
+            <sn>1</sn>
+            <len>6</len>
+            <padding pos="right">%</padding>
+        </field>
+        <field xpath="qDate">
+            <sn>2</sn>
+            <len>12</len>
+            <padding pos="right">*</padding>
+        </field>
+    </list>
+</config>

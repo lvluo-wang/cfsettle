@@ -1,0 +1,45 @@
+.queryDiv {
+    float:left;
+    margin:2px;
+    width:256px;
+}
+.queryForm{
+	margin:0px;
+	padding:0px;
+}
+.queryDiv input{
+	padding:0em;
+	padding-left:1px;
+	width:130px;
+	height:21px;
+	border:#a4bed4 1px solid;
+	/*vertical-align:middle;*/
+	line-height:21px;
+}
+.combo input{
+	border:0px;
+}
+.queryDiv select{
+	padding:0em;
+	padding-left:1px;
+	width:130px;
+	height:21px;
+	border:#a4bed4 1px solid;
+	/*vertical-align:middle;*/
+	line-height:21px;
+}
+.queryDiv label{
+	float:left;
+	width:100px;
+	margin-right:0.5em;margin-left:1em;margin-top:5px;margin-bottom:2px;text-align:right;
+}
+.buttonDiv{
+	float:left;
+	margin-top:2px;
+	margin-bottom:2px;
+	text-align:right;
+	width:120px;
+}
+.buttonDiv a{
+	
+}

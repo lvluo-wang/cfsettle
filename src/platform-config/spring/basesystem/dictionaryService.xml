@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"
+           default-autowire="byName">
+
+	
+	<bean id="codeDAO" class="com.upg.ucars.basesystem.dictionary.core.code.CodeDAOImpl">
+		<property name="cacheQueries" value="true" />
+	</bean>
+	<bean id="fieldCodeMapDAO" class="com.upg.ucars.basesystem.dictionary.core.code.FieldCodeMapDAOImpl">
+		<property name="cacheQueries" value="true" />
+	</bean>	
+	<bean id="codeMetaDAO" class="com.upg.ucars.basesystem.dictionary.core.code.CodeMetaDAOImpl">
+		<property name="cacheQueries" value="true"/>
+	</bean>
+
+	<bean id="codeService" class="com.upg.ucars.basesystem.dictionary.core.code.CodeServiceImpl"/>
+	<bean id="codeClientService" class="com.upg.ucars.basesystem.dictionary.core.code.CodeClientServiceImpl"/>
+	<bean id="regionService" class="com.upg.ucars.basesystem.dictionary.core.code.RegionServiceImpl"/>
+	<bean id="codeMetaService" class="com.upg.ucars.basesystem.dictionary.core.code.CodeMetaServiceImpl"/>
+	<bean id="fieldCodeMapService" class="com.upg.ucars.basesystem.dictionary.core.code.FieldCodeMapServiceImpl"/>
+	
+</beans>

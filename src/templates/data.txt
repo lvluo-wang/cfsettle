@@ -1,0 +1,745 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@page import="com.upg.ubsp.constant.ComDictKeyConst;"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="x" uri="/xcars-tags"%>
+
+<tiles:insertDefinition name="FUNC_TOOL_FORM">
+	<tiles:putAttribute name="tool">
+		<s:if test="!auditView">
+			<x:button iconCls="icon-back" text="back" click="doReturn"/>
+		</s:if>
+	</tiles:putAttribute>
+	<tiles:putAttribute name="form">
+	<style>
+	.btn_box{
+		margin:5px 5px 10px 0px;
+		clear: both;
+		text-align: right;
+		width:740px;
+	}
+	table{
+	}
+	input{
+	}
+	h3{
+		clear: both;
+		margin: 6px 0px 3px 0px;
+		padding: 0px;
+		font-weight: normal;
+	}
+	h4{
+		clear: both;
+		margin: 5px 0px 3px 0px;
+		padding: 0px 0px 0px 10px;
+		font-weight: normal;
+	}
+	#ProjectInfo,#CustomerInfo, #BusinessAnalysis,#FinancialAnalysis,#RepaymentSource,#MajorIssues,#RisksControl{
+		padding: 5px 10px 10px 10px;
+	}
+	.center{
+		text-align: center;
+	}
+	a {
+		color: #003399;
+	}
+	a:hover {
+		color: #FF7300;
+	}
+	textarea {
+		font-size: 13px;
+	}
+	</style>
+	
+	<form id="projectIdForm">
+		<input type="hidden" name="project.id" value="${project.id}">
+	</form>
+	<form class="busi_form" id="projectReportInfo_addForm">
+		<div id="tt" style="width:%;">
+			<div title="项目基本情况" id="ProjectInfo">
+				<br>
+				<table>
+				<tr>
+					<td class="title"><s:text name="project.projectNo"/>:</td>
+					<td><s:property value="project.projectNo"/></td>
+					
+					<td class="title"><s:text name="project.projectName"/>:</td>
+					<td>${project.projectName }</td>
+				</tr>
+				<tr>
+					<td class="title"><s:text name="project.checkedType"/>: </td>
+					<td>
+					
+					   <s:radio list="#{'0':'单笔','1':'最高额'}" name="project.checkedType" value="#{project.checkedType}"/>
+	
+					</td>
+					<td class="title"><s:text name="project.icCredit"/>: </td>
+					<td>${project.icCredit}</td>
+				</tr>
+				<tr>
+					<td class="title"><s:text name="project.bizSource"/>: </td>
+					<td>
+					  <x:combobox name="project.bizSource" list="bizSourceList" textField="codeName" valueField="codeNo" disabled="disabled"/>
+					</td>
+					<td class="title"><s:text name="project.customerType"/>: </td>
+					<td>
+					  <x:combobox name="project.customerType" list="customerTypeList" textField="codeName" valueField="codeNo" disabled="disabled"/>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="title"><s:text name="project.projectType"/>: </td>
+					<td>${project.projectType_prodName}</td>
+					<td class="title"><s:text name="project.financingType"/>: </td>
+					<td>
+					  <x:combobox name="project.financingType" list="financingTypeList" textField="codeName" valueField="codeNo" disabled="disabled"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="title"><s:text name="project.roleA"/>: </td>
+					<td>${project.roleAName}</td>
+					<td class="title"><s:text name="project.roleB"/>: </td>
+					<td>${project.roleBName}</td>
+				</tr>
+				<tr>
+					<td class="title"><s:text name="project.roleC"/>: </td>
+					<td> ${project.roleCName}</td>
+					<td class="title">是否前置盖章:</td>
+					<td>
+					  <s:radio list="#{'1':'是','0':'否'}" disabled="disabled" name="project.ifPreSeal" value="#{project.ifPreSeal}"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="title"><s:text name="project.financingAmount"/>: </td>
+					<td>${project.financingAmount}</td>
+					<td class="title"><s:text name="project.deadline"/>: </td>
+					<td>${project.deadline}</td>
+				</tr>
+				
+				<tr>
+					<td class="title"><s:text name="remarks"/>: </td>
+					<td colspan="3">${project.remarks}</td>
+				</tr>
+			</table>
+			<h3>放款记录：</h3>
+			<x:datagrid id="dataTable" url="/projectFlow/projectReportInfo_listLoanRecord.jhtml" form="projectIdForm" autoload="true" singleSelect="true" pagebar="false" autoFit="true">
+				<x:columns>
+					<x:column title="project.financingAmount"  field="financingAmount" align="right" width="100"/>
+					<x:column title="project.deadline"  field="deadline" align="right" width="50"/>
+					<x:column title="plr.lendingInstit" field="lendingInstit" align="left" width="150"/>
+					<x:column title="plr.lendInstitLm" field="lendInstitLm" align="left" width="100"/>
+					<x:column title="plr.startingDate" field="startingDate" align="center" width="100" formatter="format2Date" />
+					<x:column title="plr.expirDate" field="expirDate" align="center" width="100" formatter="format2Date" />
+					<x:column title="plr.recognizance" field="recognizance" align="right" width="100" />
+					<x:column title="plr.guaranteeFee" field="guaranteeFee" align="right" width="100" />
+					<x:column title="status" field="status" align="center" width="70" formatter="formatStatus"/>
+				</x:columns>
+			</x:datagrid>
+			
+			</div>
+		
+			<div title="客户基本情况" id="CustomerInfo">
+					<table>
+						<colgroup>
+							<col width="20%"/>
+							<col width="30%">
+							<col width="20%"/>
+							<col width="30%">
+						</colgroup>
+						<tbody>
+							<tr>
+								<td class="title"><s:text name="custInfo.type"/>: </td>
+								<td><x:combobox name="custinfo.type" value="${custinfo.type}" list="typeList"  disabled="disabled"/></td>
+								<td class="title"><s:text name="custInfo.custName"/>: </td>
+								<td>${custinfo.custName}</td>
+							</tr>
+							<tr>
+								<td class="title"><s:text name="custInfo.certificateno"/>: </td>
+								<td>${custinfo.certificateno}</td>
+								<td class="title"><s:text name="custInfo.estabDate"/>: </td>
+								<td><s:date format="yyyy-MM-dd" name="custinfo.estabDate"/></td>
+							</tr>
+							<tr>
+								<td class="title"><s:text name="custInfo.region"/>: </td>
+								<td colspan="3">
+								    <x:combobox id="province_id" name="custinfo.province" onchange="changeProvince"  disabled="true" valueField="id" textField="nameCn"/>
+									<x:combobox id="city_id" name="custinfo.city" onchange="changeCity" disabled="true" valueField="id" textField="nameCn"/>
+									<x:combobox id="area_id" name="custinfo.area" disabled="true" valueField="id" textField="nameCn"/>
+								</td>
+							</tr>
+							<tr>
+								<td class="title"><s:text name="custInfo.registCapital"/>: </td>
+								<td>${custinfo.registCapital}</td>
+							    <td class="title"><s:text name="custInfo.tradId"/>: </td>
+								<td>${tradName}</td>
+							</tr>
+							<tr>
+								<td class="title"><s:text name="custInfo.paidinCapital"/>: </td>
+								<td>${custinfo.paidinCapital}</td>
+							    <td class="title"><s:text name="custInfo.legalRepresent"/>: </td>
+								<td>${custinfo.legalRepresent}</td>
+							</tr>
+							<tr>
+								<td class="title"><s:text name="custInfo.mainBusiness"/>: </td>
+								<td>${custinfo.mainBusiness}</td>
+							    <td class="title"><s:text name="custInfo.actualController"/>: </td>
+								<td>${custinfo.actualController}</td>
+							</tr>
+							<tr>
+								<td class="title"><s:text name="custInfo.companyProperty"/>: </td>
+								<td><x:combobox name="custinfo.companyProperty" value="${custinfo.companyProperty}" list="companyPropertyList" disabled="disabled"/></td>
+							    <td class="title"><s:text name="custInfo.basicBank"/>: </td>
+								<td>${custinfo.basicBank}</td>
+							</tr>
+							<tr>
+								<td class="title"><s:text name="custInfo.employeesNumber"/>: </td>
+								<td>${custinfo.employeesNumber}</td>
+							    <td class="title"><s:text name="custInfo.actualPlace"/>: </td>
+								<td>${custinfo.actualPlace}</td>
+							</tr>
+							<tr>
+								<td class="title"><s:text name="custInfo.loanRecords"/>: </td>
+								<td>${custinfo.loanRecords}</td>
+							    <td class="title"><s:text name="custInfo.personalCredit"/>: </td>
+								<td>${custinfo.personalCredit}</td>
+							</tr>
+							<tr>
+								<td class="title"><s:text name="custInfo.introduction"/>: </td>
+								<td colspan="3">${custinfo.introduction}</td>
+							</tr>
+							<tr>
+								<td class="title"><s:text name="custInfo.history"/>: </td>
+								<td colspan="3">${custinfo.history}</td>
+							</tr>
+						</tbody>
+					</table>
+					<br>
+					<h3>股权结构：</h3>
+					<table>
+						<tbody id="ownershipStructBody">
+						<tr>
+						<td style="text-align: center" class="title">股东名称</td>
+						<td style="text-align: center" class="title">出资额</td>
+						<td style="text-align: center" class="title">出资比例</td>
+						<td style="text-align: center" class="title">出资方式</td>
+						<td style="text-align: center" class="title">是否到位</td>
+						</tr>
+						<s:iterator value="ownershipStructs"  id="ownershipStruct" status = "ownershipStruct_rows"> 
+							<tr>
+							<td style="text-align: center">${ownershipStruct.shareholder}</td>
+							<td style="text-align: center">${ownershipStruct.capital}</td>
+							<td style="text-align: center">${ownershipStruct.capitalPropor}</td>
+							<td style="text-align: center">${ownershipStruct.contriForm}</td>
+							<td style="text-align: center"><input readonly="readonly" type="checkbox" value="1" disabled="disabled" <s:if test="ifCompleted">checked="checked"</s:if>></td>
+							</tr>
+						</s:iterator>
+						</tbody>
+					</table>
+					<input type="hidden" name="projectReportInfo.ownershipStruct" id="projectReportInfo_ownershipStruct" value="" />
+				
+					<h3>主要管理者简历：</h3>
+					<table border="1" width="100%">
+					<colgroup>
+							<col width="10%"/>
+							<col width="10%">
+							<col width="20%"/>
+							<col width="10%">
+							<col width="20%"/>
+							<col width="10%">
+							<col width="20%">
+					</colgroup>
+					<tbody id="actualControllerBody">
+					  <tr>
+						<td style="width:30px" rowspan="26">实际控制人</td>
+						<td style="width:10%">姓名</td>
+						<td>${actualController.name}</td>
+						<td style="width:10%">身份证号</td>
+						<td>${actualController.idcardNo}</td>
+						<td style="width:10%">性别</td>
+						<td><x:combobox name="actualController.sex" disabled="disabled" list="sexList" textField="codeName" valueField="codeNo"/></td>
+					  </tr>
+					  <tr>
+						<td>职务</td>
+						<td>${actualController.position}</td>
+						<td>学历</td>
+						<td><x:combobox name="actualController.degree" disabled="disabled" list="degreeList" /></td>
+						<td>专业</td>
+						<td>${actualController.subject}</td>
+					  </tr>
+					  <tr>
+						<td style="width:30px" rowspan="24">工作简历</td>
+						<td colspan="2" style="text-align: center">时间</td>
+						<td colspan="2" style="text-align: center">单位</td>
+						<td style="text-align: center">职务</td>
+					  </tr>
+					  <s:iterator value="acWorkExperiences" var="acwe" status="acWorkExperiences_rows">
+					  <tr>
+						<td colspan="2"><s:property value="#acwe.get('beginningEnding')"/></td>
+						<td colspan="2"><s:property value="#acwe.get('corp')"/></td>
+						<td colspan="1"><s:property value="#acwe.get('position')"/></td>
+					  </tr>
+					  </s:iterator>
+					  <input type="hidden" id="acWorkExperiences_rows" value="<s:property value='acWorkExperiences.size()'/>" />
+					  </tbody>
+					</table>
+					<br>
+					<table border="1" width="100%">
+					<tbody id="mainOperatorBody">
+					<colgroup>
+							<col width="10%"/>
+							<col width="10%">
+							<col width="20%"/>
+							<col width="10%">
+							<col width="20%"/>
+							<col width="10%">
+							<col width="20%">
+					</colgroup>
+					 <tr>
+						<td style="width:30px" rowspan="26">主要经营者</td>
+						<td style="width:10%">姓名</td>
+						<td>${mainManager.name}</td>
+						<td style="width:10%">身份证号</td>
+						<td>${mainManager.idcardNo}</td>
+						<td style="width:10%">性别</td>
+						<td><x:combobox name="mainManager.sex" disabled="disabled" list="sexList" textField="codeName" valueField="codeNo"/></td>
+					  </tr>
+					  <tr>
+						<td>职务</td>
+						<td>${mainManager.position}</td>
+						<td>学历</td>
+						<td><x:combobox name="mainManager.degree" disabled="disabled" list="degreeList" /></td>
+						<td>专业</td>
+						<td>${mainManager.subject}</td>
+					  </tr>
+					  <tr>
+						<td style="width:30px" rowspan="24">工作简历</td>
+						<td colspan="2" style="text-align: center">时间</td>
+						<td colspan="2" style="text-align: center">单位</td>
+						<td style="text-align: center">职务</td>
+					  </tr>
+					  <s:iterator value="mmWorkExperiences" var="mmwe" status="mmWorkExperiences_rows">
+					  <tr>
+						<td colspan="2"><s:property value="#mmwe.get('beginningEnding')"/></td>
+						<td colspan="2"><s:property value="#mmwe.get('corp')"/></td>
+						<td colspan="1"><s:property value="#mmwe.get('position')"/></td>
+					  </tr>
+					  </s:iterator>
+					  <input type="hidden" id="mmWorkExperiences_rows" value="<s:property value='mmWorkExperiences.size()'/>" />
+					  </tbody>
+					</table>
+					<h3>实际控制人和主要经营者的基本评价：</h3>
+					<textarea rows="10" cols="90" readonly="readonly">${projectReportInfo.bossEvaluate}</textarea>
+					
+			</div>
+						<!-- 客户基本情况结束 -->
+					
+			
+			
+			
+			
+			<div title="企业经营分析" id="BusinessAnalysis">
+						
+						<h3>近一年企业在经营上的重大变化（包括增减资/股权变更/会计事物所变更/高层人事变动）：</h3>
+						<textarea rows="6" cols="90" readonly="readonly">${projectReportInfo.changesThisYear}</textarea>
+						
+						<h3>行业分析：</h3>
+						<textarea rows="6" cols="90" readonly="readonly">${projectReportInfo.industryAnalysis}</textarea>
+						
+						<h3>产品或服务介绍：</h3>
+						<textarea rows="6" cols="90" readonly="readonly">${projectReportInfo.productsServices}</textarea>
+						<h3>经营模式或盈利模式（产销模式、上下游企业）：</h3>
+						<textarea rows="6" cols="90" readonly="readonly">${projectReportInfo.profitModel}</textarea>
+						<br><br>
+						<h3>市场销售结构和渠道（销售体系等）分析：</h3>
+						<table>
+						<tbody id="salesStructureBody">
+						  <tr>
+							<td style="text-align: center" class="title">&nbsp;</td>
+							<td style="text-align: center" colspan="2" class="title">前二年度</td>
+							<td style="text-align: center" colspan="2" class="title">前一年度</td>
+							<td style="text-align: center" colspan="2" class="title">本年度</td>
+						  </tr>
+						  <tr>
+							<td style="text-align: center" class="title">产品名称</td>
+							<td style="text-align: center" class="title">销售收入</td>
+							<td style="text-align: center" class="title">占全部销售收入比重</td>
+							<td style="text-align: center" class="title">销售收入</td>
+							<td style="text-align: center" class="title">占全部销售收入比重</td>
+							<td style="text-align: center" class="title">销售收入</td>
+							<td style="text-align: center" class="title">占全部销售收入比重</td>
+						  </tr>
+						  <s:iterator value="salesStructures" var="salesStructure" status="salesStructures_rows">
+						  <tr>
+						  	<td style="text-align: center"><s:property value="#salesStructure.get('productName')"/></td>
+							<td style="text-align: center"><s:property value="#salesStructure.get('ftaIncome')"/></td>
+							<td style="text-align: center"><s:property value="#salesStructure.get('ftaRatio')"/></td>
+							<td style="text-align: center"><s:property value="#salesStructure.get('lyIncome')"/></td>
+							<td style="text-align: center"><s:property value="#salesStructure.get('lyRatio')"/></td>
+							<td style="text-align: center"><s:property value="#salesStructure.get('tyIncome')"/></td>
+							<td style="text-align: center"><s:property value="#salesStructure.get('tyRatio')"/></td>
+						  </tr>
+						  </s:iterator>
+						  </tbody>
+						</table>
+						<h3>渠道（销售体系等）分析：</h3>
+						<textarea rows="6" cols="90" readonly="readonly">${salesStructureAnalysis.analysis}</textarea>
+						<h3>报表数据核实情况（详细列举核实方式、核实内容）：</h3>
+						<textarea rows="6" cols="90" readonly="readonly">${projectReportInfo.reportData}</textarea>
+						<br><br>
+						<h3>上下游质量及稳固性：</h3>
+						主要上游客户及结算方式：
+						<table>
+						<tbody id="upCustomerBody">
+						<tr>
+							<td style="text-align: center;" class="title">原材料供应商</td>
+							<td style="text-align: center;" class="title">合作年限</td>
+							<td style="text-align: center;" class="title">供货商品</td>
+							<td style="text-align: center;" class="title">年供货额</td>
+							<td style="text-align: center;" class="title">市场价格</td>
+							<td style="text-align: center;" class="title">货款结算方式</td>
+						  </tr>
+						  <s:iterator value="upCustomers" var="upCustomer" status="upCustomers_rows">
+						  <tr>
+							<td style="text-align: center;"><s:property value="#upCustomer.get('customerName')"/></td>
+							<td style="text-align: center;"><s:property value="#upCustomer.get('cooperationYears')"/></td>
+							<td style="text-align: center;"><s:property value="#upCustomer.get('commodity')"/></td>
+							<td style="text-align: center;"><s:property value="#upCustomer.get('annualAmount')"/></td>
+							<td style="text-align: center;"><s:property value="#upCustomer.get('price')"/></td>
+							<td style="text-align: center;"><s:property value="#upCustomer.get('settlementMethod')"/></td>
+						  </tr>
+						  </s:iterator>
+						</tbody>
+						</table>
+						分析或说明：
+						<br>
+						<textarea rows="6" cols="90" readonly="readonly">${upCustomerAnalysis.analysis}</textarea>
+						<br><br>
+						主要下游客户及结算方式：
+						<table>
+						<tbody id="downCustomerBody">
+						<tr>
+							<td style="text-align: center;" class="title">客户名称</td>
+							<td style="text-align: center;" class="title">合作年限</td>
+							<td style="text-align: center;" class="title">销售商品</td>
+							<td style="text-align: center;" class="title">年订货额</td>
+							<td style="text-align: center;" class="title">销售价格</td>
+							<td style="text-align: center;" class="title">货款结算方式</td>
+						  </tr>
+						  <s:iterator value="downCustomers" var="downCustomer" status="downCustomers_rows">
+						  <tr>
+							<td style="text-align: center;"><s:property value="#downCustomer.get('customerName')"/></td>
+							<td style="text-align: center;"><s:property value="#downCustomer.get('cooperationYears')"/></td>
+							<td style="text-align: center;"><s:property value="#downCustomer.get('commodity')"/></td>
+							<td style="text-align: center;"><s:property value="#downCustomer.get('annualAmount')"/></td>
+							<td style="text-align: center;"><s:property value="#downCustomer.get('price')"/></td>
+							<td style="text-align: center;"><s:property value="#downCustomer.get('settlementMethod')"/></td>
+						  </tr>
+						  </s:iterator>
+						</tbody>
+						</table>
+						分析或说明：
+						<br>
+						<textarea rows="6" cols="90" readonly="readonly">${downCustomerAnalysis.analysis}</textarea>
+						<br><br>
+						<h3>竞争优势分析（诸如特许经营、低成本、渠道优势、产品服务独特性等）：</h3>
+						<textarea rows="6" cols="90" readonly="readonly">${projectReportInfo.competitiveAnalysis}</textarea>
+						<br><br>
+						<h3>关联企业：</h3><input readonly="readonly" type="text" name="associatedCompany.name" value="${associatedCompany.name}" style="width:740px">
+						<h3>关联企业分析：</h3>
+						<textarea rows="6" cols="90" readonly="readonly">${associatedCompany.analysis}</textarea>
+						
+			</div>
+			<!-- 企业经营分析结束 -->
+			
+			
+			
+			
+			<div title="财务情况分析" id="FinancialAnalysis">		
+						<h3>主要财务数据：</h3>
+						<table>
+						<tbody id="keyFinanDataBody">
+							<tr>
+								<td style="text-align:center" class="title">科目</td>
+								<td style="text-align:center" class="title">当期</td>
+								<td style="text-align:center" class="title">同期</td>
+								<td style="text-align:center" class="title">前一年度</td>
+								<td style="text-align:center" class="title">前二年度</td>
+							</tr>
+							<s:iterator value="keyFinanData" id="kdf" status = "keyFinanData_rows">					
+							<tr>
+								<td style="text-align:center">${kdf.courseTitle}</td>
+								<td style="text-align:center">${kdf.current}</td>
+								<td style="text-align:center">${kdf.overSamePeriod}</td>
+								<td style="text-align:center">${kdf.previousYear}</td>
+								<td style="text-align:center">${kdf.firstTwoAnnual}</td>
+							</tr>
+							</s:iterator>
+						</tbody>
+						</table>
+						<br>
+						<h3>近三个月主要银行账户流水 &nbsp;（单位：万元）</h3>
+						<table>
+						<tbody id="mainBankAccountBody">
+							<tr>
+								<td style="text-align:center" class="title">月份</td>
+								<td style="text-align:center" class="title">流入量</td>
+								<td style="text-align:center" class="title">流出量</td>
+								<td style="text-align:center" class="title">月底余额</td>
+							</tr>
+							<tr>
+								<td style="text-align:center"><s:property value="mainBankAccount[0].get('yearMonth')"/></td>
+								<td style="text-align:center"><s:property value="mainBankAccount[0].get('inflow')"/></td>
+								<td style="text-align:center"><s:property value="mainBankAccount[0].get('outflow')"/></td>
+								<td style="text-align:center"><s:property value="mainBankAccount[0].get('balance')"/></td>
+							</tr>
+							<tr>
+							    <td style="text-align:center"><s:property value="mainBankAccount[1].get('yearMonth')"/></td>
+								<td style="text-align:center"><s:property value="mainBankAccount[1].get('inflow')"/></td>
+								<td style="text-align:center"><s:property value="mainBankAccount[1].get('outflow')"/></td>
+								<td style="text-align:center"><s:property value="mainBankAccount[1].get('balance')"/></td>
+							</tr>
+							<tr>
+							    <td style="text-align:center"><s:property value="mainBankAccount[2].get('yearMonth')"/></td>
+								<td style="text-align:center"><s:property value="mainBankAccount[2].get('inflow')"/></td>
+								<td style="text-align:center"><s:property value="mainBankAccount[2].get('outflow')"/></td>
+								<td style="text-align:center"><s:property value="mainBankAccount[2].get('balance')"/></td>
+							</tr>
+						</tbody>
+						<tbody id="mainBankSummaryBody">
+						<tr><td colspan="4">以上银行流水包括以下银行账户：（注：银行流水包括企业账户及能反映企业收入的个人账户等，但必须剔除各账户间的倒账及其他与主营业务无关的收支）</td></tr>
+						<tr><td colspan="4">近三个月银行流水与提供的销售收入数据比较是否相符：
+						    <input type="radio" name="mainBankSummary.ifConform" value="1" disabled="disabled" <s:if test="mainBankSummary.ifConform==1">checked="checked"</s:if>>相符 &nbsp;
+							<input type="radio" name="mainBankSummary.ifConform" value="2" disabled="disabled" <s:if test="mainBankSummary.ifConform==2">checked="checked"</s:if>>基本相符 &nbsp;
+							<input type="radio" name="mainBankSummary.ifConform" value="3" disabled="disabled" <s:if test="mainBankSummary.ifConform==3">checked="checked"</s:if>>不相符
+						</td></tr>
+						<tr><td colspan="4">不符原因：${mainBankSummary.conformCause}</td>
+						</tr>
+						<tr><td colspan="4">
+						<h3>小结（针对报表和流水情况）：</h3>
+						<textarea rows="4" cols="80" readonly="readonly">${mainBankSummary.summary}</textarea>
+						</td></tr>
+						</tbody>
+						</table>
+						
+						<br>
+						<h3>主要科目明细</h3>
+						<tbody id="runAccountBody">
+						<s:iterator value="statRunAccounts" var="runAccount" status="statRunAccounts_rows">
+							<tr>
+							<td>
+							<table>
+								<tbody>
+								  <tr>
+									 <td>科目：${runAccount.accounts}(
+									 月份：${runAccount.yearMonth})</td>
+								   </tr>
+								</tbody>
+							</table>
+							
+							<table>
+							<tbody id="accountDetailBody_${statRunAccounts_rows.index}">
+							<tr>
+								<td style="text-align:center" class="title">名称</td>
+								<td style="text-align:center" class="title">金额</td>
+								<td style="text-align:center" class="title">占比</td>
+								<td style="text-align:center" class="title">账龄</td>
+							</tr>
+							<s:iterator value="#runAccount.statRunAccDetail" var="statRunAccDetail" status="statRunAccDetail_rows">
+							<tr>
+							<td style="text-align:center"><s:property value="#statRunAccDetail.get('item')"/></td>
+							<td style="text-align:center"><s:property value="#statRunAccDetail.get('amount')"/></td>
+							<td style="text-align:center"><s:property value="#statRunAccDetail.get('ratio')"/></td>
+							<td style="text-align:center"><s:property value="#statRunAccDetail.get('accountYears')"/></td>
+							</tr>
+							</s:iterator>
+							</tbody>
+							</table>
+							</td>
+							</tr>
+						</s:iterator>
+						</tbody>
+						<br>
+						<h3>融资情况 （包括公司和实际控制人）： &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						截止年月：${financeSituation.yearMonth}</h3>
+						<table>
+						<tbody id="financSituatBody">
+						<tr>
+							<td style="text-align:center" class="title">银行或民间机构名称</td>
+							<td style="text-align:center" class="title">种类</td>
+							<td style="text-align:center" class="title">金额（万元）</td>
+							<td style="text-align:center" class="title">起止期限</td>
+							<td style="text-align:center" class="title">担保方式</td>
+						</tr>
+						<s:iterator value="financeSituationDetails" var="financeSituationDetail" status="financeSituationDetails_rows">
+						<tr>
+							<td style="text-align:center"><s:property value="#financeSituationDetail.get('bankName')"/></td>
+							<td style="text-align:center"><s:property value="#financeSituationDetail.get('mode')"/></td>
+							<td style="text-align:center"><s:property value="#financeSituationDetail.get('amount')"/></td>
+							<td style="text-align:center"><s:property value="#financeSituationDetail.get('period')"/></td>
+							<td style="text-align:center"><s:property value="#financeSituationDetail.get('guaranteeMode')"/></td>
+						</tr>
+						</s:iterator>
+						</tbody>
+						</table>
+						<br>
+						<h3>或有负债 （对外担保情况、潜在经济补偿等）：
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						截止年月：${contLiab.yearMonth}</h3>
+						<table>
+						<tbody id="contLiabBody">
+						<tr>
+							<td style="text-align:center" class="title">被担保人</td>
+							<td style="text-align:center" class="title">银行名称</td>
+							<td style="text-align:center" class="title">金额（万元）</td>
+							<td style="text-align:center" class="title">起止期限</td>
+							<td style="text-align:center" class="title">担保方式</td>
+						</tr>
+						<s:iterator value="contLiabDetails" var="contLiabDetail" status="contLiabDetails_rows">
+						<tr>
+							<td style="text-align:center"><s:property value="#contLiabDetail.get('beGuarantor')"/></td>
+							<td style="text-align:center"><s:property value="#contLiabDetail.get('mode')"/></td>
+							<td style="text-align:center"><s:property value="#contLiabDetail.get('amount')"/></td>
+							<td style="text-align:center"><s:property value="#contLiabDetail.get('period')"/></td>
+							<td style="text-align:center"><s:property value="#contLiabDetail.get('guaranteeMode')"/></td>
+						</tr>
+						</s:iterator>
+						</tbody>
+						</table>
+			</div>
+			<!-- 财务情况分析结束 -->
+			
+			
+			
+			
+			
+			<div title="还款来源分析" id="RepaymentSource">
+						<h3>1. 还款期间现金流量简表（单位：万元）</h3>
+						<table>
+							<tbody id="repayCashSummaryBody">
+							<tr>
+							<td style="text-align: center;" class="title">项目</td>
+							<td style="text-align: center;" class="title">经营活动现金净流量</td>
+							<td style="text-align: center;" class="title">筹资活动现金净流量</td>
+							<td style="text-align: center;" class="title">投资活动现金净流量</td>
+							<td style="text-align: center;" class="title">合计</td>
+							</tr>
+							<s:iterator value="repayCashSummary"  id="rcs" status = "repayCashSummary_rows">
+							<tr>
+							<td style="text-align: center;">${rcs.yearMonth}</td>
+							<td style="text-align: center;">${rcs.operActCashflow}</td>
+							<td style="text-align: center;">${rcs.finActCashflow}</td>
+							<td style="text-align: center;">${rcs.investActCashflow}</td>
+							<td style="text-align: center;">${rcs.amount}</td>
+							</tr>
+							</s:iterator>
+							</tbody>
+						</table>
+						<input type="hidden" name="projectReportInfo.repayCashSummary" id="projectReportInfo_repayCashSummary" value="" />
+						<br><br>
+						<h3>2. 第二还款来源（例如到期流动资产的临时抽调，民间拆借，处置抵押物等）：</h3>
+						<textarea rows="6" cols="130" readonly="readonly">${projectReportInfo.secondSource}</textarea>
+			</div>
+			<!-- 还款来源分析 结束-->
+			
+			
+			<div title="重大事项调查" id="MajorIssues">
+						<h3>重大事项调查（重大事项调查重点推介或说明要点）：</h3>
+						<table>
+							<colgroup>
+								<col width="30%"/>
+								<col width="70%"/>
+							</colgroup>
+							<tbody>
+								<tr>
+								<td class="title">关联企业及重大关联交易情况：</td>
+								<td><textarea rows="6" style="width:100%" readonly="readonly">${projectReportInfo.assCorpTrans}</textarea></td>
+								</tr>
+								<tr>
+								<td class="title">仲裁或法律诉讼情况（上网查询）：</td>
+								<td><textarea rows="6" style="width:100%" readonly="readonly">${projectReportInfo.arbitrationLegal}</textarea></td>
+								</tr>
+								<tr>
+								<td class="title">对外担保（询问企业、贷款卡信息、侧面打听等）：</td>
+								<td><textarea rows="6" style="width:100%" readonly="readonly">${projectReportInfo.externalGuarantees}</textarea></td>
+								</tr>
+								<tr>
+								<td class="title">民间借贷（原始积累与现有净资产差异、其他应付款明细、银行流水、侧面打听等）：</td>
+								<td><textarea rows="6" style="width:100%" readonly="readonly">${projectReportInfo.privateLending}</textarea></td>
+								</tr>
+								<tr>
+								<td class="title">对外投资情况：</td>
+								<td><textarea rows="6" style="width:100%" readonly="readonly">${projectReportInfo.foreignInvestment}</textarea></td>
+								</tr>
+								<tr>
+								<td class="title">其他重要事项：</td>
+								<td><textarea rows="6" style="width:100%" readonly="readonly">${projectReportInfo.otherImportantMatters}</textarea></td>
+								</tr>
+							</tbody>
+						</table>
+						
+			</div>
+			<!-- 重大事项调查结束 -->
+			
+			
+			
+			
+			
+			<div title="主要风险与控制措施" id="RisksControl">
+						<h3>主要风险与控制措施：</h3>
+						<table>
+							<colgroup>
+								<col width="30%"/>
+								<col width="70%"/>
+							</colgroup>
+							<tbody>
+								<tr>
+								<td class="title">项目主要风险点：</td>
+								<td><textarea style="width:100%;height:100px;" readonly="readonly">${projectReportInfo.projectRisks}</textarea></td>
+								</tr>
+								<tr>
+								<td class="title">保后关注点：</td>
+								<td><textarea style="width:100%;height:80px;" readonly="readonly">${projectReportInfo.paulAfterConcerns}</textarea></td>
+								</tr>
+								<tr>
+								<td class="title">反担保措施设计：</td>
+								<td><textarea style="width:100%;height:80px;" readonly="readonly">${projectReportInfo.measuresDesign}</textarea></td>
+								</tr>
+								<tr>
+								<td class="title">实际控制人和连带责任人个人资产情况：</td>
+								<td><textarea style="width:100%;height:80px;" readonly="readonly">${projectReportInfo.personalAssets}</textarea></td>
+								</tr>
+							</tbody>
+						</table>
+			</div>
+			<input type="hidden" name="projectReportInfo.projectId" value="${project.id}">
+			<input type="hidden" name="projectReportInfo.id" value="${project.id}">
+		</div>
+	</form>
+	</tiles:putAttribute>
+	<tiles:putAttribute name="end">
+		<script>
+		$(function(){
+			$('#tt').css("height", $(document.body).height() - 50).tabs({}); 
+		});
+		function doReturn(){
+			<s:if test="backUrl != null">
+				var url = "${backUrl}";
+			</s:if>
+			<s:else>
+				var url = "<s:url value='/projectFlow/project_main.jhtml'/>";
+			</s:else>
+			
+			redirectUrl(url);
+		}
+		
+		var keys=["<%=ComDictKeyConst.PROJECT_STATUS_CODE%>"];
+		var code=new CodeUtil(keys);
+		code.loadData();
+
+		function formatStatus(value){
+			return code.getValue("<%=ComDictKeyConst.PROJECT_STATUS_CODE%>", value);
+		}
+		
+		</script>
+	</tiles:putAttribute>
+</tiles:insertDefinition>

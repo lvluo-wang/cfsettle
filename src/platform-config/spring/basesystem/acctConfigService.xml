@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+  
+    <!-- 记账项 -->
+	<bean id="acctItemDAO" class="com.upg.ucars.basesystem.acctrecord.config.acctitem.AcctItemDAOImpl">	
+		<property name="hibernateTemplate"><ref bean="hibernateTemplate"/></property>
+		<property name="cacheQueries" value="true"/> 
+	</bean>
+	<bean id="acctItemService" class="com.upg.ucars.basesystem.acctrecord.config.acctitem.AcctItemServiceImpl">	
+		<property name="acctItemDAO"> 
+	 		<ref local="acctItemDAO"/>
+	 	</property>
+		<property name="tranItemDAO"> 
+	 		<ref local="tranItemDAO"/>
+	 	</property>
+	</bean> 
+	
+	<!-- 记账点 -->
+	<bean id="acctPointDAO" class="com.upg.ucars.basesystem.acctrecord.config.acctpoint.AcctPointDAOImpl">	
+		<property name="hibernateTemplate"><ref bean="hibernateTemplate"/></property>
+		<property name="cacheQueries" value="true"/> 
+	</bean>
+	<bean id="acctPointService" class="com.upg.ucars.basesystem.acctrecord.config.acctpoint.AcctPointServiceImpl">	
+		<property name="acctPointDAO"> 
+	 		<ref local="acctPointDAO"/>
+	 	</property>
+		<property name="acctItemDAO"> 
+	 		<ref local="acctItemDAO"/>
+	 	</property>
+		<property name="acctTranDAO"> 
+	 		<ref local="acctTranDAO"/>
+	 	</property>
+	</bean>
+	
+	<!-- 分录结构体 -->
+	<bean id="acctRecordBodyDAO" class="com.upg.ucars.basesystem.acctrecord.config.acctrecordbody.AcctRecordBodyDAOImpl">	
+		<property name="hibernateTemplate"><ref bean="hibernateTemplate"/></property>
+		<property name="cacheQueries" value="true"/> 
+	</bean>
+	<bean id="acctRecordBodyService" class="com.upg.ucars.basesystem.acctrecord.config.acctrecordbody.AcctRecordBodyServiceImpl">	
+		<property name="acctRecordBodyDAO"> 
+	 		<ref local="acctRecordBodyDAO"/>
+	 	</property>
+		<property name="tranItemDAO"> 
+	 		<ref local="tranItemDAO"/>
+	 	</property>
+	</bean>
+	
+	<!-- 记账交易，表达式 -->
+	<bean id="acctTranDAO" class="com.upg.ucars.basesystem.acctrecord.config.accttran.AcctTranDAOImpl">	
+		<property name="hibernateTemplate"><ref bean="hibernateTemplate"/></property>
+		<property name="cacheQueries" value="true"/> 
+	</bean> 
+	<bean id="acctTranExprDAO" class="com.upg.ucars.basesystem.acctrecord.config.accttran.AcctTranExprDAOImpl">	
+		<property name="hibernateTemplate"><ref bean="hibernateTemplate"/></property>
+		<property name="cacheQueries" value="true"/> 
+	</bean> 
+	<bean id="acctTranService" class="com.upg.ucars.basesystem.acctrecord.config.accttran.AcctTranServiceImpl">	
+		<property name="acctTranDAO"> 
+	 		<ref local="acctTranDAO"/>
+	 	</property>
+		<property name="acctTranExprDAO"> 
+	 		<ref local="acctTranExprDAO"/>
+	 	</property>
+		<property name="tranItemDAO"> 
+	 		<ref local="tranItemDAO"/>
+	 	</property>
+	 	<property name="commonDAO">
+  			<ref bean="commonDAO"/>
+  		</property>
+	</bean>
+	
+	<!-- 交易项 -->
+	<bean id="tranItemDAO" class="com.upg.ucars.basesystem.acctrecord.config.tranitem.TranItemDAOImpl">	
+		<property name="hibernateTemplate"><ref bean="hibernateTemplate"/></property>
+		<property name="cacheQueries" value="true"/> 
+	</bean> 
+	<bean id="tranItemService" class="com.upg.ucars.basesystem.acctrecord.config.tranitem.TranItemServiceImpl">	
+		<property name="tranItemDAO"> 
+	 		<ref local="tranItemDAO"/>
+	 	</property>
+	</bean>
+	
+	<bean id="acctRecordService" class="com.upg.ucars.basesystem.acctrecord.runtime.AcctRecordServiceImpl">	
+		<property name="acctRecordInfoService"> 
+	 		<ref local="acctRecordInfoService"/>
+	 	</property>
+	 	<property name="acctRecordBodyService"><ref local="acctRecordBodyService"/></property>
+	</bean>
+	<bean id="acctRecordInfoService" class="com.upg.ucars.basesystem.acctrecord.runtime.AcctRecordInfoServiceImpl">	
+		<property name="acctRecordInfoDAO"> 
+	 		<ref local="acctRecordInfoDAO"/>
+	 	</property>
+	</bean>
+	<bean id="acctRecordInfoDAO" class="com.upg.ucars.basesystem.acctrecord.runtime.AcctRecordInfoDAO">	
+		<property name="hibernateTemplate"><ref bean="hibernateTemplate"/></property>
+	</bean>
+	
+
+</beans>

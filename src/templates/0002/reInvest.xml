@@ -1,0 +1,1622 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>尽调模板</title>
+		<style>
+html,body{height: 100%; width:100%; font:12px/22px SinSun; color:#000000;}
+html, body, div, p, ul, li, ol,dl, dt, dd, h1, h2, h3, h4, h5、 h6, form, input, select, button, textarea, iframe,i, em, cite{ margin: 0; padding: 0; font-style: normal;  }
+img { border: 0 none; vertical-align: middle; }
+ul, li,dd,dl,ol{ list-style: none;}
+table, thead,tfoot,tbody,th, td {border-collapse: collapse; border-spacing:0; padding:0; margin:0;}
+.checkbox{vertical-align: middle; margin: 0 10px;}
+
+.yellow{color: #ffff00;}
+.ftwt{color:#ffffff; background: #0f243e; text-align: center;}
+.container{width: 980px; margin:auto;}
+.toplogo{height:27px; padding-top: 30px;}
+.tabCon{width:600px; padding-top: 80px; margin:auto;}
+.listmenu{}
+.listmenu td{height: 49px; font:20px/49px Microsoft Yahei;}
+.listmenu td.first{font:30px/50px Microsoft Yahei; text-align: center; padding:0 0 50px;}
+.listmenu .span{display: inline-block;width:400px; border-bottom:#000 solid 1px; text-align: center;}
+.copyright{text-align: center; height: 50px; line-height: 50px; color: #dddddd; margin:50px 0;}
+.content{width: 980px; padding:50px 0 0;}
+.content .listtitle{font:20px/30px Microsoft Yahei;display: block; margin:15px 0; margin-top:45px;}
+.content .tabcontent{padding: 15px;}
+.content .tabcontent .tab{width: 100%; border-top:#dddddd solid 1px; border-left:#dddddd solid 1px;}
+.content .tabcontent .tab td{border-right:#dddddd solid 1px; border-bottom:#dddddd solid 1px; padding:5px 10px;}
+.content .tabcontent .tab thead td{background: #0f243e; color: #ffffff; text-align: center; line-height: 30px; font-weight: bold}
+.content .tabcontent .tab tbody td{line-height: 25px;}
+.ftl{text-align: left;}
+.ftr{text-align: right;}
+.evihref{background:#5281b9; display:inline-block; text-align:center; font-weight:normal; margin:2px; padding:2px; font-size:12px; text-decoration: none; height:12px; line-height:12px; width:12px; color:#ffffff; vertical-align: middle;}
+.subtab .listname{display: block; font-weight:bold; line-height: 30px;}
+.content .tabcontent .pp{font:bold 14px/50px Microsoft Yahei;}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="tabCon">
+				<table width="100%" class="listmenu" align="center" border="0">
+					<tr>
+						<td  align="center"  class="first" colspan="2">XXXX中小企业尽职调查报告<br/><a href="" style='color:#ff0000'>（非标版）</a></td>
+					</tr>
+					<tr>
+						<td width="33%" align="right">项目名称：</td>
+						<td width="67%" style="border-bottom:#000 solid 1px; " align="center">${project.projectName!}</td>
+					</tr>
+					<tr>
+						<td align="right">申报部门：</td>
+						<td align="center" style="border-bottom:#000 solid 1px; ">${project.deptName!}</td>
+					</tr>
+					<tr>
+						<td align="right">主办调查人：</td>
+						<td align="center" style="border-bottom:#000 solid 1px; ">${project.roleAName!}</td>
+					</tr>
+					<tr>
+						<td align="right">协办调查人（一）：</td>
+						<td align="center" style="border-bottom:#000 solid 1px; ">${project.roleBName!}</td>
+					</tr>
+					<tr>
+						<td align="right">协办调查人（二）：</td>
+						<td align="center" style="border-bottom:#000 solid 1px; ">${project.roleCName!}</td>
+					</tr>
+					<tr>
+						<td align="right">报告时间：</td>
+						<td align="center" style="border-bottom:#000 solid 1px; ">${project.modifyTime?string("yyyy-MM-dd HH:mm")}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="copyright">XXXX版权所有© </div>
+			<div class="content">
+				<h4 class="listtitle">一、项目情况</h4>
+				<div class="tabcontent">
+					<table class="tab">
+						<tbody>
+							<tr>
+								<td width="15%" class="ftr">企业全称</td>
+								<td width="35%">${custinfo.custName!}</td>
+								<td width="15%" class="ftr">工商信誉度</td>
+								<td width="35%">${project.icCredit!}</td>
+							</tr>
+							<tr>
+								<td class="ftr">融资金额（万元）</td>
+								<td>${project.financingAmount!}</td>
+								<td class="ftr">融资期限</td>
+								<td>${project.deadline!}</td>
+							</tr>
+							<tr>
+								<td class="ftr">担保费率（%）</td>
+								<td>${project.guaraFeeRatio!}</td>
+								<td class="ftr">保证金比率（%）</td>
+								<td>${project.marginRatio!}</td>
+							</tr>
+							<tr>
+								<td class="ftr">会员费（元）</td>
+								<td>${project.membershipFees!}</td>
+								<td class="ftr">拟放款银行</td>
+								<td><!-- --></td>
+							</tr>
+							<tr>
+								<td class="ftr">资金用途</td>
+								<td colspan="3"><#if project.fundsUse??>${project.fundsUse?replace("\\r\\n","<w:p></w:p>","r")}</#if></td>
+							</tr>
+							<tr>
+								<td class="ftr">业务简要介绍（推介或说明要点：一句话）</td>
+								<td colspan="3">
+									<div class="subtab">
+										<span class="listname">1、客户简介：</span>
+										<p><#if custinfo.introduction??>${custinfo.introduction?replace("\\r\\n","<w:p></w:p>","r")}</#if></p>
+										<span class="listname">2、在保明细：</span>
+										<table class="tab">
+											<thead>
+												<tr>
+													<td width="20%">银行</td>
+													<td width="15%">金额</td>
+													<td width="20%">期限</td>
+													<td width="15%">担保方式</td>
+													<td width="25%">备注</td>
+												</tr>
+											</thead>
+											<tbody>
+												<#assign duiwaiDanbao_amount_total=0 />
+												<#if corpDuiwaiDanbao?exists>
+												<#list corpDuiwaiDanbao as duiwaiDanbao>
+												<tr>
+													<td>${duiwaiDanbao.loanBranch!}</td>
+													<td>${duiwaiDanbao.amount!}<#assign duiwaiDanbao_amount_total=duiwaiDanbao_amount_total+duiwaiDanbao.amount/></td>
+													<td>${duiwaiDanbao.startDate!} - ${duiwaiDanbao.endDate!}</td>
+													<td></td>
+													<td>${duiwaiDanbao.descInfo!}</td>
+												</tr>
+												</#list>
+												</#if>
+												<tr>
+													<td>合计</td>
+													<td>${duiwaiDanbao_amount_total!}</td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+											</tbody>
+										</table>
+										<span class="listname">3、保后数据：<!-- --></span>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+
+				<h4 class="listtitle">二、企业基本概况</h4>
+				<div class="tabcontent">
+					<table class="tab">
+						<tbody>
+							<tr>			
+								<td width="15%" class="ftr">企业全称</td>
+								<td width="35%">${custinfo.custName!}</td>
+								<td width="15%" class="ftr">设立日期</td>
+								<td width="35%"><#if (custinfo.estabDate??) >${custinfo.estabDate?date!}</#if></td>
+							</tr>
+							<tr>
+								<td class="ftr">注册资本<#if hasEvList.registerCapital?? && hasEvList.registerCapital=='1'><a href="" class="evihref">证</a></#if></td>
+								<td>${custinfo.registCapital!}</td>
+								<td class="ftr">所属行业</td>
+								<td>${tradName!}</td>
+							</tr>
+							<tr>
+								<td class="ftr">实收资本</td>
+								<td>${custinfo.paidinCapital!}</td>
+								<td class="ftr">法定代表人</td>
+								<td>${custinfo.legalRepresent!}</td>
+							</tr>
+							<tr>
+								<td class="ftr">经营范围</td>
+								<td>${custinfo.mainBusiness!}</td>
+								<td class="ftr">实际控制人</td>
+								<td>${custinfo.actualController!}</td>
+							</tr>
+							<tr>
+								<td class="ftr">企业性质<!-- <a href="" class="evihref">证</a> --></td>
+								<td>${companyProperty!}</td>
+								<td class="ftr">基本开户行</td>
+								<td>${custinfo.basicBank!}</td>
+							</tr>
+							<tr>
+								<td class="ftr">职工数/社保员工数</td>
+								<td>${custinfo.employeesNumber!}</td>
+								<td class="ftr">实际经营地</td>
+								<td>${custinfo.actualPlace!}</td>
+							</tr>
+							<tr>
+								<td class="ftr">贷款卡记录情况<!-- <a href="" class="evihref">证</a> --></td>
+								<td>${custinfo.loanRecords!}</td>
+								<td class="ftr">个人信用报告状况</td>
+								<td>${custinfo.personalCredit!}</td>
+							</tr>
+							<tr>
+								<td class="ftr">企业规模</td>
+								<td>${yrzProject.corpScale!}</td>
+								<td class="ftr">企业发展阶段</td>
+								<td>${yrzProject.corpDevelopPeriod!}</td>
+							</tr>
+							<tr>
+								<td class="ftr">特许经营权</td>
+								<td>${yrzProject.manageLicenseMemo!}</td>
+								<td class="ftr">财务审计机构<!-- <a href="" class="evihref">证</a> --></td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td class="ftr">企业情况综述</td>
+								<td colspan="3">
+									<div class="subtab">
+										<p>${custinfo.history!}</p>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="ftr">股权结构</td>
+								<td colspan="3">
+									<div class="subtab">
+										<table class="tab">
+											<thead>
+												<tr>
+													<td width="10%">序号</td>
+													<td width="25%">股东名称</td>
+													<td width="15%">出资额</td>
+													<td width="15%">出资比例</td>
+													<td width="35%" class="yellow">备注说明</td>
+												</tr>
+											</thead>
+											
+											<tbody>
+												<#assign ownershipStruct_capital_total=0 ownershipStruct_capitalPropor_total=0 />
+												<#if ownershipStructs?exists>
+												<#list ownershipStructs as ownershipStruct>
+												<tr>
+													<td>${ownershipStruct_index+1}</td>
+													<td>${ownershipStruct.shareholder!}</td>
+													<td>${ownershipStruct.capital!}<#assign ownershipStruct_capital_total=ownershipStruct_capital_total+ownershipStruct.capital/></td>
+													<td>${ownershipStruct.capitalPropor!}<#assign ownershipStruct_capitalPropor_total=ownershipStruct_capitalPropor_total+ownershipStruct.capitalPropor/></td>
+													<td>${ownershipStruct.contriForm!}</td>
+												</tr>
+												</#list>
+												</#if>
+												<tr>
+													<td>合计</td>
+													<td></td>
+													<td>${ownershipStruct_capital_total}</td>
+													<td>${ownershipStruct_capitalPropor_total}</td>
+													<td></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="ftr">股权结构变更历史记录</td>
+								<td colspan="3">
+									<div class="subtab">
+										<table class="tab">
+											<thead>
+												<tr>
+													<td width="10%">序号</td>
+													<td width="15%">日期</td>
+													<td width="65%">股权变更历史记录说明</td>
+												</tr>
+											</thead>
+											<tbody>
+												<#if shareholderChanges?exists>
+												<#list shareholderChanges as shareholderChange>
+												<tr>
+													<td>${shareholderChange_index+1}</td>
+													<td>${shareholderChange.changeDate!}</td>
+													<td>${shareholderChange.changeContent!}</td>
+												</tr>
+												</#list>
+												</#if>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+
+
+
+				<h4 class="listtitle">三、管理团队</h4>
+				<div class="tabcontent">
+					<p class="pp">1、实际控制人简历及个人资产<!-- <a href="" class="evihref">证</a> --></p>
+					<div class="subtab">
+					<table class="tab">
+					  <tr>
+					    <td class="ftwt" width="20%">姓名</td>
+					    <td class="ftwt" width="15%">性别</td>
+					    <td class="ftwt" width="15%">职务</td>
+					    <td class="ftwt" width="15%">学历</td>
+					    <td class="ftwt" width="15%">专业</td>
+					    <td class="ftwt" width="25%">身份证</td>
+					  </tr>
+					  <tr>
+					    <td>${actualController.name!}</td>
+					    <td><#if  (actualController.sex??) && (actualController.sex = 2)>
+						男
+						</#if>
+						<#if (actualController.sex??) && (actualController.sex = 1)>
+						女
+						</#if></td>
+					    <td>${actualController.position!}</td>
+					    <td>${actualController.degreeName!}</td>
+					    <td>${actualController.subject!}</td>
+					    <td>${actualController.idNo!}</td>
+					  </tr>
+					  <tr>
+					    <td class="ftwt">学历</td>
+					    <td class="ftwt">专业</td>
+					    <td class="ftwt">电话</td>
+					    <td class="ftwt">手机</td>
+					    <td class="ftwt">传真</td>
+					    <td class="ftwt">邮箱</td>
+					  </tr>
+					  <tr>
+					    <td>${actualController.degreeName!}</td>
+					    <td>${actualController.subject!}</td>
+					    <td>&nbsp;</td>
+					    <td>&nbsp;</td>
+					    <td>&nbsp;</td>
+					    <td>&nbsp;</td>
+					  </tr>
+					  <tr>
+					    <td class="ftwt">基本评价</td>
+					    <td colspan="5">
+					      <div class="subtab">
+					        <#if projectReportInfo.bossEvaluate??>${projectReportInfo.bossEvaluate?replace("\\r\\n","<w:p></w:p>","r")}</#if>
+					      </div>
+					    </td>
+					  </tr>
+					  <tr>
+					    <td class="ftwt">家庭情况</td>
+					    <td colspan="5">
+					      <div class="subtab">
+					        <!-- -->
+					      </div>
+					    </td>
+					  </tr>
+					  <tr>
+					    <td class="ftwt">工作经历</td>
+					    <td colspan="5">
+					      <div class="subtab">
+					        <table class="tab">
+					        	<thead>
+					        		<tr>
+					        			<td width="25%">起始时间</td>
+					        			<td width="25%">截止时间</td>
+					        			<td width="25%">工作单位</td>
+					        			<td width="25%">职位</td>
+					        		</tr>
+					        	</thead>
+					        	<tbody>
+									<#if acWorkExperiences?exists>
+									<#list acWorkExperiences as acwe>
+					        		<tr>
+					        			<td>${acwe.beginningEnding!}</td>
+					        			<td>${acwe.beginningEnding!}</td>
+					        			<td>${acwe.corp!}</td>
+					        			<td>${acwe.position!}</td>
+					        		</tr>
+									</#list>
+									</#if>
+					        	</tbody>
+					        </table>
+					      </div>
+					    </td>
+					  </tr>
+					  <tr>
+					    <td class="ftwt">个人资产</td>
+					    <td colspan="5">
+					      <div class="subtab">
+					        <table class="tab">
+					        	<thead>
+					        		<tr>
+					        			<td width="25%">资产类别</td>
+					        			<td width="25%">资产名称</td>
+					        			<td width="25%">资产价值</td>
+					        			<td width="25%">资产描述</td>
+					        		</tr>
+					        	</thead>
+					        	<tbody>
+									<#if acControlpersonAssets?exists>
+									<#list acControlpersonAssets as acpa>
+					        		<tr>
+					        			<td></td>
+					        			<td>${acpa.assetName!}</td>
+					        			<td>${acpa.buyAmount!}</td>
+					        			<td>${acpa.buyDate!}</td>
+					        		</tr>
+									</#list>
+									</#if>
+					        	</tbody>
+					        </table>
+					      </div>
+					    </td>
+					  </tr>
+					</table>
+
+				  </div>
+					<p class="pp">2、主要管理者简历<#if hasEvList.corpManager?? && hasEvList.corpManager=='1'><a href="" class="evihref">证</a></#if></p>
+					<div class="subtab">
+						<table class="tab">
+					  <tr>
+					    <td class="ftwt" width="20%">姓名</td>
+					    <td class="ftwt" width="15%">性别</td>
+					    <td class="ftwt" width="15%">职务</td>
+					    <td class="ftwt" width="15%">学历</td>
+					    <td class="ftwt" width="15%">专业</td>
+					    <td class="ftwt" width="25%">身份证</td>
+					  </tr>
+					  <tr>
+					    <td>${mainManager.name!}</td>
+					    <td><#if  (mainManager.sex??) && (mainManager.sex = 2)>
+						男
+						</#if>
+						<#if (mainManager.sex??) && (mainManager.sex = 1)>
+						女
+						</#if></td>
+					    <td>${mainManager.position!}</td>
+					    <td>${mainManager.degreeName!}</td>
+					    <td>${mainManager.subject!}</td>
+					    <td>${mainManager.idNo!}</td>
+					  </tr>
+					  <tr>
+					    <td class="ftwt">学历</td>
+					    <td class="ftwt">专业</td>
+					    <td class="ftwt">电话</td>
+					    <td class="ftwt">手机</td>
+					    <td class="ftwt">传真</td>
+					    <td class="ftwt">邮箱</td>
+					  </tr>
+					  <tr>
+					    <td>${mainManager.degreeName!}</td>
+					    <td>${mainManager.subject!}</td>
+					    <td> </td>
+					    <td> </td>
+					    <td> </td>
+					    <td> </td>
+					  </tr>
+					  <tr>
+					    <td class="ftwt">基本评价</td>
+					    <td colspan="5">
+					      <div class="subtab">
+					        <#if projectReportInfo.bossEvaluate??>${projectReportInfo.bossEvaluate?replace("\\r\\n","<w:p></w:p>","r")}</#if>
+					      </div>
+					    </td>
+					  </tr>
+					  <tr>
+					    <td class="ftwt">家庭情况</td>
+					    <td colspan="5">
+					      <div class="subtab">
+					        <!-- -->
+					      </div>
+					    </td>
+					  </tr>
+					  <tr>
+					    <td class="ftwt">工作经历</td>
+					    <td colspan="5">
+					      <div class="subtab">
+					        <table class="tab">
+					        	<thead>
+					        		<tr>
+					        			<td width="25%">起始时间</td>
+					        			<td width="25%">截止时间</td>
+					        			<td width="25%">工作单位</td>
+					        			<td width="25%">职位</td>
+					        		</tr>
+					        	</thead>
+					        	<tbody>
+									<#if mmWorkExperiences?exists>
+									<#list mmWorkExperiences as mmwe>
+					        		<tr>
+					        			<td>${mmwe.beginningEnding!}</td>
+					        			<td>${mmwe.beginningEnding!}</td>
+					        			<td>${mmwe.corp!}</td>
+					        			<td>${mmwe.position!}</td>
+					        		</tr>
+									</#list>
+									</#if>
+					        	</tbody>
+					        </table>
+					      </div>
+					    </td>
+					  </tr>
+					</table>
+					</div>
+				</div>
+
+
+
+
+				<h4 class="listtitle">四、产品/服务</h4>
+				<div class="tabcontent">
+					<p class="pp">专利，著作权及商标(云融资-网络调查结果-专利，著作权及商标)</p>
+					<div class="subtab">
+						<span class="listname">1、主营产品/服务收入统计</span>
+						<table class="tab">
+							<thead>
+								<tr>
+									<td width="10%">编号</td>
+									<td width="30%">产品大类名称</td>
+									<td width="30%">产品大类销售额(万元)</td>
+									<td width="30%">产品大类销售占比(%)</td>
+								</tr>
+							</thead>
+							<tbody>
+								<#if mainProductSales?exists>
+								<#list mainProductSales as mps>
+								<tr>
+									<td>${mps.year!}</td>
+									<td>${mps.mainProduct!}</td>
+									<td>${mps.saleAmount!}</td>
+									<td>${mps.salePercent!}</td>
+								</tr>
+								</#list>
+								</#if>
+							</tbody>
+						</table>
+						<span class="listname">2、主营产品产量统计</span>
+						<table class="tab">
+							<thead>
+								<tr>
+									<td width="30%">年份(年)</td>
+									<td width="30%">产能</td>
+									<td width="40%">产量</td>
+								</tr>
+							</thead>
+							<tbody>
+								<#if mainProductOutputs?exists>
+								<#list mainProductOutputs as mpop>
+								<tr>
+									<td>${mpop.year!}</td>
+									<td>${mpop.capacity!}</td>
+									<td>${mpop.output!}</td>
+								</tr>
+								</#list>
+								</#if>
+							</tbody>
+						</table>
+						<span class="listname">3、产品/服务渠道</span>
+						<table class="tab">
+							<thead>
+								<tr>
+									<td width="10%">编号</td>
+									<td width="30%">销售渠道</td>
+									<td width="30%">销售额(万元)</td>
+									<td width="30%">渠道占比(%)</td>
+								</tr>
+							</thead>
+							<tbody>
+								<#if productSaleChannels?exists>
+								<#list productSaleChannels as psc>
+								<tr>
+									<td>${psc_index+1!}</td>
+									<td>${psc.saleChannel!}</td>
+									<td>${psc.saleAmout!}</td>
+									<td>${psc.salePercent!}</td>
+								</tr>
+								</#list>
+								</#if>
+							</tbody>
+						</table>
+						<span class="listname">4、产品/服务覆盖范围</span>
+						<table class="tab">
+							<thead>
+								<tr>
+									<td width="10%">编号</td>
+									<td width="30%">销售地区</td>
+									<td width="30%">销售额(万元)</td>
+									<td width="30%">渠道占比(%)</td>
+								</tr>
+							</thead>
+							<tbody>
+								<#if productSaleareas?exists>
+								<#list productSaleareas as psa>
+								<tr>
+									<td>${psa_index+1!}</td>
+									<td>${psa.saleArea!}</td>
+									<td>${psa.saleAmount!}</td>
+									<td>${psa.salePercent!}</td>
+								</tr>
+								</#list>
+								</#if>
+							</tbody>
+						</table>
+						<span class="listname">5、近三年研发投入<#if hasEvList.corpDevelopInput?? && hasEvList.corpDevelopInput=='1'><a href="" class="evihref">证</a></#if></span>
+						<table class="tab">
+							<thead>
+								<tr>
+									<td width="30%">年份（年）</td>
+									<td width="30%">研发人员数量(人)</td>
+									<td width="40%">研发费用(万元)</td>
+								</tr>
+							</thead>
+							<tbody>
+								<#if developInputs?exists>
+								<#list developInputs as dli>
+								<tr>
+									<td>${dli.year!}</td>
+									<td>${dli.developerNum!}</td>
+									<td>${dli.developAmount!}</td>
+								</tr>
+								</#list>
+								</#if>
+							</tbody>
+						</table>
+						<span class="listname">6、产品/服务情况说明<#if hasEvList.corpMainProductSale?? && hasEvList.corpMainProductSale=='1'><a href="" class="evihref">证</a></#if>（可以对涉及上述的指标项依次进行补充说明，或者对其他年份的数据进行说明，也可以提供客户经理认为其他重要的企业信息）</span>
+						<p>${yrzProject.productSaleRemark!}</p>
+						<p><!-- 附件 --></p>
+					</div>
+				</div>
+
+
+
+
+				<h4 class="listtitle">五、上下游关系</h4>
+				<div class="tabcontent">
+					<div class="subtab">
+						<span class="listname">1、主要供应商分析<#if hasEvList.corpSupplierList?? && hasEvList.corpSupplierList=='1'><a href="" class="evihref">证</a></#if></span>
+						<table class="tab">
+							<thead>
+								<tr>
+									<td>编号</td>
+									<td>供应商名称</td>
+									<td>类型</td>
+									<td>供应商品</td>
+									<td>所在地区</td>
+									<td>供货额(万元)</td>
+									<td>合作年限</td>
+									<td>结算方式</td>
+								</tr>
+							</thead>
+							<tbody>
+								<#if upCustomers?exists>
+								<#list upCustomers as upCustomer>
+								<tr>
+									<td>${upCustomer_index+1}</td>
+									<td>${upCustomer.upName!}</td>
+									<td><!-- --></td>
+									<td>${upCustomer.commodity!}</td>
+									<td><!-- --></td>
+									<td>${upCustomer.volume!}</td>
+									<td>${upCustomer.coopDuration!}</td>
+									<td>${upCustomer.paymentMode!}</td>
+								</tr>
+								</#list>
+								</#if>
+							</tbody>
+						</table>
+						<span class="listname">2、下游客户情况说明<#if hasEvList.corpSaler?? && hasEvList.corpSaler=='1'><a href="" class="evihref">证</a></#if></span>
+						 <p>${downCustomerAnalysis.analysis!}</p>
+						<p><!-- 附件 --></p>
+						<p>是/否有同一法人或实际控制人名下的关联企业：<label for=""><input type="checkbox" name="" class="checkbox" id="">有</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for=""><input type="checkbox" class="checkbox" name="" id="">无</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for=""><input type="checkbox" name="" class="checkbox" id="">不清楚</label></p>
+						<span class="listname">关联企业情况说明<#if hasEvList.corpRelCompanyList?? && hasEvList.corpRelCompanyList=='1'><a href="" class="evihref">证</a></#if>(下面关联企业信息表格，如果答案是：有，则显示，如果是：无/不清楚，则不显示)</span>
+						<p>
+						<#if associatedCompany.analysis??>
+							${associatedCompany.analysis?replace("\\r\\n","<w:p></w:p>","r")}
+						</#if>
+						</p>
+						 <p><!-- 附件 --></p>
+						 <span class="listname">3、关联企业信息：<#if hasEvList.corpRelCompanyList?? && hasEvList.corpRelCompanyList=='1'><a href="" class="evihref">证</a></#if><label for=""><input type="checkbox" name="" class="checkbox" id="">有</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for=""><input type="checkbox" class="checkbox" name="" id="">无</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for=""><input type="checkbox" name="" class="checkbox" id="">不清楚</label></span>
+						 <table class="tab">
+							<thead>
+								<tr>
+									<td width="5%">编号</td>
+									<td width="10%">企业名称</td>
+									<td width="10%">主营业务介绍</td>
+									<td width="15%">所在地区</td>
+									<td width="10%">实际控制人</td>
+									<td width="10%">注册资本</td>
+									<td width="10%">上年度主营业务收入</td>
+									<td width="10%">上年度主营业务毛利率</td>
+									<td width="10%">关联企业总资产</td>
+									<td width="10%">关联企业负债情况</td>
+								</tr>
+							</thead>
+							<tbody>
+								<#if relCompanyList?exists>
+								<#list relCompanyList as relCompany>
+								<tr>
+									<td>${relCompany_index+1}</td>
+									<td>${relCompany.company!}</td>
+									<td>${relCompany.mainService!}</td>
+									<td>${relCompany.companyArea!}</td>
+									<td>${relCompany.controlPerson!}</td>
+									<td>${relCompany.registerCapital!}</td>
+									<td>${relCompany.lastyearIncome!}</td>
+									<td>${relCompany.lastyearIncome!}</td>
+									<td>${relCompany.totalCapital!}</td>
+									<td>${relCompany.totalDebt!}</td>
+								</tr>
+								</#list>
+								</#if>
+							</tbody>
+						</table>
+						<span class="listname">4、关联交易信息<#if hasEvList.corpRelCompanyTrade?? && hasEvList.corpRelCompanyTrade=='1'><a href="" class="evihref">证</a></#if></span>
+						<table class="tab">
+							<thead>
+								<tr>
+									<td width="25%">编号</td>
+									<td width="25%">涉及企业名称</td>
+									<td width="25%">年度</td>
+									<td width="25%">发生金额</td>
+								</tr>
+							</thead>
+							<tbody>
+								<#if relCompanyTrade?exists>
+								<#list relCompanyTrade as relTrade>
+								<tr>
+									<td>${relTrade_index+1}</td>
+									<td>${relTrade.tradeCompany!}</td>
+									<td>${relTrade.year!}</td>
+									<td>${relTrade.tradeAmount!}</td>
+								</tr>
+								</#list>
+								</#if>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<h4 class="listtitle">六、运营状况</h4>
+				<div class="tabcontent">
+					<div class="subtab">
+						<span class="listname">1、运营情况评价</span>
+						<p>${yrzProject.yunyingZhuangkuangPingjia!}</p>
+						<p><!-- 附件 --></p>
+						<span class="listname">2、纳税情况<#if hasEvList.corpTaxScale?? && hasEvList.corpTaxScale=='1'><a href="" class="evihref">证</a></#if></span>
+						<!-- 
+						<p>云融资数据：三类企业纳税规模填报表（三选一）</p>
+						<p>类型一</p>
+						<table class="tab">
+							<thead>
+								<tr>
+									<td width="25%">填写科目</td>
+									<td width="25%">当期</td>
+									<td width="25%">2012</td>
+									<td width="25%">2011</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="ftwt">增值税额</td>
+									<td>数据</td>
+									<td>数据</td>
+									<td>数据</td>
+								</tr>
+								<tr>
+									<td class="ftwt">增值税报税销售额</td>
+									<td>数据</td>
+									<td>数据</td>
+									<td>数据</td>
+								</tr>
+								<tr>
+									<td class="ftwt">关联企业增值税报税销售额</td>
+									<td>数据</td>
+									<td>数据</td>
+									<td>数据</td>
+								</tr>
+								<tr>
+									<td class="ftwt">企业所得税税额</td>
+									<td>数据</td>
+									<td>数据</td>
+									<td>数据</td>
+								</tr>
+							</tbody>
+						</table>
+						<p>类型二</p>
+						<table class="tab">
+							<thead>
+								<tr>
+									<td width="25%">填写科目</td>
+									<td width="25%">当期</td>
+									<td width="25%">2012</td>
+									<td width="25%">2011</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="ftwt">增值税额</td>
+									<td>数据</td>
+									<td>数据</td>
+									<td>数据</td>
+								</tr>
+								<tr>
+									<td class="ftwt">增值税报税销售额</td>
+									<td>数据</td>
+									<td>数据</td>
+									<td>数据</td>
+								</tr>
+								<tr>
+									<td class="ftwt">注册地水利基金缴纳额</td>
+									<td>数据</td>
+									<td>数据</td>
+									<td>数据</td>
+								</tr>
+								<tr>
+									<td class="ftwt">企业所得税税额</td>
+									<td>数据</td>
+									<td>数据</td>
+									<td>数据</td>
+								</tr>
+							</tbody>
+						</table>
+						<p>类型三</p>
+						 -->
+						<#if taxScales?exists>
+						<table class="tab">
+							<thead>
+								<tr>
+									<td width="25%">科目</td>
+									<td width="25%">当期<#if taxScales[0]??><#if taxScales[0].fdDate??>${taxScales[0].fdDate?date!}</#if></#if></td>
+									<td width="25%">2012<#if taxScales[1]??><#if taxScales[1].fdDate??>${taxScales[1].fdDate?date!}</#if></#if></td>
+									<td width="25%">2011<#if taxScales[2]??><#if taxScales[2].fdDate??>${taxScales[2].fdDate?date!}</#if></#if></td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="ftwt">增值税</td>
+									<td><#if taxScales[0]??>${taxScales[0].zengzhiTax!}</#if></td>
+									<td><#if taxScales[1]??>${taxScales[0].zengzhiTax!}</#if></td>
+									<td><#if taxScales[2]??>${taxScales[0].zengzhiTax!}</#if></td>
+								</tr>
+								<tr>
+									<td class="ftwt">增值税报税销售额</td>
+									<td><#if taxScales[0]??>${taxScales[0].baoshuiXiaoshou!}</#if></td>
+									<td><#if taxScales[1]??>${taxScales[1].baoshuiXiaoshou!}</#if></td>
+									<td><#if taxScales[2]??>${taxScales[2].baoshuiXiaoshou!}</#if></td>
+								</tr>
+								<tr>
+									<td class="ftwt">注册地水利基金缴纳额</td>
+									<td><#if taxScales[0]??>${taxScales[0].zhucediShuiliJijin!}</#if></td>
+									<td><#if taxScales[1]??>${taxScales[1].zhucediShuiliJijin!}</#if></td>
+									<td><#if taxScales[2]??>${taxScales[2].zhucediShuiliJijin!}</#if></td>
+								</tr>
+								<tr>
+									<td class="ftwt">非注册地营业税</td>
+									<td><#if taxScales[0]??>${taxScales[0].feiZhucediYingye!}</#if></td>
+									<td><#if taxScales[1]??>${taxScales[1].feiZhucediYingye!}</#if></td>
+									<td><#if taxScales[2]??>${taxScales[2].feiZhucediYingye!}</#if></td>
+								</tr>
+								<tr>
+									<td class="ftwt">外经证缴纳额</td>
+									<td><#if taxScales[0]??>${taxScales[0].waijingzhengJiaona!}</#if></td>
+									<td><#if taxScales[1]??>${taxScales[1].waijingzhengJiaona!}</#if></td>
+									<td><#if taxScales[2]??>${taxScales[2].waijingzhengJiaona!}</#if></td>
+								</tr>
+								<tr>
+									<td class="ftwt">劳务发票抵扣部分</td>
+									<td><#if taxScales[0]??>${taxScales[0].laowuFapiaoDikou!}</#if></td>
+									<td><#if taxScales[1]??>${taxScales[1].laowuFapiaoDikou!}</#if></td>
+									<td><#if taxScales[2]??>${taxScales[2].laowuFapiaoDikou!}</#if></td>
+								</tr>
+								<tr>
+									<td class="ftwt">企业所得税税额</td>
+									<td><#if taxScales[0]??>${taxScales[0].qiyeSuode!}</#if></td>
+									<td><#if taxScales[1]??>${taxScales[1].qiyeSuode!}</#if></td>
+									<td><#if taxScales[2]??>${taxScales[2].qiyeSuode!}</#if></td>
+								</tr>
+							</tbody>
+							</#if>
+						</table>
+						<#assign tax_audit_remark="" no_tax_audit_remark="" />
+						<#if taxIncomes?exists>
+						<#list taxIncomes as taxIncome>
+							<#if (taxIncome.taxAuditRemark??) >
+							<#assign tax_audit_remark=tax_audit_remark+" "+taxIncome.taxAuditRemark />
+							</#if>
+							<#if (taxIncome.inflow??) >
+							<#assign no_tax_audit_remark=no_tax_audit_remark+" "+taxIncome.noTaxAuditRemark />
+							</#if>
+						</#list>
+						</#if>
+						<span class="listname">3、纳税收入情况核实说明<!-- <a href="" class="evihref">证</a> --></span>
+						<p>${tax_audit_remark!}</p>
+						<p><!-- 附件 --></p>
+						<span class="listname">4、非纳税收入情况核实说明<!-- <a href="" class="evihref">证</a> --></span>
+						<p>${no_tax_audit_remark!}</p>
+						<p>附件</p
+						<span class="listname">5、近三个月银行流水<#if hasEvList.corpBankFlow?? && hasEvList.corpBankFlow=='1'><a href="" class="evihref">证</a></#if></span>
+						<table class="tab">
+							<thead>
+								<tr>
+									<td width="25%">月份(月)</td>
+									<td width="25%">注入额(元)</td>
+									<td width="25%">流出额</td>
+									<td width="25%">月末余额</td>
+								</tr>
+							</thead>
+							<tbody>
+								<#assign mainBankAcc_inflow=0 mainBankAcc_outflow=0 mainBankAcc_balance=0 mainBankAcc_auditRemark="" />
+								<#if mainBankAccount?exists>
+								<#list mainBankAccount as mainBankAcc>
+								<tr>
+									<td>${mainBankAcc.yearMonth!}</td>
+									<td>
+									${mainBankAcc.inflow!}
+									<#if (mainBankAcc.inflow??) >
+									<#assign mainBankAcc_inflow=mainBankAcc_inflow+(mainBankAcc.inflow) />
+									</#if></td>
+									<td>
+									${mainBankAcc.outflow!}
+									<#if (mainBankAcc.outflow??) >
+									<#assign mainBankAcc_outflow=mainBankAcc_outflow+(mainBankAcc.outflow) />
+									</#if>
+									</td>
+									<td>
+									${mainBankAcc.balance!}
+									<#if (mainBankAcc.balance??) >
+									<#assign mainBankAcc_balance=mainBankAcc_balance+(mainBankAcc.balance) />
+									</#if>
+									</td>
+								</tr>
+								</#list>
+								</#if>
+							</tbody>
+						</table>
+						<span class="listname">6、银行流水核实说明<!-- <a href="" class="evihref">证</a> --></span>
+						<p>${mainBankAcc_auditRemark!}</p>
+						<p><!-- 附件 --></p>
+						<table class="tab">
+							<tbody>
+								<tr>
+									<td width="30px" class="ftwt">结论：近三个月银行流水与提供的销售收入数据比较是否相符</td>
+									<td width="70%">
+									<#if mainBankSummary.ifConform??&&mainBankSummary.ifConform==1><input type="checkbox" checked="checked" name="" value=""><#else><input type="checkbox" name="" value=""></#if>相符
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<#if mainBankSummary.ifConform??&&mainBankSummary.ifConform==2><input type="checkbox" checked="checked" name="" value=""><#else><input type="checkbox" name="" value=""></#if>基本相符
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<#if mainBankSummary.ifConform??&&mainBankSummary.ifConform==3><input type="checkbox" checked="checked" name="" value=""><#else><input type="checkbox" name="" value=""></#if>不相符
+									</td>
+								</tr>
+								<tr>
+									<td class="ftwt">说明不符原因</td>
+									<td><#if mainBankSummary.conformCause??>${mainBankSummary.conformCause?replace("\\r\\n","<w:p></w:p>","r")}</#if></td>
+								</tr>
+								<tr>
+									<td class="ftwt">备注</td>
+									<td><#if mainBankSummary.summary??>${mainBankSummary.summary?replace("\\r\\n","<w:p></w:p>","r")}</#if></td>
+								</tr>
+							</tbody>
+						</table>
+						<span class="listname">7、库存状况<#if hasEvList.corpKucun?? && hasEvList.corpKucun=='1'><a href="" class="evihref">证</a></#if></span>
+						<table class="tab">
+							<thead>
+								<tr>
+									<td width="5%">编号</td>
+									<td width="15%">仓库类型</td>
+									<td width="15%">存货性质</td>
+									<td width="15%">存货名称</td>
+									<td width="15%">金额(万元)</td>
+									<td width="10%">占比(%)</td>
+									<td width="10%">库龄</td>
+									<td width="15%">证明材料</td>
+								</tr>
+							</thead>
+							<tbody>
+								<#if corpKucun?exists>
+								<#list corpKucun as kucun>
+								<tr>
+									<td>${kucun_index+1}</td>
+									<td>${kucun.houseType!}</td>
+									<td>${kucun.kucunType!}</td>
+									<td>${kucun.kucunName!}</td>
+									<td>${kucun.kucunAmount!}</td>
+									<td>${kucun.kucunPercent!}</td>
+									<td>${kucun.kucunKuling!}</td>
+									<td>${kucun.kucunRemark!}</td>
+								</tr>
+								</#list>
+								</#if>
+							</tbody>
+						</table>
+						<span class="listname">8、库存情况核实说明<!-- <a href="" class="evihref">证</a> --></span>
+						<p><!-- --></p>
+						<span class="listname">9、能耗统计<#if hasEvList.corpEnergyExpend?? && hasEvList.corpEnergyExpend=='1'><a href="" class="evihref">证</a></#if></span>
+						<table class="tab">
+							<thead>
+								<tr>
+									<td width="5%">编号</td>
+									<td width="15%">时间</td>
+									<td width="20%">资源类型</td>
+									<td width="15%">使用量</td>
+									<td width="15%">计量单位</td>
+									<td width="15%">总金额(万元)</td>
+									<td width="15%">证明材料</td>
+								</tr>
+							</thead>
+							<tbody>
+								<#if energyExpends?exists>
+								<#list energyExpends as energyExpend>
+								<tr>
+									<td>${energyExpend_index+1}</td>
+									<td>${energyExpend.yearStr!} - ${energyExpend.monthStr!}</td>
+									<td>${energyExpend.resourceType!}</td>
+									<td>${energyExpend.useAmount!}</td>
+									<td>${energyExpend.unit!}</td>
+									<td>${energyExpend.totalMoney!}</td>
+									<td>&nbsp;</td>
+								</tr>
+								</#list>
+								</#if>
+							</tbody>
+						</table>
+						<span class="listname">10、固定资产<#if hasEvList.corpGudingZichan?? && hasEvList.corpGudingZichan=='1'><a href="" class="evihref">证</a></#if></span>
+						<table class="tab">
+							<thead>
+								<tr>
+									<td width="5%">编号</td>
+									<td width="15%">资产类型</td>
+									<td width="20%">资产名称</td>
+									<td width="15%">购入时间</td>
+									<td width="15%">购入价格</td>
+									<td width="15%">现值</td>
+									<td width="15%">证明材料</td>
+								</tr>
+							</thead>
+							<tbody>
+								<#if gudingZichans?exists>
+								<#list gudingZichans as gudingZichan>
+								<tr>
+									<td>${gudingZichan_index+1}</td>
+									<td>${gudingZichan.gudingZichanZhonglei!}</td>
+									<td>${gudingZichan.zichanName!}</td>
+									<td>${gudingZichan.gouruDate!}</td>
+									<td>${gudingZichan.yuanZhi!}</td>
+									<td>${gudingZichan.jingzhi!}</td>
+									<td>${gudingZichan.auditRemark!}</td>
+								</tr>
+								</#list>
+								</#if>
+							</tbody>
+						</table>
+						<span class="listname">11、固定资产核实说明</span>
+						<p><!-- --></p>
+						<p><!-- 附件 --></p>
+						<span class="listname">12、应收应付款<!-- <a href="" class="evihref">证</a> --></span>
+						<p>应收账款</p>
+						<table class="tab">
+							<thead>
+								<tr>
+									<td width="5%">编号</td>
+									<td width="15%">债务人名称</td>
+									<td width="20%">账款性质</td>
+									<td width="15%">金额</td>
+									<td width="15%">占比</td>
+									<td width="15%">账龄</td>
+									<td width="15%">证明材料</td>
+								</tr>
+							</thead>
+							<tbody>
+							<!-- 
+								<tr>
+									<td>1</td>
+									<td>数据</td>
+									<td>数据</td>
+									<td>数据</td>
+									<td>数据</td>
+									<td>数据</td>
+									<td>数据</td>
+								</tr>
+							 -->
+							</tbody>
+						</table>
+						<p>应付账款</p>
+						<table class="tab">
+							<thead>
+								<tr>
+									<td width="5%">编号</td>
+									<td width="15%">债务人名称</td>
+									<td width="20%">账款性质</td>
+									<td width="15%">金额</td>
+									<td width="15%">占比</td>
+									<td width="15%">账龄</td>
+									<td width="15%">证明材料</td>
+								</tr>
+							</thead>
+							<tbody>
+							<!-- 
+								<tr>
+									<td>1</td>
+									<td>数据</td>
+									<td>数据</td>
+									<td>数据</td>
+									<td>数据</td>
+									<td>数据</td>
+									<td>数据</td>
+								</tr>
+							 -->
+							</tbody>
+						</table>
+						<span class="listname">13、应收应付款核实情况说明<!-- <a href="" class="evihref">证</a> --></span>
+						<p><!-- --></p>
+						<p><!-- 附件 --></p>
+						<span class="listname">14、在建工程<#if hasEvList.corpBuildingPrj?? && hasEvList.corpBuildingPrj=='1'><a href="" class="evihref">证</a></#if></span>
+						<p>应收账款</p>
+						<table class="tab">
+							<thead>
+								<tr>
+									<td width="5%">编号</td>
+									<td width="15%">类型</td>
+									<td width="20%">工程名称</td>
+									<td width="15%">开工时间</td>
+									<td width="15%">开工预算(万元)</td>
+									<td width="15%">目前完成情况</td>
+									<td width="15%">证明材料</td>
+								</tr>
+							</thead>
+							<tbody>
+								<#if buildingPrjs?exists>
+								<#list buildingPrjs as buildingPrj>
+								<tr>
+									<td>${buildingPrj_index+1}</td>
+									<td>${buildingPrj.prjType!}</td>
+									<td>${buildingPrj.prjName!}</td>
+									<td>${buildingPrj.beginDate!}</td>
+									<td>${buildingPrj.prjAmount!}</td>
+									<td>${buildingPrj.workProgress!}</td>
+									<td></td>
+								</tr>
+								</#list>
+								</#if>
+							</tbody>
+						</table>
+						<span class="listname">15、在建工程核实说明<!-- <a href="" class="evihref">证</a> --></span>
+						<p><!-- --></p>
+						<p><!-- 附件 --></p>
+					</div>
+				</div>
+				<h4 class="listtitle">七、财务情况分析</h4>
+				<div class="tabcontent">
+					<div class="subtab">
+						<span class="listname">1、主要财务数据</span>
+						<#if keyFinanData?exists>
+						<table class="tab">
+							<thead>
+								<tr>
+									<td width="20%">科目名称</td>
+									<td width="20%">当期 <#if keyFinanData[0]??><#if keyFinanData[0].fdDate??>${keyFinanData[0].fdDate?date!}</#if></#if></td>
+									<td width="20%">同期 <#if keyFinanData[1]??><#if keyFinanData[1].fdDate??>${keyFinanData[1].fdDate?date!}</#if></#if></td>
+									<td width="20%">前一年度 <#if keyFinanData[2]??><#if keyFinanData[2].fdDate??>${keyFinanData[2].fdDate?date!}</#if></#if></td>
+									<td width="20%">前二年度 <#if keyFinanData[3]??><#if keyFinanData[3].fdDate??>${keyFinanData[3].fdDate?date!}</#if></#if></td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>总资产</td>
+									<td><#if keyFinanData[0]??>${keyFinanData[0].totalAssets!}</#if></td>
+									<td><#if keyFinanData[1]??>${keyFinanData[1].totalAssets!}</#if></td>
+									<td><#if keyFinanData[2]??>${keyFinanData[2].totalAssets!}</#if></td>
+									<td><#if keyFinanData[3]??>${keyFinanData[3].totalAssets!}</#if></td>
+								</tr>
+								<tr>
+									<td>总负债</td>
+									<td><#if keyFinanData[0]??>${keyFinanData[0].totalLiab!}</#if></td>
+									<td><#if keyFinanData[1]??>${keyFinanData[1].totalLiab!}</#if></td>
+									<td><#if keyFinanData[2]??>${keyFinanData[2].totalLiab!}</#if></td>
+									<td><#if keyFinanData[3]??>${keyFinanData[3].totalLiab!}</#if></td>
+								</tr>
+								<tr>
+									<td>流动资产</td>
+									<td><#if keyFinanData[0]??>${keyFinanData[0].currentAssets!}</#if></td>
+									<td><#if keyFinanData[1]??>${keyFinanData[1].currentAssets!}</#if></td>
+									<td><#if keyFinanData[2]??>${keyFinanData[2].currentAssets!}</#if></td>
+									<td><#if keyFinanData[3]??>${keyFinanData[3].currentAssets!}</#if></td>
+								</tr>
+								<tr>
+									<td>流动负债</td>
+									<td><#if keyFinanData[0]??>${keyFinanData[0].currentLiab!}</#if></td>
+									<td><#if keyFinanData[1]??>${keyFinanData[1].currentLiab!}</#if></td>
+									<td><#if keyFinanData[2]??>${keyFinanData[2].currentLiab!}</#if></td>
+									<td><#if keyFinanData[3]??>${keyFinanData[3].currentLiab!}</#if></td>
+								</tr>
+								<tr>
+									<td>存货</td>
+									<td><#if keyFinanData[0]??>${keyFinanData[0].stock!}</#if></td>
+									<td><#if keyFinanData[1]??>${keyFinanData[1].stock!}</#if></td>
+									<td><#if keyFinanData[2]??>${keyFinanData[2].stock!}</#if></td>
+									<td><#if keyFinanData[3]??>${keyFinanData[3].stock!}</#if></td>
+								</tr>
+								<tr>
+									<td>应收账款</td>
+									<td><#if keyFinanData[0]??>${keyFinanData[0].accountsRecei!}</#if></td>
+									<td><#if keyFinanData[1]??>${keyFinanData[1].accountsRecei!}</#if></td>
+									<td><#if keyFinanData[2]??>${keyFinanData[2].accountsRecei!}</#if></td>
+									<td><#if keyFinanData[3]??>${keyFinanData[3].accountsRecei!}</#if></td>
+								</tr>
+								<tr>
+									<td>固定资产</td>
+									<td><#if keyFinanData[0]??>${keyFinanData[0].fixedAssets!}</#if></td>
+									<td><#if keyFinanData[1]??>${keyFinanData[1].fixedAssets!}</#if></td>
+									<td><#if keyFinanData[2]??>${keyFinanData[2].fixedAssets!}</#if></td>
+									<td><#if keyFinanData[3]??>${keyFinanData[3].fixedAssets!}</#if></td>
+								</tr>
+								<tr>
+									<td>应付账款</td>
+									<td><#if keyFinanData[0]??>${keyFinanData[0].accountsPayable!}</#if></td>
+									<td><#if keyFinanData[1]??>${keyFinanData[1].accountsPayable!}</#if></td>
+									<td><#if keyFinanData[2]??>${keyFinanData[2].accountsPayable!}</#if></td>
+									<td><#if keyFinanData[3]??>${keyFinanData[3].accountsPayable!}</#if></td>
+								</tr>
+								<tr>
+									<td>银行借款</td>
+									<td><#if keyFinanData[0]??>${keyFinanData[0].bankBorrowings!}</#if></td>
+									<td><#if keyFinanData[1]??>${keyFinanData[1].bankBorrowings!}</#if></td>
+									<td><#if keyFinanData[2]??>${keyFinanData[2].bankBorrowings!}</#if></td>
+									<td><#if keyFinanData[3]??>${keyFinanData[3].bankBorrowings!}</#if></td>
+								</tr>
+								<tr>
+									<td>所有者权益</td>
+									<td><#if keyFinanData[0]??>${keyFinanData[0].ownersEquity!}</#if></td>
+									<td><#if keyFinanData[1]??>${keyFinanData[1].ownersEquity!}</#if></td>
+									<td><#if keyFinanData[2]??>${keyFinanData[2].ownersEquity!}</#if></td>
+									<td><#if keyFinanData[3]??>${keyFinanData[3].ownersEquity!}</#if></td>
+								</tr>
+								<tr>
+									<td>主营业务收入</td>
+									<td><#if keyFinanData[0]??>${keyFinanData[0].mainIncome!}</#if></td>
+									<td><#if keyFinanData[1]??>${keyFinanData[1].mainIncome!}</#if></td>
+									<td><#if keyFinanData[2]??>${keyFinanData[2].mainIncome!}</#if></td>
+									<td><#if keyFinanData[3]??>${keyFinanData[3].mainIncome!}</#if></td>
+								</tr>
+								<tr>
+									<td>主营业务成本</td>
+									<td><#if keyFinanData[0]??>${keyFinanData[0].mainCosts!}</#if></td>
+									<td><#if keyFinanData[1]??>${keyFinanData[1].mainCosts!}</#if></td>
+									<td><#if keyFinanData[2]??>${keyFinanData[2].mainCosts!}</#if></td>
+									<td><#if keyFinanData[3]??>${keyFinanData[3].mainCosts!}</#if></td>
+								</tr>
+								<tr>
+									<td>净利润</td>
+									<td><#if keyFinanData[0]??>${keyFinanData[0].netProfit!}</#if></td>
+									<td><#if keyFinanData[1]??>${keyFinanData[1].netProfit!}</#if></td>
+									<td><#if keyFinanData[2]??>${keyFinanData[2].netProfit!}</#if></td>
+									<td><#if keyFinanData[3]??>${keyFinanData[3].netProfit!}</#if></td>
+								</tr>
+								<tr>
+									<td>销售费用</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>管理费用</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>财务费用</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>净资产收益率</td>
+									<td><#if keyFinanData[0]??>${keyFinanData[0].gearingRatio!}</#if></td>
+									<td><#if keyFinanData[1]??>${keyFinanData[1].gearingRatio!}</#if></td>
+									<td><#if keyFinanData[2]??>${keyFinanData[2].gearingRatio!}</#if></td>
+									<td><#if keyFinanData[3]??>${keyFinanData[3].gearingRatio!}</#if></td>
+								</tr>
+								<tr>
+									<td>资产负债比率</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>流动比率</td>
+									<td><#if keyFinanData[0]??>${keyFinanData[0].currentRatio!}</#if></td>
+									<td><#if keyFinanData[1]??>${keyFinanData[1].currentRatio!}</#if></td>
+									<td><#if keyFinanData[2]??>${keyFinanData[2].currentRatio!}</#if></td>
+									<td><#if keyFinanData[3]??>${keyFinanData[3].currentRatio!}</#if></td>
+								</tr>
+								<tr>
+									<td>速动比率</td>
+									<td><#if keyFinanData[0]??>${keyFinanData[0].quickRatio!}</#if></td>
+									<td><#if keyFinanData[1]??>${keyFinanData[1].quickRatio!}</#if></td>
+									<td><#if keyFinanData[2]??>${keyFinanData[2].quickRatio!}</#if></td>
+									<td><#if keyFinanData[3]??>${keyFinanData[3].quickRatio!}</#if></td>
+								</tr>
+								<tr>
+									<td>存货周期率</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>应收帐周转率</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>销售毛利率</td>
+									<td><#if keyFinanData[0]??>${keyFinanData[0].saleGrossMargin!}</#if></td>
+									<td><#if keyFinanData[1]??>${keyFinanData[1].saleGrossMargin!}</#if></td>
+									<td><#if keyFinanData[2]??>${keyFinanData[2].saleGrossMargin!}</#if></td>
+									<td><#if keyFinanData[3]??>${keyFinanData[3].saleGrossMargin!}</#if></td>
+								</tr>
+								<tr>
+									<td>销售净利率</td>
+									<td><#if keyFinanData[0]??>${keyFinanData[0].salesMargin!}</#if></td>
+									<td><#if keyFinanData[1]??>${keyFinanData[1].salesMargin!}</#if></td>
+									<td><#if keyFinanData[2]??>${keyFinanData[2].salesMargin!}</#if></td>
+									<td><#if keyFinanData[3]??>${keyFinanData[3].salesMargin!}</#if></td>
+								</tr>
+								<tr>
+									<td>总资产周转率</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+						</#if>
+						<p>以上数据来源<#if hasEvList.corpZhuyaoCaiwu?? && hasEvList.corpZhuyaoCaiwu=='1'><a href="" class="evihref">证</a></#if></p>
+						<table class="tab">
+							<thead>
+								<tr>
+									<td width="25%">报表时间</td>
+									<td width="35%">报表属性</td>
+									<td width="40%">备注</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="ftwt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月</td>
+									<td><label for=""><input type="checkbox" name="" class="checkbox" id="">审计报表</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for=""><input type="checkbox" name="" class="checkbox" id="">未审计报表</label></td>
+									<td rowspan="4">如报表未审计，说明来源（税务报表，银行报表），如审计，说明审计机构名称</td>
+								</tr>
+								<tr>
+									<td class="ftwt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月</td>
+									<td><label for=""><input type="checkbox" name="" class="checkbox" id="">审计报表</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for=""><input type="checkbox" name="" class="checkbox" id="">未审计报表</label></td>
+								</tr>
+								<tr>
+									<td class="ftwt"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月</p></td>
+									<td><label for=""><input type="checkbox" name="" class="checkbox" id="">审计报表</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for=""><input type="checkbox" name="" class="checkbox" id="">未审计报表</label></td>
+								</tr>
+								<tr>
+									<td class="ftwt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月</td>
+									<td><label for=""><input type="checkbox" name="" class="checkbox" id="">审计报表</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for=""><input type="checkbox" name="" class="checkbox" id="">未审计报表</label></td>
+								</tr>
+							</tbody>
+						</table>
+						<span class="listname">2、财务核实过程：（运营状况核实细分科目，财务状况主要核实收入及盈利情况）</span>
+						<p><!-- --></p>
+						<p><!-- 附件 --></p>
+
+					</div>
+				</div>
+				<h4 class="listtitle">八、重大事项  </h4>
+				<div class="tabcontent">
+					<div class="subtab">
+						<span class="listname">1、企业融资情况<!-- <a href="" class="evihref">证</a> --><label for=""><input type="checkbox" name="" class="checkbox" id="">有</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for=""><input type="checkbox" name="" class="checkbox" id="">无</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for=""><input type="checkbox" name="" class="checkbox" id="">不清楚</label></span>
+						<table class="tab">
+							<thead>
+								<tr>
+									<td width="12%">贷款主体</td>
+									<td width="15%">贷款金融机构名称</td>
+									<td width="9%">金额（万元）</td>
+									<td width="12%">品种</td>
+									<td width="7%">融资成本(%)</td>
+									<td width="10%">起始时间</td>
+									<td width="10%">终止时间</td>
+									<td width="15%">担保方式</td>
+									<td width="10%">取得贷款银行归属地</td>
+								</tr>
+							</thead>
+							<tbody>
+								<#if bankLoans?exists>
+								<#list bankLoans as bankLoan>
+								<tr>
+									<td>${bankLoan.loanCorp!}</td>
+									<td>${bankLoan.bankName!}</td>
+									<td>${bankLoan.amount!}</td>
+									<td>${bankLoan.mode!}</td>
+									<td>${bankLoan.financeCost!}</td>
+									<td>${bankLoan.startDate!}</td>
+									<td>${bankLoan.endDate!}</td>
+									<td>${bankLoan.guaranteeMode!}</td>
+									<td>${bankLoan.bankArea!}</td>
+								</tr>
+								</#list>
+								</#if>
+							</tbody>
+						</table>
+						<span class="listname">2、其他融资明细</span>
+						<table class="tab">
+							<thead>
+								<tr>						
+									<td width="5%">编号</td>
+									<td width="15%">性质</td>
+									<td width="15%">品种</td>
+									<td width="15%">融资来源</td>
+									<td width="15%">起始时间</td>
+									<td width="15%">终止时间</td>
+									<td width="20%">详情描述</td>
+								</tr>
+							</thead>
+							<tbody>
+								<#if qitaRongzis?exists>
+								<#list qitaRongzis as qitaRongzi>
+								<tr>
+									<td>${qitaRongzi_index+1}</td>
+									<td>${qitaRongzi.rongziProperty!}</td>
+									<td>${qitaRongzi.rongziPinzhong!}</td>
+									<td>${qitaRongzi.rongziLaiyuan!}</td>
+									<td>${qitaRongzi.startDate!}</td>
+									<td>${qitaRongzi.endDate!}</td>
+									<td>${qitaRongzi.descInfo!}</td>
+								</tr>
+								</#list>
+								</#if>
+							</tbody>
+						</table>
+						<span class="listname">3、对外担保<#if hasEvList.corpDuiwaiDanbao?? && hasEvList.corpDuiwaiDanbao=='1'><a href="" class="evihref">证</a></#if><label for=""><input type="checkbox" name="" class="checkbox" id="">有</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for=""><input type="checkbox" name="" class="checkbox" id="">无</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for=""><input type="checkbox" name="" class="checkbox" id="">不清楚</label></span>
+						<table class="tab">
+							<thead>
+								<tr>
+									<td width="5%">编号</td>
+									<td width="15%">贷款金融机构名称</td>
+									<td width="15%">金额（万元）</td>
+									<td width="15%">被担保人名称</td>
+									<td width="15%">起始时间</td>
+									<td width="15%">终止时间</td>
+									<td width="20%">详情描述</td>
+								</tr>
+							</thead>
+							<tbody>
+								<#if externalGuarantees?exists>
+								<#list externalGuarantees as externalGuarantee>
+								<tr>
+									<td>${externalGuarantee_index+1}</td>
+									<td>${externalGuarantee.loanBranch!}</td>
+									<td>${externalGuarantee.amount!}</td>
+									<td>${externalGuarantee.guaranteePerson!}</td>
+									<td>${externalGuarantee.startDate!}</td>
+									<td>${externalGuarantee.endDate!}</td>
+									<td>${externalGuarantee.descInfo!}</td>
+								</tr>
+								</#list>
+								</#if>
+							</tbody>
+						</table>
+						<span class="listname">4、仲裁或法律诉讼情况<!-- <a href="" class="evihref">证</a> --><label for=""><input type="checkbox" name="" class="checkbox" id="">有</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for=""><input type="checkbox" name="" class="checkbox" id="">无</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for=""><input type="checkbox" name="" class="checkbox" id="">不清楚</label></span>
+						<p><!-- --></p>
+						<span class="listname">5、企业及实际控制人行政处罚情况<!-- <a href="" class="evihref">证</a> --><label for=""><input type="checkbox" name="" class="checkbox" id="">有</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for=""><input type="checkbox" name="" class="checkbox" id="">无</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for=""><input type="checkbox" name="" class="checkbox" id="">不清楚</label></span>
+						<p><!-- --></p>
+						<span class="listname">6、民间借贷<label for=""><input type="checkbox" name="" class="checkbox" id="">有</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for=""><input type="checkbox" name="" class="checkbox" id="">无</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for=""><input type="checkbox" name="" class="checkbox" id="">不清楚</label></span>
+						<table class="tab">
+							<thead>
+								<tr>				
+									<td width="20%">涉及企业名称</td>
+									<td width="20%">重大事项类型</td>
+									<td width="20%">发生时间</td>
+									<td width="20%">涉及金额(万元)</td>
+									<td width="20%">情况说明</td>
+								</tr>
+							</thead>
+							<tbody>
+								<#if privateLendings?exists>
+								<#list privateLendings as privateLending>
+								<tr>
+									<td>${privateLending.relCompany!}</td>
+									<td>${privateLending.itemType!}</td>
+									<td>${privateLending.happenDate!}</td>
+									<td>${privateLending.amount!}</td>
+									<td>${privateLending.memo!}</td>
+								</tr>
+								</#list>
+								</#if>
+							</tbody>
+						</table>
+						<span class="listname">7、其他重大事项<label for=""><input type="checkbox" name="" class="checkbox" id="">有</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for=""><input type="checkbox" name="" class="checkbox" id="">无</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for=""><input type="checkbox" name="" class="checkbox" id="">不清楚</label></span>
+						<p>${yrzProject.greatEventQita!}</p>
+						<p><!-- 附件 --></p>
+						<span class="listname">8、可抵/质押物情况<label for=""><input type="checkbox" name="" class="checkbox" id="">有</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for=""><input type="checkbox" name="" class="checkbox" id="">无</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for=""><input type="checkbox" name="" class="checkbox" id="">不清楚</label></span>
+						<table class="tab">
+							<thead>
+								<tr>							
+									<td width="25%">可抵/质押物名称</td>
+									<td width="25%">可抵/质押物类别</td>
+									<td width="25%">抵/质押物价值(万元)</td>
+									<td width="25%">产权归属</td>
+								</tr>
+							</thead>
+							<tbody>
+								<#if diyaZhiyas?exists>
+								<#list diyaZhiyas as diyaZhiya>
+								<tr>
+									<td>${diyaZhiya.diyaMingcheng!}</td>
+									<td></td>
+									<td>${diyaZhiya.diyaJiazhi!}</td>
+									<td>${diyaZhiya.chanquanGuishu!}</td>
+								</tr>
+								</#list>
+								</#if>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<h4 class="listtitle">九、还款来源</h4>
+				<div class="tabcontent">
+					<div class="subtab">
+						<span class="listname">1、还款来源</span>
+						<table class="tab">
+							<thead>
+								<tr>							
+									<td width="20%">年月</td>
+									<td width="20%">经营活动现金净流量</td>
+									<td width="20%">筹资活动现金净流量</td>
+									<td width="20%">投资活动现金净流量</td>
+									<td width="20%">合计</td>
+								</tr>
+							</thead>
+							<tbody>
+								<#if repayCashSummary?exists>
+								<#list repayCashSummary as rcs>
+								<tr>
+									<td>${rcs.yearMonth!}</td>
+									<td>${rcs.operActCashflow!}</td>
+									<td>${rcs.finActCashflow!}</td>
+									<td>${rcs.investActCashflow!}</td>
+									<td>${rcs.amount!}</td>
+								</tr>
+								</#list>
+								</#if>
+							</tbody>
+						</table>
+						<br>
+						<span class="listname">2、还款来源（例如到期流动资产的临时抽调，民间拆借，处置抵押物等）</span>
+						<p><#if projectReportInfo.secondSource??>${projectReportInfo.secondSource?replace("\\r\\n","<w:p></w:p>","r")}</#if></p>
+					</div>
+				</div>
+				<h4 class="listtitle">十、主要风险与控制措施：</h4>
+				<div class="tabcontent">
+					<div class="subtab">
+						<table class="tab">
+							<tbody>
+								<tr>
+									<td class="ftwt" width="30%">项目主要风险点</td>
+									<td width="70%"><#if projectReportInfo.projectRisks??>${projectReportInfo.projectRisks?replace("\\r\\n","<w:p></w:p>","r")}</#if></td>
+								</tr>
+								<tr>
+									<td class="ftwt">保后关注点</td>
+									<td><label for=""><#if projectReportInfo.paulAfterConcerns??>${projectReportInfo.paulAfterConcerns?replace("\\r\\n","<w:p></w:p>","r")}</#if></td>
+								</tr>
+								<tr>
+									<td class="ftwt">反担保方式</td>
+									<td>
+									<#if projectReportInfo.cgOutlinedEnsure?? && projectReportInfo.cgOutlinedEnsure=='1'><input type="checkbox" checked="checked" name="" value=""><#else><input type="checkbox" name="" value=""></#if>保证 
+									<#if projectReportInfo.cgOutlinedMortgage?? && projectReportInfo.cgOutlinedMortgage=='1'><input type="checkbox" checked="checked" name="" value=""><#else><input type="checkbox" name="" value=""></#if>抵押 
+									<#if projectReportInfo.cgOutlinedPledge?? && projectReportInfo.cgOutlinedPledge=='1'><input type="checkbox" checked="checked" name="" value=""><#else><input type="checkbox" name="" value=""></#if>质押
+									</td>
+								</tr>
+								<tr>
+									<td class="ftwt">反担保措施设计</td>
+									<td><#if projectReportInfo.measuresDesign??>${projectReportInfo.measuresDesign?replace("\\r\\n","<w:p></w:p>","r")}</#if></td>
+								</tr>
+								<tr>
+									<td class="ftwt">实际控制人和连带责任人</td>
+									<td><#if projectReportInfo.liablePerson??>${projectReportInfo.liablePerson?replace("\\r\\n","<w:p></w:p>","r")}</#if></td>
+								</tr>
+								<tr>
+									<td class="ftwt">个人资产情况</td>
+									<td><#if projectReportInfo.personalAssets??>${projectReportInfo.personalAssets?replace("\\r\\n","<w:p></w:p>","r")}</#if></td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<h4 class="listtitle">十一、项目综合意见</h4>
+				<div class="tabcontent">
+					<div class="subtab">
+						<span class="listname">结论：对本项目的明确态度：</span>
+						<table class="tab">
+							<tbody>
+								<tr>
+									<td width="25%" class="ftr"><label for=""><input type="checkbox" name="" id="" class="checkbox"></label></td>
+									<td width="25%">良好</td>
+									<td class="ftr" width="25%"><label for=""><input type="checkbox" name="" id="" class="checkbox"></label></td>
+									<td width="25%">基本可行</td>
+								</tr>
+								<tr>
+									<td class="ftr"><label for=""><input type="checkbox" name="" id="" class="checkbox"></label></td>
+									<td>担心</td>
+									<td class="ftr"><label for=""><input type="checkbox" name="" id="" class="checkbox"></label></td>
+									<td>否决意见</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<h4 class="listtitle"></h4>
+				<div class="tabcontent">
+					<div class="subtab">
+						<span class="listname"></span>
+					</div>
+				</div>
+
+
+		</div>
+	</body>
+</html>

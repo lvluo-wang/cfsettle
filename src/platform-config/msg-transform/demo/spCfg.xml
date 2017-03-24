@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.hundsun.com/xcars/msg/sp" 
+	xmlns:msg="http://www.hundsun.com/xcars/msg" 
+xsi:schemaLocation="http://www.hundsun.com/xcars/msg/sp ../schema/sp.xsd">
+	<sp>|</sp>
+    <items xpath="/reconciliation">
+        <item xpath="sourceSys">
+            <lineNo>1</lineNo>
+            <sn>1</sn>
+        </item>
+        <item xpath="sysDate">
+            <lineNo>1</lineNo>
+            <sn>2</sn>
+        </item>
+    </items>
+    <items xpath="/reconciliation">
+        <item xpath="checkCount">
+            <lineNo>2</lineNo>
+            <sn>1</sn>
+        </item>
+        <item xpath="reserve">
+            <lineNo>2</lineNo>
+            <sn>2</sn>
+        </item>
+    </items>
+    <list cycFieldNum="2" startLineNo="3" xpath="/reconciliation/datas/data">
+        <field xpath="qBank">
+            <sn>1</sn>
+        </field>
+        <field xpath="qDate">
+            <sn>2</sn>
+        </field>
+    </list>
+</config>

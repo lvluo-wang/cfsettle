@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root-container name="bbsp_demo_composite" width="647" height="556">
+  <node name="start" x="153" y="14" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="apply_accept" x="147" y="82" width="119" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="bill_audit" x="304" y="83" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="fork1" x="373" y="153" width="252" height="24">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="-6" y="-10"/>
+    </edge>
+  </node>
+  <node name="count" x="244" y="219" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="0" h1="-72" w2="-207" h2="-1"/>
+    </edge>
+  </node>
+  <node name="bill_inquire" x="486" y="213" width="155" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="bill_answer" x="489" y="281" width="157" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="join1" x="283" y="403" width="252" height="24">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="join_state" x="356" y="340" width="128" height="38">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="apply_profit" x="316" y="457" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="apply_audit" x="472" y="82" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="end" x="317" y="519" width="132" height="36"/>
+</root-container>

@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<project name="cfsettle" default="war" basedir=".">
+	<property name="src.dir" value="src" />
+	<property name="classes.dir" value="WebRoot/WEB-INF/classes" />
+	<property name="lib.dir" value="WebRoot/WEB-INF/lib" />
+	<property name="webroot.dir" value="WebRoot" />
+	<property name="dist.dir" value="dist" />
+
+	<target name="clean"> 
+		<!-- <delete dir="${classes.dir}" /> -->
+		<delete dir="${dist.dir}" />
+		<delete dir="${classes.dir}" />
+	</target>
+
+	<target name="init"  depends="clean">
+		<tstamp/>
+		<!--<mkdir dir="${classes.dir}"/> -->
+		<mkdir dir="${dist.dir}"/>
+		<mkdir dir="${classes.dir}"/>
+	</target>
+
+	<path id="proj.classpath">
+		<fileset file="${lib.dir}/*.jar" />
+		<fileset file="./lib/*.jar" />
+		<pathelement path="${classes.dir}" />
+	</path>
+	<target name="compile" depends="init" >
+		<javac srcdir="${src.dir}" destdir="${classes.dir}"  debug="true" encoding="utf-8">
+			<classpath refid="proj.classpath" />
+		</javac>
+		<copy todir="${classes.dir}" overwrite="true">
+			<fileset dir="${src.dir}">
+				<include name="**/**" />
+				<exclude name="**/*.java"/>
+			</fileset>
+		</copy>
+	</target>
+	<target name="war" depends="compile">
+		<jar jarfile="${dist.dir}/cfsettle.war">
+		   <fileset dir="${webroot.dir}">
+			<include name="**/*" />
+		   </fileset>
+		</jar>
+	</target>
+</project>

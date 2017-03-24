@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.upg.ucars.mapping.basesystem.product.ProductAttribute" table="PRODUCT_ATTRIBUTE">
+		<id name="id" type="java.lang.Long">
+			<column name="ID" precision="22" scale="0"/>
+			<generator class="native"/>
+		</id>
+		<property name="key" type="java.lang.String">
+			<column name="ATTR_KEY" length="100"/>
+		</property>
+		<property name="name" type="java.lang.String">
+			<column name="ATTR_NAME" length="100"/>
+		</property>
+		<property name="value" type="java.lang.String">
+			<column name="ATTR_VALUE" length="100"/>
+		</property>
+		<property name="codeMetaKey" type="java.lang.String">
+			<column name="CODE_META_KEY" length="20" />
+		</property>
+	</class>
+</hibernate-mapping>

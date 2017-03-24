@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reconciliation>
+	<sourceSys>CBMS</sourceSys>
+	<sysDate>20110808</sysDate>
+	<checkCount>3</checkCount>
+	<reserve></reserve>
+	<datas>
+		<data>
+			<qBank>科目所属行所</qBank>
+			<qDate>查询日期</qDate>
+		</data>
+		<data>
+			<qBank>123456</qBank>
+			<qDate>201108081234</qDate>
+		</data>
+		<data>
+			<qBank>789012</qBank>
+			<qDate>201108081235</qDate>
+		</data>
+	</datas>
+</reconciliation>

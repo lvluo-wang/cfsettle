@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="security" namespace="/security" extends="pkg-base">
+ 		 <result-types>
+			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+  	<action name="user_*" class="com.upg.ucars.basesystem.security.action.UserAction" method="{1}">
+  			<result name="main">/platform/module/basesystem/security/user/main.jsp</result>
+  			<result name="OL_MAIN">/platform/module/basesystem/security/user/onlineMain.jsp</result>
+			<result name="add">/platform/module/basesystem/security/user/add.jsp</result>
+			<result name="edit">/platform/module/basesystem/security/user/edit.jsp</result>
+			<result name="userRoleMain">/platform/module/basesystem/security/user/userRoleMain.jsp</result>
+			<result name="userFuncTree">/platform/module/basesystem/security/user/userFuncTree.jsp</result>
+			<result name="userFuncTreeAudit">/platform/module/basesystem/security/user/userFuncAudit.jsp</result>
+			<result name="changePassword">/platform/module/basesystem/security/user/changePassword.jsp</result>
+			<result name="selectUser">/platform/module/basesystem/security/user/selectUserList.jsp</result>
+			
+  		</action>
+  		<action name="login_*" class="com.upg.ucars.basesystem.security.action.LoginAction" method="{1}">
+  			<result name="main">/main.jsp</result>
+  			<result name="after_logout" type="redirect">/</result>
+  		</action>
+  		<action name="index" class="com.upg.ucars.basesystem.security.action.LoginAction" method="success">
+  			<result name="main">/main.jsp</result>
+  			<result name="main" type="tiles">${xtheme}</result>
+  		</action>
+  		<action name="open" class="com.upg.ucars.basesystem.security.action.LoginAction" method="targetPage">
+  			<result name="targetPage">/platform/common/pageBody.jsp</result>
+  		</action>
+  		<action name="brch_*" class="com.upg.ucars.basesystem.security.action.BranchAction" method="{1}">
+  			<result name="list">/platform/module/basesystem/security/branch/list.jsp</result>
+  			<result name="input">/platform/module/basesystem/security/branch/add.jsp</result>
+  			<result name="brchPopedom">/platform/module/basesystem/security/branch/setPopedom.jsp</result>
+  			<result name="changeSubsysMode">/platform/module/basesystem/security/branch/subsysFunc.jsp</result>
+  			<result name="selectBrch">/platform/common/choose/chooseSuperBranch.jsp</result>
+  			<result name="chooseBrch">/platform/common/choose/chooseBranch.jsp</result>
+			<result name="brchFuncAudit">/platform/module/basesystem/security/branch/brchFuncAudit.jsp</result>
+			<result name="toCopyBrchFunc">/platform/module/basesystem/security/branch/toCopyBrchFunc.jsp</result>
+  		</action>
+  		<action name="userlog_*" class="com.upg.ucars.basesystem.security.action.UserLogAction" method="{1}">
+  			<result name="main">/platform/module/basesystem/security/userlog/list.jsp</result>
+  		</action>
+  		<action name="member_*" class="com.upg.ucars.basesystem.security.action.MemberAction" method="{1}">			
+			<result name="main">/platform/module/basesystem/security/member/main.jsp</result>
+			<result name="add">/platform/module/basesystem/security/member/add_member.jsp</result>
+			<result name="edit">/platform/module/basesystem/security/member/edit.jsp</result>
+			<result name="view">/platform/module/basesystem/security/member/view.jsp</result>
+			<result name="config">/platform/module/basesystem/security/member/config.jsp</result>
+			<result name="edit_config">/platform/module/basesystem/security/member/editConfig.jsp</result>
+			<result name="assignParams">/platform/module/basesystem/security/member/assignParams.jsp</result>			
+			<result name="success">/platform/module/basesystem/security/member/{1}.jsp</result>
+  		</action>
+  		<action name="sys_param_*" class="com.upg.ucars.basesystem.security.action.SysParamAction" method="{1}">
+  			<result name="main">/platform/module/basesystem/security/sysparam/list.jsp</result>
+  			<result name="add">/platform/module/basesystem/security/sysparam/add.jsp</result>
+ 			<result name="auditView">/platform/module/basesystem/security/sysparam/auditview.jsp</result>
+  		</action>
+  		<action name="sys_config_*" class="com.upg.ucars.basesystem.security.action.SysConfigAction" method="{1}">
+  			
+  		</action>
+  		<action name="role_*" class="com.upg.ucars.basesystem.security.action.RoleAction" method="{1}">
+  			<result name="main">/platform/module/basesystem/security/role/main.jsp</result>
+			<result name="add">/platform/module/basesystem/security/role/add.jsp</result>
+			<result name="edit">/platform/module/basesystem/security/role/edit.jsp</result>
+			<result name="roleFuncMain">/platform/module/basesystem/security/role/roleFuncMain.jsp</result>
+  		</action>
+  		<action name="sysfunc_*" class="com.upg.ucars.basesystem.security.action.SysfuncAction" method="{1}">
+			<result name="main">/platform/module/basesystem/security/sysfunc/main.jsp</result>
+			<result name="add">/platform/module/basesystem/security/sysfunc/add.jsp</result>
+			<result name="edit">/platform/module/basesystem/security/sysfunc/edit.jsp</result>
+			<result name="view">/platform/module/basesystem/security/sysfunc/view.jsp</result>
+		</action>
+		<action name="subsystem_*" class="com.upg.ucars.basesystem.security.action.SubsystemAction" method="{1}">
+			<result name="main" >/platform/module/basesystem/security/subsystem/subsystemMain.jsp</result>
+			<result name="add">/platform/module/basesystem/security/subsystem/subsystemAdd.jsp</result>
+			<result name="edit">/platform/module/basesystem/security/subsystem/subsystemEdit.jsp</result>
+			<result name="funcMain">/platform/module/basesystem/security/subsystem/subsystemFuncMain.jsp</result>
+		</action>
+	</package>
+	<package name="/login" namespace="/" extends="pkg-base">
+		<action name="login" class="com.upg.ucars.basesystem.security.action.LoginAction" method="login">
+  			<result name="login" >/login.jsp</result>
+  		</action>
+	</package>
+</struts>

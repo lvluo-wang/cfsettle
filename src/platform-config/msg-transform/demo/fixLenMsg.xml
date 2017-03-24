@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reconciliation>
+	<sourceSys>CBMS</sourceSys>
+	<sysDate>20110808</sysDate>
+	<checkCount>3</checkCount>
+	<reserve></reserve>
+	<datas>
+		<data>
+			<qBank v="123"/>
+			<qDate>201108081234</qDate>
+		</data>
+		<data>
+			<qBank v="456"/>
+			<qDate>201108081235</qDate>
+		</data>
+		<data>
+			<qBank v="789"/>
+			<qDate>201108081236</qDate>
+		</data>
+		<data>
+			<qBank v="012"/>
+			<qDate>201108081237</qDate>
+		</data>
+	</datas>
+</reconciliation>

@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration>
+	<!-- 控制台 -->
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5p: %c#%M %x: %m%n" />
+		</layout>
+	</appender>
+	<!-- 数据库 密文使用<appender name="DATABASE" class="com.upg.ucars.framework.log.core.ExJDBCAppender">  -->
+		 
+	<!--  
+	<appender name="DATABASE" class="org.apache.log4j.jdbc.JDBCAppender">  
+		<param name="URL" value="jdbc:oracle:thin:@localhost:1521:orcl"/>  
+		<param name="driver" value="oracle.jdbc.driver.OracleDriver"/>  
+		<param name="user" value="xcars_test"/>  
+		<param name="password" value="oracle"/>      
+		<layout class="org.apache.log4j.PatternLayout">  
+			<param name="ConversionPattern" value="INSERT INTO LOG4J(stamp,thread, info_level,class,message) VALUES ('%d', '%t', '%p', '%c', %m)" />  
+		</layout>  
+	</appender>
+	<logger name="DBLOG" additivity="false">
+		<level value="error"/>
+		<appender-ref ref="DATABASE"/>
+	</logger>
+	-->
+	<!-- 同步配置 -->
+	<!-- 通用日志，框架级 -->
+	<logger name="COMMON" additivity="false">
+		<level value="error"/>
+		<appender-ref ref="xcars_common"/>
+	</logger>
+	<appender name="xcars_common" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="logs/common/xcars_common.log"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{yyyy-MM-dd HH:mm:ss} %-5p %-5c{1} %t -> %m%n" />
+		</layout>
+	</appender>	
+	<!--异常日志  -->
+	<logger name="EXCEPTION" additivity="false">
+		<level value="error"/>
+		<appender-ref ref="xcars_exception"/>
+	</logger>
+	<appender name="xcars_exception" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="logs/exception/xcars_exception.log"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{yyyy-MM-dd HH:mm:ss} -> %m%n" />
+		</layout>
+	</appender>
+	<!-- 用户日志 -->
+	<logger name="USER" additivity="false">
+		<level value="error"/>
+		<appender-ref ref="xcars_user"/>
+	</logger>
+	<appender name="xcars_user" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="logs/user/xcars_user.log"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{yyyy-MM-dd HH:mm:ss} -> %m%n" />
+		</layout>
+	</appender>
+	<!-- 工作流日志 -->
+	<logger name="com.upg.ubsp.projectFlow.bpm" additivity="false">
+		<level value="debug"/>
+		<appender-ref ref="xcars_workFlow"/>
+	</logger>
+	<logger name="com.upg.ucars.bpm" additivity="false">
+		<level value="debug"/>
+		<appender-ref ref="xcars_workFlow"/>
+	</logger>
+	<logger name="WORKFLOW" additivity="false">
+		<level value="error"/>
+		<appender-ref ref="xcars_workFlow"/>
+	</logger>
+	<appender name="xcars_workFlow" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="logs/workflow/workFlow.log"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{yyyy-MM-dd HH:mm:ss} %-5p %-5c %t -> %m%n" />
+		</layout>
+	</appender>
+	<appender name="ucars_tsc" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="logs/tsc/tsc.log"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{yyyy-MM-dd HH:mm:ss} %-5p %-5c %t -> %m%n" />
+		</layout>
+	</appender>
+	<appender name="xhh_finance" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="logs/finance/finance.log"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{yyyy-MM-dd HH:mm:ss} %-5p %-5c %t -> %m%n" />
+		</layout>
+	</appender>
+	<!-- 事务日志 -->
+	<logger name="TRANSACTION" additivity="false">
+		<level value="error"/>
+		<appender-ref ref="xcars_transaction"/>
+	</logger>
+	<appender name="xcars_transaction" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="logs/transaction/xcars_transaction.log"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{yyyy-MM-dd HH:mm:ss} %-5p %-5c{1} %t -> %m%n" />
+		</layout>
+	</appender>
+	<!-- 接口及系统交互日志 -->
+	<logger name="INTERFACE_IO" additivity="false">
+		<level value="error"/>
+		<appender-ref ref="xcars_interfaceIO"/>
+	</logger>
+	<appender name="xcars_interfaceIO" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="logs/interface/xcars_interfaceIO.log"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{yyyy-MM-dd HH:mm:ss} %-5p %-5c{1} %t -> %m%n" />
+		</layout>
+	</appender>
+	<!-- ESB通讯日志 -->
+	<logger name="esbComm" additivity="false">
+		<level value="info"/>
+		<appender-ref ref="xcars_esbComm"/>
+	</logger>
+	<appender name="xcars_esbComm" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="logs/esb/esb_comm.log"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{yyyy-MM-dd HH:mm:ss} %-5p %-5c{1} %t -> %m%n" />
+		</layout>
+	</appender>
+	<!-- 异步配置 -->
+	<!-- 异步通用日志 -->
+	<logger name="ASYNC_COMMON" additivity="false">
+		<level value="error"/>
+		<appender-ref ref="xcars_async_common"/>
+	</logger>
+	<appender name="xcars_async_common" class="org.apache.log4j.AsyncAppender">
+		<param name="BufferSize" value="8192" />
+		<appender-ref ref="xcars_common" />
+	</appender>
+	<!-- 异步异常日志 -->
+	<logger name="ASYNC_EXCEPTION" additivity="false">
+		<level value="error"/>
+		<appender-ref ref="xcars_async_exception"/>
+	</logger>
+	<appender name="xcars_async_exception" class="org.apache.log4j.AsyncAppender">
+		<param name="BufferSize" value="8192" />
+		<appender-ref ref="xcars_exception" />
+	</appender>
+	<!-- 异步用户日志 -->
+	<logger name="ASYNC_USER" additivity="false">
+		<level value="error"/>
+		<appender-ref ref="xcars_async_user"/>
+	</logger>
+	<appender name="xcars_async_user" class="org.apache.log4j.AsyncAppender">
+		<param name="BufferSize" value="8192" />
+		<appender-ref ref="xcars_user" />
+	</appender>
+	<!-- 异步工作流日志 -->
+	<logger name="ASYNC_WORKFLOW" additivity="false">
+		<level value="error"/>
+		<appender-ref ref="xcars_async_workFlow"/>
+	</logger>
+	<appender name="xcars_async_workFlow" class="org.apache.log4j.AsyncAppender">
+		<param name="BufferSize" value="8192" />
+		<appender-ref ref="xcars_workFlow" />
+	</appender>
+	<!-- 异步事务日志 -->
+	<logger name="ASYNC_TRANSACTION" additivity="false">
+		<level value="error"/>
+		<appender-ref ref="xcars_async_transaction"/>
+	</logger>
+	<appender name="xcars_async_transaction" class="org.apache.log4j.AsyncAppender">
+		<param name="BufferSize" value="8192" />
+		<appender-ref ref="xcars_transaction" />
+	</appender>
+	<!-- 异步接口日志 -->
+	<logger name="ASYNC_INTERFACE" additivity="false">
+		<level value="error"/>
+		<appender-ref ref="xcars_async_interfaceIO"/>
+	</logger>
+	<appender name="xcars_async_interfaceIO" class="org.apache.log4j.AsyncAppender">
+		<param name="BufferSize" value="8192" />
+		<appender-ref ref="xcars_interfaceIO" />
+	</appender>
+	
+	<!-- 提供按包结构划分 -->
+	<appender name="debugLog" class="org.apache.log4j.RollingFileAppender">  
+        <param name="File" value="logs/debug.log"/>  
+        <param name="maxFileSize" value="2000KB"/>  
+        <param name="maxBackupIndex" value="10"/>  
+        <layout class="org.apache.log4j.PatternLayout">  
+            <param name="ConversionPattern"  
+                value="%d{yyyy-MM-dd HH:mm:ss} [%-5p] %c - %m%n"/>  
+        </layout>   
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">  
+                        <param name="LevelMax" value="DEBUG" />  
+                        <param name="LevelMin" value="DEBUG" />  
+                </filter>
+    </appender>  
+       
+    <appender name="infoLog" class="org.apache.log4j.RollingFileAppender">  
+        <param name="File" value="logs/info.log"/>  
+        <param name="maxFileSize" value="2000KB"/>  
+        <param name="maxBackupIndex" value="10"/>  
+        <layout class="org.apache.log4j.PatternLayout">  
+            <param name="ConversionPattern"  
+                value="%d{yyyy-MM-dd HH:mm:ss} [%-5p] %c - %m%n"/>  
+        </layout>  
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">  
+               <param name="LevelMax" value="INFO" />  
+               <param name="LevelMin" value="INFO" />  
+        </filter>  
+    </appender>  
+       
+    <appender name="warnLog" class="org.apache.log4j.RollingFileAppender">  
+        <param name="File" value="logs/warn.log"/>  
+        <param name="maxFileSize" value="2000KB"/>  
+        <param name="maxBackupIndex" value="10"/>  
+        <layout class="org.apache.log4j.PatternLayout">  
+            <param name="ConversionPattern"  
+                value="%d{yyyy-MM-dd HH:mm:ss} [%-5p] %c - %m%n"/>  
+        </layout>  
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">  
+                    <param name="LevelMax" value="WARN" />  
+                    <param name="LevelMin" value="WARN" />  
+            </filter>  
+    </appender>  
+       
+    <appender name="errorLog" class="org.apache.log4j.RollingFileAppender">  
+        <param name="File" value="logs/error.log"/>  
+        <param name="maxFileSize" value="2000KB"/>  
+        <param name="maxBackupIndex" value="10"/>  
+        <layout class="org.apache.log4j.PatternLayout">  
+            <param name="ConversionPattern"  
+                value="%d{yyyy-MM-dd HH:mm:ss} [%-5p] %c - %m%n"/>  
+       </layout>  
+       <filter class="org.apache.log4j.varia.LevelRangeFilter">  
+                    <param name="LevelMax" value="ERROR" />  
+                    <param name="LevelMin" value="ERROR" />  
+            </filter>  
+    </appender> 
+    
+    
+    <appender name="ubsp_yrz" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="logs/yrz/yrz.log"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{yyyy-MM-dd HH:mm:ss} %-5p %-5c %t -> %m%n" />
+		</layout>
+	</appender>
+    
+    <!-- 配置包日志 -->
+    <logger name="org.hibernate">
+    	<level value="error"/>
+    	<appender-ref ref="errorLog"/>
+    </logger>
+    
+	<appender name="interceptorLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="logs/interceptor/interceptor.log"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{yyyy-MM-dd HH:mm:ss} %-5p %-5c %t -> %m%n" />
+		</layout>
+	</appender>
+	
+    <logger name="com.upg.ucars.framework.interceptor" additivity="false">
+    	<level value="info"/>
+    	<appender-ref ref="interceptorLog"/>
+    </logger>
+    
+    <logger name="com.upg.ucars.framework.interceptor.ActionExceptionInterceptor" additivity="false">
+    	<level value="debug"/>
+    	<appender-ref ref="CONSOLE"/>
+    </logger>
+    
+    <!-- log4jdbc configuration -->
+    <logger name="jdbc.sqlonly" additivity="false">
+    	<level value="FATAL"/>
+    	<appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger name="jdbc.sqltiming" additivity="false">
+    	<level value="info"/>
+    	<appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger name="jdbc.audit" additivity="false">
+    	<level value="FATAL" />
+    	<appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger name="jdbc.resultset" additivity="false">
+    	<level value="FATAL"/>
+    	<appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger name="jdbc.connection" additivity="false">
+    	<level value="FATAL" />
+    	<appender-ref ref="CONSOLE"/>
+    </logger>
+    
+    
+    <logger name="com.upg.ucars" additivity="false">
+    	<level value="INFO" />
+    	<appender-ref ref="CONSOLE"/>
+    </logger>
+    
+    <logger name="com.upg.finance">
+    	<level value="INFO"/>
+    	<appender-ref ref="xhh_finance"/>
+    </logger>
+     <logger name="com.ucars.tsc">
+    	<level value="INFO"/>
+    	<appender-ref ref="xhh_finance"/>
+    </logger>
+    
+    <logger name="com.tsc">
+    	<level value="INFO"/>
+    	<appender-ref ref="ucars_tsc"/>
+    </logger>
+    
+    <logger name="com.upg.ubsp.yrz" additivity="false">
+    	<level value="debug" />
+    	<appender-ref ref="ubsp_yrz"/>
+    </logger>
+    
+	<root>
+		<priority value="ERROR" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="xcars_async_common" />
+	</root>
+
+</log4j:configuration>

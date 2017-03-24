@@ -1,0 +1,183 @@
+<form class="busi_form" id="taskprocess_form">
+	<table>
+		<colgroup>
+			<col width="20%"/>
+			<col width="80%">
+		</colgroup>
+		<tbody>
+			<s:if test="project.ifIndepApproval == 1">
+			<tr>
+				<td class="title" valign="top">审批结果:</td>
+				<td >
+					<x:combobox id="tpr_approvalOpinion" name="tpr.approvalOpinion" list="approvalOpinion" required="true"/>
+				</td>
+			</tr>
+			</s:if>
+			<tr>
+				<td class="title" valign="top">审批意见:</td>
+				<td ><textarea id="tpr_remark" name="tpr.remark" cols="62" rows="5" class="easyui-validatebox" validType="length[0,1333]">${tpr.remark}</textarea></td>
+			</tr>
+			<tr>
+				<td class="title" valign="top">审批流向:</td>
+				<td>
+					<br/>
+					<!--
+					<span><input class="whauto" type="radio" name="tpr.pass" value="1" <s:if test="tpr == null || tpr.pass == 1"> checked="checked"</s:if>/>&nbsp;&nbsp;通过</span>
+					<br/><br/>
+					
+					<span><input class="whauto" type="radio" name="tpr.pass" value="2" <s:if test="tpr.pass == 2"> checked="checked"</s:if>/>&nbsp;&nbsp;退回</span>
+					<br/><br/>
+					-->
+					<s:iterator value="approvalOption" status="status">
+					<span><input class="whauto" type="radio" name="tpr.pass" value='<s:property value="key"/>' <s:if test="tpr.pass==key"> checked="checked"</s:if><s:else><s:if test="tpr == null && #status.index == 0"> checked="checked"</s:if></s:else> />&nbsp;&nbsp;<s:if test="key == 1">通过</s:if><s:else><s:property value="key"/></s:else></span>
+					<br/><br/>
+					</s:iterator>
+					<span><input class="whauto" type="radio" name="tpr.pass" value="0" <s:if test="tpr.pass==0">checked="checked"</s:if> />&nbsp;&nbsp;驳回</span>
+					<br/><br/>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<input type="hidden" name="taskId" value="${taskId}"/>
+</form>
+<br/>
+<div style="width:90%;margin-left:auto;margin-right:auto;text-align:center;">
+	<x:button iconCls="icon-save" effect="round" text="保存" click="doSave" />&nbsp;&nbsp;
+	<x:button iconCls="icon-audit" effect="round" text="提交处理" click="doCommit" />&nbsp;&nbsp;
+	<x:button iconCls="icon-cancel" effect="round" text="关闭" click="doCancel" />
+</div>
+<br/>
+<script>
+	var taskBackUrl = '${backUrl}';
+	if(taskBackUrl==''){
+		taskBackUrl='<s:url value="/bpm/task_main.jhtml"/>';
+	}
+	function doSave(){
+		var target = getEventTarget();
+		if(target){
+			$(target).xbutton("disable");
+		}
+		try{
+			if($("#taskprocess_form").form("validate")){
+				if(typeof doProcessSave != 'undefined' && $.isFunction(doProcessSave)){
+					doProcessSave();
+				}else{
+					doBaseSave();
+				}
+			}
+		}catch(e){
+			if(target){
+				$(target).xbutton("enable");
+			}
+		}
+	}
+	function doCommit(){
+		var target = getEventTarget();
+		if(target){
+			$(target).xbutton("disable");
+		}
+		try{
+			if($("#taskprocess_form").form("validate")){
+				if(typeof doProcessCommit != 'undefined' && $.isFunction(doProcessCommit)){
+					doProcessCommit();
+				}else{
+					doBaseCommit();
+				}
+			}
+		}catch(e){
+			if(target){
+				$(target).xbutton("enable");
+			}
+		}
+	}
+	function isReject(){
+		return $("input:radio[name='tpr.pass']:checked","#taskprocess_form").val() == '0';
+	}
+	function task_isAgree(){
+		return $("input:radio[name='tpr.pass']:checked","#taskprocess_form").val() == '1';
+	}
+	function doBaseSave(p){
+		var param=formToObject("taskprocess_form");
+		param['tpr.deal']=false;
+		if(typeof p != 'undefined' && $.isPlainObject(p)){
+			$.extend(param,p);
+		}
+		var url = '${commitTaskUrl}';
+		if(!url){
+			url = '<s:url value="/preGuarantee/task_dealTask.jhtml"/>';
+		}
+		doPost(url,param,function(result){
+			if (!printError(result)) {
+				if(result){
+					if(result =='1'){
+						$.messager.alert(global.alert,"保存成功", null,function(r){
+							redirectUrl(taskBackUrl);
+						});
+					}else{
+						error("保存失败");
+					}
+				}
+			}
+			var target = getEventTarget();
+			if(target){
+				$(target).xbutton("enable");
+			}
+		});
+	}
+	function doBaseCommit(p){
+		if('${project.ifIndepApproval}' == 1){
+			if(isReject() || $("#tpr_approvalOpinion").xcombobox("getValue") == '2' || $("#tpr_approvalOpinion").xcombobox("getValue") == '3' ){
+				if(!$("#tpr_remark").val()){
+					error("意见不能为空");
+					return ;
+				}
+			}	
+		}
+		else{
+			if(isReject()){
+				if(!$("#tpr_remark").val()){
+					error("意见不能为空");
+					return ;
+				}
+			}
+		}
+		var param=formToObject("taskprocess_form");
+		if (!param['tpr.pass']) {
+			error("请选择审批流向");
+			return;
+		}
+		param.dealTask=true;
+		if(typeof p != 'undefined' && $.isPlainObject(p)){
+			$.extend(param,p);
+		}
+		var url = '${commitTaskUrl}';
+		if(!url){
+			url = '<s:url value="/preGuarantee/task_dealTask.jhtml"/>';
+		}
+		doPost(url,param,function(result){
+			if (!printError(result)) {
+				if(result){
+					if(result =='1'){
+						var dialog = $.messager.alert(global.alert,"任务处理成功", null,function(r){
+							redirectUrl(taskBackUrl);
+						});
+						if(dialog){
+							dialog.panel("options").onDestroy=function(){
+								redirectUrl(taskBackUrl);
+							};
+						}
+					}else{
+						error("任务处理失败");
+					}
+				}
+			}
+			var target = getEventTarget();
+			if(target){
+				$(target).xbutton("enable");
+			}
+		});
+	}
+	function doCancel(){
+		redirectUrl(taskBackUrl);
+	}
+</script>

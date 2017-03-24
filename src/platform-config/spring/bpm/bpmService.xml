@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	- Application context definition for "springapp" DispatcherServlet.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd"  default-autowire="no">
+<!-- test -->
+    
+
+	<!-- jBPM Configuration -->
+     <bean id="jbpmConfiguration" class="org.springmodules.workflow.jbpm31.LocalJbpmConfigurationFactoryBean">
+       <property name="sessionFactory">
+       		 <ref bean="sessionFactory"/>
+       </property>
+       
+       <property name="createSchema" value="false" />
+        
+       <property name="configuration">
+          <value>classpath:jbpm.cfg.xml</value>
+       </property>
+     </bean>
+     
+     <bean id="jbpmTemplate" class="org.springmodules.workflow.jbpm31.JbpmTemplate">
+      	<property name="jbpmConfiguration" ref="jbpmConfiguration"/>
+     	<property name="hibernateTemplate" ref="hibernateTemplate"/>
+     </bean>    
+
+     <bean id="bpmControlDAO" class="com.upg.ucars.framework.bpm.base.BpmControlDAO">
+      	<property name="template"><ref bean="jbpmTemplate"/></property>
+     </bean> 
+     <bean id="bpmQueryDAO" class="com.upg.ucars.framework.bpm.base.BpmQueryDAO">
+      	<property name="hibernateTemplate" ref="hibernateTemplate"/>
+     </bean>
+      <!-- 流程定义-->
+     <bean id="processDefDao" class="com.upg.ucars.framework.bpm.publish.dao.ProcessDefDaoImpl">
+	  		<property name="hibernateTemplate"><ref bean="hibernateTemplate"/></property>
+	  </bean>
+     <bean id="processService" class="com.upg.ucars.framework.bpm.publish.service.ProcessDefServiceImpl">
+  		<property name="processDefDao">
+  			<ref bean="processDefDao"/>
+  		</property>  
+  		<property name="commonDAO">
+  			<ref bean="commonDAO"/>
+  		</property>
+  		<property name="jbpmConf" ref="jbpmConfiguration"/>
+  		<property name="productService" ref="productService"/>
+	  </bean>
+	  
+	 <bean id="humnTaskService" class="com.upg.ucars.framework.bpm.publish.service.HumnTaskServiceImpl">
+  		<property name="humnTaskDao">
+  			<ref bean="humnTaskDao"/>
+  		</property>  
+ 	 </bean>
+ 
+ 	 <bean id="humnTaskDao" class="com.upg.ucars.framework.bpm.publish.dao.HumnTaskDaoImpl">
+  		<property name="hibernateTemplate"><ref bean="hibernateTemplate"/></property>
+  	 </bean>
+  	  <!-- 流程管理-->
+     <bean id="prodProcMapDAO" class="com.upg.ucars.framework.bpm.procmap.ProdProcMapDAOImpl">
+	  		<property name="hibernateTemplate"><ref bean="hibernateTemplate"/></property>
+	  </bean>
+     <bean id="prodProcMapService" class="com.upg.ucars.framework.bpm.procmap.ProdProcMapServiceImpl">
+  		<property name="prodProcMapDAO">
+  			<ref bean="prodProcMapDAO"/>
+  		</property> 
+  		<property name="commonDAO">
+  			<ref bean="commonDAO"/>
+  		</property> 
+	  </bean>
+  	 
+  	 <!-- 任务分配 -->
+  	 <bean id="humanTaskActrDAO" class="com.upg.ucars.framework.bpm.assign.dao.HumanTaskActrDAOImpl">
+  		<property name="hibernateTemplate"><ref bean="hibernateTemplate"/></property>
+  	 </bean>
+  	 <bean id="taskInstanceDao" class="com.upg.ucars.framework.bpm.assign.dao.TaskInstanceDaoImpl">
+  		<property name="hibernateTemplate"><ref bean="hibernateTemplate"/></property>
+  	 </bean>
+  	 
+  	 <bean id="humnTaskAssignService" class="com.upg.ucars.framework.bpm.assign.service.HumanTaskAssignService">
+  		<property name="humanTaskActrDAO"><ref bean="humanTaskActrDAO"/></property> 
+  		<property name="taskInstanceDao"><ref bean="taskInstanceDao"/></property> 
+  		<property name="commonDAO">
+  			<ref bean="commonDAO"/>
+  		</property> 
+ 	 </bean>
+ 	 
+ 	 <!-- 任务追踪 -->
+ 	 <bean id="taskTraceInfoDAO" class="com.upg.ucars.framework.bpm.tasktrace.dao.TaskTraceInfoDAOImpl">
+  		<property name="hibernateTemplate"><ref bean="hibernateTemplate"/></property>
+  	 </bean>  	 
+  	 	 
+  	 <bean id="taskTraceInfoService" class="com.upg.ucars.framework.bpm.tasktrace.service.TaskTraceInfoServiceImpl">
+  		<property name="taskTraceInfoDAO"><ref bean="taskTraceInfoDAO"/></property> 
+ 	 </bean>
+ 	 
+ 	 <!-- 工作流平台所需的客户端实现 -->
+ 	  <bean id="BpmPlantfromClientService" class="com.upg.ucars.framework.bpm.client.BpmPlantfromClientServiceImpl">
+  		<property name="prodProcMapService"><ref bean="prodProcMapService"/></property> 
+  		<property name="taskTraceInfoService"><ref bean="taskTraceInfoService"/></property>  		
+ 	 </bean>
+ 	 
+ 	 
+  	 <!-- 工作流监控 -->
+ 	 <bean id="bpmActivityDao" class="com.upg.ucars.framework.bpm.assist.dao.BbmActivityDaoImpl">
+  		<property name="hibernateTemplate"><ref bean="hibernateTemplate"/></property>
+  	 </bean>
+  	 
+  	 <bean id="bpmActivityManager" class="com.upg.ucars.framework.bpm.assist.service.BpmActivityManager">
+  		<property name="bpmActivityDao"><ref bean="bpmActivityDao"/></property> 
+  		<property name="bpmControlDAO"><ref bean="bpmControlDAO"/></property> 
+ 	 </bean>
+ 	 
+ 	  <!-- 工作流数据清理 -->
+ 	 <bean id="bpmDataDao" class="com.upg.ucars.framework.bpm.assist.dao.BbmDataAssistDaoImpl">
+  		<property name="hibernateTemplate"><ref bean="hibernateTemplate"/></property>
+  	 </bean>
+  	 
+  	 <bean id="bpmDataClearService" class="com.upg.ucars.framework.bpm.assist.service.BpmDataClearServiceImpl">
+  		<property name="jbpmTemplate"><ref bean="jbpmTemplate"/></property> 
+  		<property name="bpmDataDao"><ref bean="bpmDataDao"/></property> 
+ 	 </bean>
+</beans>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<!-- 机构权限复核 -->
+	<audit prodNo="BRCH_FUNC_AUDIT" callBack="branchService" url="/security/brch_brchFuncAudit.jhtml"/>
+	<!-- 管理员权限复核 -->
+	<audit prodNo="BRMG_FUNC_AUDIT" callBack="userService" url="/security/user_userFuncAudit.jhtml"/>
+	<!-- 用户权限复核-->
+	<audit prodNo="BUUS_FUNC_AUDIT" callBack="userService" url="/security/user_userFuncAudit.jhtml"/>
+	<!-- 参数复核 -->
+	<audit prodNo="SYS_PARAM_AUDIT" callBack="sysParamService" url="/security/sys_param_auditView.jhtml"/>
+</config>

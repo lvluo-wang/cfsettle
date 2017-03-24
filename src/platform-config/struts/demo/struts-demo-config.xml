@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="demo" namespace="/demo" extends="pkg-base">				
+		<action name="loan_*" class="com.upg.demo.loan.action.LoanAction" method="{1}">
+			<result name="MAIN">/platform/demo/loan/layout.jsp</result>
+			<result name="EDIT" >/platform/demo/loan/edit.jsp</result>
+			<result name="VIEW" >/platform/demo/loan/view.jsp</result>
+			<result name="table" type="stream">
+				<param name="inputName">jsonStream</param>
+			</result>
+			<result name="AcceptTask">/platform/demo/loan/acceptTask.jsp</result>
+			<result name="AcceptTaskPersonInfo">/platform/demo/loan/acceptTaskPersonInfo.jsp</result>
+			<result name="AcceptTaskAcctInfo">/platform/demo/loan/acceptTaskAcctInfo.jsp</result>
+			<result name="AcceptTaskSubmit">/platform/demo/loan/acceptTaskSubmit.jsp</result>
+			<result name="CommonAuditTask">/platform/demo/loan/commonAuditTask.jsp</result>
+			<result name="AdvancedAuditTask">/platform/demo/loan/advancedAuditTask.jsp</result>
+			<result name="PaymentResult">/platform/demo/loan/paymentResult.jsp</result>
+			<result name="layoutTest">/platform/demo/loan/layoutTest.jsp</result>
+		</action>
+		
+		<action name="page_*" class="com.upg.demo.loan.action.PageSampleAction" method="{1}">
+			<result name="PageCell">/platform/demo/pageSample/pageCell.jsp</result>
+			<result name="CityTree">/platform/demo/pageSample/cityTree.jsp</result>			
+			<result name="CountryList">/platform/demo/pageSample/countryList.jsp</result>
+			<result name="MultiCountryList">/platform/demo/pageSample/countryMultiList.jsp</result>
+			<result name="BookTree">/platform/demo/pageSample/bookTree.jsp</result>
+			
+			<result name="table" type="stream">
+				<param name="inputName">jsonStream</param>
+			</result>
+		</action>
+		
+		<action name="template_*" class="com.upg.demo.template.action.TempldateDemoAction" method="{1}">
+			
+		</action>
+	</package>
+	<package name="px" namespace="/images" extends="pkg-base">
+		<action name="px">
+			<result>/platform/static/images/jasper/px.gif</result>
+		</action>
+	</package>
+	<package name="report" namespace="/demo" extends="jasperreports-default">
+		<action name="reportPdf" class="com.upg.demo.report.jasper.action.ReportAction">
+			<result name="success" type="jasper">
+				<param name="location">/platform/demo/jasper/compiled_user.jasper</param>
+				<param name="dataSource">userList</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<action name="reportXls" class="com.upg.demo.report.jasper.action.ReportAction">
+			<result name="success" type="jasper">
+				<param name="location">/platform/demo/jasper/compiled_user.jasper</param>
+				<param name="dataSource">userList</param>
+				<param name="format">XLS</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<action name="reportHtml" class="com.upg.demo.report.jasper.action.ReportAction">
+			<result name="success" type="jasper">
+				<param name="location">/platform/demo/jasper/compiled_user.jasper</param>
+				<param name="dataSource">userList</param>
+				<param name="format">HTML</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+	</package>
+</struts>

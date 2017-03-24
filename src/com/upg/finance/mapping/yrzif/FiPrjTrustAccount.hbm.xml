@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.upg.finance.mapping.yrzif.FiPrjTrustAccount" table="fi_prj_trust_account">
+		<id name="id" type="long">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="ctime" type="secDate" update="false">
+			<column name="ctime"/>
+		</property>
+		<property name="mtime" type="secDate">
+			<column name="mtime"/>
+		</property>
+		<property name="prjId" type="long">
+			<column name="prj_id" />
+		</property>
+		<property name="idType" type="string">
+			<column name="id_type" />
+		</property>
+		<property name="idNo" type="string">
+			<column name="id_no" />
+		</property>
+		<property name="loanAccount" type="string">
+			<column name="loan_account" />
+		</property>
+		<property name="loanAccountName" type="string">
+			<column name="loan_account_name" />
+		</property>
+		<property name="status" type="string">
+			<column name="status" />
+		</property>
+		<property name="cancelTime" type="secDate">
+			<column name="cancel_time" />
+		</property>
+	</class>
+</hibernate-mapping>

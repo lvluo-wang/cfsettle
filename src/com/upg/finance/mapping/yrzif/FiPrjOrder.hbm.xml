@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.upg.finance.mapping.yrzif.FiPrjOrder" table="fi_prj_order">
+		<id name="id" type="long">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="orderNo" type="string" update="false">
+			<column name="order_no" />
+		</property>
+		<property name="uid" type="long" update="false">
+			<column name="uid" />
+		</property>
+		<property name="prjId" type="long" update="false">
+			<column name="prj_id" />
+		</property>
+		<property name="money" type="long" update="false">
+			<column name="money" />
+		</property>
+		<property name="restMoney" type="long" update="false">
+			<column name="rest_money" />
+		</property>
+		<property name="status" type="int">
+			<column name="status" />
+		</property>
+		<property name="trustPayStatus" type="string">
+			<column name="trust_pay_status" />
+		</property>
+	</class>
+</hibernate-mapping>

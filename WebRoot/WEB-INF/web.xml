@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<!-- 指定log4j的配置文件 -->
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>classpath:log4j.xml</param-value>
+	</context-param>
+	<!--
+		指定spring的配置文件，默认从web根目录寻找配置文件，我们可以通过spring提供的classpath:前缀指定从类路径下寻找
+	-->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+	<!-- tiles 配置 -->
+	<context-param>
+		<param-name>org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG</param-name>
+		<param-value>/WEB-INF/tiles.xml</param-value>
+	</context-param>
+	<!-- 指定默认主题。可选项：default、simple -->
+	<context-param>
+		<param-name>default_theme</param-name>
+		<param-value>simple</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.apache.struts2.tiles.StrutsTilesListener</listener-class>
+	</listener>
+	<!-- log4j -->
+	<listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
+	<!-- 对Spring容器进行实例化 -->
+	<listener>
+		<listener-class>com.upg.ucars.util.SpringContextManager</listener-class>
+	</listener>
+	<!-- 权限管理——资源加载器 -->
+	<listener>
+		<listener-class>com.upg.ucars.framework.security.ResourceLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>com.upg.ucars.basesystem.audit.core.AuditConfigListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>com.upg.ucars.framework.filter.UserSessionManager</listener-class>
+	</listener>
+	<!-- X-CARS ESB Listener: ESB Server integrate with web app
+    <listener>
+        <listener-class>com.upg.ucars.framework.esb.core.ESBListener</listener-class>
+    </listener>
+     
+     <filter>
+		<filter-name>welcome</filter-name>
+		<filter-class>com.upg.ucars.framework.filter.WelcomePageFilter</filter-class>
+		<init-param>
+			<param-name>indexPage</param-name>
+			<param-value>index.jsp</param-value>
+		</init-param>
+     </filter>
+     <filter-mapping>
+     	<filter-name>welcome</filter-name>
+     	<url-pattern>/*</url-pattern>
+     </filter-mapping>
+     -->
+    <filter>
+		<filter-name>authentication</filter-name>
+		<filter-class>com.upg.ucars.framework.filter.AuthenticationFilter</filter-class>
+		<init-param>
+		<!-- 过滤器生效开关 ON 开启 OFF 关闭，不配置或者其他都为开启 -->
+			<param-name>ON_OFF</param-name>
+			<param-value>ON</param-value>
+		</init-param>
+		<init-param>
+		<!-- 过滤器系统访问日志开关 ON 开启 OFF 关闭，不配置或者其他都为关闭 -->
+			<param-name>ACCESS_LOG</param-name>
+			<param-value>ON</param-value>
+		</init-param>
+		<init-param>
+		<!-- 过滤器系统访问日志开关为ON时，可配置记录的关键字，包含关键字的请求会记录下来，不配置时不记录-->
+			<param-name>LOG_KEY</param-name>
+			<param-value>/**/*add*.jhtml*,/**/*save*.jhtml*,/**/*update*.jhtml*,/**/*remove*.jhtml*,/**/*delete*.jhtml*,/**/user_changePassword.*,/**/ebank/login_login*,/**/login_logon.*,/**/login_logout.*,/**/user_*Password*</param-value>
+		</init-param>
+		<init-param>
+		<!-- 配置绿色通道 -->
+			<param-name>GREEN_CHANNEL</param-name>
+			<param-value>/index.jsp,/**/projectDc_dcAuth.jhtml,/**/ebank/,/**/ebank,/**/ebank/login_login*,/**/login.*,/**/login_logon.*,/**/user_*Password*,/**/login_noRights.*,/**/user_changePassword.*,/**/member_queryByUserNo.*,/**/assessMeeting_doAttend.*,/**/typ_transData.*,/**/typ_verityUser.*,/**/req_transTypeData.*,/**/investFinance**,/**/project_changeNotice.*,/**/req_getBranch.*,/**/req_postStatus.*,/**/req_getPostLoanRecordList.*,/finance/xhhfinance_*,/**/attachment_downLoad.*</param-value>
+		</init-param>
+		<init-param>
+			<!-- 身份验证失败后的对策,跳转到指定的页面,原请求时异步处理时 -->
+			<param-name>AUTHENTICATION_FAILED_AJAX</param-name>
+			<param-value>/security/login_noRights.jhtml</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>authentication</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>authentication</filter-name>
+		<url-pattern>*.jhtml</url-pattern>
+	</filter-mapping>
+	<!-- 配置struts2,自动 -->
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<servlet>
+	  <servlet-name>JSPSupportServlet</servlet-name>
+	  <servlet-class>org.apache.struts2.views.JspSupportServlet</servlet-class>
+	  <load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<!-- 定时任务 -->
+	<servlet>
+		<servlet-name>AutoTaskInitializer</servlet-name>
+		<servlet-class>
+			com.upg.ucars.basesystem.autotask.AutoTaskInitializerServlet
+		</servlet-class>
+		<init-param>
+  			<param-name>autoTaskIp</param-name>
+  			<param-value>10.50.28.25</param-value>
+  			<!-- 集群环境下指定IP启动:<param-value>192.168.86.22</param-value> -->
+  		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	
+	<jsp-config>
+		<jsp-property-group>
+			<description>special include text code</description>
+			<display-name>JSPConfiguration</display-name>
+			<url-pattern>*.ucars</url-pattern>
+			<page-encoding>UTF-8</page-encoding>
+		</jsp-property-group>
+	</jsp-config>
+	
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	<session-config>
+		<session-timeout>90</session-timeout>
+	</session-config>
+</web-app>

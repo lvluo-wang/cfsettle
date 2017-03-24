@@ -1,0 +1,94 @@
+.workfollow {
+    margin: 0px;
+    padding: 0px;
+    width:100%;
+    height:100%;
+    float:center;
+    background:url('../images/workfollow/bg.png') repeat；
+}
+.followEntity{
+	float:center;
+	width:100%;
+	height:27px;
+	text-align:center;
+	vertical-align:middle;
+}
+.followMiddle{
+	float:center;
+	width:100%;
+	height:20px;
+	text-align:center;
+	vertical-align:middle;
+}
+.follow_Start{
+	width:100px;
+	height:27px;
+
+	 font-size:11px;
+    color:#404040;
+	background-image:url('../images/workfollow/start.png') ;
+	background-color :#e4e4e4;
+}
+.follow_End{
+	width:100px;
+	height:27px;
+	 font-size:11px;
+    color:#404040;
+	background-image:url('../images/workfollow/end.png') ;
+	background-color :#e4e4e4;
+}
+.follow_State{
+	width:100px;
+	height:27px;
+	 font-size:11px;
+    color:#404040;
+	background-image:url('../images/workfollow/state.png');
+	background-color :#e4e4e4;
+}
+.follow_Task{
+	width:100px;
+	height:27px;
+	 font-size:11px;
+    color:#404040;
+	background-image:url('../images/workfollow/task.png');
+	background-color :#e4e4e4;
+}
+.follow_Start_current{
+	width:100px;
+	height:27px;
+
+	 font-size:11px;
+    color:#404040;
+	background-image:url('../images/workfollow/start.png') ;
+	background-color :#94c9ff;
+}
+.follow_End_current{
+	width:100px;
+	height:27px;
+	 font-size:11px;
+    color:#404040;
+	background-image:url('../images/workfollow/end.png') ;
+	background-color :#94c9ff;
+}
+.follow_State_current{
+	width:100px;
+	height:27px;
+	 font-size:11px;
+    color:#404040;
+	background-image:url('../images/workfollow/state.png');
+	background-color :#94c9ff;
+}
+.follow_Task_current{
+	width:100px;
+	height:27px;
+	 font-size:11px;
+    color:#404040;
+	background-image:url('../images/workfollow/task.png');
+	background-color :#94c9ff;
+}
+.followSequence{
+	width:80px;
+	height:20px;
+	background-impge:url('../images/workfollow/sequence.gif') no-repeat;
+}
+

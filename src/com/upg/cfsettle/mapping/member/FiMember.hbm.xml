@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.upg.cfsettle.mapping.member.FiMember" table="fi_member" >
+        <id name="id" type="java.lang.Long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="miName" type="java.lang.String">
+            <column name="mi_name" length="100">
+                <comment>名称</comment>
+            </column>
+        </property>
+        <property name="miType" type="java.lang.String">
+            <column name="mi_type">
+                <comment>接入点类型 1：银行，2：财务公司，3：企业</comment>
+            </column>
+        </property>
+        <property name="uscMiNo" type="java.lang.String">
+            <column name="usc_mi_no" length="20" not-null="true">
+                <comment>对应USC的编码</comment>
+            </column>
+        </property>
+        <property name="fiMiNo" type="java.lang.String">
+            <column name="mi_no" length="11" unique="true">
+                <comment>接入点编号</comment>
+            </column>
+        </property>
+        <property name="miSecret" type="java.lang.String">
+            <column name="mi_secret" length="32">
+                <comment>接入点密钥</comment>
+            </column>
+        </property>
+        <property name="miSecretTest" type="java.lang.String">
+            <column name="mi_secret_test" length="32">
+                <comment>测试密钥</comment>
+            </column>
+        </property>
+        <property name="miHost" type="java.lang.String">
+            <column name="mi_host" length="200">
+                <comment>接入点地址</comment>
+            </column>
+        </property>
+        <property name="ctime" type="secDate" update="false">
+            <column name="ctime" />
+        </property>
+        <property name="status" type="java.lang.String">
+            <column name="status" >
+                <comment>状态</comment>
+            </column>
+        </property>
+        <property name="miProjectType" type="java.lang.Integer">
+            <column name="mi_project_type" >
+                <comment>投放站点共享标是否可用</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

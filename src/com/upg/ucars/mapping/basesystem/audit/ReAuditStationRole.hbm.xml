@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.upg.ucars.mapping.basesystem.audit.ReAuditStationRole" table="RE_AS_ROLE">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="22" scale="0" />
+            <generator class="native"></generator>
+        </id>
+        <!--version标签必须跟在id标签后面-->
+    	<version name="version" column="VER" type="java.lang.Long"/>
+        <property name="auditStationId" type="java.lang.Long">
+            <column name="AS_ID" />
+        </property>
+        <property name="roleId" type="java.lang.Long">
+            <column name="BIND_ROLE_ID" />
+        </property>
+    </class>
+</hibernate-mapping>

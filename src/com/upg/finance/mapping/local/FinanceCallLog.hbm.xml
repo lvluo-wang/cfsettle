@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.upg.finance.mapping.local.FinanceCallLog" table="TSC_FINANCE_CALL_LOG">
+		<id name="id" type="java.lang.Long">
+			<column name="ID" precision="22" scale="0" />
+			<generator class="native"></generator>
+		</id>
+		<property name="createTime">
+			<column name="CREATE_TIME" />
+		</property>
+		<property name="modifyTime">
+			<column name="MODIFY_TIME" />
+		</property>
+		<property name="businessIdentifier">
+			<column name="BUSINESS_IDENTIFIER" />
+		</property>
+		<property name="cmpTxsNo">
+			<column name="CMP_TXS_NO" />
+		</property>
+		<property name="bankTxsNo">
+			<column name="BANK_TXS_NO" />
+		</property>
+		<property name="extsysCallContent">
+			<column name="EXTSYS_CALL_CONTENT" />
+		</property>
+		<property name="extsysReturnContent">
+			<column name="EXTSYS_RETURN_CONTENT" />
+		</property>
+		<property name="remark">
+			<column name="REMARK" />
+		</property>
+		<property name="status">
+			<column name="STATUS" />
+		</property>
+	</class>
+</hibernate-mapping>

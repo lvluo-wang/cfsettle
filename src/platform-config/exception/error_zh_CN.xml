@@ -1,0 +1,782 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+		<error code="COMMON_ERROR_CODE" log="false" type="Error">
+			<message>信息</message>
+			<detail>{0}</detail>
+			<help>...</help>
+		</error>
+		<error code="SYS_000" log="true" type="Error">
+			<message>系统异常</message>
+			<detail>对象{0}为空</detail>
+			<help>请与系统管理员联系.</help>
+		</error>
+		<error code="SYS_001" log="true" type="Error">
+			<message>系统异常</message>
+			<detail>{0}</detail>
+			<help>请与系统管理员联系.</help>
+		</error>
+		<error code="RES_001" log="true" type="Error">
+			<message>文件解析异常</message>
+			<detail>文件{0}不存在或者已经损坏，不能正常解析。</detail>
+			<help>请检查文件是否存在，是否正常。</help>
+		</error>
+		<error code="GLOBAL_000"><!-- 可以不用配置log 默认为true，type默认为Error -->
+			<message>系统出现错误</message>
+			<detail>....</detail>
+			<help>请与系统管理员联系.</help>
+		</error>
+		<error code="LOGON_001" log="true" type="Error">
+			<message>登录异常</message>
+			<detail>用户名和密码不能为空。</detail>
+			<help>请正确输入用户名和密码。</help>
+		</error>
+		<error code="LOGON_002" log="true" type="Error">
+			<message>登录异常</message>
+			<detail>用户不存在或密码不匹配或与接入点不匹配。</detail>
+			<help>请正确输入用户名、密码及接入点。</help>
+		</error>
+		<error code="LOGON_003" log="true" type="Error">
+			<message>登录异常</message>
+			<detail>用户已关闭不可用</detail>
+			<help>请联系系统管理人员。</help>
+		</error>
+		<error code="LOGON_004" log="true" type="Error">
+			<message>登录异常</message>
+			<detail>用户已锁定。</detail>
+			<help>请联系系统管理人员</help>
+		</error>
+		<error code="LOGON_005" log="true" type="Error">
+			<message>登录异常</message>
+			<detail>与上次登录IP不一致</detail>
+			<help>请使用一致的ip登录</help>
+		</error>
+		<error code="LOGON_006" log="true" type="Error">
+			<message>登录异常</message>
+			<detail>用户已在线。</detail>
+			<help>拒绝重复登录</help>
+		</error>
+		<error code="LOGON_007" log="true" type="Error">
+			<message>登录异常</message>
+			<detail>密码已过期。</detail>
+			<help>请&lt;a href='#' onClick='changePwd(this)'&gt;修改密码&lt;/a&gt;</help>
+		</error>
+		<error code="LOGON_008" log="true" type="Error">
+			<message>登录异常</message>
+			<detail>接入点未开启，不允许登录</detail>
+			<help>请在接入点开启后登录</help>
+		</error>
+		<error code="LOGON_009" log="true" type="Error">
+			<message>登录异常</message>
+			<detail>接入用户，接入点为空不允许登录</detail>
+			<help>请在登录时选择自己的接入点</help>
+		</error>
+		<error code="LOGON_010" log="true" type="Error">
+			<message>登录异常</message>
+			<detail>机构用户，机构为空或不存在</detail>
+			<help>请检查用户信息完整性</help>
+		</error>
+		<error code="LOGON_011" log="true" type="Error">
+			<message>登录异常</message>
+			<detail>用户信息不完整</detail>
+			<help>请检查用户信息完整性</help>
+		</error>
+		<error code="JSON_001" log="true" type="Error">
+			<message>创建JSON数据失败</message>
+			<detail>JAVA对象转换成JSON数据失败。</detail>
+			<help>请查看java对象是否正确定义。</help>
+		</error>
+		<error code="DAO_001" log="true" type="Error">
+			<message>数据库操作异常</message>
+			<detail>语句[{0}],参数[{1}]</detail>
+			<help>请检查连接或语法</help>
+		</error>
+		<error code="DAO_COMMON" log="true" type="Error">
+			<message>数据访问异常</message>
+			<detail>[{0}]</detail>
+			<help>..</help>
+		</error>
+		<error code="DAO_VERSION" log="true" type="Error">
+			<message>数据访问异常</message>
+			<detail>数据版本不匹配，可能多用户同时操作同一数据而产生的异常。</detail>
+			<help>请尝试重新进行操作。</help>
+		</error>
+		<!-- 安全权限 -->
+		<error code="SECURITY_000" log="true" type="Error">
+			<message>安全处理异常</message>
+			<detail>身份验证信息不存在，无权限访问，请&lt;a href='#' onClick='toLoginPage()'&gt;登录&lt;/a&gt;</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_001" log="true" type="Error">
+			<message>安全处理异常</message>
+			<detail>无权限访问系统资源{0}</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_002" log="true" type="Error">
+			<message>创建权限失败</message>
+			<detail>权限id重复</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_003" log="true" type="Error">
+			<message>创建权限失败</message>
+			<detail>子菜单中权限名称重复</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_004" log="true" type="Error">
+			<message>创建权限失败</message>
+			<detail>权限名称键值重复</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_005" log="true" type="Error">
+			<message>删除权限失败</message>
+			<detail>不能删除包含子项的权限</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_006" log="true" type="Error">
+			<message>创建权限失败</message>
+			<detail>上级权限的url不为空</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_007" log="true" type="Error">
+			<message>创建权限失败</message>
+			<detail>上级权限的类型为非菜单类型</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_008" log="true" type="Error">
+			<message>移动权限关系失败</message>
+			<detail>上级权限不能移到自己的下级权限下</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_009" log="true" type="Error">
+			<message>添加接入信息失败</message>
+			<detail>接入编号已存在</detail>
+			<help>请使用新的接入编号</help>
+		</error>
+		<error code="SECURITY_010" log="true" type="Error">
+			<message>添加接入信息失败</message>
+			<detail>接入名称已存在</detail>
+			<help>请使用新的接入名称</help>
+		</error>
+		<error code="SECURITY_011" log="true" type="Error">
+			<message>移动权限关系失败</message>
+			<detail>不能在功能下创建菜单</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_012" log="true" type="Error">
+			<message>移动权限关系失败</message>
+			<detail>上级权限的url不为空不能创建子菜单</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_013" log="true" type="Error">
+			<message>编辑权限失败</message>
+			<detail>功能权限不能包含菜单权限</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_014" log="true" type="Error">
+			<message>删除权限失败</message>
+			<detail>该权限正在使用中</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_015" log="true" type="Error">
+			<message>编辑权限失败</message>
+			<detail>权限名称或其国际化键值重复</detail>
+			<help>...</help>
+		</error>
+		
+		<error code="SECURITY_016" log="true" type="Error">
+			<message>新增权限失败</message>
+			<detail>功能类型权限节点下不能再建权限节点</detail>
+			<help>...</help>
+		</error>
+		
+		<error code="SECURITY_017" log="true" type="Error">
+			<message>新增权限失败</message>
+			<detail>菜单组类型权限节点下不能建功能类型权限节点</detail>
+			<help>...</help>
+		</error>
+		
+		<error code="SECURITY_018" log="true" type="Error">
+			<message>新增权限失败</message>
+			<detail>菜单类型权限节点下只能建功能类型权限节点</detail>
+			<help>...</help>
+		</error>
+		
+		<error code="SECURITY_019" log="true" type="Error">
+			<message>新增权限失败</message>
+			<detail>菜单或功能类型权限节点url不能为空</detail>
+			<help>...</help>
+		</error>
+		
+		<error code="SECURITY_020" log="true" type="Error">
+			<message>编辑权限失败</message>
+			<detail>包含子节点，权限类型不能修改</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_021" log="true" type="Error">
+			<message>编辑权限失败</message>
+			<detail>菜单或功能类型权限节点url不能为空</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_022" log="false" type="Error">
+			<message>移动权限关系失败</message>
+			<detail>功能节点只能在菜单节点下面</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_023" log="false" type="Error">
+			<message>移动权限关系失败</message>
+			<detail>菜单节点只能在菜单组节点下面</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_024" log="false" type="Error">
+			<message>移动权限关系失败</message>
+			<detail>菜单组节点只能在菜单组节点下面</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_025" log="false" type="Error">
+			<message>移动权限关系失败</message>
+			<detail>菜单或者菜单组节点不能移置到菜单节点下面</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_026" log="false" type="Error">
+			<message>移动权限关系失败</message>
+			<detail> 权限树只能有一个根节点</detail>
+			<help>...</help>
+		</error>
+		
+		
+		<error code="SECURITY_101" log="true" type="Error">
+			<message>修改密码失败</message>
+			<detail>原密码错误</detail>
+			<help>请输入正确的原密码</help>
+		</error>
+		<error code="SECURITY_102" log="true" type="Error">
+			<message>修改密码失败</message>
+			<detail>新密码与确认密码不一致</detail>
+			<help>请重新输入新密码与确认密码</help>
+		</error>
+		<error code="SECURITY_103" log="true" type="Error">
+			<message>登录异常</message>
+			<detail>用户未设置角色或角色未审核，不允许登录</detail>
+			<help>请联系系统管理人员</help>
+		</error>
+		<error code="SECURITY_111" log="true" type="Error">
+			<message>新增/修改用户信息失败</message>
+			<detail>用户编号[{0}]已存在</detail>
+			<help>请重新输入用户编号</help>
+		</error>
+		<error code="SECURITY_112" log="true" type="Error">
+			<message>新增/修改用户信息失败</message>
+			<detail>不能为自己归属的机构添加管理人员</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_113" log="true" type="Error">
+			<message>修改用户信息失败</message>
+			<detail>用户已分配角色,不能修改用户类型</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_201" log="true" type="Error">
+			<message>新增/修改角色信息失败</message>
+			<detail>角色名称[{0}]已存在</detail>
+			<help>请重新输入角色名称</help>
+		</error>
+		<error code="SECURITY_202" log="true" type="Error">
+			<message>修改角色信息失败</message>
+			<detail>不允许修改已授权的角色类型或所属机构</detail>
+			<help>可先撤销已授权的权限再进行修改</help>
+		</error>
+		<!-- 角色 -->
+		<error code="EDIT_HAS_USER_ROLE_ERROR" log="false" type="Error">
+			<message>操作失败</message>
+			<detail>角色已经被分配</detail>
+			<help>...</help>
+		</error>
+		<!-- 子系统 -->
+		<error code="SUBSYS_001" log="true" type="Error">
+			<message>删除子系统失败</message>
+			<detail>子系统在使用权限，不能删除</detail>
+			<help></help>
+		</error>
+		<error code="SUBSYS_002" log="true" type="Error">
+			<message>删除子系统失败</message>
+			<detail>子系统为开启状态，不能删除</detail>
+			<help></help>
+		</error>
+		<!-- 参数 -->
+		<error code="ERROR_OPERATE_CHECKING_SYSPARAM" log="false" type="Error">
+			<message>参数操作失败</message>
+			<detail>审批中的参数不能操作</detail>
+			<help></help>
+		</error>
+		
+		<!-- 工作流 -->
+		<error code="PROCESS_COMMON" log="true" type="Error">
+			<message>流程处理异常</message>
+			<detail>[{0}]</detail>
+			<help>..</help>
+		</error>
+		<error code="WF_EXIST_UNEND_PROCESS" log="true" type="Error">
+			<message>启动业务流程失败</message>
+			<detail>服务名[{0}]，实体[{1}]已存在。</detail>
+			<help>请检查是否重复提交</help>
+		</error>
+		<error code="WF_TASK_ACTOR_NULL" log="true" type="Error">
+			<message>任务分配失败</message>
+			<detail>机构[{0}]中，流程[{1}]任务[{2}]未进行分配。</detail>
+			<help>请至少分配一个执行者</help>
+		</error>
+		<error code="WF_AUTO_NODE_NO_SERVICE" log="true" type="Error">
+			<message>调用自动任务异常</message>
+			<detail>服务名[{0}]未定义服务。</detail>
+			<help>请检查服务定义</help>
+		</error>
+		<error code="WF_AUTO_NODE_INVOKE_FAILURE" log="true" type="Error">
+			<message>调用自动任务异常</message>
+			<detail>服务名[{0}]，方法名[{1}]未能调用成功。</detail>
+			<help>请检查服务方法以及参数</help>
+		</error>
+		
+		<error code="WF_ACTION_NAME_INVALID" log="true" type="Error">
+			<message>流程动作处理异常</message>
+			<detail>动作名称[{0}]不符合规范。</detail>
+			<help>动作名称 约定为：中文描述(SpringBean名.方法名)</help>
+		</error>
+		<error code="WF_ACTION_INVOKE_FAILURE" log="true" type="Error">
+			<message>流程动作处理异常</message>
+			<detail>服务名[{0}]，方法名[{1}]未能调用成功。</detail>
+			<help>请检查服务方法以及参数</help>
+		</error>
+		
+		
+		<error code="WF_CREATE_PROCESS_ERROR" log="true" type="Error">
+			<message>创建流程实例异常</message>
+			<detail>流程定义名[{0}]</detail>
+			<help>请检查该流程定义</help>
+		</error>
+		<error code="WF_TASK_PROCESS_ERROR" log="true" type="Error">
+			<message>流程任务处理异常</message>
+			<detail>任务id[{0}]</detail>
+			<help>请检查该任务</help>
+		</error>
+		<error code="WF_TOKEN_PROCESS_ERROR" log="true" type="Error">
+			<message>流程令牌流转异常</message>
+			<detail>令牌id[{0}]</detail>
+			<help>请检查该任务</help>
+		</error>
+		
+		<error code="WF_TASK_HOLD" log="true" type="Error">
+			<message>任务领用异常</message>
+			<detail>任务已被[{0}]领用。</detail>
+			<help>请与相关领用人联系</help>
+		</error>
+		<error code="WF_TASK_CANCEL_HOLD" log="true" type="Error">
+			<message>撤销领用异常</message>
+			<detail>任务被[{0}]领用，只允许领用人本人进行撤销。</detail>
+			<help>您可请与相关领用人联系</help>
+		</error>
+		<error code="WF_TASK_CANCEL_HOLD_FIX" log="false" type="Error">
+			<message>撤销领用异常</message>
+			<detail>任务处理人被指定,不能撤销</detail>
+			<help>与相关指定人联系</help>
+		</error>
+		<error code="WF_DEF_DEL_001" log="true" type="Error">
+			<message>删除流程失败</message>
+			<detail>流程已分配到接入点,不允许删除。</detail>
+			<help>先撤销到接入点的分配，再进行删除。</help>
+		</error>
+		
+		<!-- ESB exception define -->
+		<error code="ESB_CONF_001" log="true" type="Error">
+			<message>ESB 配置异常</message>
+			<detail></detail>
+			<help>请检查mule配置文件</help>
+		</error>
+		<error code="ESB_SERVER_001" log="true" type="Error">
+			<message>ESB 初始化异常</message>
+			<detail></detail>
+			<help>请查看ESB启动日志信息</help>
+		</error>
+		<error code="ESB_SERVER_002" log="true" type="Error">
+			<message>ESB Server启动异常</message>
+			<detail></detail>
+			<help>请查看ESB启动日志信息</help>
+		</error>
+		<error code="ESB_CLIENT_001" log="true" type="Error">
+			<message>ESB客户端创建异常</message>
+			<detail></detail>
+			<help>请查看ESB客户端创建日志信息</help>
+		</error>
+		<error code="ESB_CLIENT_002" log="true" type="Error">
+			<message>ESB客户端消息发送异常</message>
+			<detail></detail>
+			<help>请查看ESB客户端消息发送日志信息</help>
+		</error>
+			
+		<error code="ESB_MSG_TF_CONF_001" log="true" type="Error">
+			<message>ESB报文转换配置异常</message>
+			<detail>描述：{0}</detail>
+			<help>请查看ESB报文转换配置异常日志信息</help>
+		</error>
+		<error code="ESB_MSG_TF_001" log="true" type="Error">
+			<message>ESB报文转换异常</message>
+			<detail></detail>
+			<help>请查看ESB报文转换异常日志信息</help>
+		</error>
+		
+		<error code="DEMO_LOAN_INFO_SAVE" log="true" type="Error">
+			<message>信息保存异常:</message>
+			<detail>划款人[{0}],</detail>
+			<help>请检查划款人名称信息.</help>
+		</error>
+		<error code="DEMO_LOAN_INFO_UPDATE" log="true" type="Error">
+			<message>操作异常:</message>
+			<detail>操作未能获得所需数据,</detail>
+			<help>请检查单据信息。</help>
+		</error>
+		<error code="DEMO_LOAN_INFO_GET" log="true" type="Error">
+			<message>信息获取异常:</message>
+			<detail>操作未能获得所需数据,</detail>
+			<help>请重新进行操作。</help>
+		</error>
+		<error code="DEMO_LOAN_INFO_DEL" log="true" type="Error">
+			<message>操作异常:</message>
+			<detail>删除数据不成功,</detail>
+			<help>请检查数据后重新进行操作。</help>
+		</error>
+		<error code="DEMO_LOAN_INFO_QUERY" log="true" type="Error">
+			<message>操作异常:</message>
+			<detail>操作未能获得所需数据,</detail>
+			<help>请检查数据后重新进行操作。</help>
+		</error>
+		<error code="DEMO_LOAN_001" log="true" type="Error">
+			<message>进行划款异常</message>
+			<detail>划款人[{0}],划款金额[{1}]</detail>
+			<help>请检查划款信息</help>
+		</error>
+		<error code="DEMO_LOAN_002" log="true" type="Error">
+			<message>流程处理异常：</message>
+			<detail>审核任务无法处理成功,</detail>
+			<help>请检查业务信息，或与管理员联系.</help>
+		</error>
+		<error code="DEMO_LOAN_003" log="true" type="Error">
+			<message>创建工作流异常：</message>
+			<detail>未能成功发起借款业务,</detail>
+			<help>请检查业务信息，或与管理员联系.</help>
+		</error>
+		<!-- 审批 -->
+		<error code="DELETE_BIND_USER_STATION_ERROR" log="false" type="Error">
+			<message>删除岗位失败</message>
+			<detail>岗位已经绑定人员</detail>
+			<help>....</help>
+		</error>
+		<error code="DELETE_HAS_STATION_NODE_ERROR" log="false" type="Error">
+			<message>删除节点失败</message>
+			<detail>节点已经有岗位</detail>
+			<help>....</help>
+		</error>
+		<error code="AUDIT_ROUTE_001" log="true" type="Error">
+			<message>审批路线设置异常：</message>
+			<detail>审批路线不允许移动,</detail>
+			<help>....</help>
+		</error>
+		<error code="AUDIT_ROUTE_002" log="true" type="Error">
+			<message>审批路线设置异常：</message>
+			<detail>审批节点只能是审批路线的子项,</detail>
+			<help>....</help>
+		</error>
+		<error code="AUDIT_ROUTE_003" log="true" type="Error">
+			<message>审批路线设置异常：</message>
+			<detail>审批岗位只能是审批节点的子项,</detail>
+			<help>....</help>
+		</error>
+		<error code="PRODUCT_AUDIT_ROUTE_001" log="true" type="Error">
+			<message>产品审批路线设置异常：</message>
+			<detail>该产品[{0}]存在审批中的任务,不能变更审批路线</detail>
+			<help>审批处理结束后再调整</help>
+		</error>
+		<error code="PRODUCT_AUDIT_ROUTE_002" log="true" type="Error">
+			<message>审批路线删除异常：</message>
+			<detail>该审批路线已绑定产品，不能删除</detail>
+			<help>...</help>
+		</error>
+		<error code="AUDIT_001" log="true" type="Error">
+			<message>审批异常：</message>
+			<detail>审批产品不存在,产品编号[{0}]</detail>
+			<help>...</help>
+		</error>
+		<error code="AUDIT_002" log="true" type="Error">
+			<message>审批异常：</message>
+			<detail>审批产品未绑定审批路线,产品编号[{0}]</detail>
+			<help>...</help>
+		</error>
+		<error code="AUDIT_003" log="true" type="Error">
+			<message>审批异常：</message>
+			<detail>审批实体找不到数据映射,实体名[{0}]</detail>
+			<help>...</help>
+		</error>
+		<error code="AUDIT_004" log="true" type="Error">
+			<message>审批异常：</message>
+			<detail>审批产品找不到审批岗位,产品编号[{0}]</detail>
+			<help>...</help>
+		</error>
+		<error code="AUDIT_005" log="true" type="Error">
+			<message>审批异常：</message>
+			<detail>审批任务创建失败</detail>
+			<help>...</help>
+		</error>
+		<error code="AUDIT_006" log="true" type="Error">
+			<message>审批异常：</message>
+			<detail>相同产品下同一审批实体只能存在一个审批中任务,产品编号[{0}]实体ID[{1}]</detail>
+			<help>待审批任务完成后再提交</help>
+		</error>
+		<error code="AUDIT_007" log="true" type="Error">
+			<message>审批异常：</message>
+			<detail>当前用户审批岗位不满足</detail>
+			<help>...</help>
+		</error>
+		<error code="AUDIT_008" log="true" type="Error">
+			<message>审批异常：</message>
+			<detail>该审批已被受理，不能再次受理</detail>
+			<help>...</help>
+		</error>
+		<error code="AUDIT_009" log="true" type="Error">
+			<message>审批异常：</message>
+			<detail>该审批已结束或者被撤销，不能受理</detail>
+			<help>...</help>
+		</error>
+		<error code="AUDIT_010" log="true" type="Error">
+			<message>审批异常：</message>
+			<detail>只能撤销本人受理的审批</detail>
+			<help>...</help>
+		</error>
+		<error code="AUDIT_011" log="true" type="Error">
+			<message>审批异常：</message>
+			<detail>只能撤销受理中的审批</detail>
+			<help>...</help>
+		</error>
+		<error code="AUDIT_012" log="true" type="Error">
+			<message>审批异常：</message>
+			<detail>审批意见不完整，请录入完整的审批意见再提交</detail>
+			<help>...</help>
+		</error>
+		<error code="AUDIT_013" log="true" type="Error">
+			<message>审批异常：</message>
+			<detail>不能提交未受理或已受理完成的审批</detail>
+			<help>...</help>
+		</error>
+		<error code="AUDIT_014" log="true" type="Error">
+			<message>审批异常：</message>
+			<detail>审批回调服务处理异常</detail>
+			<help>...</help>
+		</error>
+		<error code="AUDIT_015" log="true" type="Error">
+			<message>审批异常：</message>
+			<detail>审批模式为互斥时，不能审批自己的业务</detail>
+			<help>...</help>
+		</error>
+		<error code="ERROR_REVOKE_ACCEPTING_AUDITPROCESS" log="false" type="Error">
+			<message>撤销审批失败</message>
+			<detail>审批已经被受理</detail>
+			<help></help>
+		</error>
+		<error code="ERROR_REVOKE_NOT_AUDITING_AUDITTASK" log="false" type="Error">
+			<message>撤销审批失败</message>
+			<detail>没有审批中的任务</detail>
+			<help></help>
+		</error>
+		<error code="USERFUNC_CHECK_001" log="true" type="Error">
+			<message>用户权限审批异常：</message>
+			<detail>只能提交分配待审核的用户进行审批</detail>
+			<help>...</help>
+		</error>
+		<error code="USERFUNC_CHECK_002" log="true" type="Error">
+			<message>用户权限审批异常：</message>
+			<detail>只能撤销审核中的用户</detail>
+			<help>...</help>
+		</error>
+		<error code="BRCH_FUNC_CHECK_001" log="true" type="Error">
+			<message>机构权限审批异常：</message>
+			<detail>只能提交分配待审核的机构进行审批</detail>
+			<help>...</help>
+		</error>
+		<error code="BRCH_FUNC_CHECK_002" log="true" type="Error">
+			<message>机构权限审批异常：</message>
+			<detail>只能撤销审核中的机构</detail>
+			<help>...</help>
+		</error>
+		
+		<error code="BRCH_FUNC_CHECK_001" log="true" type="Error">
+			<message>参数审核提交异常：</message>
+			<detail>只能提交参数为复核的进行提交</detail>
+			<help>...</help>
+		</error>
+		<error code="BRCH_FUNC_CHECK_002" log="true" type="Error">
+			<message>参数审核撤销异常：</message>
+			<detail>只能撤销参数审核中的</detail>
+			<help>...</help>
+		</error>
+		
+		<error code="SYS_PARAM_KEY_MI_EXIST" log="true" type="Error">
+			<message>参数异常：</message>
+			<detail>参数代码已经被使用</detail>
+			<help>...</help>
+		</error>
+		<!-- 机构 -->
+		<error code="BRANCH_CHANGE_TREECODE_ERROR" log="true" type="Error">
+			<message>操作异常：</message>
+			<detail>当前机构含有子机构</detail>
+			<help>先删除子机构</help>
+		</error>
+		
+		<error code="BRANCH_001" log="false" type="Error">
+			<message>操作失败：</message>
+			<detail>机构编码已经存在</detail>
+			<help></help>
+		</error>
+		
+		<error code="BRANCH_002" log="false" type="Error">
+			<message>删除失败：</message>
+			<detail>机构正在使用权限，不能删除</detail>
+			<help></help>
+		</error>
+		
+		<error code="BRANCH_003" log="false" type="Error">
+			<message>设置权限失败：</message>
+			<detail>机构权限正在审核中,不能设置权限</detail>
+			<help></help>
+		</error>
+		
+		<error code="BRANCH_004" log="false" type="Error">
+			<message>提交审批失败：</message>
+			<detail>机构权限状态为{0}，才能提交审批</detail>
+			<help></help>
+		</error>
+		
+		<error code="PRODUCT_ATTRIBUTE_KEY_EXIST_ERROR" log="false" type="Error">
+			<message>代码已存在</message>
+			<detail>产品属性的代码已经存在</detail>
+			<help></help>
+		</error>
+		<error code="ORGN_NUM_HAS_EXISTS" log="true" type="Error">
+			<message>自然企业的机构编码已经存在</message>
+			<detail></detail>
+			<help></help>
+		</error>
+		<error code="BLANK" log="true" type="Error">
+			<message>不能为空</message>
+			<detail>{0}不能为空</detail>
+			<help></help>
+		</error>
+		<error code="CODE_META_HAS_EXIST" log="false" type="Error">
+			<message>数据已存在</message>
+			<detail>代码：{0}数据已存在</detail>
+			<help></help>
+		</error>
+		<error code="CODE_HAS_EXIST" log="false" type="Error">
+			<message>数据已存在</message>
+			<detail>编码：{0},代码：{1}数据已存在</detail>
+			<help></help>
+		</error>
+		<error code="FIELD_CODE_MAP_HAS_EXIST" log="false" type="Error">
+			<message>数据已存在</message>
+			<detail>表名：{0},字段：{1}数据已存在</detail>
+			<help></help>
+		</error>
+		
+		<!--  -->
+		<error code="PROCMAP_GETPROC_001" log="true" type="Error">
+			<message>选择流程异常：</message>
+			<detail>当前机构的产品(编号:[{0}]),配置了多个流程(名称:[{1}]),</detail>
+			<help>在流程管理为机构配置流程时，请去除多余的流程</help>
+		</error>
+		<error code="PROCMAP_GETPROC_002" log="true" type="Error">
+			<message>选择流程异常：</message>
+			<detail>产品(编号:[{0}]),配置了多个流程,但没有指定默认的工作流程</detail>
+			<help>请进行流程管理，指定产品默认的工作流程</help>
+		</error>
+		<error code="PROCMAP_GETPROC_003" log="true" type="Error">
+			<message>选择流程异常：</message>
+			<detail>当前机构的产品(编号:[{0}]),未配置可用流程</detail>
+			<help>请进行流程管理，设置产品对应的流程</help>
+		</error>
+		
+		<!-- 定时任务 -->
+		<error code="AUTO_TASK_RUN_001" log="true" type="Error">
+			<message>定时任务运行异常</message>
+			<detail>[{0}]</detail>
+			<help>..</help>
+		</error>
+		
+		<!-- 产品 -->
+		<error code="PRODUCT_001" log="true" type="Error">
+			<message>保存产品失败</message>
+			<detail>产品编号已经存在</detail>
+			<help>...</help>
+		</error>
+		<error code="PRODUCT_003" log="true" type="Error">
+			<message>保存产品失败</message>
+			<detail>同级别中产品名称不能重复</detail>
+			<help>...</help>
+		</error>
+		<error code="PRODUCT_004" log="true" type="Error">
+			<message>保存产品失败</message>
+			<detail>同级别中产品名称国际化不能重复</detail>
+			<help>...</help>
+		</error>
+		<error code="PRODUCT_005" log="true" type="Error">
+			<message>删除产品失败</message>
+			<detail>不能删除包含子项的产品</detail>
+			<help>...</help>
+		</error>
+		<error code="PRODUCT_006" log="true" type="Error">
+			<message>修改产品失败</message>
+			<detail>产品已具有权限，不能修改产品类型</detail>
+			<help>请先删除产品权限，再进行修改</help>
+		</error>
+		<error code="PRODUCT_007" log="true" type="Error">
+			<message>删除产品失败</message>
+			<detail>不能删除已授权给接入点的产品</detail>
+			<help>...</help>
+		</error>
+		<error code="PRODUCT_008" log="true" type="Error">
+			<message>产品分配失败</message>
+			<detail>所选产品中部分产品已经删除</detail>
+			<help>...</help>
+		</error>
+		<!-- 账务配置start -->
+		<error code="ACCT_RECORD_001" log="true" type="Error">
+			<message>记账点已经被使用</message>
+			<detail>记账点已经被使用</detail>
+			<help>..</help>
+		</error>
+		<error code="ACCT_RECORD_002" log="true" type="Error">
+			<message>记账项已经被使用</message>
+			<detail>记账项已经被使用</detail>
+			<help>..</help>
+		</error>
+		<error code="ACCT_RECORD_003" log="true" type="Error">
+			<message>记账交易已经被使用</message>
+			<detail>记账交易已经被使用</detail>
+			<help>..</help>
+		</error>
+		<error code="ACCT_RECORD_004" log="true" type="Error">
+			<message>分录结构体已经被使用</message>
+			<detail>分录结构体已经被使用</detail>
+			<help>..</help>
+		</error>
+		<error code="ACCT_RECORD_005" log="true" type="Error">
+			<message>交易项已经存在</message>
+			<detail>交易项已经存在</detail>
+			<help>..</help>
+		</error>
+		<error code="ACCT_RECORD_006" log="true" type="Error">
+			<message>记帐点保存失败</message>
+			<detail>记帐点已经存在</detail>
+			<help>..</help>
+		</error>
+		<error code="ACCT_RECORD_007" log="true" type="Error">
+			<message>记帐项保存失败</message>
+			<detail>记帐项编号不能重复</detail>
+			<help>..</help>
+		</error>
+		<!-- 账务配置end -->
+		
+</config>

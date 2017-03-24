@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- excel配置文件 -->
+<config>
+	<file code="DEMO" callBack="" class="com.upg.demo.excel.core.DemoUser">
+			<column name="用户编号" field="userNo" required="true"/>
+			<column name="用户姓名" field="userName" required="true" />
+			<column name="用户性别" field="userSex" required="true" />
+			<column name="用户生日" field="userbirthday" format="yyyy-MM-dd"/>
+			<column name="用户金额" field="userMoney" format="#,##0.00"/>
+			<column name="用户电话" field="userPhone" required="true" />
+			<column name="用户邮箱" field="userMail" required="true" />
+	</file>
+</config>

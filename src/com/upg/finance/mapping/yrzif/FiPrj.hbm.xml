@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.upg.finance.mapping.yrzif.FiPrj" table="fi_prj">
+		<id name="id" type="long">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="uid" type="long">
+			<column name="uid" />
+		</property>
+		<property name="prjNo" type="string">
+			<column name="prj_no" />
+		</property>
+		<property name="prjName" type="string">
+			<column name="prj_name" />
+		</property>
+		<property name="startBidTime" type="secDate">
+			<column name="start_bid_time" />
+		</property>
+		<property name="endBidTime" type="secDate">
+			<column name="end_bid_time" />
+		</property>
+		<property name="fundAccount" type="long">
+			<column name="fund_account" />
+		</property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.upg.cfsettle.mapping.org.OrgOrganization" table="org_organization" dynamic-update="true">
+        <id name="id" type="java.lang.Long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="orgName" type="java.lang.String">
+            <column name="org_name">
+                <comment>机构名称</comment>
+            </column>
+        </property>
+        <property name="orgShortName" type="java.lang.String">
+            <column name="org_short_name">
+                <comment>机构简称</comment>
+            </column>
+        </property>
+        <property name="invitationOrgId" type="java.lang.Long">
+            <column name="invitation_org_id">
+                <comment>邀请机构ID</comment>
+            </column>
+        </property>
+        <property name="invitationCode" type="java.lang.String">
+            <column name="invitation_code">
+                <comment>邀请码</comment>
+            </column>
+        </property>
+        <property name="invitedCode" type="java.lang.String">
+            <column name="invited_code">
+                <comment>被邀请码</comment>
+            </column>
+        </property>
+        <property name="registionTime" type="secDate">
+            <column name="registion_time">
+                <comment>注册时间</comment>
+            </column>
+        </property>
+        <property name="approvalStatus" type="java.lang.Byte">
+            <column name="approval_status">
+                <comment>机构审核状态：0待审核，1审核通过, 2审核不通过</comment>
+            </column>
+        </property>
+        <property name="approvalTime" type="secDate">
+            <column name="approval_time">
+                <comment>审核通过时间</comment>
+            </column>
+        </property>
+        <property name="approvedBy" type="java.lang.Long">
+            <column name="approved_by">
+                <comment>审核人</comment>
+            </column>
+        </property>
+        <property name="lastUpdatedBy" type="java.lang.Long">
+            <column name="last_updated_by">
+                <comment>最近更新人</comment>
+            </column>
+        </property>
+        <property name="mtime" type="secDate">
+            <column name="mtime" />
+        </property>
+        <property name="ctime" type="secDate">
+            <column name="ctime" />
+        </property>
+    </class>
+</hibernate-mapping>

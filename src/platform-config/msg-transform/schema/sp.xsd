@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns="http://www.hundsun.com/xcars/msg/sp" xmlns:msg="http://www.hundsun.com/xcars/msg"
+	targetNamespace="http://www.hundsun.com/xcars/msg/sp" elementFormDefault="qualified">
+
+	<xsd:import namespace="http://www.hundsun.com/xcars/msg" schemaLocation="basic.xsd"/>
+
+	<xsd:simpleType name="spStrType">
+		<xsd:annotation>
+			<xsd:documentation>分隔字符类型，长度1位</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:length value="1" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="spItemType">
+		<xsd:annotation>
+			<xsd:documentation>配置数据项，包含数据项xpath，行号，顺序号</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="msg:abstractItemType">
+			<xsd:all>
+			<xsd:element name="lineNo" type="msg:greaterOneIntType" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="sn" type="msg:greaterOneIntType" minOccurs="1" maxOccurs="1"/>
+			</xsd:all>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="spItemsType">
+		<xsd:complexContent>
+			<xsd:extension base="msg:abstractItemsType">
+				<xsd:sequence>
+					 <xsd:element name="item" type="spItemType" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="spFieldType">
+		<xsd:annotation>
+			<xsd:documentation>配置循环数据单元，包含数据项xpath，顺序号</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="msg:abstractFieldType">
+				<xsd:sequence>
+					<xsd:element name="sn" type="msg:greaterOneIntType" minOccurs="1" maxOccurs="1"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="spListType">
+		<xsd:annotation>
+			<xsd:documentation>配置循环数据区，包含xpath,数据项元素，循环开始行号，循环单元数量</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="msg:abstractListType">
+				<xsd:sequence>
+					<xsd:element name="field" type="spFieldType" minOccurs="1" maxOccurs="unbounded"/>
+				</xsd:sequence>
+				<xsd:attribute name="startLineNo" type="msg:greaterOneIntType" use="required"/>
+				<xsd:attribute name="cycFieldNum" type="msg:greaterOneIntType" use="required"/>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="spConfigType">
+		<xsd:annotation>
+			<xsd:documentation>配置分隔符，数据头，循环数据区</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="msg:abstractConfigType">
+				<xsd:sequence>
+				    <xsd:element name="sp" type="spStrType" minOccurs="1" maxOccurs="1"/>
+					<xsd:element name="items" type="spItemsType" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element name="list" type="spListType" minOccurs="0" maxOccurs="1"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:element name="config" type="spConfigType"/>
+</xsd:schema>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="bpm" namespace="/bpm" extends="pkg-base">
+		<action name="procmap_*" class="com.upg.ucars.framework.bpm.procmap.ProcMapAction" method="{1}">
+			<result name="memberMain">/platform/module/framework/bpm/procmap/memberMain.jsp</result>	
+  			<result name="memberQuery" type="stream">
+				<param name="inputName">memberStream</param>
+			</result>
+			<result name="memberComponent" type="stream">
+				<param name="inputName">queryStream</param>
+			</result>
+			<result name="memberProc">/platform/module/framework/bpm/procmap/memberProcList.jsp</result>	
+			<result name="toMemberProdProc">/platform/module/framework/bpm/procmap/memberProdProc.jsp</result>
+			<result name="memberProdQuery" type="stream">
+				<param name="inputName">memberStream</param>
+			</result>
+			<result name="memberSelProc">/platform/module/framework/bpm/procmap/memberSelProc.jsp</result>
+			<result name="memberProcQuery" type="stream">
+				<param name="inputName">memberStream</param>
+			</result>
+			<!--  -->
+			<result name="brchMain">/platform/module/framework/bpm/procmap/brchMain.jsp</result>
+			<result name="brchQuery" type="stream">
+				<param name="inputName">queryStream</param>
+			</result>
+			<result name="toBrchProc">/platform/module/framework/bpm/procmap/brchProcList.jsp</result>
+			<result name="brchProdQuery" type="stream">
+				<param name="inputName">jsonStream</param>
+			</result>
+			<result name="brchSelProc">/platform/module/framework/bpm/procmap/brchSelProc.jsp</result>
+			<result name="brchProcQuery" type="stream">
+				<param name="inputName">jsonStream</param>
+			</result>
+			
+  		</action> 
+  		
+		<action name="taskassign_*" class="com.upg.ucars.framework.bpm.assign.action.TaskAssignAction" method="{1}">
+			<result name="main">/platform/module/framework/bpm/assign/main.jsp</result>		
+			<result name="actorlist">/platform/module/framework/bpm/assign/actorList.jsp</result>
+			<result name="success">/platform/module/framework/bpm/assign/{1}.jsp</result>
+		</action>
+		<action name="taskassignex_*" class="com.upg.ucars.framework.bpm.assign.action.TaskAssignExAction" method="{1}">
+			<result name="main">/platform/module/framework/bpm/assignex/main.jsp</result>
+			<result name="actorlist">/platform/module/framework/bpm/assignex/actorList.jsp</result>
+		</action>
+  		<action name="publish_*" class="com.upg.ucars.framework.bpm.publish.action.PublishAction" method="{1}">
+  			<interceptor-ref name="xcarFileUploadStack"/>
+			<result name="main">/platform/module/framework/bpm/publish/main.jsp</result>
+			<result name="edit">/platform/module/framework/bpm/publish/edit.jsp</result>
+			<result name="publish">/platform/module/framework/bpm/publish/publish.jsp</result>
+			<result name="tasklist">/platform/module/framework/bpm/publish/taskList.jsp</result>
+			<result name="taskedit">/platform/module/framework/bpm/publish/taskEdit.jsp</result>
+  		</action>
+  		
+  		<action name="activity_*" class="com.upg.ucars.framework.bpm.assist.action.BpmActivityAction" method="{1}">
+  			<result name="main">/platform/module/framework/bpm/assist/procInstList.jsp</result>
+  			<result name="taskinst">/platform/module/framework/bpm/assist/taskInstList.jsp</result>
+  			<result name="varinst">/platform/module/framework/bpm/assist/varInstList.jsp</result>
+  			<result name="addvar">/platform/module/framework/bpm/assist/addVariable.jsp</result>
+  			<result name="table" type="stream">
+				<param name="inputName">jsonStream</param>
+			</result>
+			<result name="flow">/platform/module/framework/bpm/assist/flowList.jsp</result>
+  		</action>
+  		
+  		<action name="dataClear_*" class="com.upg.ucars.framework.bpm.assist.action.BpmDataClearAction" method="{1}">
+  			<result name="main">/platform/module/framework/bpm/assist/dataClearMain.jsp</result>
+  			<result name="confirm">/platform/module/framework/bpm/assist/dataClearConfirm.jsp</result>
+  			<result name="result">/platform/module/framework/bpm/assist/dataClearResult.jsp</result>
+  		</action>		
+		
+		<action name="exampleBusiness_*" class="com.upg.ucars.bpm.action.ExampleBusinessAction" method="{1}">
+			<result name="main">/platform/module/framework/bpm/task/exampleBusiness_main.jsp</result>
+			<result name="add">/platform/module/framework/bpm/task/exampleBusiness_add.jsp</result>
+			<result name="edit">/platform/module/framework/bpm/task/exampleBusiness_edit.jsp</result>
+		</action>
+		<action name="taskDelegated_*" class="com.upg.ucars.framework.bpm.assign.action.TaskDelegatedAction" method="{1}">
+			<result name="success">/platform/module/framework/bpm/task/taskDelegated_{1}.jsp</result>
+		</action>
+		<action name="task_*" class="com.upg.ucars.bpm.action.ProcessAction" method="{1}">
+			<result name="main">/platform/module/framework/bpm/task/task_main.jsp</result>
+			<result name="success">/platform/module/framework/bpm/task/task_{1}.jsp</result>
+		</action>
+	</package>
+</struts>

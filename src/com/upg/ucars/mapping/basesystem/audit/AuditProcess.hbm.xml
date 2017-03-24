@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.upg.ucars.mapping.basesystem.audit.AuditProcess" table="AUDIT_PROCESS">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="22" scale="0" />
+            <generator class="native"></generator>
+        </id>
+        <!--version标签必须跟在id标签后面-->
+    	<version name="version" column="VER" type="java.lang.Long"/>
+        <property name="auditTaskId" type="java.lang.Long">
+            <column name="AT_ID" />
+        </property>
+        <property name="auditProcessCommitPerson" type="java.lang.Long">
+            <column name="AP_COMMIT_PERSON" />
+        </property>
+        <property name="auditProcessCommitStation" type="java.lang.Long">
+            <column name="AP_COMMIT_STATION" />
+        </property>
+        <property name="auditProcessExecStation" type="java.lang.Long">
+            <column name="AP_EXEC_STATION" />
+        </property>
+        <property name="auditProcessExecPerson" type="java.lang.Long">
+            <column name="AP_EXEC_PERSON" />
+        </property>
+        <property name="auditProcessStatus" type="java.lang.String">
+            <column name="AP_STATUS" length="1" />
+        </property>
+        <property name="auditProcessExecResult" type="java.lang.String">
+            <column name="AP_EXEC_RESULT" length="1" />
+        </property>
+        <property name="auditProcessExecRemark" type="java.lang.String">
+            <column name="AP_EXEC_REMARK" length="500" />
+        </property>
+        <property name="auditProcessDoneTime" type="java.util.Date">
+            <column name="AP_DONE_TIME" length="18" />
+        </property>
+        <property name="sortNo" type="java.lang.Long">
+        	<column name="SORT_NO" />
+        </property>
+    </class>
+</hibernate-mapping>

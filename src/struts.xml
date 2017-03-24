@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+
+	<!-- 指定Web应用的默认编码集,相当于调用HttpServletRequest的setCharacterEncoding方法 -->  
+     <constant name="struts.i18n.encoding" value="UTF-8" />  
+     <!-- 设置浏览器是否缓存静态内容,默认值为true(生产环境下使用),开发阶段最好关闭 -->  
+     <constant name="struts.serve.static.browserCache" value="false" />       
+     <!-- 当struts的配置文件修改后,系统是否自动重新加载该文件,默认值为false(生产环境下使用),开发阶段最好打开 -->  
+     <constant name="struts.configuration.xml.reload" value="true" />  
+     <!-- 开发模式下使用,这样可以打印出更详细的错误信息 -->  
+     <constant name="struts.devMode" value="true" />  
+     <!-- 默认的视图主题 -->  
+     <constant name="struts.ui.theme" value="simple" />  
+     <!-- 把action对象交给spring创建 -->  
+    <constant name="struts.objectFactory" value="spring" />
+    
+    <constant name="struts.i18n.reload" value="false" />
+    <constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+    
+    
+     <!-- 国际化配置 -->
+    <constant name="struts.custom.i18n.resources" value="platform-config/i18n/globalMessages,platform-config/i18n/productDefine,platform-config/i18n/menuDefine" />
+    <!-- 定义action后缀 -->  
+    <constant name="struts.action.extension" value="jhtml,action,jspx,do,," /> 
+    <!--  配置先后 --> 
+    <constant name="struts.configuration.files" value="struts-default.xml,struts-plugin.xml,struts.xml" />
+     <!-- 允许上传文件的大小限制，此处为30M --> 
+    <constant name="struts.multipart.maxSize" value="60000000" />
+	
+	<constant name="xcars.ui.templateDir" value="templates/xcarsui"/>
+	<constant name="xcars.ui.theme" value="def"/>
+	
+	<bean type="org.apache.struts2.convention.ActionConfigBuilder" name="ucarsConvention" class="com.upg.ucars.struts2.UcarsPackageBasedActionConfigBuilder"/>
+	<bean type="com.opensymphony.xwork2.UnknownHandler" name="ucarsConvention" class="com.upg.ucars.struts2.UcarsConventionUnknownHandler"/>
+	
+	<constant name="struts.convention.actionConfigBuilder" value="ucarsConvention"/>
+	<constant name="struts.convention.base.action.packages" value="com.upg"/>
+	<constant name="struts.convention.default.parent.package" value="pkg-base"/>
+	
+	<package name="pkg-base" abstract="true" extends="struts-default">
+		<result-types>
+			<result-type name="download" class="com.upg.ucars.framework.result.DownLoadStreamResult"/>
+		</result-types>
+		<interceptors>
+			<interceptor name="auth" class ="com.upg.ucars.framework.interceptor.AuthorizationInterceptor" /> 
+			<interceptor name="asyncAction" class="com.upg.ucars.framework.interceptor.AsyncInterceptor"/>
+			<interceptor name="actionErrorInterceptor" class="com.upg.ucars.framework.interceptor.ActionExceptionInterceptor"/>
+			<interceptor name="changeResult" class="com.upg.ucars.framework.interceptor.ChangeActionResult"/>
+			<interceptor-stack name="custom_intercept_stack">
+				<!-- <interceptor-ref name="exception"/> -->
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="i18n"/>
+                <!--<interceptor-ref name="prepare"/>-->
+                <interceptor-ref name="chain"/>
+                <!--<interceptor-ref name="debugging"/>
+                <interceptor-ref name="scopedModelDriven"/>
+                <interceptor-ref name="modelDriven"/>-->
+                <interceptor-ref name="fileUpload"/>
+                <!--<interceptor-ref name="checkbox"/>
+                <interceptor-ref name="multiselect"/>-->
+                <interceptor-ref name="staticParams"/>
+                <interceptor-ref name="actionMappingParams"/>
+                <interceptor-ref name="params">
+                  <param name="excludeParams">dojo\..*,^struts\..*</param>
+                </interceptor-ref>
+                <interceptor-ref name="conversionError"/>
+               <!--  <interceptor-ref name="validation">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref> -->
+			</interceptor-stack>
+			<interceptor-stack name="base-interceptors">           
+                <interceptor-ref name="actionErrorInterceptor">
+                	<param name="debug">ON</param>
+                </interceptor-ref>  
+                <interceptor-ref name="custom_intercept_stack"/>
+                <interceptor-ref name="auth">
+                    <param name="greenChannel">/index.jsp,/**/login_logon.*,/**/user_toChangePassword.*,/**/login_noRights.*,/**/user_changePassword.*,/**/assessMeeting_doAttend.*,/**/typ_transData.*,/**/typ_verityUser.*,/**/req_transTypeData.*,/**/investFinance**,/**/project_changeNotice.*,/**/req_getBranch.*,/**/req_postStatus.*,/**/req_getPostLoanRecordList.*</param>
+                    <param name="onOff">OFF</param>
+                    <param name="debug">ON</param>
+                </interceptor-ref>
+                <interceptor-ref name="asyncAction">
+                	<param name="uncontrolledActionNames">
+                		[ACTION_NAME]:,sysfunc_queryMenu,projectReportInfo_exportReport,projectReportInfo_exportRiskOpinionReport,attachment_downLoad,
+                	</param>
+                </interceptor-ref>
+                <interceptor-ref name="changeResult"/>
+        	</interceptor-stack>
+			<interceptor-stack name="xcarFileUploadStack">
+				<interceptor-ref name="fileUploadStack"/>
+				<interceptor-ref name="changeResult"/>
+        		<interceptor-ref name="actionErrorInterceptor"/>
+			</interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="base-interceptors"/>
+        <global-results>
+            <result name="bbsp_logon">/platform/common/noLoninException.jsp</result>
+            <result name="access_forbidden">/platform/common/accessForbidden.jsp</result>
+    		<result name="invalid.token">/platform/common/commitRepeat.jsp</result>
+    		<!-- <result name="commonException">/common/exception.jsp</result> -->
+    		<result name="asyncException" type="stream">
+				<param name="inputName">errorStream</param>
+			</result>
+			<result name="syncException">/platform/common/error.jsp</result>
+			<result name="sys_status_busy" type="stream">
+				<param name="inputName">statusStream</param>
+			</result>
+    		<result name="login">login.jsp</result>
+    		<result name="xcas_data">/platform/common/data.jsp</result>
+    		<result name="wrap">/platform/common/wrap.jsp</result>
+    		<result name="dataStream" type="stream">
+    			<param name="inputName">dataStream</param>
+    		</result>
+    		<result name="error">/platform/common/error.jsp</result>
+    		<result name="viewAuditProcess">/platform/module/basesystem/audit/viewAuditProcess.jsp</result>
+    		
+    		<!-- 针对velocity和freemarker提供的公共全局Result -->
+    		<result name="velocityResult" type="velocity">/WEB-INF/classes/templates/${templateFile}</result>
+    		<result name="freemarkerResult" type="freemarker">/WEB-INF/classes/templates/${templateFile}</result>
+    		
+    		<result name="download" type="download">
+				<param name="contentType">application/octet-stream;charset=UTF-8</param>   
+	            <param name="contentDisposition">attachment;filename="${fileInputFileName}"</param>
+	            <param name="inputName">dataStream</param>   
+	            <param name="bufferSize">4096</param>
+			</result>
+			
+    		<result name="viewDoneTask">/ubsp/projectFlow/bpm/task_viewProcess.jsp</result>
+    		
+    	</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="syncException" exception="java.lang.Exception"></exception-mapping>		
+		</global-exception-mappings>
+	</package>
+    
+    
+    <package name="expose_service_pkg" extends="pkg-base">
+		<interceptors>
+			<interceptor name="exposeService" class="com.upg.ucars.framework.interceptor.ExposeServiceInterceptor"/>
+			<interceptor-stack name="exposeServiceStack">
+				<interceptor-ref name="exposeService"/>
+				<interceptor-ref name="base-interceptors"/>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="exposeServiceStack"/>
+	</package>
+    
+    
+    <!-- 鑫合汇资金服务基础包 -->
+    <package name="xhh-finance" abstract="true" extends="pkg-base">
+    	<interceptors>
+    	<interceptor name="spendTimeInterceptor" class="com.upg.finance.xhh.interceptor.SpendTimeInterceptor"/>
+    	<interceptor name="financeCallLogInterceptor" class="com.upg.finance.xhh.interceptor.FinanceCallLogInterceptor"/>
+    	 <interceptor-stack name="xhh-finance-interceptors">
+    	 	<interceptor-ref name="spendTimeInterceptor"/>
+    	 	<interceptor-ref name="params">
+              <param name="excludeParams">dojo\..*,^struts\..*</param>
+            </interceptor-ref>
+            <interceptor-ref name="financeCallLogInterceptor"/>
+    	 </interceptor-stack>
+    	</interceptors>
+    	<default-interceptor-ref name="xhh-finance-interceptors"/>
+    </package>
+    
+    <include file="*-config/struts/**/struts-*.xml"/>
+   
+</struts>

@@ -1,0 +1,27 @@
+.boxy-wrapper { position: absolute; }
+.boxy-wrapper.fixed { position: fixed; }
+
+  /* Modal */
+  
+  .boxy-modal-blackout { position: absolute; background-color: #ccc; left: 0; top: 0; }
+  
+  /* Border */
+
+  .boxy-wrapper { empty-cells: show; }
+	
+	/* Title bar */
+	
+	.boxy-wrapper .title-bar {text-align:left;font-weight:bold; color:#15428B;background: url('../images/panel_title.png') repeat-x; padding: 6px; position: relative; }
+	  .boxy-wrapper .title-bar.dragging { cursor: move; }
+	    .boxy-wrapper .title-bar h2 { font-size: 12px; line-height: 1; margin: 0; padding: 0; font-weight: normal; }
+	    .boxy-wrapper .title-bar .close {width:16px;height:16px;background:url('../images/panel_tools.gif') no-repeat -16px 0px; position: absolute; top: 2px; right: 4px; font-size: 90%; line-height: 1; }
+		
+	/* Content Region */
+	
+	.boxy-inner { background:transparent url('../images/panel_title.png'); padding: 5px;border:1px solid #99BBE8; }
+	.boxy-content {background-color: white; padding: 15px; }
+	
+	/* Question Boxes */
+
+    .boxy-wrapper .question { width: 350px; min-height: 80px; }
+    .boxy-wrapper .answers { text-align: right; }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root-container name="loan" width="779" height="526">
+  <node name="start-state1" x="226" y="31" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="accept" x="231" y="99" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="214" h1="14" w2="220" h2="-324"/>
+      <bendpoint w1="222" h1="331" w2="228" h2="-7"/>
+    </edge>
+  </node>
+  <node name="commonAudit" x="97" y="254" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="-52" h1="-109" w2="-180" h2="34"/>
+    </edge>
+  </node>
+  <node name="advancedAudit" x="343" y="253" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="decision1" x="225" y="175" width="132" height="36">
+    <edge>
+      <label x="-49" y="-9"/>
+    </edge>
+    <edge>
+      <label x="-32" y="-5"/>
+    </edge>
+  </node>
+  <node name="payment" x="227" y="319" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="waitPaymentResult" x="236" y="400" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="end-state1" x="232" y="481" width="132" height="36"/>
+</root-container>

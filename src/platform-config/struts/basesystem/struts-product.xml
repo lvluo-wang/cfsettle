@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="product" namespace="/product" extends="pkg-base">
+  		<action name="product_*" class="com.upg.ucars.basesystem.product.action.ProductAction" method="{1}">
+			<result name="main">/platform/module/basesystem/product/main.jsp</result>
+			<result name="help">/platform/module/basesystem/product/help.jsp</result>
+			<result name="add">/platform/module/basesystem/product/add.jsp</result>
+			<result name="edit">/platform/module/basesystem/product/edit.jsp</result>
+			<result name="view">/platform/module/basesystem/product/view.jsp</result>
+			<result name="memberMain">/platform/module/basesystem/product/memberMain.jsp</result>
+			<result name="memberEdit">/platform/module/basesystem/product/memberEdit.jsp</result>
+			<result name="memberView">/platform/module/basesystem/product/memberView.jsp</result>
+			<result name="memberList">/platform/module/basesystem/product/memberList.jsp</result>
+			<result name="to_set_member_product">/platform/module/basesystem/product/memberProductSet.jsp</result>
+			<result name="brchList">/platform/module/basesystem/product/brchList.jsp</result>
+			<result name="to_set_branch_product">/platform/module/basesystem/product/branchProductSet.jsp</result>
+			<result name="to_view_branch_product">/platform/module/basesystem/product/branchProductView.jsp</result>
+			<result name="brchCheckList">/platform/module/basesystem/product/brchCheckList.jsp</result>
+			<result name="to_check_brch_prod">/platform/module/basesystem/product/branchProductCheck.jsp</result>
+			<result name="success">/platform/module/basesystem/product/{1}.jsp</result>
+		</action>
+		
+		<action name="assign_*" class="com.upg.ucars.basesystem.product.action.ProductAction" method="{1}">
+		</action>
+		
+		<action name="attr_*" class="com.upg.ucars.basesystem.product.action.ProductAttributeAction" method="{1}">
+			<result name="success">/platform/module/basesystem/product/attributes/{1}.jsp</result>
+		</action>		
+		
+	</package>
+</struts>

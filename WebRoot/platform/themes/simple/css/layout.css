@@ -1,0 +1,186 @@
+*{
+	font-size:12px;
+}
+html,body{
+	margin:0;
+	padding:0;
+}
+body{
+    font-family:Arial,Helvetica,"Nimbus Sans L",sans-serif;
+	background:#fafafa;
+	text-align:center;
+}
+#mainwrap{
+	margin: 0 auto;
+}
+#mainPage{
+}
+#header{
+	border:0px;height:70px;
+}
+
+#footer{
+	height:23px;
+}
+#workarea{
+border-top:0px;
+border-bottom:0px;
+border-left:0px;
+}
+#menuarea{
+width:210px;
+border-top:0px;
+border-bottom:0px;
+}
+
+/* Thumbnail slider style */
+.menu_slider{
+	height:52px;
+	margin:0;
+	overflow:hidden;
+	width:320px;
+}
+.menu_items{
+	float:left;
+	}
+.prev{
+	height:52px;
+	border:0px;
+	padding:0px 0px;
+	text-decoration:none;
+	overflow:hidden;
+	color:#fff;
+	}
+.next{
+	height:52px;
+	border:0px;
+	padding:0px 0px;
+	text-decoration:none;
+	overflow:hidden;
+	color:#fff;
+	}
+.prev img{
+	height:65px;
+		border:0px;
+	}
+.next img{
+	
+	height:65px;
+		border:0px;
+	}
+
+.prev:hover{
+	text-decoration:underline;
+	}
+.next:hover{
+  text-decoration:underline;
+}
+.menu_item{
+	float:left;
+	width:80px;
+	height:52px;
+	padding:0px;
+	text-align:center;
+	
+}
+.menu_item a{
+	text-decoration:none;
+	}
+	.menu_item a:hover{
+		color:#fff;
+	text-decoration:underline;
+	}
+.menu_item img{
+	border:0px;
+	height:30px;
+}
+.menu_item_desc{
+	width:80px;
+	display:block;
+	color:#fff;
+	height:20px;
+	margin-top:2px;
+	text-align:center;
+	line-height:20px;
+	overflow:hidden;
+}
+/****head right ****/
+.s-login a { 
+	color:#badbfc; 
+	display:block; margin:0px; padding:0px; 
+	text-align:center; font-weight:bold; height:24px; 
+	overflow:hidden; float:left;
+	text-decoration:none;
+	width:60px;
+	margin-left:2px;
+	line-height:25px;
+	float:right;
+} 
+.s-login a:hover {  
+	caption-side:#fff;  color:#fff; 
+	text-decoration:underline;
+} 
+.s-login { 
+	width:205px;
+	height:25px;
+	background:url(../images/login_bg.jpg) no-repeat;
+	text-align:right; } /*FF*/
+
+.s-menu { width:100%; text-align:right; margin-top:22px; }
+.s-menu  a { 
+	color:#badbfc; 
+	text-align:center; font-weight:bold; height:24px; 
+	text-decoration:none;
+	width:60px;
+	margin-left:2px;
+	line-height:25px;
+	float:right;
+} 
+.s-menu  a:hover {  
+	caption-side:#fff;  color:#fff; 
+	text-decoration:underline;
+}
+.sys_message{
+	color:#badbfc; 
+	text-align:center; font-weight:bold; height:24px; 
+	text-decoration:none;
+	width:60px;
+	margin-left:2px;
+	line-height:25px;
+}
+.sys_message:hover{
+	caption-side:#fff;  color:#fff; 
+	text-decoration:underline;
+}
+.panel-header{
+	text-align: left;
+}
+.messager-body {
+	text-align: left;
+}
+#footerBox{
+	width: 100%;
+	background:#2a343e;
+	height:100%;
+	font:12px/22px Microsoft Yahei; 
+	color:#FFFFFF;
+}
+#headerBox a{ color: #666666; text-decoration: none; }
+#headerBox a:hover{ text-decoration:none; }
+#headerBox a:focus { outline: none; }
+#headerBox .icon{background: url(../images/ubspAllIcon.png) no-repeat; display: inline-block; vertical-align: middle; zoom:1;}
+#headerBox{width: 100%;background: #2a343e; }
+#header{height: 50px;width: 100%;margin: auto;padding: 0 8px; overflow: hidden;}
+#header .loginFl{float: left; width: 310px; padding: 6px 0 0 5px;}
+ul.nav{ list-style: none; margin:0; padding:0; }
+#header .topFr{float: right;height: 50px;}
+#header .topFr .nav li{height: 50px; border-left: #101417 solid 1px; float: left;}
+#header .topFr .nav li a{line-height: 50px; padding: 0 15px; position: relative; color: #9ba3ad;}
+#header .topFr .nav li a .icon.note{width: 19px; height: 21px; background-position: -4px -14px;}
+#header .topFr .nav li a .icon.num{width: 18px; height: 18px; background-position: -3px -37px; color: #ffffff; text-align: center;line-height: 15px; position: absolute; top: 3px; right: 3px;}
+#header .topFr .nav li a .icon.friend{width: 19px; height: 21px; background-position: -5px -110px;}
+#header .topFr .nav li a .icon.set{width: 22px; height: 22px; background-position: -3px -82px;}
+#header .topFr .nav li a .icon.refresh{width: 25px; height: 17px; background-position: 0 -60px;}
+#header .topFr .nav li a .icon.user{width: 8px; height: 5px; background-position: -8px 0px;}
+
+#sysTip { float:left;padding:25px 0 0 20px;color:#f00;}

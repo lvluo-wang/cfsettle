@@ -1,0 +1,189 @@
+
+.formPannel{
+	font: 12px arial,sans-serif;
+	padding:0em;
+	border:0px solid #eee;
+	height:85%;
+	margin:0em;
+
+}
+.formPannel legend{
+	color:#0b77b7;
+	font-size:1.2em;
+}
+.formPannel fieldset{
+	border:1px solid #ddd;
+
+}
+.formPannel table{
+	border:0px;
+	cellspacing:0;
+	cellpadding:0;
+}
+
+.formPannel tr{
+	/*margin:0.3em 0;
+	padding:0.5em;*/
+	clear:both;
+	background:#fafafa;
+}
+/**
+.formPannel td{
+	border-top:2px solid #fff;
+	padding-top:2px;
+	padding-bottom:2px;
+}
+*/
+.formPannel input{
+	padding:0em;
+	padding-left:1px;
+	width:130px;
+	height:21px;
+	border:#a4bed4 1px solid;
+	/*vertical-align:middle;*/
+	line-height:21px;
+}
+
+
+.formPannel label{
+	margin-right:0.5em;margin-left:1em;margin-bottom:2px;text-align:right;
+}
+
+
+.formPannel input:hover{
+	border-color:#c5c5c5;
+}
+.formPannel input:focus{
+	border-color:#c5c5c5;
+}
+.formPannel select{
+	padding:0.15em;
+	height:24px;
+	border:#a4bed4 1px solid;
+}
+.lang_select{
+	width:132px;
+}
+.short_select{
+	width:4em;
+}
+.formPannel select:hover{
+	border-color:#c5c5c5;
+}
+.formPannel select:focus{
+	border-color:#c5c5c5;
+}
+.formPannel textArea{
+	padding:0.15em;
+	width:130px;
+	height:5em;
+	border:#a4bed4 1px solid;
+}
+.formPannel textArea:hover{
+	border-color:#c5c5c5;
+}
+.formPannel textArea:focus{
+	border-color:#c5c5c5;
+}
+
+
+.query_label, .query-label{	
+	margin-right:0.5em;margin-left:1em;margin-bottom:2px;
+	height: 25px;
+	width:8em;
+	text-align:right;
+	padding-right:5px;
+}
+
+
+.td_label, .td-label{	
+	border-top:2px solid #fff;
+	padding-top:2px;
+	padding-bottom:2px;
+	
+	height: 25px;
+	width:10em;
+	text-align:right;
+	padding-right:5px;
+}
+.td_input, .td-input{
+	
+	border-top:2px solid #fff;
+	padding:2px 0px;
+	
+	height: 25px;
+	width:180px;
+	text-align:left;
+	background-color: #FFFFFF;
+	padding-left:5px;
+}
+
+.td_date, .td-date{
+	
+	border-top:2px solid #fff;
+	padding-top:2px;
+	padding-bottom:2px;
+	
+	height: 25px;
+	background-color: #FFFFFF;
+    padding-left:5px;
+    text-align: left;  
+}
+/*
+.td_date input, .td-date input{
+	padding:0em;
+	padding-left:1px;
+	width:160px;
+	height:21px;
+	border:none;
+	
+	line-height:21px;
+}
+*/
+/**
+ * 闁藉牆顕弮銉︽埂閹貉傛鐠佸墽鐤嗛崗鍓佸閺堝鐗卞蹇ョ礉楠炶泛鐨㈡宀冪槈鐠�锕�鎲￠惃锟�.validatebox-invalid 閺嶅嘲绱℃稉顓炲灩闂勩倛顒熼崨濠勬畱閸ョ偓鐖�
+ */
+.datebox input{
+	padding:0em;
+	padding-left:1px;
+	width:130px;
+	height:21px;
+	border:none;
+	/*vertical-align:middle;*/
+	line-height:21px;
+}
+.datebox .validatebox-invalid{
+	background:#FFFFEE  no-repeat right 1px;
+}
+
+
+.searchBox{
+	padding:0em;
+	padding-top:1px;
+	width:134px;
+	height:22px;
+	margin:0px;
+	overflow:hidden;
+	border:#a4bed4 1px solid;
+	background:#f6f6f6;
+}
+.searchBox input{
+	float:left;
+	border:0;
+	margin:0.2em,0,0,0;
+	padding:0px;
+	padding-left:1px;
+	width:108px;
+	height:20px;;
+	background:#f6f6f6;
+	line-height:20px;
+}
+.searchBox a{
+	height:20px;
+	width:20px;
+	float:right;
+	margin:0em;
+	border:0em;
+	padding:0em; 
+	padding-right:1px;
+}

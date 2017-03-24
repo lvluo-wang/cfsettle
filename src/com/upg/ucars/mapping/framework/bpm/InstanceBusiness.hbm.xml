@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.upg.ucars.mapping.framework.bpm">
+	<class name="InstanceBusiness" table="SYS_INSTANCE_BUSINESS">
+		<id name="id" column="ID">
+			<generator class="native" />
+		</id>
+		<property name="creator" column="CREATOR" />
+		<property name="creatorName" column="CREATOR_NAME" />
+		<property name="createTime" column="CREATE_TIME" />
+		<property name="entityId" column="ENTITY_ID" />
+		<property name="entityType" column="ENTITY_TYPE" />
+		<property name="processName" column="PROCESS_NAME" />
+		<property name="processCnName" column="PROCESS_CN_NAME" />
+		<property name="prodNo" column="PROD_NO"/>
+		<property name="prodName" column="PROD_NAME"/>
+		<property name="miNo" column="MI_NO"/>
+		<property name="instanceId" column="INSTANCE_ID" />
+
+		<property name="col1" column="COL1" />
+		<property name="col2" column="COL2" />
+		<property name="col3" column="COL3" />
+		<property name="col4" column="COL4" />
+		<property name="col5" column="COL5" />
+		<property name="col6" column="COL6" />
+		<property name="col7" column="COL7" />
+		<property name="col8" column="COL8" />
+		<property name="col9" column="COL9" />
+		<property name="col10" column="COL10"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="autotask" namespace="/autotask" extends="pkg-base">	 
+				
+		<action name="define_*" class="com.upg.ucars.basesystem.autotask.actions.AutoTaskAction" method="{1}">
+			<result name="main">/platform/module/basesystem/autotask/main.jsp</result>			
+			<result name="add">/platform/module/basesystem/autotask/add.jsp</result>
+			<result name="edit">/platform/module/basesystem/autotask/edit.jsp</result>
+			<result name="task_list">/platform/module/basesystem/autotask/taskMultiList.jsp</result>
+			<result name="member_list">/platform/module/basesystem/autotask/memberMultiList.jsp</result>
+		</action>	
+		
+		<action name="active_*" class="com.upg.ucars.basesystem.autotask.actions.AutoTaskActiveAction" method="{1}">
+			<result name="main">/platform/module/basesystem/autotask/taskMonitor.jsp</result>
+			<result name="member_list">/platform/module/basesystem/autotask/memberTaskMonitor.jsp</result>			
+		</action>
+		
+		<action name="log_*" class="com.upg.ucars.basesystem.autotask.actions.AutoTaskLogAction" method="{1}">
+			<result name="main">/platform/module/basesystem/autotask/taskLog.jsp</result>
+			<result name="DATA_STREAM" type="stream">
+				<param name="inputName">jsonStream</param>
+			</result>			
+		</action>		
+		
+	</package>
+</struts>

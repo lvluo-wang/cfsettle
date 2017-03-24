@@ -1,0 +1,52 @@
+/* CSS Document */
+/*
+body{background-color:#3393df;}
+.talign_center{text-align:center;}
+.clear{clear:both;}
+.fr{float:right;}
+.fl{float:left;}
+.login_bg {background-color:#3393df;color: #025195;font-size: 13px;font-weight: normal;margin: 0 auto;width: 100%;}
+.l_mian {height:357px;margin: auto;margin-top: 122px;vertical-align: middle;width: 576px; background:url(../images/login/log_bg.gif) no-repeat;}
+.l_mian_k {height: 201px;width: 334px; padding:117px 0px 0px 240px;}
+.l_mian_k ul {list-style: none outside none;margin: 0;padding: 0; *padding:-10px;}
+.l_mian_k li {float: left;height: 30px;width:215px;}
+.l_mian_k ul div{line-height:30px; padding:3px 0px 0px 0px; *padding:-3px 0px 0px 0px;}
+.l_mian_k_div{line-height:30px; padding:3px 0px 0px 0px; text-align:right; width:64px; height:41px; margin-right:60px;*position:absolute;*left:800px; }
+.l_login_input_div{width:72px; margin-left:3px; *margin-left:-2px;}
+.l_mian_k_wz{line-height:26px;width:55px; height:25px; float:left; padding-bottom:2px;}
+.l_mian_k_input {background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #64D1F5;color: #025195;float: right;height: 20px;line-height: 20px;width: 146px;}
+.l_login_input {background:url(../images/login/btn_login.gif) no-repeat scroll 0 0 transparent;border: 0 none;float: right;height: 33px;line-height: 20px;margin: 3px 0 0;width: 72px; margin-left:3px;}
+.l_reset_input {background:url(../images/login/btn_reset.gif) no-repeat scroll 0 0 transparent;border: 0 none;float: right;height: 33px;line-height: 20px;margin: 3px 0 0;width: 72px; margin-left:3px;}
+*/
+
+html,body{height: 100%; width:100%; font:12px/22px Microsoft Yahei; color:#333333; background: #f7f7f7 }
+html,body, div, p, ul, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, form, input, select, button, textarea, iframe, table, th, td { margin: 0; padding: 0; }
+img { border: 0 none; vertical-align: top; }
+ul, li,dd,dl,ol{ list-style: none; margin:0; padding:0; }
+h1, h2, h3, h4, h5, h6 { font-size: 14px; }
+
+i,span,a{*display:inline;letter-spacing:normal;word-spacing: normal; *zoom:1;}
+i, em, cite { font-style: normal; }
+a{ color: #666666; text-decoration: none; }
+a:hover{ text-decoration:none; }
+a:focus { outline: none; }
+
+#ubspContent{width: 100%; height: 100%; background: #617c92; margin:auto}
+.contentBox,.contentBox .login,.inputSy,.subGo,.resetGo{background: url(../images/ubspbg.png) no-repeat}
+.contentBox{width: 402px; height: 329px; margin: auto; position: relative; top: 20%;  background-position: 0 -196px}
+.contentBox .login{width: 402px;height: 0px; background-position: 125px 0; position: absolute; top:-83px;}
+.contentBox .name{height: 65px; text-align: center; font: 18px/65px Microsoft Yahei;}
+.contentBox .listTxt{width: 328px; margin: auto;}
+.contentBox .listTxt li{ padding: 0 0 17px; vertical-align: middle;}
+.contentBox .listTxt li .inputSy{width: 317px; height: 41px; border: none; background-position:0 -151px; line-height: 41px; padding: 0 0 0 10px; color: #9ba8b6; font-size: 16px;}
+.contentBox .listTxt li .inputSy.down{background-position:0 -527px;}
+.contentBox .listTxt li#inputlt{padding: 0}
+.contentBox .listTxt li#fogpwd{height: 38px;line-height: 32px; padding: 0; text-align: right; color:#3d88ba}
+.contentBox .listTxt li#fogpwd a{color:#3d88ba; text-decoration: underline;}
+.contentBox .listTxt li#subli{height: 38px; text-align: center; padding: 0;}
+.subGo,.resetGo{width: 110px; height: 38px; line-height: 38px; border: 0; cursor: pointer; font-size: 16px; display: inline-block;background-position: 0 -63px; text-align: center; color: #ffffff;}
+.resetGo{background-position: 0 -107px ; color: #333333; margin: 0 0 0 10px}
+/* --- input Ĭ��ֵ --- */
+.ghosttext{height:auto; position:relative;}
+.ghosttext label.gt {color: #999;left: -1px;padding-left: 10px;position: absolute;top: 0; cursor: text; display:block; text-align:left;line-height:22px; }
+.contentBox .listTxt li .ghosttext label.gt{top:8px;}

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 查询组件总配置文件 -->
+<config>
+	<include path="platform-config/query/demo-query.xml"/>
+	
+</config>

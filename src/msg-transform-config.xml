@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<msg-configs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.hundsun.com/xcars/msg" 
+	xsi:schemaLocation="http://www.hundsun.com/xcars/msg platform-config/msg-transform/schema/configs.xsd">
+	<parser name="fixLenParser" class="com.upg.ucars.tools.msg.FixLenConfigParser"/>
+	<parser name="spParser" class="com.upg.ucars.tools.msg.SpConfigParser"/>
+	
+	<cfg key="demoFixLen" path="platform-config/msg-transform/demo/fixLenCfg.xml" parser="fixLenParser"/>
+	<cfg key="demoSp" path="platform-config/msg-transform/demo/spCfg.xml" parser="spParser"/>
+</msg-configs>

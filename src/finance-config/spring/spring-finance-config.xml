@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<bean class="com.ucars.tsc.factory.SpringObjectFactory"/>
+
+	<util:map id="icbcConfig">
+		<entry key="url">
+			<value>http://www.icbc.com.cn</value>
+		</entry>
+	</util:map>
+
+	<bean id="icbcFundService" class="com.ucars.tsc.spring.factory.HttpServiceFactoryBean">
+		<property name="serviceInterface" value="com.upg.finance.icbc.IcbcFundService" />
+	</bean>
+
+
+</beans>

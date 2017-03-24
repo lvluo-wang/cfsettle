@@ -1,0 +1,34 @@
+/*
+业务操作流程向导
+@author cuckoo
+*/
+#step{
+	color:#025395;
+	padding:0px;
+	margin:0px;
+	width:100%;
+	height:28px;
+	background:url(../images/processfollow/tit_bg.gif) repeat-x;
+}
+#step_list{
+	padding:2px 0px 4px 18px;
+	float:left;
+}
+#step_tool{
+	padding-bottom:0px;
+	padding-top:2px;
+	padding-right:20px;
+	padding-left:0px;
+	float:right;
+}
+.step_first{
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; PADDING-TOP: 0px;
+	background:url(../images/processfollow/choose.gif) no-repeat;
+}
+.step_current{
+	COLOR: red;
+}
+.step_nomal{
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; PADDING-TOP: 0px;
+	background:url(../images/processfollow/pointed.gif) no-repeat;
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.upg.ucars.mapping.basesystem.audit.AuditNode" table="AUDIT_NODE">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="22" scale="0" />
+            <generator class="native"></generator>
+        </id>
+        <!--version标签必须跟在id标签后面-->
+    	<version name="version" column="VER" type="java.lang.Long"/>
+        <property name="auditRouteId" type="java.lang.Long">
+            <column name="AR_ID" />
+        </property>
+        <property name="auditNodeName" type="java.lang.String">
+            <column name="AN_NAME" length="50" />
+        </property>
+        <property name="isPrivilegeCtrl" type="java.lang.String">
+            <column name="IS_PRIVILEGE_CTRL" length="1" />
+        </property>        
+        <property name="sortNo" type="java.lang.Long">
+        	<column name="SORT_NO" />
+        </property>
+    </class>
+</hibernate-mapping>

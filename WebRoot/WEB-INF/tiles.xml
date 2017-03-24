@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+<!-- 主页面布局 -->
+<definition name="common">
+    <put-attribute name="title" value="长富资金结算系统 " />
+</definition>
+<definition name="func">
+	<put-attribute name="head" value=""/>
+	<put-attribute name="window"   value=""/>
+	<put-attribute name="menu"   value=""/>
+	<put-attribute name="end"   value=""/>
+</definition>
+<definition name="win">
+	<put-attribute name="head" value=""/>
+	<put-attribute name="window"   value=""/>
+	<put-attribute name="end"   value=""/>
+</definition>
+<definition name="simple" extends="common" template="/platform/themes/simple/layout.jsp">
+	<put-attribute name="jscss" value="/platform/themes/simple/indexJsCss.jsp"/>
+	<put-attribute name="header"   value="/platform/header.jsp"/>
+	<put-attribute name="menuarea"   value="/platform/menu.jsp"/>
+	<put-attribute name="workarea"   value="/platform/work.jsp"/>
+	<put-attribute name="footer"   value="/platform/footer.jsp"/>
+</definition>
+<definition name="default" extends="common" template="/platform/themes/default/layout.jsp">
+	<put-attribute name="jscss" value="/platform/themes/default/indexJsCss.jsp"/>
+	<put-attribute name="header"   value="/platform/header.jsp"/>
+	<put-attribute name="menuarea"   value="/platform/menu.jsp"/>
+	<put-attribute name="workarea"   value="/platform/work.jsp"/>
+	<put-attribute name="footer"   value="/platform/footer.jsp"/>
+</definition>
+<!-- 功能页面布局（流程，工具栏，查询栏，数据）-->
+<definition name="FUNC_FLOW_TOOL_QUERY_DATA" extends="func" template="/platform/themes/default/func_flow_tool_query_data.jsp" preparer="com.upg.ucars.framework.interceptor.ThemesViewPreparer">
+	<put-attribute name="flow" value=""/>
+	<put-attribute name="tool"   value=""/>
+	<put-attribute name="query"   value=""/>
+	<put-attribute name="data"   value=""/>
+</definition>
+<!-- 功能页面布局（流程，查询栏，数据）-->
+<definition name="FUNC_FLOW_QUERY_DATA" extends="func" template="/platform/themes/default/func_flow_query_data.jsp" preparer="com.upg.ucars.framework.interceptor.ThemesViewPreparer">
+	<put-attribute name="flow" value=""/>
+	<put-attribute name="query"   value=""/>
+	<put-attribute name="data"   value=""/>
+</definition>
+<!-- 功能页面布局（流程，表单，数据）-->
+<definition name="FUNC_FLOW_FORM_DATA" extends="func" template="/platform/themes/default/func_flow_form_data.jsp" preparer="com.upg.ucars.framework.interceptor.ThemesViewPreparer">
+	<put-attribute name="flow" value=""/>
+	<put-attribute name="form"   value=""/>
+	<put-attribute name="data"   value=""/>
+</definition>
+<!-- 功能页面布局（流程，查询栏，表单，数据）-->
+<definition name="FUNC_FLOW_QUERY_FORM_DATA" extends="func" template="/platform/themes/default/func_flow_query_form_data.jsp" preparer="com.upg.ucars.framework.interceptor.ThemesViewPreparer">
+	<put-attribute name="flow" value=""/>
+	<put-attribute name="query"   value=""/>
+	<put-attribute name="form"   value=""/>
+	<put-attribute name="data"   value=""/>
+</definition>
+<!-- 功能页面布局（流程，表单，查询栏，数据）-->
+<definition name="FUNC_FLOW_FORM_QUERY_DATA" extends="func" template="/platform/themes/default/func_flow_form_query_data.jsp" preparer="com.upg.ucars.framework.interceptor.ThemesViewPreparer">
+	<put-attribute name="flow" value=""/>
+	<put-attribute name="form"   value=""/>
+	<put-attribute name="query"   value=""/>
+	<put-attribute name="data"   value=""/>
+</definition>
+<!-- 功能页面布局（流程，工具栏，数据）-->
+<definition name="FUNC_FLOW_TOOL_DATA" extends="func" template="/platform/themes/default/func_flow_tool_data.jsp" preparer="com.upg.ucars.framework.interceptor.ThemesViewPreparer">
+	<put-attribute name="flow" value=""/>
+	<put-attribute name="tool"   value=""/>
+	<put-attribute name="data"   value=""/>
+</definition>
+<!-- 功能页面布局（流程，数据）-->
+<definition name="FUNC_FLOW_DATA" extends="func" template="/platform/themes/default/func_flow_data.jsp" preparer="com.upg.ucars.framework.interceptor.ThemesViewPreparer">
+	<put-attribute name="flow" value=""/>
+	<put-attribute name="data"   value=""/>
+</definition>
+<!-- 功能页面布局（工具栏，查询栏，数据）-->
+<definition name="FUNC_TOOL_QUERY_DATA" extends="func" template="/platform/themes/default/func_tool_query_data.jsp" preparer="com.upg.ucars.framework.interceptor.ThemesViewPreparer">
+	<put-attribute name="tool"   value=""/>
+	<put-attribute name="query"   value=""/>
+	<put-attribute name="data"   value=""/>
+</definition>
+<!-- 优化所用 功能页面布局（工具栏，查询栏，数据）-->
+<definition name="FUNC_TOOL_QUERY_DATA_TEST" extends="func" template="/platform/themes/default/funcmain_t_q_d_test.jsp" preparer="com.upg.ucars.framework.interceptor.ThemesViewPreparer">
+	<put-attribute name="tool"   value=""/>
+	<put-attribute name="query"   value=""/>
+	<put-attribute name="data"   value=""/>
+</definition>
+<!-- 功能页面布局（查询栏，数据）-->
+<definition name="FUNC_QUERY_DATA" extends="func" template="/platform/themes/default/func_query_data.jsp" preparer="com.upg.ucars.framework.interceptor.ThemesViewPreparer">
+	<put-attribute name="query"   value=""/>
+	<put-attribute name="data"   value=""/>
+</definition>
+<!-- 功能页面布局（工具栏，数据）-->
+<definition name="FUNC_TOOL_DATA" extends="func" template="/platform/themes/default/func_tool_data.jsp" preparer="com.upg.ucars.framework.interceptor.ThemesViewPreparer">
+	<put-attribute name="tool"   value=""/>
+	<put-attribute name="data"   value=""/>
+</definition>
+<!-- 功能页面布局（导航，表单）-->
+<definition name="FUNC_FLOW_FORM" extends="func" template="/platform/themes/default/func_flow_form.jsp" preparer="com.upg.ucars.framework.interceptor.ThemesViewPreparer">
+	<put-attribute name="flow"   value=""/>
+	<put-attribute name="form"   value=""/>
+</definition>
+<!-- 功能页面布局（导航，工具栏，业务表单）-->
+<definition name="FUNC_FLOW_TOOL_FORM" extends="func" template="/platform/themes/default/func_flow_tool_form.jsp" preparer="com.upg.ucars.framework.interceptor.ThemesViewPreparer">
+	<put-attribute name="flow"   value=""/>
+	<put-attribute name="tool"   value=""/>
+	<put-attribute name="form"   value=""/>
+</definition>
+<!-- 功能页面布局（工具栏，业务表单）-->
+<definition name="FUNC_TOOL_FORM" extends="func" template="/platform/themes/default/func_tool_form.jsp" preparer="com.upg.ucars.framework.interceptor.ThemesViewPreparer">
+	<put-attribute name="tool"   value=""/>
+	<put-attribute name="form"   value=""/>
+</definition>
+<!-- 功能页面布局（空白布局）-->
+<definition name="FUNC_BLANK" extends="func" template="/platform/themes/default/func_blank.jsp" preparer="com.upg.ucars.framework.interceptor.ThemesViewPreparer">
+	<put-attribute name="body"   value=""/>
+</definition>
+<!-- 功能页面布局（复核页面布局导航，数据区域，表单，按钮）-->
+<definition name="FUNC_FLOW_DATA_FORM_BUTTON" extends="func" template="/platform/themes/default/func_flow_data_form_button.jsp" preparer="com.upg.ucars.framework.interceptor.ThemesViewPreparer">
+	<put-attribute name="flow"   value=""/>
+	<put-attribute name="data"   value=""/>
+	<put-attribute name="form"   value=""/>
+	<put-attribute name="button"   value=""/>
+</definition>
+<!-- 功能页面布局（复核页面布局导航，表单，按钮）-->
+<definition name="FUNC_FLOW_FORM_BUTTON" extends="func" template="/platform/themes/default/func_flow_form_button.jsp" preparer="com.upg.ucars.framework.interceptor.ThemesViewPreparer">
+	<put-attribute name="flow"   value=""/>
+	<put-attribute name="form"   value=""/>
+	<put-attribute name="button"   value=""/>
+</definition>
+<!-- 弹出窗口（表单，按钮）-->
+<definition name="WIN_FORM_BUTTON" extends="win" template="/platform/themes/default/win_form_btn.jsp" preparer="com.upg.ucars.framework.interceptor.ThemesViewPreparer">
+	<put-attribute name="form"   value=""/>
+	<put-attribute name="button"   value=""/>
+</definition>
+<!-- 弹出窗口（工具栏，数据）-->
+<definition name="WIN_TOOL_DATA" extends="win" template="/platform/themes/default/win_tool_data.jsp" preparer="com.upg.ucars.framework.interceptor.ThemesViewPreparer">
+	<put-attribute name="tool"   value=""/>
+	<put-attribute name="data"   value=""/>
+</definition>
+<!-- 弹出窗口（查询，数据）-->
+<definition name="WIN_QUERY_DATA" extends="win" template="/platform/themes/default/win_query_data.jsp" preparer="com.upg.ucars.framework.interceptor.ThemesViewPreparer">
+	<put-attribute name="query"   value=""/>
+	<put-attribute name="data"   value=""/>
+</definition>
+<!-- 弹出窗口（工具栏，查询，数据）-->
+<definition name="WIN_TOOL_QUERY_DATA" extends="win" template="/platform/themes/default/win_tool_query_data.jsp" preparer="com.upg.ucars.framework.interceptor.ThemesViewPreparer">
+	<put-attribute name="tool"   value=""/>
+	<put-attribute name="query"   value=""/>
+	<put-attribute name="data"   value=""/>
+</definition>
+<!-- 弹出窗口（空白布局）-->
+<definition name="WIN_BLANK" extends="win" template="/platform/themes/default/win_blank.jsp" preparer="com.upg.ucars.framework.interceptor.ThemesViewPreparer">
+	<put-attribute name="body"   value=""/>
+</definition>
+<!-- 弹出窗口（工具栏，业务表单）-->
+<definition name="WIN_TOOL_FORM" extends="func" template="/platform/themes/default/win_tool_form.jsp" preparer="com.upg.ucars.framework.interceptor.ThemesViewPreparer">
+	<put-attribute name="tool"   value=""/>
+	<put-attribute name="form"   value=""/>
+</definition>
+</tiles-definitions>

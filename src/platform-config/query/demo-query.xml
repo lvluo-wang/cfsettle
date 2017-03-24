@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 查询组件配置文件 -->
+<config>
+	<!-- demo -->
+	<component id="SYSFUNC_QUERY"  remark="菜单信息查询" >
+		<query>
+			<data name="sysfunc.funcId" type="String" operate="eq" />
+			<data name="sysfunc.funcName"/>
+			<data name="sysfunc.url" type="List" operate="eq,like">
+			<!-- 对于list的说明：list标签可以为空，在使用组件时编程的方式决定数据 -->
+				<list>[{
+						"id":"/demo",
+						"text":"demo"
+					},{
+						"id":"/demo/main_sysfunc.do",
+						"text":"定义菜单"
+					}]</list>
+			</data>
+		</query>
+		<sort>
+			<param name="sysfunc.funcId" type="desc"/>
+			<param name="sysfunc.funcId" type="asc"/>
+			<param name="sysfunc.funcName" type="desc"/>
+			<param name="sysfunc.funcName" type="asc"/>
+		</sort>
+	</component>
+	
+	<component id="LOANINFO_QUERY" remark="贷款查询" >
+		<query>			
+			<data name="loanInfo.loanNo" type="String" operate="eq" />
+			<data name="loanInfo.userName" type="String"/>
+			<data name="loanInfo.status" type="List" operate="eq,like">
+				<list>[{
+						"id":"0",
+						"text":"新建"
+					},{
+						"id":"1",
+						"text":"业务受理"
+					},{
+						"id":"2",
+						"text":"普通审批"
+					},{
+						"id":"3",
+						"text":"高级审批"
+					},{
+						"id":"4",
+						"text":"划款"
+					},{
+						"id":"5",
+						"text":"结束"
+					}]</list>
+			</data>
+		</query>	
+		<sort>
+			<param name="loanInfo.loanNo" type="desc"/>
+			<param name="loanInfo.loanNo" type="asc"/>
+		</sort>
+	</component>
+	
+	<component id="LOANINFO_QUERY2" remark="贷款查询2" >
+		<query>			
+			<data name="loanInfo.loanNo" type="String" operate="eq" />
+			<data name="loanInfo.userName" type="String"/>
+			<data name="loanInfo.money" type="Double" operate="ge,le">				
+			</data>
+		</query>	
+		<sort>
+			<param name="loanInfo.loanNo" type="desc"/>
+			<param name="loanInfo.loanNo" type="asc"/>
+		</sort>
+	</component>
+	<!-- 接入查询 -->
+	<component id="MEMBER_QUERY"  remark="接入信息查询" >
+		<query>
+			<data name="memberInfo.miName"/>
+			<data name="memberInfo.isOpen" type="List" operate="eq">
+			<!-- 对于list的说明：list标签可以为空，在使用组件时编程的方式决定数据 -->
+				<list>[{
+						"id":"0",
+						"text":"关闭"
+					},{
+						"id":"1",
+						"text":"开启"
+					}]</list>
+			</data>
+		</query>
+		<sort>
+			<param name="memberInfo.miName" type="desc"/>
+			<param name="memberInfo.miName" type="asc"/>
+			<param name="memberInfo.isOpen" type="desc"/>
+			<param name="memberInfo.isOpen" type="asc"/>
+		</sort>
+	</component>
+	<component id="USER_QUERY" remark="用户查询" >
+		<query>			
+			<data name="buser.userNo" type="String" operate="eq" />
+			<data name="buser.userName" type="String"/>
+		</query>	
+		<sort>
+			<param name="buser.userNo" type="desc"/>
+			<param name="buser.userNo" type="asc"/>
+		</sort>
+	</component>
+		<component id="PROCESS_QUERY" remark="流程查询" >
+		<query>			
+			<data name="process.procName" type="String" operate="eq" />
+			<data name="process.desiProdNo" type="String" operate="eq" />
+		</query>	
+		<sort>
+			<param name="process.procName" type="asc"/>
+			<param name="process.desiProdNo" type="asc"/>
+		</sort>
+	</component>
+</config>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.upg.cfsettle.mapping.org.OrgUser" table="org_user" dynamic-update="true">
+        <id name="id" type="java.lang.Long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="orgId" type="java.lang.Long">
+            <column name="org_id">
+                <comment>机构ID</comment>
+            </column>
+        </property>
+        <property name="name" type="java.lang.String">
+            <column name="name">
+                <comment>姓名</comment>
+            </column>
+        </property>
+        <property name="mobile" type="java.lang.String">
+            <column name="mobile">
+                <comment>手机号</comment>
+            </column>
+        </property>
+        <property name="password" type="java.lang.String">
+            <column name="password">
+                <comment>密码</comment>
+            </column>
+        </property>
+        <property name="deptName" type="java.lang.String">
+            <column name="dept_name">
+                <comment>所属部门</comment>
+            </column>
+        </property>
+        <property name="position" type="java.lang.String">
+            <column name="position">
+                <comment>职位</comment>
+            </column>
+        </property>
+        <property name="endActiveTime" type="secDate">
+            <column name="end_active_time">
+                <comment>失效时间</comment>
+            </column>
+        </property>
+        <property name="loginTime" type="secDate">
+            <column name="login_time">
+                <comment>登录时间</comment>
+            </column>
+        </property>
+        <property name="parentId" type="java.lang.Long">
+            <column name="parent_id" not-null="true">
+                <comment>0:机构最大权限用户，其他代表机构创建用户</comment>
+            </column>
+        </property>
+        <property name="lastLoginIp" type="string">
+            <column name="last_login_ip">
+                <comment>最后一次登录ip</comment>
+            </column>
+        </property>
+         <property name="lastLoginTm" type="secDate">
+            <column name="last_login_tm">
+                <comment>最后一次登录ip</comment>
+            </column>
+        </property>
+        <property name="centerUid" type="java.lang.Long">
+            <column name="center_uid">
+                <comment>用户中心纪录ID</comment>
+            </column>
+        </property>
+        <property name="createdBy" type="java.lang.Long">
+            <column name="created_by" />
+        </property>
+        <property name="lastUpdatedBy" type="java.lang.Long">
+            <column name="last_updated_by" />
+        </property>
+        <property name="ctime" type="secDate">
+            <column name="ctime" />
+        </property>
+        <property name="mtime" type="secDate">
+            <column name="mtime" />
+        </property>
+    </class>
+</hibernate-mapping>

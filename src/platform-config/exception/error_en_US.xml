@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+		<error code="ACTION_ERROR_CODE" log="false" type="Error">
+			<message>information</message>
+			<detail>{0}</detail>
+			<help>...</help>
+		</error>
+		<error code="SYS_001" log="true" type="Error">
+			<message>System Error</message>
+			<detail>{0}</detail>
+			<help>Please contact professional.</help>
+		</error>
+		<error code="RES_001" log="true" type="Error">
+			<message>File parse exception</message>
+			<detail>file {0} not exist or bad。</detail>
+			<help>Please check file.</help>
+		</error>
+		<error code="GLOBAL_000" log="true" type="Error">
+			<message>System Error</message>
+			<detail>....</detail>
+			<help>Please contact professional.</help>
+		</error>
+		<error code="LOGON_001" log="true" type="Error">
+			<message>logon error</message>
+			<detail>username or pwd null</detail>
+			<help>please check and input..</help>
+		</error>
+		<error code="LOGON_002" log="true" type="Error">
+			<message>logon error</message>
+			<detail>username or pwd invalid.</detail>
+			<help>please check and input...</help>
+		</error>
+		<error code="LOGON_003" log="true" type="Error">
+			<message>logon error</message>
+			<detail>User has closed is not available</detail>
+			<help>Please contact professional.</help>
+		</error>
+		<error code="LOGON_004" log="true" type="Error">
+			<message>logon error</message>
+			<detail>The user is locked</detail>
+			<help>Please contact professional.</help>
+		</error>
+		<error code="LOGON_005" log="true" type="Error">
+			<message>logon error</message>
+			<detail>Inconsistent with the last login IP</detail>
+			<help>Please login using the same ip</help>
+		</error>
+		<error code="LOGON_006" log="true" type="Error">
+			<message>logon error</message>
+			<detail>Users are online</detail>
+			<help>Refused to repeat the login</help>
+		</error>
+		<error code="LOGON_007" log="true" type="Error">
+			<message>logon error</message>
+			<detail>Password has expired</detail>
+			<help>Please &lt;a href='#' onClick='changePwd(this)'&gt;Change Password&lt;/a&gt;</help>
+		</error>
+		<error code="LOGON_008" log="true" type="Error">
+			<message>logon error</message>
+			<detail>Memberis not open, does not allow login</detail>
+			<help>Please contact professional.</help>
+		</error>
+		<error code="LOGON_009" log="true" type="Error">
+			<message>logon error</message>
+			<detail>接入用户，接入点为空不允许登录</detail>
+			<help>请在登录时选择自己的接入点</help>
+		</error>
+		<error code="LOGON_010" log="true" type="Error">
+			<message>logon error</message>
+			<detail>机构用户，机构为空或不存在</detail>
+			<help>请检查用户信息完整性</help>
+		</error>
+		<error code="LOGON_011" log="true" type="Error">
+			<message>logon error</message>
+			<detail>用户信息不完整</detail>
+			<help>请检查用户信息完整性</help>
+		</error>
+		<error code="JSON_001" log="true" type="Error">
+			<message>create JSON data fail</message>
+			<detail>change JAVA object to JSON data failed。</detail>
+			<help>pleass check the java object。</help>
+		</error>
+		<error code="DAO_001" log="true" type="Error">
+			<message>DB operation error</message>
+			<detail>hql[{0}],param[{1}]</detail>
+			<help>please check connection or hql</help>
+		</error>
+		<error code="DAO_COMMON" log="true" type="Error">
+			<message>DB Access error</message>
+			<detail>[{0}]</detail>
+			<help>..</help>
+		</error>
+		<!-- 安全权限 -->
+		<error code="SECURITY_001" log="true" type="Error">
+			<message>Security Error</message>
+			<detail>Do not have permission to access {0}</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_002" log="true" type="Error">
+			<message>Failed to create Sysfunc</message>
+			<detail>Repeat id</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_003" log="true" type="Error">
+			<message>Failed to create Sysfunc</message>
+			<detail>Repeat func Name</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_004" log="true" type="Error">
+			<message>Failed to create Sysfunc</message>
+			<detail>Repeat  func english Name</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_005" log="true" type="Error">
+			<message>Failed to delete sysfunc</message>
+			<detail>You can not delete sysfunc to contain child</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_006" log="true" type="Error">
+			<message>Failed to create Sysfunc</message>
+			<detail>Higher authority is not empty url</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_007" log="true" type="Error">
+			<message>Failed to create Sysfunc</message>
+			<detail>The type of higher authority for non-menu type of</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_008" log="true" type="Error">
+			<message>Failed to move Sysfunc</message>
+			<detail>Superior authority can not be moved under the authority of his subordinates</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_009" log="true" type="Error">
+			<message>Failed to add member to information</message>
+			<detail>Member no already exists</detail>
+			<help>Please use the new member number</help>
+		</error>
+		<error code="SECURITY_010" log="true" type="Error">
+			<message>Failed to add member to information</message>
+			<detail>Member name already exists</detail>
+			<help>Please use the new member name</help>
+		</error>
+		<error code="SECURITY_013" log="true" type="Error">
+			<message>Failed to edit Sysfunc</message>
+			<detail>功能权限不能包含菜单权限</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_014" log="true" type="Error">
+			<message>删除权限失败</message>
+			<detail>该权限正在使用中</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_015" log="true" type="Error">
+			<message>编辑权限失败</message>
+			<detail>权限名称或其国际化键值重复</detail>
+			<help>...</help>
+		</error>
+		
+		<error code="SECURITY_016" log="true" type="Error">
+			<message>新增权限失败</message>
+			<detail>功能类型权限节点下不能再建权限节点</detail>
+			<help>...</help>
+		</error>
+		
+		<error code="SECURITY_017" log="true" type="Error">
+			<message>新增权限失败</message>
+			<detail>菜单组类型权限节点下不能建功能类型权限节点</detail>
+			<help>...</help>
+		</error>
+		
+		<error code="SECURITY_018" log="true" type="Error">
+			<message>新增权限失败</message>
+			<detail>菜单类型权限节点下只能建功能类型权限节点</detail>
+			<help>...</help>
+		</error>
+		
+		<error code="SECURITY_019" log="true" type="Error">
+			<message>新增权限失败</message>
+			<detail>菜单或功能类型权限节点url不能为空</detail>
+			<help>...</help>
+		</error>
+		
+		<error code="SECURITY_020" log="true" type="Error">
+			<message>编辑权限失败</message>
+			<detail>包含子节点，权限类型不能修改</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_021" log="true" type="Error">
+			<message>编辑权限失败</message>
+			<detail>菜单或功能类型权限节点url不能为空</detail>
+			<help>...</help>
+		</error>
+		
+		<error code="SECURITY_101" log="true" type="Error">
+			<message>修改密码失败</message>
+			<detail>原密码错误</detail>
+			<help>请输入正确的原密码</help>
+		</error>
+		<error code="SECURITY_102" log="true" type="Error">
+			<message>修改密码失败</message>
+			<detail>新密码与确认密码不一致</detail>
+			<help>请重新输入新密码与确认密码</help>
+		</error>
+		<error code="SECURITY_111" log="true" type="Error">
+			<message>新增/修改用户信息失败</message>
+			<detail>用户编号[{0}]已存在</detail>
+			<help>请重新输入用户编号</help>
+		</error>
+		<error code="SECURITY_113" log="true" type="Error">
+			<message>修改用户信息失败</message>
+			<detail>用户已分配角色,不能修改用户类型</detail>
+			<help>...</help>
+		</error>
+		<error code="SECURITY_201" log="true" type="Error">
+			<message>新增/修改角色信息失败</message>
+			<detail>角色名称[{0}]已存在</detail>
+			<help>请重新输入角色名称</help>
+		</error>
+		<error code="SECURITY_202" log="true" type="Error">
+			<message>修改角色信息失败</message>
+			<detail>不允许修改已授权的角色类型或所属机构</detail>
+			<help>可先撤销已授权的权限再进行修改</help>
+		</error>
+		
+		<!-- 子系统 -->
+		<error code="SUBSYS_001" log="true" type="Error">
+			<message>删除子系统失败</message>
+			<detail>子系统在使用权限，不能删除</detail>
+			<help></help>
+		</error>
+		<error code="SUBSYS_002" log="true" type="Error">
+			<message>删除子系统失败</message>
+			<detail>子系统为开启状态，不能删除</detail>
+			<help></help>
+		</error>
+		<!-- 机构 -->
+		<error code="BRANCH_CHANGE_TREECODE_ERROR" log="true" type="Error">
+			<message>操作异常：</message>
+			<detail>当前机构含有子机构</detail>
+			<help>先删除子机构</help>
+		</error>
+		<error code="BRANCH_001" log="false" type="Error">
+			<message>操作失败：</message>
+			<detail>机构编码已经存在</detail>
+			<help></help>
+		</error>
+		
+		<error code="BRANCH_002" log="false" type="Error">
+			<message>删除失败：</message>
+			<detail>机构正在使用权限，不能删除</detail>
+			<help></help>
+		</error>
+		
+		<error code="BRANCH_003" log="false" type="Error">
+			<message>设置权限失败：</message>
+			<detail>机构权限正在审核中,不能设置权限</detail>
+			<help></help>
+		</error>
+		
+		<error code="BRANCH_004" log="false" type="Error">
+			<message>提交审批失败：</message>
+			<detail>机构权限状态为{0}，才能提交审批</detail>
+			<help></help>
+		</error>
+		
+		<error code="PROCESS_COMMON" log="true" type="Error">
+			<message>Work Process Error</message>
+			<detail>[{0}]</detail>
+			<help>..</help>
+		</error>
+		<error code="ORGN_NUM_HAS_EXISTS" log="true" type="Error">
+			<message>orgnNum of natureCorp has exists</message>
+			<detail></detail>
+			<help></help>
+		</error>
+		<error code="BLANK" log="true" type="Error">
+			<message>not blank</message>
+			<detail>{0} not blank</detail>
+			<help></help>
+		</error>
+		<error code="HAS_EXIST" log="true" type="Error">
+			<message>data has existed</message>
+			<detail>{0} data has existed</detail>
+			<help></help>
+		</error>
+		<error code="PROCESS_001" log="true" type="Error">
+			<message>Work Process Error</message>
+			<detail>Task Id[{0}]</detail>
+			<help>Please check the Task</help>
+		</error>
+		<error code="PROCESS_002" log="true" type="Error">
+			<message>SignalToken error</message>
+			<detail>Token Id[{0}]</detail>
+			<help>Please check the Task</help>
+		</error>
+		<error code="PROCESS_003" log="true" type="Error">
+			<message>Create ProcessInstance error</message>
+			<detail>ProcessDefinitionName[{0}]</detail>
+			<help>Please check the Definition File</help>
+		</error>
+		<!-- ESB exception define -->
+		<error code="ESB_CONF_001" log="true" type="Error">
+			<message>ESB Config error</message>
+			<detail></detail>
+			<help>please check mule config file</help>
+		</error>
+		<error code="ESB_SERVER_001" log="true" type="Error">
+			<message>ESB init error</message>
+			<detail></detail>
+			<help>please check ESB init log file</help>
+		</error>
+		<error code="ESB_SERVER_002" log="true" type="Error">
+			<message>ESB Server load error</message>
+			<detail></detail>
+			<help>please check ESB init log file</help>
+		</error>
+		<error code="ESB_CLIENT_001" log="true" type="Error">
+			<message>ESB customer create error</message>
+			<detail></detail>
+			<help>please check ESB customer create log file</help>
+		</error>
+		<error code="ESB_CLIENT_002" log="true" type="Error">
+			<message>ESB customer message request error</message>
+			<detail></detail>
+			<help>please check ESB customer create log file</help>
+		</error>
+		<error code="ESB_MSG_TF_CONF_001" log="true" type="Error">
+			<message>ESB message transform config error</message>
+			<detail>description:{0}</detail>
+			<help>please check ESB message transform config log file </help>
+		</error>
+		<error code="ESB_MSG_TF_001" log="true" type="Error">
+			<message>ESB message transform error</message>
+			<detail></detail>
+			<help>please check ESB message transform log file </help>
+		</error>
+		<error code="PRODUCT_008" log="true" type="Error">
+			<message>产品分配失败</message>
+			<detail>所选产品中部分产品已经删除</detail>
+			<help>...</help>
+		</error>
+</config>

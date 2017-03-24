@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 异常框架配置文件-->
+<config>
+	<!-- 为单个用户开辟的异常缓存，超过的异常会将第一个异常推弃 -->
+	<exception-cache max="15"/>
+	<!-- 开发模式开关，1:开启，前台显示的为异常详细信息；0:关闭，显示简单信息 -->
+	<development model="1"/>
+	<exception-log-rule>
+		<!-- 在记录异常发生轨迹时，下面的类全名包含support则记录 -->
+		<support>
+			<value>com.upg.xcars</value>
+			<value>java.sql.BatchUpdateException</value>
+		</support>
+		<!-- 在记录异常发生轨迹时，下面的类全名包含unsupport则不记录 -->
+		<unsupport>
+			<value>ActionExceptionInterceptor</value>
+			<value>AsyncInterceptor </value>
+			<value>ActionExceptionInterceptor</value>
+			<value>ExceptionManager</value>
+		</unsupport>
+	</exception-log-rule>
+	<!-- 异常定义文件，资源配置，default:放没有相关资源配置时，采用default=true的配置 -->
+	<resource locale="zh_CN" path="platform-config/exception/error_zh_CN.xml" default="true"/>
+	<resource locale="en_US" path="platform-config/exception/error_en_US.xml"/>
+	<resource locale="zh_CN" path="ubsp-config/exception/error_zh_CN.xml" default="true"/>
+	<resource locale="en_US" path="ubsp-config/exception/error_en_US.xml"/>
+	
+	
+</config>

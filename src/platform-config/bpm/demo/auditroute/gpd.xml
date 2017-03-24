@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root-container name="auditroute" width="1072" height="591">
+  <node name="start-state1" x="241" y="27" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="audit_route" x="477" y="155" width="132" height="36">
+    <edge>
+      <label x="-43" y="-9"/>
+      <bendpoint w1="-126" h1="-56" w2="136" h2="-54"/>
+    </edge>
+  </node>
+  <node name="audit_route_decision" x="232" y="170" width="152" height="36">
+    <edge>
+      <label x="-17" y="-9"/>
+      <bendpoint w1="135" h1="45" w2="-127" h2="43"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="-91" y="-10"/>
+    </edge>
+  </node>
+  <node name="state1" x="133" y="307" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="state2" x="318" y="306" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="end-state1" x="238" y="401" width="132" height="36"/>
+</root-container>

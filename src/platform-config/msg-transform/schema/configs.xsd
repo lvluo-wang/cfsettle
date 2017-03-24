@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.hundsun.com/xcars/msg"
+	targetNamespace="http://www.hundsun.com/xcars/msg" elementFormDefault="qualified"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	
+    <xsd:attributeGroup name="cfgAttributes">
+    	<xsd:attribute name="key" use="required">
+	 		<xsd:simpleType>
+    			<xsd:restriction base="xsd:string">
+    				<xsd:minLength value="1"></xsd:minLength>
+    			</xsd:restriction>
+			</xsd:simpleType>
+    	</xsd:attribute>
+    	<xsd:attribute name="path" use="required">
+    		<xsd:simpleType>
+    			<xsd:restriction base="xsd:string">
+    				<xsd:minLength value="1"></xsd:minLength>
+    			</xsd:restriction>
+    		</xsd:simpleType>
+    	</xsd:attribute>
+    	<xsd:attribute name="parser" use="required">
+    		<xsd:simpleType>
+    			<xsd:restriction base="xsd:string">
+    				<xsd:minLength value="1"></xsd:minLength>
+    			</xsd:restriction>
+    		</xsd:simpleType>
+    	</xsd:attribute>
+    </xsd:attributeGroup>
+    
+    <xsd:complexType name="cfgType">
+    	<xsd:attributeGroup ref="cfgAttributes" ></xsd:attributeGroup>
+    </xsd:complexType>
+    
+    <xsd:complexType name="parserType">
+    	<xsd:attribute name="name" use="required">
+    	    <xsd:simpleType>
+    			<xsd:restriction base="xsd:string">
+    				<xsd:minLength value="1"></xsd:minLength>
+    			</xsd:restriction>
+    		</xsd:simpleType>
+    	</xsd:attribute>
+    	<xsd:attribute name="class" use="required">
+    	    <xsd:simpleType>
+    			<xsd:restriction base="xsd:string">
+    				<xsd:minLength value="1"></xsd:minLength>
+    			</xsd:restriction>
+    		</xsd:simpleType>
+    	</xsd:attribute>
+    </xsd:complexType>
+    
+    <xsd:element name="msg-configs">
+	    <xsd:complexType>
+		    <xsd:sequence>
+		        <xsd:element name="parser" type="parserType" minOccurs="0" maxOccurs="unbounded"/>
+		    	<xsd:element name="cfg" type="cfgType" minOccurs="0" maxOccurs="unbounded"/>
+		    </xsd:sequence>
+    	</xsd:complexType>
+    </xsd:element>
+    
+
+</xsd:schema>
