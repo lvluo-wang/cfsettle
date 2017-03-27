@@ -19,6 +19,7 @@
 				</td>
 				</tr>
 					<tr>
+						
 						<td class="title">添加图片<font color="red">*</font>:</td>
 						<td colspan="3">
 							<input name="banner.img" value="" id="banner_add_img" class="easyui-validatebox" readonly="readonly" required="true"  style="width: 550px">
@@ -92,7 +93,7 @@
 	var keys=["<%=UtilConstant.XXH_BANNER_POSITION%>","<%=UtilConstant.YES_NO%>"];
 			var code = new XhhCodeUtil(keys);
 			code.loadData();
-
+			//shhhdhdhdhdhdhdhhd
 			function doAddSave() {
 				if ($("#bannerAddForm").form("validate")) {
 					var starttime = $("#start_time").val(); //激活开始时间
