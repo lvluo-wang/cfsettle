@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2014-8-26 10:10:22 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="com.upg.cfsettle.mapping.ficode.FiCodeItem" table="fi_code_item" dynamic-update="true">
+    <class name="com.upg.cfsettle.mapping.ficode.FiCodeItem" table="cfs_code_item" dynamic-update="true">
         <id name="id" type="java.lang.Long">
             <column name="id" />
             <generator class="identity" />
