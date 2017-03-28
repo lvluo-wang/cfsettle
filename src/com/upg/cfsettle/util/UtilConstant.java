@@ -7,7 +7,7 @@ package com.upg.cfsettle.util;
  * @version <b>1.0.0</b>
  */
 public final class UtilConstant {
-	public static final String YES_NO = "A000";			//是否
+	public static final String YES_NO = "COM001";			//是否
 	public static final String XXH_CUSTOMER_SEX = "A001";//客户性别
 	public static final String XXH_CUSTOMER_MARITAL = "A002";//婚姻状况
 	public static final String XXH_CUSTOMER_UIDTYPE = "F0001";//客户类型（企业、个人）

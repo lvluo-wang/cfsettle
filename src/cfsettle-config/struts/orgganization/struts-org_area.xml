@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="orgArea" namespace="/orgArea" extends="pkg-base">
+		<action name="orgAreaManage_*" class="com.upg.cfsettle.organization.action.OrgAreaAction" method="{1}">
+			<result name="main">/cfsettle/organization/orgAreaMain.jsp</result>
+			<result name="add">/cfsettle/organization/orgAreaAdd.jsp</result>
+			<result name="edit">/cfsettle/organization/orgAreaEdit.jsp</result>
+			<result name="view">/cfsettle/organization/orgAreaView.jsp</result>
+		</action>
+	</package>
+</struts>
