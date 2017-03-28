@@ -12,7 +12,7 @@
 			<table>
 				<tbody>
 				<tr>
-				<td class="title">bannerxx图片: </td>
+				<td class="title">bannerx图片: </td>
 				<td colspan="3" >
 				<img class="bannerPic" id="picture"  src=""  alt="图片"  height="100px" width="200px"/>
 				<font color="red"><span  id="message"></span></font>
