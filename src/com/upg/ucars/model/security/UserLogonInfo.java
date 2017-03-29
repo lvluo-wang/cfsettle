@@ -25,6 +25,9 @@ public class UserLogonInfo implements java.io.Serializable{
 	private String lastLogonIP;//上次登录ip
 	private String miNo;//接入编号
 	private String theme="default";//主题
+	private Long areaId;
+	private Long deptId;
+	private Long teamId;
 	public UserLogonInfo() {}
 	
 	public UserLogonInfo(Long sysUserId, String userNo, String userName,
@@ -143,5 +146,27 @@ public class UserLogonInfo implements java.io.Serializable{
 		this.theme = theme;
 	}
 
-	
+	public Long getAreaId() {
+		return areaId;
+	}
+
+	public void setAreaId(Long areaId) {
+		this.areaId = areaId;
+	}
+
+	public Long getDeptId() {
+		return deptId;
+	}
+
+	public void setDeptId(Long deptId) {
+		this.deptId = deptId;
+	}
+
+	public Long getTeamId() {
+		return teamId;
+	}
+
+	public void setTeamId(Long teamId) {
+		this.teamId = teamId;
+	}
 }

@@ -138,6 +138,13 @@ public class Buser implements java.io.Serializable {
 	private transient String brchIdDesc;//字段的描述
 	
 	private String roleStatus;//角色状态：0-未分配，1-分配待审核，2-已分配
+	
+	private Long areaId;
+	
+	private Long deptId;
+	
+	private Long teamId;
+	
 	public Buser() {
 	}
 	
@@ -284,5 +291,29 @@ public class Buser implements java.io.Serializable {
 	}
 
 
-	
+	public Long getAreaId() {
+		return areaId;
+	}
+
+	public void setAreaId(Long areaId) {
+		this.areaId = areaId;
+	}
+
+
+	public Long getDeptId() {
+		return deptId;
+	}
+
+	public void setDeptId(Long deptId) {
+		this.deptId = deptId;
+	}
+
+	public Long getTeamId() {
+		return teamId;
+	}
+
+	public void setTeamId(Long teamId) {
+		this.teamId = teamId;
+	}
+
 }

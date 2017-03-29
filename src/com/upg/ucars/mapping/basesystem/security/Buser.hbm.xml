@@ -50,5 +50,14 @@
         <property name="roleStatus" type="java.lang.String">
         	<column name="ROLE_STATUS" length="4"/>
         </property>
+        <property name="areaId" type="java.lang.Long">
+            <column name="AREA_ID" precision="22" scale="0" />
+        </property>
+        <property name="deptId" type="java.lang.Long">
+            <column name="DEPT_ID" precision="22" scale="0" />
+        </property>
+        <property name="teamId" type="java.lang.Long">
+            <column name="TEAM_ID" precision="22" scale="0" />
+        </property>
     </class>
 </hibernate-mapping>
