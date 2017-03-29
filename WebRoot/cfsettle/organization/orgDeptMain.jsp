@@ -31,7 +31,7 @@
 				<x:column title="营业部联系方式" field="DEPT_MOBILE" align="center" width="320"/>
 				<x:column title="营业部地址" field="DEPT_ADDR" align="left" width="320" />
 				<x:column title="归属区域" field="AREA_NAME" align="left" width="140"/>
-				<x:column title="添加时间" field="CTIME" align="left" width="140" formatter="format2Time"/>
+				<x:column title="添加时间" field="CTIME" align="left" width="140" formatter="formatTime"/>
 				<x:column title="是否开启" field="STATUS" align="left" width="140" formatter="formatIsActive"/>
 			</x:columns>
 		</x:datagrid>
@@ -51,6 +51,10 @@
 	
 	function formatIsActive(value){
 		 return code.getValue("<%=UtilConstant.YES_NO%>",value);
+	}
+
+	function formatTime(value) {
+		return DateFormat.format(new Date(value*1000),"yyyy-MM-dd hh:mm:ss");
 	}
 
 	function doQuery(){
