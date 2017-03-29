@@ -114,6 +114,14 @@
      				<property name="typeName" value="secDate"/>
      				<property name="typeClass" value="com.upg.ucars.framework.base.hibernate.SecondDateType"/>
      			</bean>
+     			<bean class="org.springframework.orm.hibernate3.TypeDefinitionBean">
+     				<property name="typeName" value="cent"/>
+     				<property name="typeClass" value="com.upg.ucars.framework.base.hibernate.CentMoneyType"/>
+     			</bean>
+     			<bean class="org.springframework.orm.hibernate3.TypeDefinitionBean">
+     				<property name="typeName" value="wanCent"/>
+     				<property name="typeClass" value="com.upg.ucars.framework.base.hibernate.WanCentMoneyType"/>
+     			</bean>
      		</list>
      	</property>
      	

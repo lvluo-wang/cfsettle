@@ -57,14 +57,14 @@
      	    <value>classpath:/com/upg/**/*.hbm.xml</value>
      	  </list>
      	</property>
-     	<property name="typeDefinitions">
+     	<!-- <property name="typeDefinitions">
      		<list>
      			<bean class="org.springframework.orm.hibernate3.TypeDefinitionBean">
      				<property name="typeName" value="secDate"/>
      				<property name="typeClass" value="com.upg.ucars.framework.base.hibernate.SecondDateType"/>
      			</bean>
      		</list>
-     	</property>
+     	</property> -->
     </bean>  
     
 	 <!-- sys datasource -->	 	
