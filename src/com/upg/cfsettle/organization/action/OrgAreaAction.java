@@ -55,6 +55,10 @@ public class OrgAreaAction extends BaseAction {
         orgAreaService.updateOrgArea(orgArea);
     }
 
+    public String toChoose(){
+        return "toChoose";
+    }
+
 
     public CfsOrgArea getSearchBean() {
         return searchBean;

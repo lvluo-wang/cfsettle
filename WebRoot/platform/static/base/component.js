@@ -1786,6 +1786,64 @@
 			 }
 		 });
 	 }
+
+/**
+ * 选择区域
+ * @param callback 回调函数
+ */
+function chooseArea(callback,param){
+	var target = getEventTarget();
+	ChooseContext.createInstance({
+		id:"choose_area_list",
+		url:baseDir+"/orgArea/orgAreaManage_toChoose.jhtml",
+		title:"选择区域",
+		refresh:true,
+		target:target,
+		callback:callback?callback:function(row){
+			var areaId = '';
+			var areaName = '';
+			if(row&&row.id&&row.areaName){
+                areaId = row.id;
+                areaName=row.areaName;
+			}
+			$("#area_id").val(areaId);
+			$("#area_name").val(areaName);
+		}
+	});
+}
+
+/**
+ * 选择营业部
+ * @param callback 回调函数
+ */
+function chooseDept(callback,param){
+    var areaId;
+    if(param){
+        areaId = $('#'+param).val();
+    }
+    if(!areaId){
+        warning("请选择区域");
+        return;
+    }
+    var target = getEventTarget();
+    ChooseContext.createInstance({
+        id:"choose_dept_list",
+        url:baseDir+"/orgDept/orgDeptManage_toChoose.jhtml?areaId="+areaId,
+        title:"选择营业部",
+        refresh:true,
+        target:target,
+        callback:callback?callback:function(row){
+            var deptId = '';
+            var deptName = '';
+            if(row&&row.id&&row.deptName){
+                deptId = row.id;
+                deptName=row.deptName;
+            }
+            $("#dept_id").val(deptId);
+            $("#dept_name").val(deptName);
+        }
+    });
+}
 	 
 	 /**
 	  * 用于弹出选择行业类别信息，支持多选

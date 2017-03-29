@@ -44,7 +44,7 @@ public class OrgAreaServiceImpl implements IOrgAreaService {
     @Override
     public void addOrgArea(CfsOrgArea orgArea) {
         orgArea.setCtime(DateTimeUtil.getNowDateTime());
-        orgArea.setCsysid(SessionTool.getUserLogonInfo().getSysUserId().intValue());
+        orgArea.setCsysid(SessionTool.getUserLogonInfo().getSysUserId());
         orgAreaDao.save(orgArea);
     }
 
@@ -55,7 +55,7 @@ public class OrgAreaServiceImpl implements IOrgAreaService {
         updateOrgArea.setOverRange(orgArea.getOverRange());
         updateOrgArea.setStatus(orgArea.getStatus());
         updateOrgArea.setMtime(DateTimeUtil.getNowDateTime());
-        updateOrgArea.setMsysid(SessionTool.getUserLogonInfo().getSysUserId().intValue());
+        updateOrgArea.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
         orgAreaDao.update(updateOrgArea);
     }
 

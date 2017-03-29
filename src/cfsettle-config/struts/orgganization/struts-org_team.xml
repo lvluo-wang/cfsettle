@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="orgTeam" namespace="/orgTeam" extends="pkg-base">
+		<action name="orgTeamManage_*" class="com.upg.cfsettle.organization.action.OrgTeamAction" method="{1}">
+			<result name="main">/cfsettle/organization/orgTeamMain.jsp</result>
+			<result name="add">/cfsettle/organization/orgTeamAdd.jsp</result>
+			<result name="edit">/cfsettle/organization/orgTeamEdit.jsp</result>
+			<result name="view">/cfsettle/organization/orgTeamView.jsp</result>
+		</action>
+	</package>
+</struts>
