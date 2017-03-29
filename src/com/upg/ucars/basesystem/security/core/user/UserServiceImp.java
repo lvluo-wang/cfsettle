@@ -899,6 +899,9 @@ public class UserServiceImp extends BaseService implements IUserService,ISecurit
 				logonInfo.setBranchNo(brch.getBrchNo());
 				logonInfo.setBranchTreeCode(brch.getTreeCode());
 				logonInfo.setBranchParentTreeCode(brch.getParentTreeCode());
+				logonInfo.setAreaId(retUser.getAreaId());
+				logonInfo.setDeptId(retUser.getDeptId());
+				logonInfo.setTeamId(retUser.getTeamId());
 				if(Buser.TYPE_BRCH_GLOBAL_MANAGER.equals(userType)){
 					roleList=userDAO.getRoleIdsByUserId(retUser.getUserId());
 				}else{
