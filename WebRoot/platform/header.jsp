@@ -34,7 +34,7 @@
 	}
 	function changePwd(){
 		var url='<s:url value="/security/user_toChangePassword.jhtml"/>?flag='+Math.random()*99999;
-		requestAtWindow(url,"change_pwd",'<s:text name="modifyPwd"/>');
+		requestAtWindow(url,"change_pwd",'<s:text name="modifyPwd"/>',{'isChangePwd':0});
 	}
 	function showTaskNum(n){
 		var num = 0;

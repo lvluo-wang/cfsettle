@@ -2,7 +2,9 @@ package com.upg.ucars.basesystem.security.action;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.ServletActionContext;
@@ -102,6 +104,8 @@ public class UserAction extends BaseAction  {
 	private IOrgDeptService orgDeptService;
 	@Autowired
 	private IOrgTeamService orgTeamService;
+	
+	private String isChangePwd;
 	
 	/**
 	 * 
@@ -441,7 +445,7 @@ public class UserAction extends BaseAction  {
 			passwordChg.setSysUserID(logoner.getSysUserId());
 			passwordChg.setUserNo(logoner.getUserNo());
 		}
-		
+		isChangePwd = this.getIsChangePwd();
 		return "changePassword";
 	}
 	/**
@@ -597,7 +601,20 @@ public class UserAction extends BaseAction  {
 		auditTask=userService.findUserRoleAuditTask(userId);
 		return VIEW_AUDIT_PROCESS;
 	}
-	
+	/**
+	 * 获取用户状态
+	 * @return
+	 */
+	public String getCurUser(){
+		user = userService.getUserById(SessionTool.getUserLogonInfo().getSysUserId());
+		Map<String,String> json = new HashMap<String,String>();
+		if(user.getLastLoginTm() !=null||user.getLastLoginIP()!=null){
+			json.put("user","changed");
+		}else{
+			json.put("user","unchange");
+		}
+		return setInputStreamData(json);
+	}
 	
 	public void setUserService(IUserService userService) {
 		this.userService = userService;
@@ -712,5 +729,11 @@ public class UserAction extends BaseAction  {
 	}
 	public void setUserTeamList(List<CfsOrgTeam> userTeamList) {
 		this.userTeamList = userTeamList;
+	}
+	public String getIsChangePwd() {
+		return isChangePwd;
+	}
+	public void setIsChangePwd(String isChangePwd) {
+		this.isChangePwd = isChangePwd;
 	}
 }

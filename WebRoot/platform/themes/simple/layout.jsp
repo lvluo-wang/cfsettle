@@ -44,7 +44,22 @@
 <div id="loading" class="common-mask" style="display:none;"></div>
 <div id="loading_msg" class="common-mask-msg" style="display:none;"></div>
 <script type="text/javascript">
-loadmask();
+	loadmask();
+	var url = "<s:url value='/security/user_getCurUser.jhtml'/>";
+	doPost(url,{},function(result){
+		if(result){
+			var o=str2obj(result);
+			if(o.error){
+				error(o.error);
+				return;
+			}else{
+				if(o.user=='unchange'){
+					var url='<s:url value="/security/user_toChangePassword.jhtml"/>?flag='+Math.random()*99999;
+					requestAtWindow(url,"change_pwd",'<s:text name="modifyPwd"/>',{'isChangePwd':1},{closable:false});
+				}
+			}
+		}
+	});
 	var userMenuStr='${userMenu}';
 </script>
 

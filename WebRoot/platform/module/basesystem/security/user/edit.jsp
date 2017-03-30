@@ -120,7 +120,6 @@
 	}
 	
 	function loadDeptEditList(){
-		info('1111111111111');
 		var areaId = $("#user_area_edit_id").xcombobox("getValue");
 		$("#user_dept_edit_id").xcombobox("reload",{'url':'<s:url value="/orgDept/orgDeptManage_getCombobox.jhtml"/>?searchBean.ownedArea='+areaId+'&searchBean.status=1'});
 	}
