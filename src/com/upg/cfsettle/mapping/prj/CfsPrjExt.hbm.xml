@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-3-30 10:19:46 by Hibernate Tools 5.2.1.Final -->
+<hibernate-mapping>
+    <class name="com.upg.cfsettle.mapping.prj.CfsPrjExt" table="cfs_prj_ext" dynamic-update="true">
+        <id name="prjId" type="int">
+            <column name="prj_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="tenantName" type="string">
+            <column name="tenant_name" length="100">
+            </column>
+        </property>
+        <property name="tenantBank" type="string">
+            <column name="tenant_bank" length="200">
+            </column>
+        </property>
+        <property name="provinceId" type="java.lang.Integer">
+            <column name="province_id">
+            </column>
+        </property>
+        <property name="cityId" type="java.lang.Integer">
+            <column name="city_id">
+            </column>
+        </property>
+        <property name="subBank" type="java.lang.Integer">
+            <column name="sub_bank">
+            </column>
+        </property>
+        <property name="accountNo" type="string">
+            <column name="account_no" length="20">
+            </column>
+        </property>
+        <property name="contractAttid" type="java.lang.Integer">
+            <column name="contract_attid">
+            </column>
+        </property>
+        <property name="periodAttid" type="java.lang.Integer">
+            <column name="period_attid">
+            </column>
+        </property>
+        <property name="guaranteAttid" type="java.lang.Integer">
+            <column name="guarante_attid">
+            </column>
+        </property>
+        <property name="spreadAttid" type="java.lang.Integer">
+            <column name="spread_attid">
+            </column>
+        </property>
+        <property name="csysid" type="long">
+            <column name="csysid" />
+        </property>
+        <property name="ctime" type="secDate" update="false">
+            <column name="ctime" />
+        </property>
+        <property name="msysid" type="long">
+            <column name="msysid" />
+        </property>
+        <property name="mtime" type="secDate">
+            <column name="mtime" />
+        </property>
+    </class>
+</hibernate-mapping>

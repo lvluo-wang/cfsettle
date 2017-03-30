@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-3-30 10:19:12 by Hibernate Tools 5.2.1.Final -->
+<hibernate-mapping>
+    <class name="com.upg.cfsettle.mapping.prj.CfsPrj" table="cfs_prj" dynamic-update="true">
+        <id name="id" type="long">
+            <column name="id"/>
+            <generator class="identity"/>
+        </id>
+
+        <property name="yearRate" type="big_decimal">
+            <column name="year_rate" precision="9" scale="4">
+                    </column>
+        </property>
+
+        <property name="prjName" type="string">
+            <column name="prj_name" length="100">
+            </column>
+        </property>
+
+        <property name="prjUseName" type="string">
+            <column name="prj_use_name" length="100">
+            </column>
+        </property>
+
+        <property name="prjMobile" type="string">
+            <column name="prj_mobile" length="100">
+            </column>
+        </property>
+
+        <property name="demandAmount" type="wanCent">
+            <column name="demand_amount" precision="20" scale="0">
+            </column>
+        </property>
+        <property name="remainingAmount" type="wanCent">
+            <column name="remaining_amount" precision="20" scale="0">
+            </column>
+        </property>
+        <property name="timeLimit" type="java.lang.Integer">
+            <column name="time_limit">
+            </column>
+        </property>
+        <property name="timeLimitUnit" type="string">
+            <column name="time_limit_unit" length="10">
+            </column>
+        </property>
+        <property name="timeLimitDay" type="java.lang.Integer">
+            <column name="time_limit_day">
+            </column>
+        </property>
+        <property name="periodRate" type="big_decimal">
+            <column name="period_rate" precision="9" scale="4">
+            </column>
+        </property>
+        <property name="status" type="java.lang.Byte">
+            <column name="status">
+            </column>
+        </property>
+        <property name="repayWay" type="string">
+            <column name="repay_way" length="10">
+            </column>
+        </property>
+        <property name="startBidTime" type="secDate">
+            <column name="start_bid_time">
+            </column>
+        </property>
+        <property name="endBidTime" type="secDate">
+            <column name="end_bid_time">
+            </column>
+        </property>
+        <property name="lastRepayTime" type="secDate">
+            <column name="last_repay_time">
+            </column>
+        </property>
+        <property name="minLoanAmount" type="wanCent">
+            <column name="min_loan_amount" precision="20" scale="0">
+            </column>
+        </property>
+        <property name="loanTime" type="secDate">
+            <column name="loan_time">
+            </column>
+        </property>
+        <property name="totalRate" type="big_decimal">
+            <column name="total_rate" precision="20" scale="0">
+            </column>
+        </property>
+        <property name="areaRate" type="big_decimal">
+            <column name="area_rate" precision="20" scale="0">
+            </column>
+        </property>
+        <property name="deptRate" type="big_decimal">
+            <column name="dept_rate" precision="20" scale="0">
+            </column>
+        </property>
+        <property name="teamRate" type="big_decimal">
+            <column name="team_rate" precision="20" scale="0">
+            </column>
+        </property>
+        <property name="sysuserRate" type="big_decimal">
+            <column name="sysuser_rate" precision="20" scale="0">
+            </column>
+        </property>
+        <property name="remark" type="string">
+            <column name="remark" length="500">
+            </column>
+        </property>
+        <property name="csysid" type="long">
+            <column name="csysid"/>
+        </property>
+        <property name="ctime" type="secDate">
+            <column name="ctime"/>
+        </property>
+        <property name="msysid" type="long">
+            <column name="msysid"/>
+        </property>
+        <property name="mtime" type="secDate">
+            <column name="mtime"/>
+        </property>
+    </class>
+</hibernate-mapping>
