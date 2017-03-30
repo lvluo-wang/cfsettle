@@ -18,6 +18,9 @@ public class CfsOrgTeam implements java.io.Serializable {
 	private Long msysid;
 	private Date mtime;
 
+	private String areaName;
+	private String deptName;
+
 	public CfsOrgTeam() {
 	}
 
@@ -91,5 +94,21 @@ public class CfsOrgTeam implements java.io.Serializable {
 
 	public void setMtime(Date mtime) {
 		this.mtime = mtime;
+	}
+
+	public String getAreaName() {
+		return areaName;
+	}
+
+	public void setAreaName(String areaName) {
+		this.areaName = areaName;
+	}
+
+	public String getDeptName() {
+		return deptName;
+	}
+
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
 	}
 }

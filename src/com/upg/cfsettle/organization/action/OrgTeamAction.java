@@ -42,6 +42,7 @@ public class OrgTeamAction extends BaseAction {
 
     public String toEdit(){
         isActiveList = codeItemService.getCodeItemByKey(UtilConstant.YES_NO);
+        orgTeam = orgTeamService.getOrgTeam(getPKId());
         return EDIT;
     }
 
@@ -49,8 +50,9 @@ public class OrgTeamAction extends BaseAction {
         orgTeamService.addOrgTeam(orgTeam);
     }
 
-
-
+    public void doEdit(){
+        orgTeamService.updateOrgTeam(orgTeam);
+    }
 
     public List<FiCodeItem> getIsActiveList() {
         return isActiveList;

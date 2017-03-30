@@ -15,4 +15,8 @@ public interface IOrgTeamService extends IBaseService {
     List<Map<String, Object>> findByCondition(OrgTeamBean searchBean, Page page);
 
     void addOrgTeam(CfsOrgTeam orgTeam);
+
+    void updateOrgTeam(CfsOrgTeam orgTeam);
+
+    CfsOrgTeam getOrgTeam(Long id);
 }

@@ -23,7 +23,7 @@
         <property name="csysid" type="long">
             <column name="csysid" />
         </property>
-        <property name="ctime" type="secDate">
+        <property name="ctime" type="secDate" update="false">
             <column name="ctime" />
         </property>
         <property name="msysid" type="long">
