@@ -34,6 +34,11 @@ public class OrgDeptAction extends BaseAction {
     public String list(){
         return setDatagridInputStreamData(orgDeptService.findByCondition(searchBean,getPg()),getPg());
     }
+    
+    public String getCombobox(){
+    	List<CfsOrgDept> list = orgDeptService.find(searchBean,null);
+    	return setInputStreamData(list);
+    }
 
     public String toAdd(){
         isActiveList = codeItemService.getCodeItemByKey(UtilConstant.YES_NO);

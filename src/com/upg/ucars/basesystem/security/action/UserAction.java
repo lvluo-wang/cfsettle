@@ -6,7 +6,14 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.ServletActionContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.upg.cfsettle.mapping.organization.CfsOrgArea;
+import com.upg.cfsettle.mapping.organization.CfsOrgDept;
+import com.upg.cfsettle.mapping.organization.CfsOrgTeam;
+import com.upg.cfsettle.organization.core.IOrgAreaService;
+import com.upg.cfsettle.organization.core.IOrgDeptService;
+import com.upg.cfsettle.organization.core.IOrgTeamService;
 import com.upg.ucars.basesystem.dictionary.util.DictionaryUtil;
 import com.upg.ucars.basesystem.security.core.branch.IBranchService;
 import com.upg.ucars.basesystem.security.core.sysConfig.ISysConfigService;
@@ -83,6 +90,18 @@ public class UserAction extends BaseAction  {
 	private String xtheme=ServletActionContext.getServletContext().getInitParameter("default_theme");
 	
 	private UserSearchBean searchBean;
+	
+	private List<CfsOrgArea> userAreaList;
+	
+	private List<CfsOrgDept> userDeptList;
+	
+	private List<CfsOrgTeam> userTeamList;
+	@Autowired
+	private IOrgAreaService orgAreaService;
+	@Autowired
+	private IOrgDeptService orgDeptService;
+	@Autowired
+	private IOrgTeamService orgTeamService;
 	
 	/**
 	 * 
@@ -290,6 +309,7 @@ public class UserAction extends BaseAction  {
 	 *
 	 */
 	private void prepare(){
+		userAreaList = orgAreaService.findByCondition(new CfsOrgArea(Byte.valueOf("1")), null);
 		String userId = getId();
 		if( StringUtils.isNotBlank(userId) ){
 			user = userService.getUserById(Long.valueOf(userId));
@@ -340,6 +360,8 @@ public class UserAction extends BaseAction  {
 	 */
 	public String toEdit() {
 		prepare();
+		userDeptList = orgDeptService.find(null,null);
+		userTeamList = orgTeamService.find(null, null);
 		return EDIT;
 	}
 	/**
@@ -360,7 +382,9 @@ public class UserAction extends BaseAction  {
 		retuser.setUserType(user.getUserType());
 		retuser.setUserNo(user.getUserNo());
 		retuser.setEmail(user.getEmail());
-		
+		retuser.setAreaId(user.getAreaId());
+		retuser.setDeptId(user.getDeptId());
+		retuser.setTeamId(user.getTeamId());
 		Long brchId=user.getBrchId();
 		if(brchId!=null){
 			Branch brch=branchService.getBranchByBrchId(brchId);
@@ -671,5 +695,22 @@ public class UserAction extends BaseAction  {
 	public void setSearchBean(UserSearchBean searchBean) {
 		this.searchBean = searchBean;
 	}
-
+	public List<CfsOrgArea> getUserAreaList() {
+		return userAreaList;
+	}
+	public void setUserAreaList(List<CfsOrgArea> userAreaList) {
+		this.userAreaList = userAreaList;
+	}
+	public List<CfsOrgDept> getUserDeptList() {
+		return userDeptList;
+	}
+	public void setUserDeptList(List<CfsOrgDept> userDeptList) {
+		this.userDeptList = userDeptList;
+	}
+	public List<CfsOrgTeam> getUserTeamList() {
+		return userTeamList;
+	}
+	public void setUserTeamList(List<CfsOrgTeam> userTeamList) {
+		this.userTeamList = userTeamList;
+	}
 }
