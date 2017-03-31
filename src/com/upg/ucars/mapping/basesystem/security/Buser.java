@@ -145,6 +145,8 @@ public class Buser implements java.io.Serializable {
 	
 	private Long teamId;
 	
+	private Byte isChangePwd;
+	
 	public Buser() {
 	}
 	
@@ -316,4 +318,13 @@ public class Buser implements java.io.Serializable {
 		this.teamId = teamId;
 	}
 
+
+	public Byte getIsChangePwd() {
+		return isChangePwd;
+	}
+
+
+	public void setIsChangePwd(Byte isChangePwd) {
+		this.isChangePwd = isChangePwd;
+	}
 }

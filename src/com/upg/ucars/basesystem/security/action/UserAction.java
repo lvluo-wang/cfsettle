@@ -607,13 +607,7 @@ public class UserAction extends BaseAction  {
 	 */
 	public String getCurUser(){
 		user = userService.getUserById(SessionTool.getUserLogonInfo().getSysUserId());
-		Map<String,String> json = new HashMap<String,String>();
-		if(user.getLastLoginTm() !=null||user.getLastLoginIP()!=null){
-			json.put("user","changed");
-		}else{
-			json.put("user","unchange");
-		}
-		return setInputStreamData(json);
+		return setInputStreamData(user);
 	}
 	
 	public void setUserService(IUserService userService) {

@@ -53,7 +53,7 @@
 				error(o.error);
 				return;
 			}else{
-				if(o.user=='unchange'){
+				if(o.isChangePwd==0){
 					var url='<s:url value="/security/user_toChangePassword.jhtml"/>?flag='+Math.random()*99999;
 					requestAtWindow(url,"change_pwd",'<s:text name="modifyPwd"/>',{'isChangePwd':1},{closable:false});
 				}
