@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="cust" namespace="/cust" extends="pkg-base">
+		<action name="cfcust_*" class="com.upg.cfsettle.banner.action.BannerAction" method="{1}">
+			<result name="main">/cfsettle/banner/bannerMain.jsp</result>
+			<result name="add">/cfsettle/banner/bannerAdd.jsp</result>
+			<result name="edit">/cfsettle/banner/bannerEdit.jsp</result>
+			<result name="view">/cfsettle/banner/bannerView.jsp</result>
+		</action>
+	</package>
+</struts>
