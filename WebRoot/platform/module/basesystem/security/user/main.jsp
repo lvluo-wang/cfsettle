@@ -72,7 +72,7 @@
 					<x:column title="memberInfo.miName" field="miNo" width="100" align="left" formatter="userFormatter"/>
 				</s:if>
 				
-				<x:column title="no" field="userNo" width="100" align="left" />
+				<x:column title="手机号码" field="userNo" width="100" align="left" />
 				<x:column title="name" field="userName" width="100" align="left" />
 				<x:column title="type" field="userType" width="100" align="left" formatter="userFormatter" />
 				<x:column title="email" field="email" width="200" align="left"/>
@@ -153,7 +153,7 @@ function initPage(){
 					return;
 				}
 	           var selectedId = userMainDG.getSelectedField("userId");
-	           var url="<s:url value='/security/user_toAdd.jhtml' />?id="+selectedId;
+	           var url="<s:url value='/security/user_toEdit.jhtml' />?id="+selectedId;
 	           requestAtWindow(url,"user_add_edit","<s:text name="edit"/><s:text name="user"/>");
 	       }else{
 	           info(global.notSelectInfo);

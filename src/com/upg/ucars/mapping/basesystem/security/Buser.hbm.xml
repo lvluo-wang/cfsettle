@@ -59,5 +59,8 @@
         <property name="teamId" type="java.lang.Long">
             <column name="TEAM_ID" precision="22" scale="0" />
         </property>
+        <property name="isChangePwd" type="java.lang.Byte">
+            <column name="IS_CHANGE_PWD"/>
+        </property>
     </class>
 </hibernate-mapping>

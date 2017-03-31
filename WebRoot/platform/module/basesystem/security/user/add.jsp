@@ -17,9 +17,9 @@
 		                 </colgroup>
 						 <tbody>
 						<tr>
-							<td class="title"><s:text name="user.number" />:</td>
+							<td class="title">手机号码:</td>
 							<!-- validType="serialNumbertextLength[3,18]" invalidMessage="请输入3至18位字符" -->
-							<td><input name="user.userNo" value="${user.userNo}" class="easyui-validatebox" required="true" maxlength="20" validType="userNo" /><font color="red">*</font></td>
+							<td><input name="user.userNo" value="${user.userNo}" class="easyui-validatebox" required="true" maxlength="20"/><font color="red">*</font></td>
 						</tr>
 						
 						<tr>
@@ -34,7 +34,7 @@
 						<tr>
 							<td class="title"><s:text name="user"/><s:text name="type"/>:</td>
 							<td>
-								<x:combobox id="user_userType" name="user.userType"  value="${user.userType}" valueField="codeNo" textField="codeName" list="userTypeList" pleaseSelect="false"/>
+								<x:combobox id="user_userType" name="user.userType"  value="${user.userType}" valueField="codeNo" textField="codeName" list="userTypeList" pleaseSelect="false" cssStyle="width:142px;"/>
 							</td>
 						</tr>
 						<%
@@ -65,7 +65,26 @@
 						<%
 							}
 						%>
+							<tr>
+								<td class="title">归属/负责区域:</td>
+								<td>
+									<x:combobox id="user_area_id" name="user.areaId"  value="${user.areaId}" valueField="id" textField="areaName" list="userAreaList" pleaseSelect="false" onchange="loadDeptList" required="true" cssStyle="width:142px;"/>
+								</td>
+							</tr>
+							<tr>
+								<td class="title">归属/负责营业部:</td>
+								<td>
+									<x:combobox id="user_dept_id" name="user.deptId"  value="${user.deptId}" valueField="id" textField="deptName" list="userDeptList" pleaseSelect="false" onchange="loadTeamList" cssStyle="width:142px;"/>
+								</td>
+							</tr>
+							<tr>
+								<td class="title">归属/负责团队:</td>
+								<td>
+									<x:combobox id="user_team_id" name="user.teamId"  value="${user.teamId}" valueField="id" textField="teamName" list="userTeamList" pleaseSelect="false" cssStyle="width:142px;"/>
+								</td>
+							</tr>
 						</tbody>
+						
 						</table>
 				</form> 
 	</tiles:putAttribute>
@@ -132,6 +151,16 @@
 	}
 	function doCancel(){
 		$("#user_add_edit").window("close");
+	}
+	
+	function loadDeptList(){
+		var areaId = $("#user_area_id").xcombobox("getValue");
+		$("#user_dept_id").xcombobox("reload",{'url':'<s:url value="/orgDept/orgDeptManage_getCombobox.jhtml"/>?searchBean.ownedArea='+areaId+'&searchBean.status=1'});
+	}
+	
+	function loadTeamList(){
+		var teamId = $("#user_dept_id").xcombobox("getValue");
+		$("#user_team_id").xcombobox("reload",{'url':'<s:url value="/orgTeam/orgTeamManage_getCombobox.jhtml"/>?searchBean.ownedDept='+teamId+'&searchBean.status=1'});
 	}
 </script>
 	</tiles:putAttribute>

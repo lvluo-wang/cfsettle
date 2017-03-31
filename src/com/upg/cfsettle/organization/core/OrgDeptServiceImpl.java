@@ -65,11 +65,13 @@ public class OrgDeptServiceImpl implements IOrgDeptService {
         String hql = "select distinct dept from CfsOrgDept dept";
         qc.setHql(hql);
         qc.addCondition(new ConditionBean("dept.status", ConditionBean.EQUAL, Byte.valueOf("1")));
-        if(searchBean.getOwnedArea() != null){
-            qc.addCondition(new ConditionBean("dept.ownedArea", ConditionBean.EQUAL,searchBean.getOwnedArea()));
-        }
-        if(!StringUtil.isEmpty(searchBean.getDeptName())){
-            qc.addCondition(new ConditionBean("dept.deptName", ConditionBean.LIKE,searchBean.getDeptName()));
+        if(searchBean != null){
+        	if(searchBean.getOwnedArea() != null){
+        		qc.addCondition(new ConditionBean("dept.ownedArea", ConditionBean.EQUAL,searchBean.getOwnedArea()));
+        	}
+        	if(!StringUtil.isEmpty(searchBean.getDeptName())){
+        		qc.addCondition(new ConditionBean("dept.deptName", ConditionBean.LIKE,searchBean.getDeptName()));
+        	}
         }
         List list = this.orgDeptDao.queryByCondition(qc, page);
         return list;

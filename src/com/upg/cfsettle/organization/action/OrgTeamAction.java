@@ -1,14 +1,15 @@
 package com.upg.cfsettle.organization.action;
 
+import java.util.List;
+
 import com.upg.cfsettle.code.core.ICodeItemService;
 import com.upg.cfsettle.mapping.ficode.FiCodeItem;
+import com.upg.cfsettle.mapping.organization.CfsOrgDept;
 import com.upg.cfsettle.mapping.organization.CfsOrgTeam;
 import com.upg.cfsettle.organization.core.IOrgTeamService;
 import com.upg.cfsettle.organization.core.OrgTeamBean;
 import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.framework.base.BaseAction;
-
-import java.util.List;
 
 /**
  * Created by zuo on 2017/3/29.
@@ -50,8 +51,13 @@ public class OrgTeamAction extends BaseAction {
         orgTeamService.addOrgTeam(orgTeam);
     }
 
-    public void doEdit(){
+    public void doEdit() {
         orgTeamService.updateOrgTeam(orgTeam);
+    }
+
+    public String getCombobox(){
+    	List<CfsOrgTeam> list = orgTeamService.find(searchBean,null);
+    	return setInputStreamData(list);
     }
 
     public List<FiCodeItem> getIsActiveList() {

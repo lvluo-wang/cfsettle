@@ -19,4 +19,6 @@ public interface IOrgTeamService extends IBaseService {
     void updateOrgTeam(CfsOrgTeam orgTeam);
 
     CfsOrgTeam getOrgTeam(Long id);
+
+	List<CfsOrgTeam> find(OrgTeamBean searchBean, Page page);
 }

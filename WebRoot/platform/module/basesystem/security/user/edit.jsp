@@ -15,8 +15,8 @@
                 </colgroup>
 			 <tbody>
 				<tr>
-					<td class="title"><s:text name="user" /><s:text name="no" />:</td>
-					<td><input name="user.userNo" value="${user.userNo}" class="easyui-validatebox" maxlength="30" validType="userNo" required="true" /><font color="red">*</font></td>
+					<td class="title">手机号码:</td>
+					<td><input name="user.userNo" value="${user.userNo}" class="easyui-validatebox" maxlength="30" required="true" /><font color="red">*</font></td>
 				</tr>
 				<tr>
 					<td class="title"><s:text name="user" /><s:text name="name" />:</td>
@@ -36,17 +36,6 @@
 				<%
 							if( ! UserManager.isImplementation()){
 						%>
-								<tr id="brchDiv">
-									<td class="title"><s:text name="belong_branch"/>:</td>
-									<td><input class="formPannel_input" id="logonInfo_branchName" 
-										<s:if test="user != null ">
-											value="${branch.brchName}"  
-										</s:if>
-										<s:else>
-											value="${session.UserLogonInfo.branchName}"  
-										</s:else>
-									disabled="true"/></td>						
-								</tr>
 								<tr id="chooseBrchDiv">
 									<td class="title"><s:text name="belong_branch"/>:</td>
 									<td>
@@ -59,6 +48,24 @@
 						<%
 							}
 						%>
+						<tr>
+							<td class="title">归属/负责区域:</td>
+							<td>
+								<x:combobox id="user_area_edit_id" name="user.areaId"  value="${user.areaId}" valueField="id" textField="areaName" list="userAreaList" pleaseSelect="false" onchange="loadDeptEditList" required="true" cssStyle="width:142px;"/>
+							</td>
+						</tr>
+						<tr>
+							<td class="title">归属/负责营业部:</td>
+							<td>
+								<x:combobox id="user_dept_edit_id" name="user.deptId"  value="${user.deptId}" valueField="id" textField="deptName" list="userDeptList" pleaseSelect="false" onchange="loadTeamEditList" cssStyle="width:142px;"/>
+							</td>
+						</tr>
+						<tr>
+							<td class="title">归属/负责团队:</td>
+							<td>
+								<x:combobox id="user_team_edit_id" name="user.teamId"  value="${user.teamId}" valueField="id" textField="teamName" list="userTeamList" pleaseSelect="false" cssStyle="width:142px;"/>
+							</td>
+						</tr>
 				</tbody>
 			</table>
 		</form>
@@ -66,7 +73,7 @@
 			
 	<tiles:putAttribute name="button">
 		<x:button id="btn_edit_member" click="doSave" text="save" effect="round" icon="icon-save"/>
-		<x:button click="doCancel" text="cancel" effect="round" icon="icon-cancel"/>s
+		<x:button click="doCancel" text="cancel" effect="round" icon="icon-cancel"/>
 	    
 	</tiles:putAttribute>
 	<tiles:putAttribute name="end">
@@ -110,6 +117,16 @@
 			$("#brchName").val(row.brchName);
 			$("#brchValue").val(row.brchId);
 		}
+	}
+	
+	function loadDeptEditList(){
+		var areaId = $("#user_area_edit_id").xcombobox("getValue");
+		$("#user_dept_edit_id").xcombobox("reload",{'url':'<s:url value="/orgDept/orgDeptManage_getCombobox.jhtml"/>?searchBean.ownedArea='+areaId+'&searchBean.status=1'});
+	}
+	
+	function loadTeamEditList(){
+		var teamId = $("#user_dept_edit_id").xcombobox("getValue");
+		$("#user_team_edit_id").xcombobox("reload",{'url':'<s:url value="/orgTeam/orgTeamManage_getCombobox.jhtml"/>?searchBean.ownedDept='+teamId+'&searchBean.status=1'});
 	}
 </script>
 	</tiles:putAttribute>

@@ -154,6 +154,7 @@ public class UserServiceImp extends BaseService implements IUserService,ISecurit
 		
 		user.setPassword(DigestUtil.getMD5(newPwd));
 		user.setPwdChgDt(new Date(System.currentTimeMillis()));
+		user.setIsChangePwd(Byte.valueOf("1"));
 		this.userDAO.update(user);		
 		
 	}

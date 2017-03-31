@@ -40,10 +40,11 @@
 	</tiles:putAttribute>
 	<tiles:putAttribute name="button">
 		<x:button icon="icon-save" click="doSave" effect="round" text="save"/>
-		<x:button icon="icon-cancel" click="doCancel" effect="round" text="cancel"/>
+		<s:if test="isChangePwd==0">
+			<x:button icon="icon-cancel" click="doCancel" effect="round" text="cancel" id="iscanhidden"/>
+		</s:if>
 	</tiles:putAttribute>
 	<tiles:putAttribute name="end">
-	
 <script type="text/javascript">
 	function doSave(){
 		if($("#changePwdForm").form("validate")){
