@@ -1,9 +1,14 @@
 package com.upg.cfsettle.cust.action;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.upg.cfsettle.common.CodeItemUtil;
 import com.upg.cfsettle.cust.core.ICfsCustService;
+import com.upg.cfsettle.mapping.ficode.FiCodeItem;
 import com.upg.cfsettle.mapping.prj.CfsCust;
+import com.upg.cfsettle.util.LcsConstant;
 import com.upg.ucars.framework.base.BaseAction;
 
 @SuppressWarnings("serial")
@@ -14,12 +19,15 @@ public class CfsCustAction extends BaseAction {
 	@Autowired
 	private ICfsCustService cfsCustService;
 	
+	private List<FiCodeItem>  yseNo;
+	
 	
 	/**
 	 * 跳转主页面
 	 * @return
 	 */
 	public String main(){
+		yseNo = CodeItemUtil.getCodeItemsByKey(LcsConstant.CFS_COMM_YSE_NO);
 		return MAIN;
 	}
 	
@@ -35,17 +43,18 @@ public class CfsCustAction extends BaseAction {
 	/**
 	 * 跳转新增页面
 	 * @author renzhuolun
-	 * @date 2014年8月5日 下午12:38:01
+	 * @date 2017年3月31日 下午10:16:38
 	 * @return
 	 */
 	public String toAdd(){
+		yseNo = CodeItemUtil.getCodeItemsByKey(LcsConstant.CFS_COMM_YSE_NO);
 		return ADD;
 	}
 	
 	/**
 	 * 跳转编辑页面
 	 * @author renzhuolun
-	 * @date 2014年8月8日 上午9:35:23
+	 * @date 2017年3月31日 下午10:16:52
 	 * @return
 	 */
 	public String toEdit(){
@@ -54,35 +63,36 @@ public class CfsCustAction extends BaseAction {
 	
 	/**
 	 * 批量删除banner信息
-	 * @author renzhuolun
-	 * @date 2014年8月8日 上午9:28:16
 	 */
 	public void batchDelete(){
 	}
 	
 	/**
 	 * 修改banner信息
-	 * @author renzhuolun
-	 * @date 2014年8月8日 上午10:58:10
 	 */
 	public void doEdit(){
 	}
 	
 	/**
 	 * 新增banner信息
-	 * @author renzhuolun
-	 * @date 2014年8月11日 上午10:42:31
 	 */
 	public void doAdd(){
 	}
 	
-	/**
-	 * 查看banner
-	 * @author renzhuolun
-	 * @date 2016年8月19日 下午2:33:51
-	 * @return
-	 */
-	public String toView(){
-		return VIEW;
+	public CfsCust getSearchBean() {
+		return searchBean;
 	}
+
+	public void setSearchBean(CfsCust searchBean) {
+		this.searchBean = searchBean;
+	}
+
+	public List<FiCodeItem> getYseNo() {
+		return yseNo;
+	}
+
+	public void setYseNo(List<FiCodeItem> yseNo) {
+		this.yseNo = yseNo;
+	}
+	
 }

@@ -5,11 +5,8 @@
 
 <struts>
 	<package name="cust" namespace="/cust" extends="pkg-base">
-		<action name="cfcust_*" class="com.upg.cfsettle.banner.action.BannerAction" method="{1}">
-			<result name="main">/cfsettle/banner/bannerMain.jsp</result>
-			<result name="add">/cfsettle/banner/bannerAdd.jsp</result>
-			<result name="edit">/cfsettle/banner/bannerEdit.jsp</result>
-			<result name="view">/cfsettle/banner/bannerView.jsp</result>
+		<action name="cfscust_*" class="com.upg.cfsettle.cust.action.CfsCustAction" method="{1}">
+			<result name="main">/cfsettle/cust/cfscust_{1}.jsp</result>
 		</action>
 	</package>
 </struts>

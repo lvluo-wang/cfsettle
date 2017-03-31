@@ -8,7 +8,9 @@ import com.upg.cfsettle.mapping.prj.CfsCust;
 import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.QueryCondition;
+import com.upg.ucars.framework.base.SessionTool;
 import com.upg.ucars.model.ConditionBean;
+import com.upg.ucars.util.DateTimeUtil;
 import com.upg.ucars.util.StringUtil;
 
 @Service
@@ -24,7 +26,7 @@ public class CfsCustServiceImpl implements ICfsCustService{
 		if (searchBean != null) {
 			String realName = searchBean.getRealName();
 			if (!StringUtil.isEmpty(realName) || realName != null) {
-				condition.addCondition(new ConditionBean("cfsCust.title", ConditionBean.LIKE, realName));
+				condition.addCondition(new ConditionBean("cfsCust.realName", ConditionBean.LIKE, realName));
 			}
 			String idCard = searchBean.getIdCard();
 			if (!StringUtil.isEmpty(idCard) || idCard != null) {
@@ -34,26 +36,33 @@ public class CfsCustServiceImpl implements ICfsCustService{
 			if (!StringUtil.isEmpty(mobile) || idCard != null) {
 				condition.addCondition(new ConditionBean("cfsCust.mobile", ConditionBean.LIKE, mobile));
 			}
+			Byte isValid = searchBean.getIsValid();
+			if (isValid != null) {
+				condition.addCondition(new ConditionBean("cfsCust.isValid", ConditionBean.EQUAL, isValid));
+			}
 		}
 		return cfsCustDao.queryEntity( condition.getConditionList(), page);
 	}
 
 	@Override
 	public CfsCust queryCfsCustById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return cfsCustDao.get(id);
 	}
 
 	@Override
-	public void updateCfsCust(CfsCust banner) {
-		// TODO Auto-generated method stub
-		
+	public void updateCfsCust(CfsCust cust) {
+		cust.setMtime(DateTimeUtil.getNowDateTime());
+		cust.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
+		cfsCustDao.update(cust);
 	}
 
 	@Override
-	public void addCfsCust(CfsCust banner) {
-		// TODO Auto-generated method stub
+	public void addCfsCust(CfsCust cust) {
+		cust.setCtime(DateTimeUtil.getNowDateTime());
+		cust.setCsysid(SessionTool.getUserLogonInfo().getSysUserId());
+		cust.setMtime(DateTimeUtil.getNowDateTime());
+		cust.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
+		cfsCustDao.update(cust);
 		
 	}
-	
 }

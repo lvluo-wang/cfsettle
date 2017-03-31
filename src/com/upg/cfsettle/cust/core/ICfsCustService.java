@@ -13,8 +13,8 @@ public interface ICfsCustService extends IBaseService {
 	
 	CfsCust queryCfsCustById(Long id);
 	
-	void updateCfsCust(CfsCust banner);
+	void updateCfsCust(CfsCust cust);
 	
-	void addCfsCust(CfsCust banner);
+	void addCfsCust(CfsCust cust);
 
 }

@@ -22,6 +22,7 @@ public class CfsCust implements Serializable {
 	private Byte sex;
 	private Long cardFace;
 	private Long cardBack;
+	private Byte isValid;
 	private Long csysid;
 	private Date ctime;
 	private Long msysid;
@@ -137,5 +138,13 @@ public class CfsCust implements Serializable {
 
 	public void setMtime(Date mtime) {
 		this.mtime = mtime;
+	}
+
+	public Byte getIsValid() {
+		return isValid;
+	}
+
+	public void setIsValid(Byte isValid) {
+		this.isValid = isValid;
 	}
 }
