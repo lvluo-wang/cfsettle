@@ -25,7 +25,7 @@
                 <comment>还款期数</comment>
             </column>
         </property>
-        <property name="repayDate" type="secDate">
+        <property name="repayDate" type="secDate" >
             <column name="repay_date">
                 <comment>还款日期</comment>
             </column>
@@ -61,7 +61,7 @@
         <property name="csysid" type="java.lang.Long">
             <column name="csysid" />
         </property>
-        <property name="mtime" type="secDate">
+        <property name="mtime" type="secDate" update="false">
             <column name="mtime" />
         </property>
         <property name="msysid" type="java.lang.Long">

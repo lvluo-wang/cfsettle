@@ -23,7 +23,7 @@
         <property name="csysid" type="java.lang.Long">
             <column name="csysid" />
         </property>
-        <property name="ctime" type="secDate">
+        <property name="ctime" type="secDate" update="false">
             <column name="ctime" />
         </property>
     </class>
