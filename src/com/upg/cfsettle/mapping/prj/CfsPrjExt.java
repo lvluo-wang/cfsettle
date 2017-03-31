@@ -6,6 +6,10 @@ package com.upg.cfsettle.mapping.prj;
  */
 public class CfsPrjExt implements java.io.Serializable {
 
+	/**
+	 * TODO（用一句话描述这个变量表示什么）
+	 */
+	private static final long serialVersionUID = -7501439986133242569L;
 	private int prjId;
 	private String tenantName;
 	private String tenantBank;

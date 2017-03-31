@@ -9,6 +9,10 @@ import java.util.Date;
  */
 public class CfsPrj implements java.io.Serializable {
 
+	/**
+	 * TODO（用一句话描述这个变量表示什么）
+	 */
+	private static final long serialVersionUID = -5815690143864034500L;
 	private Long id;
 	private String prjName;
 	private String prjUseName;
