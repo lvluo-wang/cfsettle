@@ -7,6 +7,7 @@
     <package name="prj" namespace="/prj" extends="pkg-base">
         <action name="/prjManage_*" class="com.upg.cfsettle.prj.action.PrjAction" method="{1}">
             <result name="main">/cfsettle/prj/prjMain.jsp</result>
+            <result name="add">/cfsettle/prj/prjApply_toAdd.jsp</result>
         </action>
     </package>
 </struts>

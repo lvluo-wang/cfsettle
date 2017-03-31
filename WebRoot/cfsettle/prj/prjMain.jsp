@@ -71,7 +71,7 @@
 		
 	function toAdd(){
 		var url="<s:url value='/prj/prjManage_toAdd.jhtml'/>";
-		requestAtWindow(url,"project_add_win","<s:text name='add'/>");
+		redirectUrl(url);
 	}
 
 	</script>
