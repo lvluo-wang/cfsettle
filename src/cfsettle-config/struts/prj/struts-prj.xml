@@ -8,6 +8,7 @@
         <action name="/prjManage_*" class="com.upg.cfsettle.prj.action.PrjAction" method="{1}">
             <result name="main">/cfsettle/prj/prjMain.jsp</result>
             <result name="add">/cfsettle/prj/prjApply_toAdd.jsp</result>
+            <result name="edit">/cfsettle/prj/prjApply_toEdit.jsp</result>
         </action>
     </package>
 </struts>

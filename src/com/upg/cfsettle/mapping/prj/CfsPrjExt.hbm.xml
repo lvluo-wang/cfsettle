@@ -4,9 +4,8 @@
 <!-- Generated 2017-3-30 10:19:46 by Hibernate Tools 5.2.1.Final -->
 <hibernate-mapping>
     <class name="com.upg.cfsettle.mapping.prj.CfsPrjExt" table="cfs_prj_ext" dynamic-update="true">
-        <id name="prjId" type="int">
+        <id name="prjId" type="long">
             <column name="prj_id" />
-            <generator class="assigned" />
         </id>
         <property name="tenantName" type="string">
             <column name="tenant_name" length="100">
@@ -32,19 +31,19 @@
             <column name="account_no" length="20">
             </column>
         </property>
-        <property name="contractAttid" type="java.lang.Integer">
+        <property name="contractAttid" type="long">
             <column name="contract_attid">
             </column>
         </property>
-        <property name="periodAttid" type="java.lang.Integer">
+        <property name="periodAttid" type="long">
             <column name="period_attid">
             </column>
         </property>
-        <property name="guaranteAttid" type="java.lang.Integer">
+        <property name="guaranteAttid" type="long">
             <column name="guarante_attid">
             </column>
         </property>
-        <property name="spreadAttid" type="java.lang.Integer">
+        <property name="spreadAttid" type="long">
             <column name="spread_attid">
             </column>
         </property>

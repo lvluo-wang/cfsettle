@@ -4,6 +4,7 @@ import com.upg.cfsettle.code.core.ICodeItemService;
 import com.upg.cfsettle.mapping.ficode.FiCodeItem;
 import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.mapping.prj.CfsPrjExt;
+import com.upg.cfsettle.prj.core.IPrjExtService;
 import com.upg.cfsettle.prj.core.IPrjService;
 import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.framework.base.BaseAction;
@@ -20,6 +21,8 @@ public class PrjAction extends BaseAction {
     private ICodeItemService codeItemService;
 
     private IPrjService prjService;
+
+    private IPrjExtService prjExtService;
 
     private CfsPrj prj;
     private CfsPrjExt prjExt;
@@ -45,8 +48,30 @@ public class PrjAction extends BaseAction {
 
     public void doApply(){
         //TODO
+        prjService.savePrjAndPrjExt(prj,prjExt);
+
     }
 
+    public String toEdit(){
+        bankList = codeItemService.getCodeItemByKey(UtilConstant.CFS_BANK_TYPE);
+        repaymentTypeList = codeItemService.getCodeItemByKey(UtilConstant.CFS_REPAYMENT_TYPE);
+        timeLimitUnitList = codeItemService.getCodeItemByKey(UtilConstant.CFS_TIMELIMIT_UNIT);
+        prj = prjService.getPrjById(getPKId());
+        prjExt = prjExtService.getPrjExtByPrjId(getPKId());
+        return EDIT;
+    }
+
+    public void doEdit(){
+
+    }
+
+    public IPrjExtService getPrjExtService() {
+        return prjExtService;
+    }
+
+    public void setPrjExtService(IPrjExtService prjExtService) {
+        this.prjExtService = prjExtService;
+    }
 
     public CfsPrj getSearchBean() {
         return searchBean;

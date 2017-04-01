@@ -28,7 +28,7 @@ public final class UtilConstant {
 	public static final String XXH_PAYOBJECT = "E039";//缴费对象
 	public static final String CFS_BANK_TYPE = "E009"; //银行类型
 	public static final String CFS_REPAYMENT_TYPE = "LCS011";//还款方式
-	public static final String CFS_TIMELIMIT_UNIT = "CFS001";
+	public static final String CFS_TIMELIMIT_UNIT = "E010";
 	
 	//常用数字字符串
 	public static final String NUMBER_0 = "0";

@@ -93,7 +93,7 @@
 						if(customShow){
 							if(callback != null && callback.length() > 0){
 					%>
-								<%=callback%>(json);
+								<%=callback%>(json,<%=suffix%>);
 					<%
 							}
 						}else{

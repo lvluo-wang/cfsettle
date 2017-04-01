@@ -17,8 +17,8 @@
 
         </style>
         <div id="tt">
-            <%--<%@ include file="/xhh/car/carLoanApply.ucars" %>--%>
-            <div title="发布信息" class="car_loan">
+                <%--<%@ include file="/xhh/car/carLoanApply.ucars" %>--%>
+            <div title="项目信息" class="car_loan">
                 <form class="busi_form" id="prj_form">
                     <table>
                         <colgroup>
@@ -40,7 +40,7 @@
                             </td>
                             <td class="title">项目方名:</td>
                             <td>
-                                <input id="prjUseName"
+                                <input id="prjUseName" value="${prj.prjUseName}"
                                        class="easyui-validatebox"
                                        name="prj.prjUseName"
                                        required="true"/>
@@ -50,19 +50,20 @@
                             <td class="title">项目联系电话:</td>
                             <td>
                                 <input name="prj.prjMobile" value="${prj.prjMobile}"
-                                       class="easyui-validatebox" required="true" validType="mobile" />
+                                       class="easyui-validatebox" required="true" validType="mobile"/>
                             </td>
                             <td colspan="3"></td>
                         </tr>
                         <tr>
                             <td class="title">募集金额:</td>
-                            <td><input name="prj.demandAmount" class="easyui-validatebox" validType="positive_int" required="true" />万
+                            <td><input name="prj.demandAmount" value="${prj.demandAmount}" class="easyui-validatebox"
+                                       validType="positive_int" required="true"/>万
                             </td>
                             <td class="title">项目期限:</td>
                             <td>
                                 <input name="prj.timeLimit" value="${prj.timeLimit}"
                                        class="easyui-validatebox" required="true" validType="positive_int"/>
-                                <x:combobox name="prj.timeLimitUnit"
+                                <x:combobox name="prj.timeLimitUnit" value="${prj.timeLimitUnit}"
                                             list="timeLimitUnitList" textField="codeName" valueField="codeNo"
                                             cssStyle="width:30px;" required="true" pleaseSelect="false"/>
                             </td>
@@ -71,13 +72,13 @@
                             <td class="title">项目利率:</td>
                             <td>
                                 <input id="prjYearRate" name="prj.yearRate" value="${prj.yearRate}"
-                                       class="easyui-validatebox" required="true" validType="percentage"/>
+                                       class="easyui-validatebox" required="true" validType="positive_int"/>
                                 <span>%</span>
                             </td>
                             <td class="title">募集期利率:</td>
                             <td>
                                 <input id="periodRate" name="prj.periodRate" value="${prj.periodRate}"
-                                       class="easyui-validatebox" required="true" validType="percentage"/>
+                                       class="easyui-validatebox" required="true" validType="positive_int"/>
                                 <span>%</span>
                             </td>
                         </tr>
@@ -87,7 +88,8 @@
                                             textField="codeName" valueField="codeNo" required="true"
                                             pleaseSelect="false"/></td>
                             <td class="title">项目成立金额:</td>
-                            <td><input name="prj.minLoanAmount" class="easyui-validatebox" required="true" />万
+                            <td><input name="prj.minLoanAmount" value="${prj.minLoanAmount}" class="easyui-validatebox" validType="positive_int"
+                                       required="true"/>万
                             </td>
                         </tr>
                         <tr>
@@ -106,36 +108,36 @@
                                        onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:00'})"/>
                             </td>
                         </tr>
-                        </table>
-                    </form>
-                    <form class="busi_form" id="prjExt_form">
-                        <table>
-                            <colgroup>
-                                <col width="20%"/>
-                                <col width="30%"/>
-                                <col width="20%"/>
-                                <col width="30%"/>
-                            </colgroup>
+                    </table>
+                </form>
+                <form class="busi_form" id="prjExt_form">
+                    <table>
+                        <colgroup>
+                            <col width="20%"/>
+                            <col width="30%"/>
+                            <col width="20%"/>
+                            <col width="30%"/>
+                        </colgroup>
                         <tr>
                             <td class="title">收款账户名:</td>
                             <td>
-                                <input name="prjExt.tenantName" class="easyui-validatebox" required="true" />
+                                <input name="prjExt.tenantName" value="${prjExt.tenantName}" class="easyui-validatebox" required="true"/>
                             </td>
                             <td class="title">收款银行:</td>
                             <td colspan="3">
-                                <x:combobox name="prjExt.tenantBank" value="${prj.tenantBank}"
+                                <x:combobox name="prjExt.tenantBank" value="${prjExt.tenantBank}"
                                             list="bankList" textField="codeName" valueField="codeNo"
-                                             required="true" pleaseSelect="false"/>
+                                            required="true" pleaseSelect="false"/>
                             </td>
                         </tr>
                         <tr>
                             <td class="title">收款支行:</td>
-                            <td >
-                                <input name="prjExt.subBank" class="easyui-validatebox" required="true" />
+                            <td>
+                                <input name="prjExt.subBank" value="${prjExt.subBank}" class="easyui-validatebox" required="true"/>
                             </td>
                             <td class="title">收款账号:</td>
-                            <td >
-                                <input name="prjExt.accountNo" class="easyui-validatebox" required="true" />
+                            <td>
+                                <input name="prjExt.accountNo" value="${prjExt.accountNo}" class="easyui-validatebox" required="true"/>
                             </td>
                         </tr>
 
@@ -143,37 +145,63 @@
                             <td style="text-align: center;" colspan="4"><b>项目附加信息</b></td>
                         </tr>
                         <tr>
-                            <td class="title">电子合同: </td>
+                            <td class="title">电子合同:</td>
+                            <td><div id="uploadName_1">
+                                <s:if test="prjExt.contractAttid !=null">
+                                <a href='#' class='_attach_info'
+                                   onclick='_downloadFile("${prjExt.contractAttid}")'>${prjExt.contractName}</a>
+                                <a href='#' onclick='_deleteFile("${prjExt.contractAttid}",1)'><s:text name="del"/>
+                                </a>
+                                </s:if>
+                            </div></td>
                             <td colspan="3">
-                                <div id="uploadName_1"></div>
-                                <input type="hidden" id="uploadFile_1" name="prjExt.contractAttid"  required="true" />
+                                <input type="hidden" id="uploadFile_1" value="${prjExt.contractAttid}" name="prjExt.contractAttid" required="true"/>
                                 <br/><br/>
                                 <div id="upload_1"></div>
                             </td>
                         </tr>
                         <tr>
-                            <td class="title">募资说明: </td>
-                            <td colspan="3">
-                                <div id="uploadName_2"></div>
-                                <input type="hidden" id="uploadFile_2" name="prjExt.periodAttid"  required="true" />
+                            <td class="title">募资说明:</td>
+                            <td><div id="uploadName_2">
+                                <s:if test="prjExt.periodAttid != null">
+                            <a href='#' class='_attach_info'
+                               onclick='_downloadFile("${prjExt.periodAttid}")'>${prjExt.periodName}</a>
+                                 <a href='#' onclick='_deleteFile("${prjExt.periodAttid}",2)'><s:text name="del"/></a>
+                                </s:if>
+                            </div>
+                            </td>
+                            <td colspan="2">
+                                <input type="hidden" id="uploadFile_2" value="${prjExt.periodAttid}" name="prjExt.periodAttid" required="true"/>
                                 <br/><br/>
                                 <div id="upload_2"></div>
                             </td>
                         </tr>
                         <tr>
-                            <td class="title">担保手续费: </td>
-                            <td colspan="3">
-                                <div id="uploadName_3"></div>
-                                <input type="hidden" id="uploadFile_3" name="prjExt.guaranteAttid"  required="true" />
+                            <td class="title">担保手续费:</td>
+                            <td><div id="uploadName_3">
+                                 <s:if test="prjExt.guaranteAttid != null">
+                                <a href='#' class='_attach_info'
+                                   onclick='_downloadFile("${prjExt.guaranteAttid}")'>${prjExt.guaranteName}</a>
+                                 <a href='#' onclick='_deleteFile("${prjExt.guaranteAttid}",3)'><s:text name="del"/></a>
+                                 </s:if>
+                            </div></td>
+                            <td colspan="2">
+                                <input type="hidden" id="uploadFile_3" value="${prjExt.guaranteAttid}" name="prjExt.guaranteAttid" required="true"/>
                                 <br/><br/>
                                 <div id="upload_3"></div>
                             </td>
                         </tr>
                         <tr>
-                            <td class="title">推广资料: </td>
-                            <td colspan="3">
-                                <div id="uploadName_4"></div>
-                                <input type="hidden" id="uploadFile_4" name="prjExt.spreadAttid"  required="true" />
+                            <td class="title">推广资料:</td>
+                            <td><div id="uploadName_4">
+                                  <s:if test="prjExt.spreadAttid != null">
+                                 <a href='#' class='_attach_info'
+                                    onclick='_downloadFile("${prjExt.spreadAttid}")'>${prjExt.spreadName}</a>
+                                 <a href='#' onclick='_deleteFile("${prjExt.spreadAttid}",4)'><s:text name="del"/></a>
+                                  </s:if>
+                            </div></td>
+                            <td colspan="2">
+                                <input type="hidden" id="uploadFile_4" value="${prjExt.spreadAttid}" name="prjExt.spreadAttid" required="true"/>
                                 <br/><br/>
                                 <div id="upload_4"></div>
                             </td>
@@ -217,6 +245,7 @@
 				</td>
 			</tr>
 
+
         </script>
 
         <script id="uploadTemplate" type="text/x-jsrender">
@@ -231,6 +260,7 @@
             <s:param name="opt">{'fileExt':'*.pdf','fileDesc':'pdf文件'}</s:param>
         </s:include>
 
+
         </script>
 
         <script type="text/javascript">
@@ -243,34 +273,51 @@
 
             });
 
-            function addUploadTemplate(){
-                var index =4;
-                for(var i=1;i<=index;i++){
+            function addUploadTemplate() {
+                var index = 4;
+                for (var i = 1; i <= index; i++) {
                     var signObj = {
                         index: i
                     };
-                    $("#upload_"+i).append($("#uploadTemplate").render(signObj));
+                    $("#upload_" + i).append($("#uploadTemplate").render(signObj));
                 }
             }
 
-            function uploadFileCallBack(value,index){
+            function uploadFileCallBack(value, index) {
                 /*if(value.isSupported == 0){
-                    info("上传操作不支持此文件类型");
-                    return false;
-                }*/
-                $('#uploadFile_'+index).val(value.id);
+                 info("上传操作不支持此文件类型");
+                 return false;
+                 }*/
+                $('#uploadFile_' + index).val(value.id);
+
+                var attachmentItem = "<a href='#' class='_attach_info' attachId='"+ value.id +"' onclick=\"_downloadFile('" + value.id + "')\">" +value.name + "</a>";
+                attachmentItem +="&nbsp;&nbsp;<a href='#' onclick=\"_deleteFile('" + value.id + ","+index+"')\"><s:text name="del"/></a>";
+                attachmentItem += "<br/>";
+                $('#uploadName_'+index).html(attachmentItem);
             }
+
+            function _deleteFile(attachmentId,index){
+                $.ajax({
+                    type:"POST",
+                    url:"<s:url value='/component/attachment_delete.jhtml'/>",
+                    dataType: 'json',
+                    cache:false,
+                    data:{id:attachmentId},
+                    error:function(result){
+                        printError(result);
+                    },
+                    success:function(){
+                        $('#uploadName_'+index).remove();
+                        $('#uploadFile_' + index).val('');
+                    }
+                });
+            }
+
             function doReturn() {
                 window.history.go(-1);
             }
 
-            function changePercent(rateType) {
-                if ("day" == rateType) {
-                    $("#ratePercent").html("‰");
-                } else {
-                    $("#ratePercent").html("%");
-                }
-            }
+
 
             function AddRunningDiv(str) {
                 $("<div class=\"datagrid-mask\"></div>").css({
@@ -288,7 +335,7 @@
             function doApply() {
                 if ($("#prj_form").form("validate") && $("#prjExt_form").form("validate")) {
 
-                    var url = '<s:url value="/prj/prjManage_doApply.jhtml"/>';
+                    var url = '<s:url value="/prj/prjManage_doEdit.jhtml"/>';
                     var param1 = formToObject("prj_form");
                     var param2 = formToObject("prjExt_form");
                     var param = $.extend(param1, param2);

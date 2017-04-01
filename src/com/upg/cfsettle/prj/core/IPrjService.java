@@ -1,6 +1,7 @@
 package com.upg.cfsettle.prj.core;
 
 import com.upg.cfsettle.mapping.prj.CfsPrj;
+import com.upg.cfsettle.mapping.prj.CfsPrjExt;
 import com.upg.ucars.framework.base.IBaseService;
 import com.upg.ucars.framework.base.Page;
 
@@ -14,4 +15,10 @@ import java.util.Map;
 public interface IPrjService extends IBaseService {
 
     List<Map<String, Object>> findByCondition(CfsPrj searchBean, Page page);
+
+    void addPrjApply(CfsPrj prj);
+
+    void savePrjAndPrjExt(CfsPrj prj, CfsPrjExt prjExt);
+
+    CfsPrj getPrjById(Long id);
 }

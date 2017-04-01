@@ -7,6 +7,7 @@
 	<tiles:putAttribute name="tool">
 		<x:button iconCls="icon-add" text="项目发布" click="toAdd" />
 		<x:button iconCls="icon-edit" text="edit" click="toEdit" />
+
 	</tiles:putAttribute>
 	<tiles:putAttribute name="query">
 			<form id="mainQueryForm" class="query_form">
@@ -72,6 +73,14 @@
 	function toAdd(){
 		var url="<s:url value='/prj/prjManage_toAdd.jhtml'/>";
 		redirectUrl(url);
+	}
+
+	function toEdit(){
+		if(isSingleSelected(dataTable)) {
+			var selectedId = dataTable.getSelectedField("ID");
+			var url = "<s:url value='/prj/prjManage_toEdit.jhtml'/>?id="+selectedId;
+			redirectUrl(url);
+		}
 	}
 
 	</script>
