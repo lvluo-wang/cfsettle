@@ -9,6 +9,11 @@
             <result name="main">/cfsettle/prj/prjMain.jsp</result>
             <result name="add">/cfsettle/prj/prjApply_toAdd.jsp</result>
             <result name="edit">/cfsettle/prj/prjApply_toEdit.jsp</result>
+            <result name="view">/cfsettle/prj/prjApply_toView.jsp</result>
+        </action>
+        <action name="/prjAudit_*" class="com.upg.cfsettle.prj.action.PrjAction" method="{1}">
+            <result name="auditMain">/cfsettle/prj/prjAuditMain.jsp</result>
+            <result name="toReview">/cfsettle/prj/prjAudit_toReview.jsp</result>
         </action>
     </package>
 </struts>

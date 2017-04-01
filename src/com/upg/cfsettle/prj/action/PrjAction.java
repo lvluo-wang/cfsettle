@@ -9,6 +9,7 @@ import com.upg.cfsettle.prj.core.IPrjService;
 import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.framework.base.BaseAction;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**
@@ -17,6 +18,7 @@ import java.util.List;
 public class PrjAction extends BaseAction {
 
     private CfsPrj searchBean;
+
 
     private ICodeItemService codeItemService;
 
@@ -30,6 +32,7 @@ public class PrjAction extends BaseAction {
     private List<FiCodeItem> bankList;
     private List<FiCodeItem> repaymentTypeList;
     private List<FiCodeItem> timeLimitUnitList;
+
 
     public String main(){
         return MAIN;
@@ -47,7 +50,6 @@ public class PrjAction extends BaseAction {
     }
 
     public void doApply(){
-        //TODO
         prjService.savePrjAndPrjExt(prj,prjExt);
 
     }
@@ -62,7 +64,27 @@ public class PrjAction extends BaseAction {
     }
 
     public void doEdit(){
+        prjService.updatePrjAndPrjExt(prj,prjExt);
+    }
 
+    public String toView(){
+        prj = prjService.getPrjById(getPKId());
+        prjExt = prjExtService.getPrjExtByPrjId(getPKId());
+        return VIEW;
+    }
+
+    public String auditMain(){
+        return "auditMain";
+    }
+
+    public String toReview(){
+        prj = prjService.getPrjById(getPKId());
+        prjExt = prjExtService.getPrjExtByPrjId(getPKId());
+        return "toReview";
+    }
+
+    public void doReview(){
+        prjService.auditPrjAndPrjExt(prj,prjExt);
     }
 
     public IPrjExtService getPrjExtService() {

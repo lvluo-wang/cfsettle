@@ -1,7 +1,9 @@
+<%@ page import="com.upg.cfsettle.util.UtilConstant" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="x" uri="/xcars-tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     request.setAttribute("now", new java.util.Date());
 %>
@@ -35,76 +37,61 @@
                         <tr>
                             <td class="title">项目名:</td>
                             <td>
-                                <input id="prjName" class="easyui-validatebox" name="prj.prjName"
-                                       value="${prj.prjName}"
-                                       required="true"/>
+                                ${prj.prjName}
                             </td>
                             <td class="title">项目方名:</td>
                             <td>
-                                <input id="prjUseName" value="${prj.prjUseName}"
-                                       class="easyui-validatebox"
-                                       name="prj.prjUseName"
-                                       required="true"/>
+                                ${prj.prjUseName}
                             </td>
                         </tr>
                         <tr>
                             <td class="title">项目联系电话:</td>
                             <td>
-                                <input name="prj.prjMobile" value="${prj.prjMobile}"
-                                       class="easyui-validatebox" required="true" validType="mobile"/>
+                                ${prj.prjMobile}
                             </td>
                             <td colspan="3"></td>
                         </tr>
                         <tr>
                             <td class="title">募集金额:</td>
-                            <td><input name="prj.demandAmount" value="${prj.demandAmount}" class="easyui-validatebox"
-                                       validType="positive_int" required="true"/>万
+                            <td>${prj.demandAmount}万
                             </td>
                             <td class="title">项目期限:</td>
                             <td>
-                                <input name="prj.timeLimit" value="${prj.timeLimit}"
-                                       class="easyui-validatebox" required="true" validType="positive_int"/>
-                                <x:combobox name="prj.timeLimitUnit" value="${prj.timeLimitUnit}"
-                                            list="timeLimitUnitList" textField="codeName" valueField="codeNo"
-                                            cssStyle="width:30px;" required="true" pleaseSelect="false"/>
+                               ${prj.timeLimit}
+                                <x:codeItem codeKey="<%=UtilConstant.CFS_TIMELIMIT_UNIT%>" codeNo="prj.timeLimitUnit"/>
                             </td>
                         </tr>
                         <tr>
                             <td class="title">项目利率:</td>
                             <td>
-                                <input id="prjYearRate" name="prj.yearRate" value="${prj.yearRate}"
-                                       class="easyui-validatebox" required="true" validType="positive_int"/>
+                                ${prj.yearRate}
                                 <span>%</span>
                             </td>
                             <td class="title">募集期利率:</td>
                             <td>
-                                <input id="periodRate" name="prj.periodRate" value="${prj.periodRate}"
-                                       class="easyui-validatebox" required="true" validType="positive_int"/>
+                                ${prj.periodRate}
                                 <span>%</span>
                             </td>
                         </tr>
                         <tr>
                             <td class="title">还款方式:</td>
-                            <td><x:combobox name="prj.repayWay" value="${prj.repayWay}" list="repaymentTypeList"
-                                            textField="codeName" valueField="codeNo" required="true"
-                                            pleaseSelect="false"/></td>
+                            <td><x:codeItem codeKey="<%=UtilConstant.CFS_REPAYMENT_TYPE%>" codeNo="prj.repayWay" /></td>
                             <td class="title">项目成立金额:</td>
-                            <td><input name="prj.minLoanAmount" value="${prj.minLoanAmount}" class="easyui-validatebox" validType="positive_int"
-                                       required="true"/>万
+                            <td>${prj.minLoanAmount}万
                             </td>
                         </tr>
                         <tr>
                             <td class="title">融资开标时间：</td>
                             <td>
                                 <input class="Wdate easyui-validatebox" id="start_time"
-                                       type="text" required="true" name="prj.startBidTime"
+                                       type="text" required="true" name="prj.startBidTime" readonly
                                        value='<s:date name="prj.startBidTime" format="yyyy-MM-dd HH:mm:00"/>'
                                        onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:00'})"/>
                             </td>
                             <td class="title">融资截标时间：</td>
                             <td>
                                 <input class="Wdate easyui-validatebox" id="end_time"
-                                       type="text" required="true" name="prj.endBidTime"
+                                       type="text" required="true" name="prj.endBidTime" readonly
                                        value='<s:date name="prj.endBidTime" format="yyyy-MM-dd HH:mm:00"/>'
                                        onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:00'})"/>
                             </td>
@@ -123,23 +110,21 @@
                         <tr>
                             <td class="title">收款账户名:</td>
                             <td>
-                                <input name="prjExt.tenantName" value="${prjExt.tenantName}" class="easyui-validatebox" required="true"/>
+                                ${prjExt.tenantName}
                             </td>
                             <td class="title">收款银行:</td>
                             <td colspan="3">
-                                <x:combobox name="prjExt.tenantBank" value="${prjExt.tenantBank}"
-                                            list="bankList" textField="codeName" valueField="codeNo"
-                                            required="true" pleaseSelect="false"/>
+                                <x:codeItem codeKey="<%=UtilConstant.CFS_BANK_TYPE%>" codeNo="prjExt.tenantBank"/>
                             </td>
                         </tr>
                         <tr>
                             <td class="title">收款支行:</td>
                             <td>
-                                <input name="prjExt.subBank" value="${prjExt.subBank}" class="easyui-validatebox" required="true"/>
+                                ${prjExt.subBank}
                             </td>
                             <td class="title">收款账号:</td>
                             <td>
-                                <input name="prjExt.accountNo" value="${prjExt.accountNo}" class="easyui-validatebox" required="true"/>
+                                ${prjExt.accountNo}
                             </td>
                         </tr>
 
@@ -149,12 +134,12 @@
                         <tr>
                             <td class="title">电子合同:</td>
                             <td><div id="uploadName_1">
-                                <s:if test="prjExt.contractAttid !=null">
+                                <c:if test="prjExt.contractAttid !=null">
                                 <a href='#' class='_attach_info'
                                    onclick='_downloadFile("${prjExt.contractAttid}")'>${prjExt.contractName}</a>
                                 <a href='#' onclick='_deleteFile("${prjExt.contractAttid}",1)'><s:text name="del"/>
                                 </a>
-                                </s:if>
+                                </c:if>
                             </div></td>
                             <td colspan="3">
                                 <input type="hidden" id="uploadFile_1" value="${prjExt.contractAttid}" name="prjExt.contractAttid" required="true"/>
@@ -165,11 +150,11 @@
                         <tr>
                             <td class="title">募资说明:</td>
                             <td><div id="uploadName_2">
-                                <s:if test="prjExt.periodAttid != null">
+                                <c:if test="prjExt.periodAttid != null">
                             <a href='#' class='_attach_info'
                                onclick='_downloadFile("${prjExt.periodAttid}")'>${prjExt.periodName}</a>
                                  <a href='#' onclick='_deleteFile("${prjExt.periodAttid}",2)'><s:text name="del"/></a>
-                                </s:if>
+                                </c:if>
                             </div>
                             </td>
                             <td colspan="2">
@@ -181,11 +166,11 @@
                         <tr>
                             <td class="title">担保手续费:</td>
                             <td><div id="uploadName_3">
-                                 <s:if test="prjExt.guaranteAttid != null">
+                                 <c:if test="prjExt.guaranteAttid != null">
                                 <a href='#' class='_attach_info'
                                    onclick='_downloadFile("${prjExt.guaranteAttid}")'>${prjExt.guaranteName}</a>
                                  <a href='#' onclick='_deleteFile("${prjExt.guaranteAttid}",3)'><s:text name="del"/></a>
-                                 </s:if>
+                                 </c:if>
                             </div></td>
                             <td colspan="2">
                                 <input type="hidden" id="uploadFile_3" value="${prjExt.guaranteAttid}" name="prjExt.guaranteAttid" required="true"/>
@@ -196,11 +181,11 @@
                         <tr>
                             <td class="title">推广资料:</td>
                             <td><div id="uploadName_4">
-                                  <s:if test="prjExt.spreadAttid != null">
+                                  <c:if test="prjExt.spreadAttid != null">
                                  <a href='#' class='_attach_info'
                                     onclick='_downloadFile("${prjExt.spreadAttid}")'>${prjExt.spreadName}</a>
                                  <a href='#' onclick='_deleteFile("${prjExt.spreadAttid}",4)'><s:text name="del"/></a>
-                                  </s:if>
+                                  </c:if>
                             </div></td>
                             <td colspan="2">
                                 <input type="hidden" id="uploadFile_4" value="${prjExt.spreadAttid}" name="prjExt.spreadAttid" required="true"/>
@@ -210,8 +195,48 @@
                         </tr>
 
                         <tr>
+                            <td class="title">佣金总比例:</td>
+                            <td colspan="3">
+                                <input name="prj.totalRate" id="totalRate" value="${prj.totalRate}" class="easyui-validatebox" validType="positive_int" />
+                                <span>%</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">区域经理佣金计提:</td>
+                            <td>
+                                <input name="prj.areaRate" id="areaRate" value="${prj.areaRate}" class="easyui-validatebox" validType="positive_int" required=""/>
+                                <span>%</span>
+                            </td>
+                            <td class="title">营业部佣金计提:</td>
+                            <td>
+                                <input name="prj.deptRate" id="deptRate" value="${prj.deptRate}" class="easyui-validatebox" validType="positive_int" required=""/>
+                                <span>%</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">团队佣金计提:</td>
+                            <td>
+                                <input name="prj.teamRate" id="teamRate" value="${prj.teamRate}" class="easyui-validatebox" validType="positive_int" required=""/>
+                                <span>%</span>
+                            </td>
+                            <td class="title">客户经理佣金计提:</td>
+                            <td>
+                                <input name="prj.sysuserRate" id="sysuserRate" value="${prj.sysuserRate}" class="easyui-validatebox" validType="positive_int" required=""/>
+                                <span>%</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;" colspan="4"><b>审核意见</b></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <textarea name="prj.remark" cols="30" style="width: 100%" id="verifyDesc"></textarea>
+                            </td>
+                        </tr>
+
+                        <tr>
                             <td style="text-align: center;" colspan="4">
-                                <x:button iconCls="icon-audit" text="提交" click="doApply" effect="round"/>
+                                <x:button iconCls="icon-audit" text="审核通过" click="doApplyReview" effect="round"/>
                             </td>
                         </tr>
                     </table>
@@ -302,10 +327,20 @@
                 });
             }
 
-            function doApply() {
+            function doApplyReview() {
                 if ($("#prj_form").form("validate") && $("#prjExt_form").form("validate")) {
+                    var totalRate = isNaN($('#totalRate').val()) ? 0 :$('#totalRate').val();
+                    var areaRate = isNaN($('#areaRate').val()) ? 0 :$('#areaRate').val();
+                    var deptRate = isNaN($('#deptRate').val()) ? 0 :$('#deptRate').val();
+                    var teamRate = isNaN($('#teamRate').val()) ? 0 :$('#teamRate').val();
+                    var sysuserRate = isNaN($('#sysuserRate').val()) ? 0 :$('#sysuserRate').val();
+                    var sum = parseInt(areaRate)+parseInt(deptRate)+parseInt(teamRate)+parseInt(sysuserRate);
+                   if(parseInt(totalRate)!=sum){
+                       warning("佣金总比例不正确");
+                       return;
+                   }
 
-                    var url = '<s:url value="/prj/prjManage_doEdit.jhtml"/>';
+                    var url = '<s:url value="/prj/prjAudit_doReview.jhtml"/>';
                     var param1 = formToObject("prj_form");
                     var param2 = formToObject("prjExt_form");
                     var param = $.extend(param1, param2);

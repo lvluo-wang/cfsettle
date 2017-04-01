@@ -105,7 +105,7 @@
             <column name="remark" length="500">
             </column>
         </property>
-        <property name="csysid" type="long">
+        <property name="csysid" type="long" update="false">
             <column name="csysid"/>
         </property>
         <property name="ctime" type="secDate" update="false">

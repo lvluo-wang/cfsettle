@@ -5,10 +5,7 @@
 <%@ taglib prefix="x" uri="/xcars-tags"%>
 <tiles:insertDefinition name="FUNC_TOOL_QUERY_DATA">
 	<tiles:putAttribute name="tool">
-		<x:button iconCls="icon-add" text="项目发布" click="toAdd" />
-		<x:button iconCls="icon-edit" text="项目编辑" click="toEdit" />
-		<x:button iconCls="icon-edit" text="项目详情" click="toView" />
-
+		<x:button iconCls="icon-add" text="项目审核" click="toReview" />
 
 	</tiles:putAttribute>
 	<tiles:putAttribute name="query">
@@ -82,9 +79,9 @@
 
     }
 	function formatTime(value) {
-        if(value == null){
-            return;
-        }
+	    if(value == null){
+	        return;
+		}
 		return DateFormat.format(new Date(value*1000),"yyyy-MM-dd hh:mm:ss");
 	}
 
@@ -97,21 +94,13 @@
 		redirectUrl(url);
 	}
 
-	function toEdit() {
-        if (isSingleSelected(dataTable)) {
-            var selectedId = dataTable.getSelectedField("ID");
-            var url = "<s:url value='/prj/prjManage_toEdit.jhtml'/>?id=" + selectedId;
-            redirectUrl(url);
-        }
-    }
-
-        function toView() {
-            if (isSingleSelected(dataTable)) {
-                var selectedId = dataTable.getSelectedField("ID");
-                var url = "<s:url value='/prj/prjManage_toView.jhtml'/>?id=" + selectedId;
-                redirectUrl(url);
-            }
-        }
+	function toReview(){
+		if(isSingleSelected(dataTable)) {
+			var selectedId = dataTable.getSelectedField("ID");
+			var url = "<s:url value='/prj/prjAudit_toReview.jhtml'/>?id="+selectedId;
+			redirectUrl(url);
+		}
+	}
 
 	</script>
 	</tiles:putAttribute>

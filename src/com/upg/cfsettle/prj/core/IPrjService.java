@@ -21,4 +21,10 @@ public interface IPrjService extends IBaseService {
     void savePrjAndPrjExt(CfsPrj prj, CfsPrjExt prjExt);
 
     CfsPrj getPrjById(Long id);
+
+    void updatePrjAndPrjExt(CfsPrj prj, CfsPrjExt prjExt);
+
+    void auditPrjAndPrjExt(CfsPrj prj, CfsPrjExt prjExt);
+
+
 }
