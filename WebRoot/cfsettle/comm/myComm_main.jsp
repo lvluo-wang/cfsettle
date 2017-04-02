@@ -4,7 +4,10 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="x" uri="/xcars-tags"%>
-<tiles:insertDefinition name="FUNC_QUERY_DATA">
+<tiles:insertDefinition name="FUNC_TOOL_QUERY_DATA">
+	<tiles:putAttribute name="tool">
+		<x:button iconCls="icon-view" text="查询明细" click="doDetail" />
+	</tiles:putAttribute>
 	<tiles:putAttribute name="query">
 			<form id="mainQueryForm" class="query_form">
 			<table>
@@ -54,40 +57,14 @@
 		dataTable.load();
 	}
 		
-	function doAdd(){
-		var url="<s:url value='/cust/cfscust_toAdd.jhtml'/>";
-		requestAtWindow(url,"project_add_win","<s:text name='add'/>");
-	}
 	
-	function doView(){
+	function doDetail(){
 		if(isSingleSelected(dataTable)){
 			var selectedId=dataTable.getSelectedField("id");
 			var url="<s:url value='/cust/cfscust_toView.jhtml'/>?id="+selectedId;
 			redirectUrl(url);
 		}
 		
-	}
-	
-	function doEdit(){
-		if(isSingleSelected(dataTable)){
-			var selectedId=dataTable.getSelectedField("id");
-			if(dataTable.getSelectedFirstRow().isValid =='0'){
-				var url="<s:url value='/cust/cfscust_toEdit.jhtml'/>";
-				requestAtWindow(url,"project_edit_win","<s:text name='edit'/>",{id:selectedId});
-			}else{
-				info('已验证用户不能修改');
-			}
-		}
-	}
-
-	function doRemove(){
-		if(isSelected(dataTable)){
-			$.messager.confirm(global.alert,global.prompt_delete, function(r){
-				if(r){
-					dataTable.call('<s:url value="/cust/cfscust_batchDelete.jhtml"/>',{ids:dataTable.getSelectedFields("id")});
-				}
-			});
-		}
 	}
 	</script>
 	</tiles:putAttribute>

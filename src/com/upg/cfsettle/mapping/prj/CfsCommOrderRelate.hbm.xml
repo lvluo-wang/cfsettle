@@ -15,6 +15,11 @@
                 <comment>计提员工</comment>
             </column>
         </property>
+        <property name="commId" type="java.lang.Long">
+            <column name="comm_id">
+                <comment>计提佣金id</comment>
+            </column>
+        </property>
         <property name="prjId" type="java.lang.Long">
             <column name="prj_id">
                 <comment>计提项目</comment>
