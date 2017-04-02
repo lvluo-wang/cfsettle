@@ -262,7 +262,7 @@
                 var attachmentItem = "<a href='#' class='_attach_info' attachId='"+ value.id +"' onclick=\"_downloadFile('" + value.id + "')\">" +value.name + "</a>";
                 attachmentItem +="&nbsp;&nbsp;<a href='#' onclick=\"_deleteFile('" + value.id + ","+index+"')\"><s:text name="del"/></a>";
                 attachmentItem += "<br/>";
-                $('#uploadName_'+index).html(attachmentItem);
+                $('#uploadName_'+index).append(attachmentItem);
             }
 
             function _deleteFile(attachmentId,index){

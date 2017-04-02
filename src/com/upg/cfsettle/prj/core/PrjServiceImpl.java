@@ -145,4 +145,9 @@ public class PrjServiceImpl implements IPrjService {
 		}
 		return prjDao.queryEntity( condition.getConditionList(), page);
 	}
+
+    @Override
+    public List<CfsPrj> findPrjByStatus(Byte status) {
+        return prjDao.findPrjByStatus(status);
+    }
 }

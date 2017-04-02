@@ -13,4 +13,6 @@ import java.util.Map;
 public interface IPrjDao extends IBaseDAO<CfsPrj,Long> {
 
     List<Map<String, Object>> findByCondition(CfsPrj searchBean, Page page);
+
+    List<CfsPrj> findPrjByStatus(Byte status);
 }

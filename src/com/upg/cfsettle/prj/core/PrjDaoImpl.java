@@ -37,4 +37,10 @@ public class PrjDaoImpl extends SysBaseDao<CfsPrj,Long> implements IPrjDao {
         sqlCreater.orderBy("prj.ctime",true);
         return getMapListByStanderdSQL(sqlCreater.getSql(),sqlCreater.getParameterMap(),page);
     }
+
+    @Override
+    public List<CfsPrj> findPrjByStatus(Byte status) {
+        String hql = "from CfsPrj prj where prj.status=? order by ctime desc";
+        return this.find(hql,status);
+    }
 }

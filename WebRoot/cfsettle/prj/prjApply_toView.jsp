@@ -132,6 +132,7 @@
                     </table>
                 </form>
 
+                <%--//todo--%>
                 <h3>放款记录</h3>
                 <div>
                     <x:datagrid id="dataTableIssue" url="" height="120" pagebar="false" autoload="" >
@@ -145,6 +146,7 @@
                         </x:columns>
                     </x:datagrid>
                 </div>
+                    <%--//todo--%>
                 <h3>回款记录</h3>
                 <div>
                     <x:datagrid id="dataTableRepay" url="" height="120" pagebar="false" autoload="" >

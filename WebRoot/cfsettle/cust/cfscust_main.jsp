@@ -8,7 +8,7 @@
 	<tiles:putAttribute name="tool">
 		<x:button iconCls="icon-add" text="add" click="doAdd" />
 		<x:button iconCls="icon-edit" text="edit" click="doEdit" />
-		<x:button iconCls="icon-view" text="新增订单" click="doView" />
+		<x:button iconCls="icon-view" text="新增订单" click="toAddPrjOrder" />
 		<span class="separator"></span>
 		<x:button iconCls="icon-remove" text="del" click="doRemove" />
 	</tiles:putAttribute>
@@ -102,6 +102,14 @@
 			});
 		}
 	}
+	
+	function toAddPrjOrder() {
+        if(isSingleSelected(dataTable)){
+            var selectedId=dataTable.getSelectedField("uid");
+                var url="<s:url value='/custOrder/custOrder_toAdd.jhtml'/>";
+                requestAtWindow(url,"project_add_win","<s:text name='add'/>",{id:selectedId});
+        }
+    }
 	</script>
 	</tiles:putAttribute>
 </tiles:insertDefinition>

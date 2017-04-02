@@ -18,7 +18,7 @@ import java.util.Map;
  * Created by zuobaoshi on 2017/4/2.
  */
 @Dao
-public class CfsPrjDaoImpl extends SysBaseDao<CfsPrjOrder,Long> implements ICfsPrjOrderDao {
+public class CfsPrjOrderDaoImpl extends SysBaseDao<CfsPrjOrder,Long> implements ICfsPrjOrderDao {
 
     @Autowired
     private ICfsPrjRepayPlanDao prjRepayPlanDao;
