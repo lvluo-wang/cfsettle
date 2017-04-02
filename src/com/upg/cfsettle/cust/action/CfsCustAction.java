@@ -21,6 +21,10 @@ public class CfsCustAction extends BaseAction {
 	
 	private List<FiCodeItem>  yseNo;
 	
+	private List<FiCodeItem>  sexList;
+	
+	private CfsCust cfsCust;
+	
 	
 	/**
 	 * 跳转主页面
@@ -47,7 +51,7 @@ public class CfsCustAction extends BaseAction {
 	 * @return
 	 */
 	public String toAdd(){
-		yseNo = CodeItemUtil.getCodeItemsByKey(LcsConstant.CFS_COMM_YSE_NO);
+		sexList = CodeItemUtil.getCodeItemsByKey(LcsConstant.CFS_COMM_SEX);
 		return ADD;
 	}
 	
@@ -62,21 +66,23 @@ public class CfsCustAction extends BaseAction {
 	}
 	
 	/**
-	 * 批量删除banner信息
+	 * 批量删除cfsCust信息
 	 */
 	public void batchDelete(){
 	}
 	
 	/**
-	 * 修改banner信息
+	 * 修改cfsCust信息
 	 */
 	public void doEdit(){
+		cfsCustService.updateCfsCust(cfsCust);
 	}
 	
 	/**
-	 * 新增banner信息
+	 * 新增cfsCust信息
 	 */
 	public void doAdd(){
+		cfsCustService.addCfsCust(cfsCust);
 	}
 	
 	public CfsCust getSearchBean() {
@@ -94,5 +100,20 @@ public class CfsCustAction extends BaseAction {
 	public void setYseNo(List<FiCodeItem> yseNo) {
 		this.yseNo = yseNo;
 	}
-	
+
+	public List<FiCodeItem> getSexList() {
+		return sexList;
+	}
+
+	public void setSexList(List<FiCodeItem> sexList) {
+		this.sexList = sexList;
+	}
+
+	public CfsCust getCfsCust() {
+		return cfsCust;
+	}
+
+	public void setCfsCust(CfsCust cfsCust) {
+		this.cfsCust = cfsCust;
+	}
 }

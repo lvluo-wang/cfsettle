@@ -45,8 +45,8 @@
 
 	<tiles:putAttribute name="window">
 	<!-- 弹出窗口定义开始 -->
-	<div id="project_add_win" style="width:750px;height:480px;display:none;"></div>
-	<div id="project_edit_win" style="width:750px;height:480px;display:none;"></div>
+	<div id="project_add_win" style="width:750px;height:auto;display:none;"></div>
+	<div id="project_edit_win" style="width:750px;height:auto;display:none;"></div>
 	</tiles:putAttribute>
 	
 	<tiles:putAttribute name="end">
