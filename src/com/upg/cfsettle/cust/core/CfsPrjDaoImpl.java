@@ -1,12 +1,14 @@
 package com.upg.cfsettle.cust.core;
 
 import com.upg.cfsettle.mapping.prj.CfsPrjOrder;
+import com.upg.cfsettle.mapping.prj.CfsPrjRepayPlan;
 import com.upg.ucars.framework.annotation.Dao;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.SysBaseDao;
 import com.upg.ucars.util.SQLCreater;
 import com.upg.ucars.util.StringUtil;
 import org.apache.commons.lang.time.DateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 import java.util.List;
@@ -17,6 +19,9 @@ import java.util.Map;
  */
 @Dao
 public class CfsPrjDaoImpl extends SysBaseDao<CfsPrjOrder,Long> implements ICfsPrjOrderDao {
+
+    @Autowired
+    private ICfsPrjRepayPlanDao prjRepayPlanDao;
 
 
     @Override
@@ -68,11 +73,18 @@ public class CfsPrjDaoImpl extends SysBaseDao<CfsPrjOrder,Long> implements ICfsP
     private void addRepayDetail(List<Map<String, Object>> result) {
         if(result != null && result.size() >0){
             for(Map<String, Object> map : result){
-                Long prjOrderId = (Long) map.get("ID");
-                //TODO
-
+                Long prjId = (Long) map.get("PRJ_ID");
+                List<CfsPrjRepayPlan> notPaidRepayPlanList = prjRepayPlanDao.findNotPaidOffByPrjId(prjId);
+                if(notPaidRepayPlanList != null && notPaidRepayPlanList.size() >0){
+                    CfsPrjRepayPlan prjRepayPlan = notPaidRepayPlanList.get(0);
+                    map.put("CURRENT_PERIOD",prjRepayPlan.getRepayPeriods());
+                    map.put("CURRENT_REPAY_DATE",prjRepayPlan.getRepayDate());
+                }
+                List<CfsPrjRepayPlan> repayPlanList = prjRepayPlanDao.findByPrjId(prjId);
+                if(repayPlanList != null && repayPlanList.size() >0){
+                    map.put("TOTAL_PERIOD",repayPlanList.size());
+                }
             }
-
         }
     }
 }

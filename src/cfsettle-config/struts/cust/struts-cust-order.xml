@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="custOrder" namespace="/custOrder" extends="pkg-base">
+		<action name="custOrder_*" class="com.upg.cfsettle.cust.action.CfsCustOrderAction" method="{1}">
+			<result name="main">/cfsettle/cust/order/custOrder_main.jsp</result>
+			<result name="view">/cfsettle/cust/order/custOrder_view.jsp</result>
+		</action>
+	</package>
+</struts>
