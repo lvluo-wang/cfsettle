@@ -83,17 +83,11 @@
                         <tr>
                             <td class="title">融资开标时间：</td>
                             <td>
-                                <input class="Wdate easyui-validatebox" id="start_time"
-                                       type="text" required="true" name="prj.startBidTime" readonly
-                                       value='<s:date name="prj.startBidTime" format="yyyy-MM-dd HH:mm:00"/>'
-                                       onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:00'})"/>
+                                <s:date format="yyyy-MM-dd HH:mm:ss" name="prj.startBidTime"/>
                             </td>
                             <td class="title">融资截标时间：</td>
                             <td>
-                                <input class="Wdate easyui-validatebox" id="end_time"
-                                       type="text" required="true" name="prj.endBidTime" readonly
-                                       value='<s:date name="prj.endBidTime" format="yyyy-MM-dd HH:mm:00"/>'
-                                       onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:00'})"/>
+                                <s:date format="yyyy-MM-dd HH:mm:ss" name="prj.endBidTime"/>
                             </td>
                         </tr>
                     </table>
@@ -137,7 +131,6 @@
                                 <c:if test="prjExt.contractAttid !=null">
                                 <a href='#' class='_attach_info'
                                    onclick='_downloadFile("${prjExt.contractAttid}")'>${prjExt.contractName}</a>
-                                <a href='#' onclick='_deleteFile("${prjExt.contractAttid}",1)'><s:text name="del"/>
                                 </a>
                                 </c:if>
                             </div></td>
@@ -153,7 +146,6 @@
                                 <c:if test="prjExt.periodAttid != null">
                             <a href='#' class='_attach_info'
                                onclick='_downloadFile("${prjExt.periodAttid}")'>${prjExt.periodName}</a>
-                                 <a href='#' onclick='_deleteFile("${prjExt.periodAttid}",2)'><s:text name="del"/></a>
                                 </c:if>
                             </div>
                             </td>
@@ -169,7 +161,6 @@
                                  <c:if test="prjExt.guaranteAttid != null">
                                 <a href='#' class='_attach_info'
                                    onclick='_downloadFile("${prjExt.guaranteAttid}")'>${prjExt.guaranteName}</a>
-                                 <a href='#' onclick='_deleteFile("${prjExt.guaranteAttid}",3)'><s:text name="del"/></a>
                                  </c:if>
                             </div></td>
                             <td colspan="2">
@@ -184,7 +175,6 @@
                                   <c:if test="prjExt.spreadAttid != null">
                                  <a href='#' class='_attach_info'
                                     onclick='_downloadFile("${prjExt.spreadAttid}")'>${prjExt.spreadName}</a>
-                                 <a href='#' onclick='_deleteFile("${prjExt.spreadAttid}",4)'><s:text name="del"/></a>
                                   </c:if>
                             </div></td>
                             <td colspan="2">
@@ -197,31 +187,31 @@
                         <tr>
                             <td class="title">佣金总比例:</td>
                             <td colspan="3">
-                                <input name="prj.totalRate" id="totalRate" value="${prj.totalRate}" class="easyui-validatebox" validType="positive_int" />
+                                <input name="prj.totalRate" id="totalRate" value="${prj.totalRate}" class="easyui-validatebox" required="true" validType="positive_int" />
                                 <span>%</span>
                             </td>
                         </tr>
                         <tr>
                             <td class="title">区域经理佣金计提:</td>
                             <td>
-                                <input name="prj.areaRate" id="areaRate" value="${prj.areaRate}" class="easyui-validatebox" validType="positive_int" required=""/>
+                                <input name="prj.areaRate" id="areaRate" value="${prj.areaRate}" class="easyui-validatebox" validType="positive_int" required="true"/>
                                 <span>%</span>
                             </td>
                             <td class="title">营业部佣金计提:</td>
                             <td>
-                                <input name="prj.deptRate" id="deptRate" value="${prj.deptRate}" class="easyui-validatebox" validType="positive_int" required=""/>
+                                <input name="prj.deptRate" id="deptRate" value="${prj.deptRate}" class="easyui-validatebox" validType="positive_int" required="true"/>
                                 <span>%</span>
                             </td>
                         </tr>
                         <tr>
                             <td class="title">团队佣金计提:</td>
                             <td>
-                                <input name="prj.teamRate" id="teamRate" value="${prj.teamRate}" class="easyui-validatebox" validType="positive_int" required=""/>
+                                <input name="prj.teamRate" id="teamRate" value="${prj.teamRate}" class="easyui-validatebox" validType="positive_int" required="true"/>
                                 <span>%</span>
                             </td>
                             <td class="title">客户经理佣金计提:</td>
                             <td>
-                                <input name="prj.sysuserRate" id="sysuserRate" value="${prj.sysuserRate}" class="easyui-validatebox" validType="positive_int" required=""/>
+                                <input name="prj.sysuserRate" id="sysuserRate" value="${prj.sysuserRate}" class="easyui-validatebox" validType="positive_int" required="true"/>
                                 <span>%</span>
                             </td>
                         </tr>
@@ -264,7 +254,7 @@
             $(function () {
                 $('#tt').css("height", $(document.body).height() - 50).tabs({});
                 //changePercent($("input[name='carLoan.rateType']")[0].value);
-                addUploadTemplate();
+                //addUploadTemplate();
 
             });
 

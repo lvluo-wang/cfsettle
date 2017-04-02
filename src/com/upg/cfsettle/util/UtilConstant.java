@@ -29,7 +29,9 @@ public final class UtilConstant {
 	public static final String CFS_BANK_TYPE = "E009"; //银行类型
 	public static final String CFS_REPAYMENT_TYPE = "LCS011";//还款方式
 	public static final String CFS_TIMELIMIT_UNIT = "E010";
-	
+	public static final String CFS_PRJ_STATUS = "E011";
+
+
 	//常用数字字符串
 	public static final String NUMBER_0 = "0";
 	public static final String NUMBER_1 = "1";

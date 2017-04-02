@@ -32,9 +32,11 @@ public class PrjAction extends BaseAction {
     private List<FiCodeItem> bankList;
     private List<FiCodeItem> repaymentTypeList;
     private List<FiCodeItem> timeLimitUnitList;
+    private List<FiCodeItem> prjStatusList;
 
 
     public String main(){
+        prjStatusList = codeItemService.getCodeItemByKey(UtilConstant.CFS_PRJ_STATUS);
         return MAIN;
     }
 
@@ -74,6 +76,7 @@ public class PrjAction extends BaseAction {
     }
 
     public String auditMain(){
+        prjStatusList = codeItemService.getCodeItemByKey(UtilConstant.CFS_PRJ_STATUS);
         return "auditMain";
     }
 
@@ -85,6 +88,15 @@ public class PrjAction extends BaseAction {
 
     public void doReview(){
         prjService.auditPrjAndPrjExt(prj,prjExt);
+    }
+
+
+    public List<FiCodeItem> getPrjStatusList() {
+        return prjStatusList;
+    }
+
+    public void setPrjStatusList(List<FiCodeItem> prjStatusList) {
+        this.prjStatusList = prjStatusList;
     }
 
     public IPrjExtService getPrjExtService() {

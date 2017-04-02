@@ -3,6 +3,7 @@ package com.upg.cfsettle.prj.core;
 import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.mapping.prj.CfsPrjExt;
 import com.upg.cfsettle.util.RateUtil;
+import com.upg.ucars.basesystem.UcarsHelper;
 import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.SessionTool;
@@ -13,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -71,7 +74,28 @@ public class PrjServiceImpl implements IPrjService {
         CfsPrj prj =  prjDao.get(id);
         //prj.setYearRate(RateUtil.percentToRate(prj.getYearRate()));
         //prj.setPeriodRate(RateUtil.percentToRate(prj.getPeriodRate()));
+        //回款截止时间
+        getRepayEndDate(prj);
         return prj;
+    }
+
+    private void getRepayEndDate(CfsPrj prj) {
+        Date valueDate = prj.getPrjValueDate();
+        String timeLimitUnit = prj.getTimeLimitUnit();
+        Integer timeLimit = prj.getTimeLimit();
+        if(valueDate != null){
+            Calendar calender = Calendar.getInstance();
+            if(timeLimitUnit.equals("Y")){
+                calender.setTime(valueDate);
+                calender.add(Calendar.YEAR, timeLimit);
+                prj.setRepayEndTime(calender.getTime());
+            }
+            if(timeLimitUnit.equals("M")){
+                calender.setTime(valueDate);
+                calender.add(Calendar.MONTH, timeLimit);
+                prj.setRepayEndTime(calender.getTime());
+            }
+        }
     }
 
     @Override
@@ -87,9 +111,13 @@ public class PrjServiceImpl implements IPrjService {
     @Override
     public void auditPrjAndPrjExt(CfsPrj prj, CfsPrjExt prjExt) {
         CfsPrj auditPrj = prjDao.get(prj.getId());
+        if(!(auditPrj.getStatus() == Byte.valueOf("1")
+                || auditPrj.getStatus() == Byte.valueOf("2"))){
+            UcarsHelper.throwServiceException("项目已审核通过，不能再次审核");
+        }
         try {
             BeanUtils.copyNoNullProperties(auditPrj,prj);
-            prj.setStatus(Byte.valueOf("2"));
+            auditPrj.setStatus(Byte.valueOf("2"));
             auditPrj.setMtime(DateTimeUtil.getNowDateTime());
             auditPrj.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
             prjDao.update(auditPrj);

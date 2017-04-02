@@ -44,11 +44,14 @@
                             </td>
                         </tr>
                         <tr>
+                            <td class="title">项目状态:</td>
+                            <td>
+                                <x:codeItem codeKey="<%=UtilConstant.CFS_PRJ_STATUS%>" codeNo="prj.status"/>
+                            </td>
                             <td class="title">项目联系电话:</td>
                             <td>
                                 ${prj.prjMobile}
                             </td>
-                            <td colspan="3"></td>
                         </tr>
                         <tr>
                             <td class="title">募集金额:</td>
@@ -82,17 +85,17 @@
                         <tr>
                             <td class="title">融资开标时间：</td>
                             <td>
-                                <input class="Wdate easyui-validatebox" id="start_time"
-                                       type="text" required="true" name="prj.startBidTime" readonly
-                                       value='<s:date name="prj.startBidTime" format="yyyy-MM-dd HH:mm:00"/>'
-                                       onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:00'})"/>
+                                <s:date format="yyyy-MM-dd HH:mm:ss" name="prj.startBidTime"/>
                             </td>
                             <td class="title">融资截标时间：</td>
                             <td>
-                                <input class="Wdate easyui-validatebox" id="end_time"
-                                       type="text" required="true" name="prj.endBidTime" readonly
-                                       value='<s:date name="prj.endBidTime" format="yyyy-MM-dd HH:mm:00"/>'
-                                       onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:00'})"/>
+                                <s:date format="yyyy-MM-dd HH:mm:ss" name="prj.endBidTime"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">回款截止时间：</td>
+                            <td colspan="3">
+                                <s:date format="yyyy-MM-dd HH:mm:ss" name="prj.repayEndTime"/>
                             </td>
                         </tr>
                     </table>
@@ -131,7 +134,7 @@
 
                 <h3>放款记录</h3>
                 <div>
-                    <x:datagrid id="dataTablexinxi" url="" height="120" pagebar="false" autoload="true" >
+                    <x:datagrid id="dataTableIssue" url="" height="120" pagebar="false" autoload="" >
                         <x:columns>
                             <x:column title="放款次数" field="operator" align="center" width="150" />
                             <x:column title="放款时间" field="ctime" align="center" width="150"/>
@@ -144,7 +147,7 @@
                 </div>
                 <h3>回款记录</h3>
                 <div>
-                    <x:datagrid id="dataTablexinxi" url="" height="120" pagebar="false" autoload="true" >
+                    <x:datagrid id="dataTableRepay" url="" height="120" pagebar="false" autoload="" >
                         <x:columns>
                             <x:column title="回款次数" field="operator" align="center" width="150" />
                             <x:column title="回款时间" field="ctime" align="center" width="150"/>

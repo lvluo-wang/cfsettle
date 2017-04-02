@@ -77,7 +77,7 @@
             <column name="min_loan_amount" precision="20" scale="0">
             </column>
         </property>
-        <property name="loanTime" type="secDate">
+        <property name="loanTime" type="int">
             <column name="loan_time">
             </column>
         </property>
