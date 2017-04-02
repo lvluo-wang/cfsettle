@@ -4,41 +4,28 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="x" uri="/xcars-tags"%>
-<tiles:insertDefinition name="FUNC_TOOL_QUERY_DATA">
-	<tiles:putAttribute name="tool">
-		<x:button iconCls="icon-add" text="add" click="doAdd" />
-		<x:button iconCls="icon-edit" text="edit" click="doEdit" />
-		<x:button iconCls="icon-view" text="新增订单" click="doView" />
-		<span class="separator"></span>
-		<x:button iconCls="icon-remove" text="del" click="doRemove" />
-	</tiles:putAttribute>
+<tiles:insertDefinition name="FUNC_QUERY_DATA">
 	<tiles:putAttribute name="query">
 			<form id="mainQueryForm" class="query_form">
 			<table>
 				<tr>
-					<td class="title">客户姓名: </td>
-					<td><input name="searchBean.realName" style="width:130px"></input></td>
-					<td class="title">客户手机: </td>
-					<td><input name="searchBean.mobile" style="width:130px"></input></td>
-					<td class="title">是否验证:</td>
-					<td>
-						<x:combobox name="searchBean.isValid" list="yseNo" textField="codeName" valueField="codeNo"/>
-					</td>
+					<td class="title">佣金计提月份: </td>
+					<td><input class="Wdate easyui-validatebox" type="text" name="searchBean.commSettleDate" onClick="WdatePicker({dateFmt:'yyyy-MM'})"/></td>
+					<td class="title">状态:</td>
+					<td><x:combobox name="searchBean.repayStatus" list="commStatus" textField="codeName" valueField="codeNo"/></td>
 					<td><x:button iconCls="icon-search" text="query" click="doQuery"/></td>
 				</tr>
 			</table>
 		</form>
 	</tiles:putAttribute>
 	<tiles:putAttribute name="data">
-		<x:datagrid id="dataTable" url="/cust/cfscust_list.jhtml" autoload="true" form="mainQueryForm" singleSelect="true">
+		<x:datagrid id="dataTable" url="/comm/myComm_list.jhtml" autoload="true" form="mainQueryForm" singleSelect="true">
 			<x:columns>
-				<x:column title="" checkbox="true" field="uid" />
-				<x:column title="客户姓名" field="realName" align="center" width="140"/>
-				<x:column title="性别" field="sex" align="center" width="40" formatter="formatSex"/>
-				<x:column title="客户手机" field="mobile" align="left" width="90"/>
-				<x:column title="身份证号" field="idCard" align="center" width="150" />
-				<x:column title="添加时间" field="ctime" align="center" width="150"/>
-				<x:column title="验证" field="isValid" align="center" width="80" formatter="formatYesNo"/>
+				<x:column title="" checkbox="true" field="id" />
+				<x:column title="佣金计提月份" field="commSettleDate" align="center" width="140" formatter="format2Month"/>
+				<x:column title="佣金总额" field="commMoney" align="center" width="70"/>
+				<x:column title="付款时间" field="payTime" align="left" width="120" formatter="format2Time"/>
+				<x:column title="状态" field="payStatus" align="center" width="150" />
 			</x:columns>
 		</x:datagrid>
 	</tiles:putAttribute>

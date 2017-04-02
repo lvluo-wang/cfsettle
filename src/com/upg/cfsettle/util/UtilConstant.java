@@ -30,6 +30,7 @@ public final class UtilConstant {
 	public static final String CFS_REPAYMENT_TYPE = "E012";//还款方式
 	public static final String CFS_TIMELIMIT_UNIT = "E010";
 	public static final String CFS_PRJ_STATUS = "E011";
+	public static final String CFS_COMM_PAY_STATUS = "E013";//佣金支付状态
 
 
 	//常用数字字符串

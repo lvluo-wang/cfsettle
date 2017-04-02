@@ -5,9 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.upg.cfsettle.comm.core.ICfsMyCommInfoService;
+import com.upg.cfsettle.common.CodeItemUtil;
+import com.upg.cfsettle.mapping.ficode.FiCodeItem;
 import com.upg.cfsettle.mapping.prj.CfsMyCommInfo;
 import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.prj.core.IPrjService;
+import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.framework.base.BaseAction;
 
 @SuppressWarnings("serial")
@@ -24,6 +27,8 @@ public class CfsMyCommInfoAction extends BaseAction {
 	@Autowired
 	private IPrjService prjService;
 	
+	private List<FiCodeItem> commStatus;
+	
 	
 	
 	/**
@@ -31,6 +36,7 @@ public class CfsMyCommInfoAction extends BaseAction {
 	 * @return
 	 */
 	public String main(){
+		commStatus = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_COMM_PAY_STATUS);
 		return MAIN;
 	}
 	
@@ -116,5 +122,13 @@ public class CfsMyCommInfoAction extends BaseAction {
 
 	public void setCfsPrj(CfsPrj cfsPrj) {
 		this.cfsPrj = cfsPrj;
+	}
+
+	public List<FiCodeItem> getCommStatus() {
+		return commStatus;
+	}
+
+	public void setCommStatus(List<FiCodeItem> commStatus) {
+		this.commStatus = commStatus;
 	}
 }
