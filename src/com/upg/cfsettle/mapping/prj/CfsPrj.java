@@ -41,8 +41,7 @@ public class CfsPrj implements java.io.Serializable {
 	private Date ctime;
 	private Long msysid;
 	private Date mtime;
-	//项目成立时间
-	private Date prjValueDate;
+
 
 	private Date repayEndTime;
 
@@ -58,13 +57,6 @@ public class CfsPrj implements java.io.Serializable {
 		this.repayEndTime = repayEndTime;
 	}
 
-	public Date getPrjValueDate() {
-		return prjValueDate;
-	}
-
-	public void setPrjValueDate(Date prjValueDate) {
-		this.prjValueDate = prjValueDate;
-	}
 
 	public Long getId() {
 		return id;

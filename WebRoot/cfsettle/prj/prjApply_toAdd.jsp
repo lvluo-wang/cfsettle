@@ -96,14 +96,14 @@
                                 <input class="Wdate easyui-validatebox" id="start_time"
                                        type="text" required="true" name="prj.startBidTime"
                                        value='<s:date name="prj.startBidTime" format="yyyy-MM-dd HH:mm:00"/>'
-                                       onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:00'})"/>
+                                       onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:00',maxDate:'#F{$dp.$D(\'end_time\')}'})"/>
                             </td>
                             <td class="title">融资截标时间：</td>
                             <td>
                                 <input class="Wdate easyui-validatebox" id="end_time"
                                        type="text" required="true" name="prj.endBidTime"
                                        value='<s:date name="prj.endBidTime" format="yyyy-MM-dd HH:mm:00"/>'
-                                       onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:00'})"/>
+                                       onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:00',minDate:'#F{$dp.$D(\'start_time\')}'})"/>
                             </td>
                         </tr>
                         </table>
@@ -259,7 +259,29 @@
                     return false;
                 }*/
                 $('#uploadFile_'+index).val(value.id);
+                var attachmentItem = "<a href='#' class='_attach_info' attachId='"+ value.id +"' onclick=\"_downloadFile('" + value.id + "')\">" +value.name + "</a>";
+                attachmentItem +="&nbsp;&nbsp;<a href='#' onclick=\"_deleteFile('" + value.id + ","+index+"')\"><s:text name="del"/></a>";
+                attachmentItem += "<br/>";
+                $('#uploadName_'+index).html(attachmentItem);
             }
+
+            function _deleteFile(attachmentId,index){
+                $.ajax({
+                    type:"POST",
+                    url:"<s:url value='/component/attachment_delete.jhtml'/>",
+                    dataType: 'json',
+                    cache:false,
+                    data:{id:attachmentId},
+                    error:function(result){
+                        printError(result);
+                    },
+                    success:function(){
+                        $('#uploadName_'+index).remove();
+                        $('#uploadFile_' + index).val('');
+                    }
+                });
+            }
+
             function doReturn() {
                 window.history.go(-1);
             }

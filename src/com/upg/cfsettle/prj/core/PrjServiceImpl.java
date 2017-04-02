@@ -80,7 +80,7 @@ public class PrjServiceImpl implements IPrjService {
     }
 
     private void getRepayEndDate(CfsPrj prj) {
-        Date valueDate = prj.getPrjValueDate();
+        Date valueDate = prj.getEndBidTime();
         String timeLimitUnit = prj.getTimeLimitUnit();
         Integer timeLimit = prj.getTimeLimit();
         if(valueDate != null){

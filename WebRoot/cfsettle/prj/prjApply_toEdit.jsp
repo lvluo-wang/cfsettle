@@ -2,6 +2,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="x" uri="/xcars-tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     request.setAttribute("now", new java.util.Date());
 %>
@@ -21,6 +22,7 @@
             <div title="项目信息" class="car_loan">
                 <form class="busi_form" id="prj_form">
                     <input type="hidden" value="${prj.id}" name="prj.id"/>
+                    <input type="hidden" value="${prj.status}" name="prj.status"/>
                     <table>
                         <colgroup>
                             <col width="20%"/>
@@ -99,14 +101,14 @@
                                 <input class="Wdate easyui-validatebox" id="start_time"
                                        type="text" required="true" name="prj.startBidTime"
                                        value='<s:date name="prj.startBidTime" format="yyyy-MM-dd HH:mm:00"/>'
-                                       onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:00'})"/>
+                                       onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:00',maxDate:'#F{$dp.$D(\'end_time\')}'})"/>
                             </td>
                             <td class="title">融资截标时间：</td>
                             <td>
                                 <input class="Wdate easyui-validatebox" id="end_time"
                                        type="text" required="true" name="prj.endBidTime"
                                        value='<s:date name="prj.endBidTime" format="yyyy-MM-dd HH:mm:00"/>'
-                                       onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:00'})"/>
+                                       onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:00',minDate:'#F{$dp.$D(\'start_time\')}'})"/>
                             </td>
                         </tr>
                     </table>
@@ -149,12 +151,12 @@
                         <tr>
                             <td class="title">电子合同:</td>
                             <td><div id="uploadName_1">
-                                <s:if test="prjExt.contractAttid !=null">
+                                <c:if test="prjExt.contractAttid !=null">
                                 <a href='#' class='_attach_info'
                                    onclick='_downloadFile("${prjExt.contractAttid}")'>${prjExt.contractName}</a>
                                 <a href='#' onclick='_deleteFile("${prjExt.contractAttid}",1)'><s:text name="del"/>
                                 </a>
-                                </s:if>
+                                </c:if>
                             </div></td>
                             <td colspan="3">
                                 <input type="hidden" id="uploadFile_1" value="${prjExt.contractAttid}" name="prjExt.contractAttid" required="true"/>
@@ -165,11 +167,11 @@
                         <tr>
                             <td class="title">募资说明:</td>
                             <td><div id="uploadName_2">
-                                <s:if test="prjExt.periodAttid != null">
+                                <c:if test="prjExt.periodAttid != null">
                             <a href='#' class='_attach_info'
                                onclick='_downloadFile("${prjExt.periodAttid}")'>${prjExt.periodName}</a>
                                  <a href='#' onclick='_deleteFile("${prjExt.periodAttid}",2)'><s:text name="del"/></a>
-                                </s:if>
+                                </c:if>
                             </div>
                             </td>
                             <td colspan="2">
@@ -181,11 +183,11 @@
                         <tr>
                             <td class="title">担保手续费:</td>
                             <td><div id="uploadName_3">
-                                 <s:if test="prjExt.guaranteAttid != null">
+                                 <c:if test="prjExt.guaranteAttid != null">
                                 <a href='#' class='_attach_info'
                                    onclick='_downloadFile("${prjExt.guaranteAttid}")'>${prjExt.guaranteName}</a>
                                  <a href='#' onclick='_deleteFile("${prjExt.guaranteAttid}",3)'><s:text name="del"/></a>
-                                 </s:if>
+                                 </c:if>
                             </div></td>
                             <td colspan="2">
                                 <input type="hidden" id="uploadFile_3" value="${prjExt.guaranteAttid}" name="prjExt.guaranteAttid" required="true"/>
@@ -196,11 +198,11 @@
                         <tr>
                             <td class="title">推广资料:</td>
                             <td><div id="uploadName_4">
-                                  <s:if test="prjExt.spreadAttid != null">
+                                  <c:if test="prjExt.spreadAttid != null">
                                  <a href='#' class='_attach_info'
                                     onclick='_downloadFile("${prjExt.spreadAttid}")'>${prjExt.spreadName}</a>
                                  <a href='#' onclick='_deleteFile("${prjExt.spreadAttid}",4)'><s:text name="del"/></a>
-                                  </s:if>
+                                  </c:if>
                             </div></td>
                             <td colspan="2">
                                 <input type="hidden" id="uploadFile_4" value="${prjExt.spreadAttid}" name="prjExt.spreadAttid" required="true"/>

@@ -8,5 +8,9 @@
 		<action name="cfscust_*" class="com.upg.cfsettle.cust.action.CfsCustAction" method="{1}">
 			<result name="main">/cfsettle/cust/cfscust_{1}.jsp</result>
 		</action>
+
+		<action name="custOrder_*" class="com.upg.cfsettle.cust.action.CfsCustOrderAction" method="{1}">
+			<result name="main">/cfsettle/cust/order/custOrder_main.jsp</result>
+		</action>
 	</package>
 </struts>
