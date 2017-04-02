@@ -9,7 +9,7 @@ import java.util.List;
  * @date 2014年8月5日 下午3:03:10
  * @version <b>1.0.0</b>
  */
-public class LcsUtils {
+public class CfsUtils {
 	
 	/**
 	 * 字符串数组转long数组

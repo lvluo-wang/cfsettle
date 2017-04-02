@@ -1,17 +1,10 @@
-<%@page import="com.upg.cfsettle.util.CfsConstant"%>
+<%@page import="com.upg.cfsettle.util.UtilConstant"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@page import="net.easytodo.keel.util.SecurityUtils"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="x" uri="/xcars-tags"%>
 <tiles:insertDefinition name="FUNC_TOOL_QUERY_DATA">
-	<tiles:putAttribute name="tool">
-		<x:button iconCls="icon-add" text="add" click="doAdd" />
-		<x:button iconCls="icon-edit" text="edit" click="doEdit" />
-		<x:button iconCls="icon-view" text="新增订单" click="doView" />
-		<span class="separator"></span>
-		<x:button iconCls="icon-remove" text="del" click="doRemove" />
-	</tiles:putAttribute>
 	<tiles:putAttribute name="query">
 			<form id="mainQueryForm" class="query_form">
 			<table>
@@ -30,39 +23,42 @@
 		</form>
 	</tiles:putAttribute>
 	<tiles:putAttribute name="data">
-		<x:datagrid id="dataTable" url="/cust/cfscust_list.jhtml" autoload="true" form="mainQueryForm">
+		<x:datagrid id="dataTable" url="/comm/prjComm_prjCommList.jhtml" autoload="true" form="mainQueryForm" singleSelect="true">
 			<x:columns>
 				<x:column title="" checkbox="true" field="id" />
-				<x:column title="客户姓名" field="realName" align="center" width="140"/>
-				<x:column title="性别" field="sex" align="center" width="40" formatter="formatSex"/>
-				<x:column title="客户手机" field="mobile" align="left" width="90"/>
-				<x:column title="身份证号" field="idCard" align="center" width="150" />
-				<x:column title="添加时间" field="ctime" align="center" width="150"/>
-				<x:column title="验证" field="isValid" align="center" width="80" formatter="formatYesNo"/>
+				<x:column title="项目名称" field="prjName" align="center" width="140"/>
+				<x:column title="募集金额(万)" field="demandAmount" align="center" width="100"/>
+				<x:column title="年化利率(%)" field="yearRate" align="left" width="70"/>
+				<x:column title="项目期限" field="timeLimit" align="center" width="80"  formatter="formatTimeUnit"/>
+				<x:column title="还款方式" field="repayWay" align="center" width="80" formatter="formatReapayWay"/>
+				<x:column title="佣金总比例(%)" field="totalRate" align="center" width="80"/>
+				<x:column title="区域经理佣金比(%)" field="areaRate" align="center" width="100" />
+				<x:column title="营业部佣金比(%)" field="deptRate" align="center" width="100"/>
+				<x:column title="团队长佣金比(%)" field="teamRate" align="center" width="100"/>
+				<x:column title="客户经理佣金比(%)" field="sysuserRate" align="center" width="100"/>
 			</x:columns>
 		</x:datagrid>
 	</tiles:putAttribute>
 
 	<tiles:putAttribute name="window">
 	<!-- 弹出窗口定义开始 -->
-	<div id="project_add_win" style="width:750px;height:480px;display:none;"></div>
-	<div id="project_edit_win" style="width:750px;height:480px;display:none;"></div>
+	<div id="project_add_win" style="width:750px;height:auto;display:none;"></div>
+	<div id="project_edit_win" style="width:750px;height:auto;display:none;"></div>
 	</tiles:putAttribute>
 	
 	<tiles:putAttribute name="end">
 	<script type="text/javascript">
-	var keys=["<%=CfsConstant.CFS_COMM_YSE_NO%>","<%=CfsConstant.CFS_COMM_SEX%>"];
+	var keys=["<%=UtilConstant.CFS_TIMELIMIT_UNIT%>","<%=UtilConstant.CFS_REPAYMENT_TYPE%>"];
 	var code=new XhhCodeUtil(keys);
 	code.loadData();
 	
-	function formatSex(value){
-		 return code.getValue("<%=CfsConstant.CFS_COMM_SEX%>",value);
+	function formatTimeUnit(value,field,row){
+		 return value+code.getValue("<%=UtilConstant.CFS_TIMELIMIT_UNIT%>",row.timeLimitUnit);
 	}
 	
-	function formatYesNo(value){
-		 return code.getValue("<%=CfsConstant.CFS_COMM_YSE_NO%>",value);
+	function formatReapayWay(value){
+		 return code.getValue("<%=UtilConstant.CFS_REPAYMENT_TYPE%>",value);
 	}
-	
 	function doQuery(){
 		dataTable.load();
 	}
@@ -84,8 +80,12 @@
 	function doEdit(){
 		if(isSingleSelected(dataTable)){
 			var selectedId=dataTable.getSelectedField("id");
-			var url="<s:url value='/cust/cfscust_toEdit.jhtml' />?id="+selectedId;
-			requestAtWindow(url,"project_edit_win","<s:text name='edit'/>");
+			if(dataTable.getSelectedFirstRow().isValid =='0'){
+				var url="<s:url value='/cust/cfscust_toEdit.jhtml'/>";
+				requestAtWindow(url,"project_edit_win","<s:text name='edit'/>",{id:selectedId});
+			}else{
+				info('已验证用户不能修改');
+			}
 		}
 	}
 

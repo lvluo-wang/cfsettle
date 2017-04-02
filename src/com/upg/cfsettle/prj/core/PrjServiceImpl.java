@@ -1,23 +1,24 @@
 package com.upg.cfsettle.prj.core;
 
-import com.upg.cfsettle.mapping.prj.CfsPrj;
-import com.upg.cfsettle.mapping.prj.CfsPrjExt;
-import com.upg.cfsettle.util.RateUtil;
-import com.upg.ucars.basesystem.UcarsHelper;
-import com.upg.ucars.framework.annotation.Service;
-import com.upg.ucars.framework.base.Page;
-import com.upg.ucars.framework.base.SessionTool;
-import com.upg.ucars.util.BeanUtils;
-import com.upg.ucars.util.DateTimeUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.lang.reflect.InvocationTargetException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.upg.cfsettle.mapping.prj.CfsPrj;
+import com.upg.cfsettle.mapping.prj.CfsPrjExt;
+import com.upg.ucars.basesystem.UcarsHelper;
+import com.upg.ucars.framework.annotation.Service;
+import com.upg.ucars.framework.base.Page;
+import com.upg.ucars.framework.base.QueryCondition;
+import com.upg.ucars.framework.base.SessionTool;
+import com.upg.ucars.model.ConditionBean;
+import com.upg.ucars.util.BeanUtils;
+import com.upg.ucars.util.DateTimeUtil;
+import com.upg.ucars.util.StringUtil;
 
 /**
  * Created by zuo on 2017/3/30.
@@ -131,4 +132,17 @@ public class PrjServiceImpl implements IPrjService {
         }
 
     }
+
+	@Override
+	public List<CfsPrj> findPrjByCondition(CfsPrj cfsPrj, Page page) {
+		String hql = "from CfsPrj cfsPrj";
+		QueryCondition condition = new QueryCondition(hql);
+		if (cfsPrj != null) {
+			String prjName = cfsPrj.getPrjName();
+			if (!StringUtil.isEmpty(prjName) || prjName != null) {
+				condition.addCondition(new ConditionBean("cfsPrj.prjName", ConditionBean.LIKE, prjName));
+			}
+		}
+		return prjDao.queryEntity( condition.getConditionList(), page);
+	}
 }

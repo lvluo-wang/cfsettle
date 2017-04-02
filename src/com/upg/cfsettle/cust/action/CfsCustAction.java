@@ -8,7 +8,7 @@ import com.upg.cfsettle.common.CodeItemUtil;
 import com.upg.cfsettle.cust.core.ICfsCustService;
 import com.upg.cfsettle.mapping.ficode.FiCodeItem;
 import com.upg.cfsettle.mapping.prj.CfsCust;
-import com.upg.cfsettle.util.LcsConstant;
+import com.upg.cfsettle.util.CfsConstant;
 import com.upg.ucars.framework.base.BaseAction;
 
 @SuppressWarnings("serial")
@@ -31,7 +31,7 @@ public class CfsCustAction extends BaseAction {
 	 * @return
 	 */
 	public String main(){
-		yseNo = CodeItemUtil.getCodeItemsByKey(LcsConstant.CFS_COMM_YSE_NO);
+		yseNo = CodeItemUtil.getCodeItemsByKey(CfsConstant.CFS_COMM_YSE_NO);
 		return MAIN;
 	}
 	
@@ -51,7 +51,7 @@ public class CfsCustAction extends BaseAction {
 	 * @return
 	 */
 	public String toAdd(){
-		sexList = CodeItemUtil.getCodeItemsByKey(LcsConstant.CFS_COMM_SEX);
+		sexList = CodeItemUtil.getCodeItemsByKey(CfsConstant.CFS_COMM_SEX);
 		return ADD;
 	}
 	
@@ -63,7 +63,7 @@ public class CfsCustAction extends BaseAction {
 	 */
 	public String toEdit(){
 		cfsCust = cfsCustService.queryCfsCustById(getPKId());
-		sexList = CodeItemUtil.getCodeItemsByKey(LcsConstant.CFS_COMM_SEX);
+		sexList = CodeItemUtil.getCodeItemsByKey(CfsConstant.CFS_COMM_SEX);
 		return EDIT;
 	}
 	
