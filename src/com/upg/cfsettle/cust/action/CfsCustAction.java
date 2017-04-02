@@ -62,6 +62,8 @@ public class CfsCustAction extends BaseAction {
 	 * @return
 	 */
 	public String toEdit(){
+		cfsCust = cfsCustService.queryCfsCustById(getPKId());
+		sexList = CodeItemUtil.getCodeItemsByKey(LcsConstant.CFS_COMM_SEX);
 		return EDIT;
 	}
 	
@@ -69,6 +71,7 @@ public class CfsCustAction extends BaseAction {
 	 * 批量删除cfsCust信息
 	 */
 	public void batchDelete(){
+		cfsCustService.deleteById(getPKId());
 	}
 	
 	/**

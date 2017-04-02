@@ -15,7 +15,7 @@ public class CfsCust implements Serializable {
 	 * TODO（用一句话描述这个变量表示什么）
 	 */
 	private static final long serialVersionUID = -6934379539608295212L;
-	private Long uid;
+	private Long id;
 	private String realName;
 	private String mobile;
 	private String idCard;
@@ -52,12 +52,12 @@ public class CfsCust implements Serializable {
 
 	// Property accessors
 
-	public Long getUid() {
-		return this.uid;
+	public Long getId() {
+		return this.id;
 	}
 
-	public void setUid(Long uid) {
-		this.uid = uid;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getRealName() {

@@ -62,7 +62,13 @@ public class CfsCustServiceImpl implements ICfsCustService{
 		cust.setCsysid(SessionTool.getUserLogonInfo().getSysUserId());
 		cust.setMtime(DateTimeUtil.getNowDateTime());
 		cust.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
-		cfsCustDao.update(cust);
+		cust.setIsValid(Byte.valueOf("0"));//默认未验证
+		cfsCustDao.save(cust);
+	}
+
+	@Override
+	public void deleteById(Long id) {
 		
+		cfsCustDao.delete(id);
 	}
 }

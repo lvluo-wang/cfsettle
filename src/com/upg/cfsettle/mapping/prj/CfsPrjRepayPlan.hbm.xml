@@ -58,7 +58,7 @@
         <property name="ctime" type="secDate">
             <column name="ctime" />
         </property>
-        <property name="csysid" type="java.lang.Long">
+        <property name="csysid" type="java.lang.Long" update="false">
             <column name="csysid" />
         </property>
         <property name="mtime" type="secDate" update="false">

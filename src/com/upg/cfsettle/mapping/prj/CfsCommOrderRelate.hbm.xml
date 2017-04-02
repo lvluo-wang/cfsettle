@@ -45,7 +45,7 @@
                 <comment>状态</comment>
             </column>
         </property>
-        <property name="csysid" type="java.lang.Long">
+        <property name="csysid" type="java.lang.Long" update="false">
             <column name="csysid" />
         </property>
         <property name="ctime" type="secDate" update="false">

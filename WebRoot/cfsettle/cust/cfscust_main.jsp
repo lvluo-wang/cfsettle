@@ -30,9 +30,9 @@
 		</form>
 	</tiles:putAttribute>
 	<tiles:putAttribute name="data">
-		<x:datagrid id="dataTable" url="/cust/cfscust_list.jhtml" autoload="true" form="mainQueryForm">
+		<x:datagrid id="dataTable" url="/cust/cfscust_list.jhtml" autoload="true" form="mainQueryForm" singleSelect="true">
 			<x:columns>
-				<x:column title="" checkbox="true" field="id" />
+				<x:column title="" checkbox="true" field="uid" />
 				<x:column title="客户姓名" field="realName" align="center" width="140"/>
 				<x:column title="性别" field="sex" align="center" width="40" formatter="formatSex"/>
 				<x:column title="客户手机" field="mobile" align="left" width="90"/>
@@ -84,8 +84,12 @@
 	function doEdit(){
 		if(isSingleSelected(dataTable)){
 			var selectedId=dataTable.getSelectedField("id");
-			var url="<s:url value='/cust/cfscust_toEdit.jhtml' />?id="+selectedId;
-			requestAtWindow(url,"project_edit_win","<s:text name='edit'/>");
+			if(dataTable.getSelectedFirstRow().isValid =='0'){
+				var url="<s:url value='/cust/cfscust_toEdit.jhtml'/>";
+				requestAtWindow(url,"project_edit_win","<s:text name='edit'/>",{id:selectedId});
+			}else{
+				info('已验证用户不能修改');
+			}
 		}
 	}
 

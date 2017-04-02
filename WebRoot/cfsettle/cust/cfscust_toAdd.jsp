@@ -37,7 +37,7 @@
 				<tr>
 					<td class="title">身份证反面: </td>
 					<td>
-						<input name="cfsCust.cardFace" type="hidden" id="cfscust_back_card_id"/>
+						<input name="cfsCust.cardBack" type="hidden" id="cfscust_back_card_id"/>
 						<img id="id_card_back_pic" alt="身份证正面" src="http://" height="100px" width="200px"/>
 					</td>
 					<td colspan="2">
