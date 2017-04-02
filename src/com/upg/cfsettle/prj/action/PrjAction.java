@@ -1,5 +1,7 @@
 package com.upg.cfsettle.prj.action;
 
+import java.util.List;
+
 import com.upg.cfsettle.code.core.ICodeItemService;
 import com.upg.cfsettle.mapping.ficode.FiCodeItem;
 import com.upg.cfsettle.mapping.prj.CfsPrj;
@@ -8,9 +10,6 @@ import com.upg.cfsettle.prj.core.IPrjExtService;
 import com.upg.cfsettle.prj.core.IPrjService;
 import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.framework.base.BaseAction;
-
-import javax.annotation.PostConstruct;
-import java.util.List;
 
 /**
  * Created by zuo on 2017/3/30.

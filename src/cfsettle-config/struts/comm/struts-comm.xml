@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="comm" namespace="/comm" extends="pkg-base">
+		<action name="/prjComm_*" class="com.upg.cfsettle.comm.action.CfsMyCommInfoAction" method="{1}">
+            <result name="prjComm">/cfsettle/comm/prjComm_main.jsp</result>
+        </action>
+        <action name="/myComm_*" class="com.upg.cfsettle.comm.action.CfsMyCommInfoAction" method="{1}">
+            <result name="success">/cfsettle/comm/myComm_{1}.jsp</result>
+        </action>
+	</package>
+</struts>

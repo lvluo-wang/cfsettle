@@ -1,4 +1,4 @@
-<%@page import="com.upg.cfsettle.util.LcsConstant"%>
+<%@page import="com.upg.cfsettle.util.CfsConstant"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@page import="net.easytodo.keel.util.SecurityUtils"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
@@ -51,16 +51,16 @@
 	
 	<tiles:putAttribute name="end">
 	<script type="text/javascript">
-	var keys=["<%=LcsConstant.CFS_COMM_YSE_NO%>","<%=LcsConstant.CFS_COMM_SEX%>"];
+	var keys=["<%=CfsConstant.CFS_COMM_YSE_NO%>","<%=CfsConstant.CFS_COMM_SEX%>"];
 	var code=new XhhCodeUtil(keys);
 	code.loadData();
 	
 	function formatSex(value){
-		 return code.getValue("<%=LcsConstant.CFS_COMM_SEX%>",value);
+		 return code.getValue("<%=CfsConstant.CFS_COMM_SEX%>",value);
 	}
 	
 	function formatYesNo(value){
-		 return code.getValue("<%=LcsConstant.CFS_COMM_YSE_NO%>",value);
+		 return code.getValue("<%=CfsConstant.CFS_COMM_YSE_NO%>",value);
 	}
 	
 	function doQuery(){

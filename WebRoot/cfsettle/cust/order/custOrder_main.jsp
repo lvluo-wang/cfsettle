@@ -1,4 +1,4 @@
-<%@page import="com.upg.cfsettle.util.LcsConstant"%>
+<%@page import="com.upg.cfsettle.util.CfsConstant"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
@@ -61,7 +61,7 @@
 	
 	<tiles:putAttribute name="end">
 	<script type="text/javascript">
-	var keys=["<%=LcsConstant.CFS_COMM_YSE_NO%>","<%=LcsConstant.CFS_COMM_SEX%>"];
+	var keys=["<%=CfsConstant.CFS_COMM_YSE_NO%>","<%=CfsConstant.CFS_COMM_SEX%>"];
 	var code=new XhhCodeUtil(keys);
 	code.loadData();
 

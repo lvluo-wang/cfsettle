@@ -15,17 +15,17 @@
                 <comment>计提结算人员</comment>
             </column>
         </property>
-        <property name="commSettleDate" type="java.lang.Long">
+        <property name="commSettleDate" type="secDate">
             <column name="comm_settle_date">
                 <comment>佣金计提月份</comment>
             </column>
         </property>
-        <property name="commMoney" type="java.math.BigDecimal">
+        <property name="commMoney" type="cent">
             <column name="comm_money" precision="20" scale="0">
                 <comment>佣金总额</comment>
             </column>
         </property>
-        <property name="payTime" type="java.lang.Long">
+        <property name="payTime" type="secDate">
             <column name="pay_time">
                 <comment>付款时间</comment>
             </column>
@@ -60,7 +60,7 @@
                 <comment>收款支行</comment>
             </column>
         </property>
-        <property name="payMoney" type="java.math.BigDecimal">
+        <property name="payMoney" type="cent">
             <column name="pay_money" precision="20" scale="0">
                 <comment>支付金额</comment>
             </column>

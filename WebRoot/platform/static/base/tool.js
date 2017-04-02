@@ -1106,6 +1106,18 @@ function format2Date(value){
 	}
 	return ret;
 }
+
+function format2Month(value){
+	var ret = "";
+	try{
+		var date = convertDateFromJson(value);
+		if (date) {
+			ret=DateFormat.format(date,"yyyy-MM");
+		}
+	}catch(e){
+	}
+	return ret;
+}
 function format2Minute(value){
 	var ret = "";
 	try{

@@ -18,6 +18,7 @@ public class CfsCommOrderRelate implements Serializable {
 	private static final long serialVersionUID = -8089191680885668285L;
 	private Long id;
 	private Long sysid;
+	private Long commId;
 	private Long prjId;
 	private Long prjOrderId;
 	private BigDecimal commRate;
@@ -149,5 +150,13 @@ public class CfsCommOrderRelate implements Serializable {
 
 	public void setMtime(Date mtime) {
 		this.mtime = mtime;
+	}
+
+	public Long getCommId() {
+		return commId;
+	}
+
+	public void setCommId(Long commId) {
+		this.commId = commId;
 	}
 }

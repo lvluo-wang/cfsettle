@@ -7,7 +7,7 @@
 	<tiles:putAttribute name="tool">
 		<x:button iconCls="icon-add" text="项目发布" click="toAdd" />
 		<x:button iconCls="icon-edit" text="项目编辑" click="toEdit" />
-		<x:button iconCls="icon-edit" text="项目详情" click="toView" />
+		<x:button iconCls="icon-view" text="项目详情" click="toView" />
 
 
 	</tiles:putAttribute>
@@ -74,7 +74,7 @@
     }
 
     function formateTimelimit(value,field,row) {
-	    var timeLimitUnit = code.getValue("<%=UtilConstant.CFS_TIMELIMIT_UNIT%>>",row.TIME_LIMIT_UNIT);
+	    var timeLimitUnit = code.getValue("<%=UtilConstant.CFS_TIMELIMIT_UNIT%>",row.TIME_LIMIT_UNIT);
 	    return value+timeLimitUnit;
 
     }

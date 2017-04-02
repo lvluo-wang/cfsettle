@@ -26,5 +26,5 @@ public interface IPrjService extends IBaseService {
 
     void auditPrjAndPrjExt(CfsPrj prj, CfsPrjExt prjExt);
 
-
+	List<CfsPrj> findPrjByCondition(CfsPrj cfsPrj, Page page);
 }

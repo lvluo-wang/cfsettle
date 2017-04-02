@@ -18,11 +18,11 @@ public class CfsMyCommInfo implements Serializable {
 	private static final long serialVersionUID = -8401744569661929519L;
 	private Long id;
 	private Long sysid;
-	private Long commSettleDate;
+	private Date commSettleDate;
 	private BigDecimal commMoney;
-	private Long payTime;
+	private Date payTime;
 	private Long paySysid;
-	private Short payStatus;
+	private Byte payStatus;
 	private String collectAccountName;
 	private String collectBank;
 	private String collectBankNo;
@@ -42,9 +42,9 @@ public class CfsMyCommInfo implements Serializable {
 	}
 
 	/** full constructor */
-	public CfsMyCommInfo(Long sysid, Long commSettleDate,
-			BigDecimal commMoney, Long payTime, Long paySysid,
-			Short payStatus, String collectAccountName, String collectBank,
+	public CfsMyCommInfo(Long sysid, Date commSettleDate,
+			BigDecimal commMoney, Date payTime, Long paySysid,
+			Byte payStatus, String collectAccountName, String collectBank,
 			String collectBankNo, String collectSubBank, BigDecimal payMoney,
 			String payBank, String payBankNo, Long csysid, Date ctime,
 			Long msysid, Date mtime) {
@@ -85,11 +85,11 @@ public class CfsMyCommInfo implements Serializable {
 		this.sysid = sysid;
 	}
 
-	public Long getCommSettleDate() {
+	public Date getCommSettleDate() {
 		return this.commSettleDate;
 	}
 
-	public void setCommSettleDate(Long commSettleDate) {
+	public void setCommSettleDate(Date commSettleDate) {
 		this.commSettleDate = commSettleDate;
 	}
 
@@ -101,11 +101,11 @@ public class CfsMyCommInfo implements Serializable {
 		this.commMoney = commMoney;
 	}
 
-	public Long getPayTime() {
+	public Date getPayTime() {
 		return this.payTime;
 	}
 
-	public void setPayTime(Long payTime) {
+	public void setPayTime(Date payTime) {
 		this.payTime = payTime;
 	}
 
@@ -117,11 +117,11 @@ public class CfsMyCommInfo implements Serializable {
 		this.paySysid = paySysid;
 	}
 
-	public Short getPayStatus() {
+	public Byte getPayStatus() {
 		return this.payStatus;
 	}
 
-	public void setPayStatus(Short payStatus) {
+	public void setPayStatus(Byte payStatus) {
 		this.payStatus = payStatus;
 	}
 
