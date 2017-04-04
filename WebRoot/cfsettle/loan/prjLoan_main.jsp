@@ -5,13 +5,18 @@
 <%@ taglib prefix="x" uri="/xcars-tags"%>
 <tiles:insertDefinition name="FUNC_TOOL_QUERY_DATA">
 	<tiles:putAttribute name="tool">
-		<x:button iconCls="icon-add" text="项目审核" click="toReview" />
-
+		<x:button iconCls="icon-add" text="放款录入" click="toAdd"/>
+		<x:button iconCls="icon-view" text="放款详情" click="toView"/>
+		<x:button iconCls="icon-down" text="导出Excel" click="doExport"/>
 	</tiles:putAttribute>
 	<tiles:putAttribute name="query">
 			<form id="mainQueryForm" class="query_form">
 			<table>
 				<tr>
+					<td class="title">借款人姓名: </td>
+					<td><input name="searchBean.prjUseName" style="width:130px"/></td>
+					<td class="title">借款人手机: </td>
+					<td><input name="searchBean.prjMobile" style="width:130px"/></td>
 					<td class="title">项目名: </td>
 					<td><input name="searchBean.prjName" style="width:130px"/></td>
 					<td class="title">状态:</td>
@@ -24,7 +29,7 @@
 		</form>
 	</tiles:putAttribute>
 	<tiles:putAttribute name="data">
-		<x:datagrid id="dataTable" singleSelect="true" url="/prj/prjManage_list.jhtml" autoload="true" form="mainQueryForm">
+		<x:datagrid id="dataTable" singleSelect="true" url="/prj/prjLoan_list.jhtml" autoload="true" form="mainQueryForm">
 			<x:columns>
 				<x:column title="" checkbox="true" field="ID" />
 				<x:column title="项目名" field="PRJ_NAME" align="center" width="140"/>
@@ -36,14 +41,15 @@
 				<x:column title="项目收款银行" field="TENANT_BANK" align="left" width="140" formatter="formateBank"/>
 				<x:column title="项目收款支行" field="SUB_BANK" align="left" width="140" />
 				<x:column title="项目收款账号" field="ACCOUNT_NO" align="left" width="140" />
+				<x:column title="已放款金额(元)" field="LOANED_AMOUNT" align="center" width="140" formatter="formateRaiseAmount"/>
+				<x:column title="待放款金额(元)" field="LOANING_AMOUNT" align="left" width="140" formatter="formateRaiseAmount"/>
 				<x:column title="状态" field="STATUS" align="left" width="80" formatter="forPrjStatus"/>
 			</x:columns>
 		</x:datagrid>
 	</tiles:putAttribute>
 
 	<tiles:putAttribute name="window">
-	<!-- 弹出窗口定义开始 -->
-
+		
 	</tiles:putAttribute>
 	
 	<tiles:putAttribute name="end">
@@ -87,16 +93,19 @@
 	}
 		
 	function toAdd(){
-		var url="<s:url value='/prj/prjManage_toAdd.jhtml'/>";
-		redirectUrl(url);
+		if(isSingleSelected(dataTable)) {
+			var selectedId = dataTable.getSelectedField("ID");
+			var url="<s:url value='/prj/prjLoan_toAdd.jhtml'/>?id="+selectedId;
+			redirectUrl(url);
+		}
 	}
 
-	function toReview(){
+	function toView(){
 		if(isSingleSelected(dataTable)) {
 			var selectedId = dataTable.getSelectedField("ID");
             var status = dataTable.getSelectedField("STATUS");
             if(status =="1" || status =="2"){
-                var url = "<s:url value='/prj/prjAudit_toReview.jhtml'/>?id="+selectedId;
+                var url = "<s:url value='/prj/prjLoan_toReview.jhtml'/>?id="+selectedId;
                 redirectUrl(url);
 			}else{
                 warning("项目已审核通过，不能再次审核");

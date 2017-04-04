@@ -34,18 +34,20 @@ public class PrjLoanAction extends BaseAction {
 
     public String main(){
         prjStatusList = codeItemService.getCodeItemByKey(UtilConstant.CFS_PRJ_STATUS);
-        return MAIN;
+        return SUCCESS;
     }
 
     public String list(){
-        return setDatagridInputStreamData(prjService.findByCondition(searchBean,getPg()),getPg());
+        return setDatagridInputStreamData(prjService.findLoanPrjByCondition(searchBean,getPg()),getPg());
     }
 
     public String toAdd(){
         bankList = codeItemService.getCodeItemByKey(UtilConstant.CFS_BANK_TYPE);
         repaymentTypeList = codeItemService.getCodeItemByKey(UtilConstant.CFS_REPAYMENT_TYPE);
         timeLimitUnitList = codeItemService.getCodeItemByKey(UtilConstant.CFS_TIMELIMIT_UNIT);
-        return ADD;
+        prj = prjService.getPrjById(getPKId());
+        prjExt = prjExtService.getPrjExtByPrjId(getPKId());
+        return SUCCESS;
     }
 
     public void doApply(){
@@ -59,7 +61,7 @@ public class PrjLoanAction extends BaseAction {
         timeLimitUnitList = codeItemService.getCodeItemByKey(UtilConstant.CFS_TIMELIMIT_UNIT);
         prj = prjService.getPrjById(getPKId());
         prjExt = prjExtService.getPrjExtByPrjId(getPKId());
-        return EDIT;
+        return SUCCESS;
     }
 
     public void doEdit(){
@@ -74,13 +76,13 @@ public class PrjLoanAction extends BaseAction {
 
     public String auditMain(){
         prjStatusList = codeItemService.getCodeItemByKey(UtilConstant.CFS_PRJ_STATUS);
-        return "auditMain";
+        return SUCCESS;
     }
 
     public String toReview(){
         prj = prjService.getPrjById(getPKId());
         prjExt = prjExtService.getPrjExtByPrjId(getPKId());
-        return "toReview";
+        return SUCCESS;
     }
 
     public void doReview(){
