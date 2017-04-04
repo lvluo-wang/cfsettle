@@ -72,7 +72,6 @@ public class CfsPrOrderServiceImpl implements ICfsPrjOrderService {
                     if(prjOrder.getInvestTime().before(prj.getStartBidTime())){
                         UcarsHelper.throwServiceException("投资时间小于项目募集开始时间");
                     }
-                    prjOrder.setPrjName(prj.getPrjName());
                     prjOrder.setStatus(Byte.valueOf("1"));//待合同审核
                     prjOrder.setCtime(DateTimeUtil.getNowDateTime());
                     UserLogonInfo logonInfo = SessionTool.getUserLogonInfo();
