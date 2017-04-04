@@ -43,12 +43,12 @@
 			<x:columns>
 				<x:column title="" checkbox="true" field="ID" />
 				<x:column title="合同编号" field="CONTRACT_NO" align="left" width="90"/>
-				<x:column title="投资时间" field="INVEST_TIME" align="center" width="150" formatter="formatTime" />
+				<x:column title="投资时间" field="INVEST_TIME" align="center" width="150" formatter="formatTimeStamp"/>
 				<x:column title="客户姓名" field="REAL_NAME" align="center" width="140"/>
 				<x:column title="客户手机" field="MOBILE" align="left" width="90"/>
 				<x:column title="购买项目" field="PRJ_NAME" align="center" width="150" />
 				<x:column title="购买金额" field="MONEY" align="center" width="150"/>
-				<x:column title="付款银行" field="PAY_BANK" align="center" width="80" formatter=""/>
+				<x:column title="付款银行" field="PAY_BANK" align="center" width="80"/>
 				<x:column title="付款卡号" field="PAY_ACCOUNT_NO" align="center" width="140"/>
 				<x:column title="服务员工" field="SERVICE_SYS_NAME" align="center" width="40"/>
 				<x:column title="状态" field="STATUS" align="center" width="150" />
