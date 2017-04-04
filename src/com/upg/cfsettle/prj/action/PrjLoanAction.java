@@ -1,5 +1,6 @@
 package com.upg.cfsettle.prj.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,10 @@ import com.upg.cfsettle.prj.core.IPrjExtService;
 import com.upg.cfsettle.prj.core.IPrjLoanLogService;
 import com.upg.cfsettle.prj.core.IPrjService;
 import com.upg.cfsettle.util.UtilConstant;
+import com.upg.ucars.factory.DynamicPropertyTransfer;
 import com.upg.ucars.framework.base.BaseAction;
+import com.upg.ucars.mapping.basesystem.security.Buser;
+import com.upg.ucars.util.PropertyTransVo;
 
 @SuppressWarnings("serial")
 public class PrjLoanAction extends BaseAction {
@@ -64,7 +68,15 @@ public class PrjLoanAction extends BaseAction {
     public String toView(){
         prj = prjService.getPrjById(getPKId());
         prjExt = prjExtService.getPrjExtByPrjId(getPKId());
-        return VIEW;
+        return SUCCESS;
+    }
+    
+    public String listLoan(){
+    	List<CfsPrjLoanLog> list = loanLogService.findByCondition(prjLoanLog,getPg());
+    	List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
+    	trans.add(new PropertyTransVo("csysid", Buser.class, "userId", "userName","sysUserName"));
+    	list = DynamicPropertyTransfer.transform(list, trans);
+        return setDatagridInputStreamData(list,getPg());
     }
 
     public List<FiCodeItem> getPrjStatusList() {

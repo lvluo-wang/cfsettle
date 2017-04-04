@@ -1,5 +1,6 @@
 package com.upg.cfsettle.prj.core;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,11 @@ import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.mapping.prj.CfsPrjLoanLog;
 import com.upg.ucars.basesystem.UcarsHelper;
 import com.upg.ucars.framework.annotation.Service;
+import com.upg.ucars.framework.base.Page;
+import com.upg.ucars.framework.base.QueryCondition;
 import com.upg.ucars.framework.base.SessionTool;
+import com.upg.ucars.model.ConditionBean;
+import com.upg.ucars.model.OrderBean;
 import com.upg.ucars.util.DateTimeUtil;
 
 @Service
@@ -42,5 +47,20 @@ public class PrjLoanLogServiceImpl implements IPrjLoanLogService {
 	@Override
 	public CfsPrjLoanLog getCfsPrjLoanLogById(Long id) {
 		return prjLoanLogDao.get(id);
+	}
+
+	@Override
+	public List<CfsPrjLoanLog> findByCondition(CfsPrjLoanLog searchBean,Page page) {
+		String hql = "from CfsPrjLoanLog cfsPrjLoanLog";
+		QueryCondition condition = new QueryCondition(hql);
+		if (searchBean != null) {
+			Long prjId = searchBean.getPrjId();
+			if (prjId != null) {
+				condition.addCondition(new ConditionBean("cfsPrjLoanLog.prjId", ConditionBean.EQUAL, prjId));
+			}
+		}
+		List<OrderBean> orderList = new ArrayList<OrderBean>();
+		orderList.add(new OrderBean("cfsPrjLoanLog.loanTimes", false));
+		return prjLoanLogDao.queryEntity( condition.getConditionList(),orderList, page);
 	}
 }
