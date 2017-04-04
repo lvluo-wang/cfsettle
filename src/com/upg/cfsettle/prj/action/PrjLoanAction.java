@@ -2,11 +2,15 @@ package com.upg.cfsettle.prj.action;
 
 import java.util.List;
 
-import com.upg.cfsettle.code.core.ICodeItemService;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.upg.cfsettle.common.CodeItemUtil;
 import com.upg.cfsettle.mapping.ficode.FiCodeItem;
 import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.mapping.prj.CfsPrjExt;
+import com.upg.cfsettle.mapping.prj.CfsPrjLoanLog;
 import com.upg.cfsettle.prj.core.IPrjExtService;
+import com.upg.cfsettle.prj.core.IPrjLoanLogService;
 import com.upg.cfsettle.prj.core.IPrjService;
 import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.framework.base.BaseAction;
@@ -15,16 +19,18 @@ import com.upg.ucars.framework.base.BaseAction;
 public class PrjLoanAction extends BaseAction {
 
     private CfsPrj searchBean;
-
-
-    private ICodeItemService codeItemService;
-
+    
+    @Autowired
     private IPrjService prjService;
-
+    @Autowired
     private IPrjExtService prjExtService;
+    @Autowired
+    private IPrjLoanLogService loanLogService;
 
     private CfsPrj prj;
     private CfsPrjExt prjExt;
+    
+    private CfsPrjLoanLog prjLoanLog;
 
     private List<FiCodeItem> bankList;
     private List<FiCodeItem> repaymentTypeList;
@@ -33,7 +39,7 @@ public class PrjLoanAction extends BaseAction {
 
 
     public String main(){
-        prjStatusList = codeItemService.getCodeItemByKey(UtilConstant.CFS_PRJ_STATUS);
+        prjStatusList = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_PRJ_STATUS);
         return SUCCESS;
     }
 
@@ -42,30 +48,17 @@ public class PrjLoanAction extends BaseAction {
     }
 
     public String toAdd(){
-        bankList = codeItemService.getCodeItemByKey(UtilConstant.CFS_BANK_TYPE);
-        repaymentTypeList = codeItemService.getCodeItemByKey(UtilConstant.CFS_REPAYMENT_TYPE);
-        timeLimitUnitList = codeItemService.getCodeItemByKey(UtilConstant.CFS_TIMELIMIT_UNIT);
+        bankList = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_BANK_TYPE);
+        repaymentTypeList = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_REPAYMENT_TYPE);
+        timeLimitUnitList = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_TIMELIMIT_UNIT);
         prj = prjService.getPrjById(getPKId());
         prjExt = prjExtService.getPrjExtByPrjId(getPKId());
         return SUCCESS;
     }
 
-    public void doApply(){
-        prjService.savePrjAndPrjExt(prj,prjExt);
+    public void doLoanAdd(){
+    	loanLogService.addPrjLoanLog(prjLoanLog);
 
-    }
-
-    public String toEdit(){
-        bankList = codeItemService.getCodeItemByKey(UtilConstant.CFS_BANK_TYPE);
-        repaymentTypeList = codeItemService.getCodeItemByKey(UtilConstant.CFS_REPAYMENT_TYPE);
-        timeLimitUnitList = codeItemService.getCodeItemByKey(UtilConstant.CFS_TIMELIMIT_UNIT);
-        prj = prjService.getPrjById(getPKId());
-        prjExt = prjExtService.getPrjExtByPrjId(getPKId());
-        return SUCCESS;
-    }
-
-    public void doEdit(){
-        prjService.updatePrjAndPrjExt(prj,prjExt);
     }
 
     public String toView(){
@@ -73,22 +66,6 @@ public class PrjLoanAction extends BaseAction {
         prjExt = prjExtService.getPrjExtByPrjId(getPKId());
         return VIEW;
     }
-
-    public String auditMain(){
-        prjStatusList = codeItemService.getCodeItemByKey(UtilConstant.CFS_PRJ_STATUS);
-        return SUCCESS;
-    }
-
-    public String toReview(){
-        prj = prjService.getPrjById(getPKId());
-        prjExt = prjExtService.getPrjExtByPrjId(getPKId());
-        return SUCCESS;
-    }
-
-    public void doReview(){
-        prjService.auditPrjAndPrjExt(prj,prjExt);
-    }
-
 
     public List<FiCodeItem> getPrjStatusList() {
         return prjStatusList;
@@ -112,22 +89,6 @@ public class PrjLoanAction extends BaseAction {
 
     public void setSearchBean(CfsPrj searchBean) {
         this.searchBean = searchBean;
-    }
-
-    public ICodeItemService getCodeItemService() {
-        return codeItemService;
-    }
-
-    public void setCodeItemService(ICodeItemService codeItemService) {
-        this.codeItemService = codeItemService;
-    }
-
-    public IPrjService getPrjService() {
-        return prjService;
-    }
-
-    public void setPrjService(IPrjService prjService) {
-        this.prjService = prjService;
     }
 
     public List<FiCodeItem> getBankList() {
@@ -169,4 +130,13 @@ public class PrjLoanAction extends BaseAction {
     public void setPrjExt(CfsPrjExt prjExt) {
         this.prjExt = prjExt;
     }
+
+	public CfsPrjLoanLog getPrjLoanLog() {
+		return prjLoanLog;
+	}
+
+	public void setPrjLoanLog(CfsPrjLoanLog prjLoanLog) {
+		this.prjLoanLog = prjLoanLog;
+	}
+    
 }

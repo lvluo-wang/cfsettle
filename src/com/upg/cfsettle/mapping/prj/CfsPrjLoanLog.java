@@ -24,6 +24,7 @@ public class CfsPrjLoanLog implements Serializable {
 	private BigDecimal loanAmount;
 	private String loanBankName;
 	private String loanAccountNo;
+	private String loanAccountName;
 	private String loanSerialNum;
 	private String remark;
 	private Long csysid;
@@ -171,4 +172,11 @@ public class CfsPrjLoanLog implements Serializable {
 		this.mtime = mtime;
 	}
 
+	public String getLoanAccountName() {
+		return loanAccountName;
+	}
+
+	public void setLoanAccountName(String loanAccountName) {
+		this.loanAccountName = loanAccountName;
+	}
 }

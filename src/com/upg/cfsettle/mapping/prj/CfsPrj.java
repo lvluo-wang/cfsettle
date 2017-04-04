@@ -31,7 +31,8 @@ public class CfsPrj implements java.io.Serializable {
 	private Date lastRepayTime;
 	private BigDecimal minLoanAmount;
 	private BigDecimal loanedAmount;
-	private Integer loanTime;
+	private Date loanTime;
+	private Long loanTimes;
 	private BigDecimal totalRate;
 	private BigDecimal areaRate;
 	private BigDecimal deptRate;
@@ -171,11 +172,11 @@ public class CfsPrj implements java.io.Serializable {
 		this.minLoanAmount = minLoanAmount;
 	}
 
-	public Integer getLoanTime() {
+	public Date getLoanTime() {
 		return loanTime;
 	}
 
-	public void setLoanTime(Integer loanTime) {
+	public void setLoanTime(Date loanTime) {
 		this.loanTime = loanTime;
 	}
 
@@ -289,5 +290,13 @@ public class CfsPrj implements java.io.Serializable {
 
 	public void setLoanedAmount(BigDecimal loanedAmount) {
 		this.loanedAmount = loanedAmount;
+	}
+
+	public Long getLoanTimes() {
+		return loanTimes;
+	}
+
+	public void setLoanTimes(Long loanTimes) {
+		this.loanTimes = loanTimes;
 	}
 }

@@ -156,4 +156,11 @@ public class PrjServiceImpl implements IPrjService {
 			Page pg) {
 		return prjDao.findLoanPrjByCondition(searchBean,pg);
 	}
+
+	@Override
+	public void updateCfsPrj(CfsPrj prj) {
+		prj.setMtime(DateTimeUtil.getNowDateTime());
+		prj.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
+		prjDao.update(prj);
+	}
 }

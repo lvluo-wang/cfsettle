@@ -41,5 +41,13 @@ public interface IPrjService extends IBaseService {
      * @return
      */
 	List<Map<String, Object>> findLoanPrjByCondition(CfsPrj searchBean, Page pg);
+	
+	/**
+	 * 跟新项目信息
+	 * @author renzhuolun
+	 * @date 2017年4月4日 下午6:24:29
+	 * @param prj
+	 */
+	void updateCfsPrj(CfsPrj prj);
 
 }

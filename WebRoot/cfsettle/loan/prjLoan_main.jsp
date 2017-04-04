@@ -104,14 +104,8 @@
 		if(isSingleSelected(dataTable)) {
 			var selectedId = dataTable.getSelectedField("ID");
             var status = dataTable.getSelectedField("STATUS");
-            if(status =="1" || status =="2"){
-                var url = "<s:url value='/prj/prjLoan_toReview.jhtml'/>?id="+selectedId;
-                redirectUrl(url);
-			}else{
-                warning("项目已审核通过，不能再次审核");
-                return;
-			}
-
+            var url = "<s:url value='/prj/prjLoan_toView.jhtml'/>?id="+selectedId;
+            redirectUrl(url);
 		}
 	}
 

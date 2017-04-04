@@ -11,9 +11,9 @@
                 <form class="busi_form" id="prj_form">
                     <table>
                         <colgroup>
-                            <col width="20%"/>
+                            <col width="15%"/>
                             <col width="30%"/>
-                            <col width="20%"/>
+                            <col width="15%"/>
                             <col width="30%"/>
                         </colgroup>
                         <tr>
@@ -65,16 +65,16 @@
                     <form class="busi_form" id="prjExt_form">
                         <table>
                             <colgroup>
-                                <col width="20%"/>
+                                <col width="15%"/>
                                 <col width="30%"/>
-                                <col width="20%"/>
+                                <col width="15%"/>
                                 <col width="30%"/>
                             </colgroup>
                         <tr>
                             <td class="title">收款账户名:</td>
                             <td>${prjExt.tenantName}</td>
                             <td class="title">收款银行:</td>
-                            <td><x:codeItem codeNo="prjExt.tenantBank" codeKey="<%=UtilConstant.CFS_REPAYMENT_TYPE %>"/></td>
+                            <td><x:codeItem codeNo="prjExt.tenantBank" codeKey="<%=UtilConstant.CFS_BANK_TYPE %>"/></td>
                         </tr>
                         <tr>
                             <td class="title">收款支行:</td>
@@ -86,40 +86,33 @@
                             <td style="text-align: center;" colspan="4"><b>放款信息账户</b></td>
                         </tr>
                       	<tr>
-                      		<td>放款时间:</td>
+                      		<td class="title">放款时间:</td>
                       		<td>
                       			<input class="Wdate easyui-validatebox" type="text" required="true" name="prjLoanLog.loanTime" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+                      			<input name="prjLoanLog.prjId" value="${prj.id}" type="hidden"/>
+                      			<input name="prjLoanLog.prjName" value="${prj.prjName}" type="hidden"/>
                       		</td>
-                      		<td>放款金额:</td>
-                      		<td><input name="prjLoanLog.loanAmount" class="easyui-validatebox" required="true" validType="wanMoney"/></td>
+                      		<td class="title">放款金额:</td>
+                      		<td><input name="prjLoanLog.loanAmount" class="easyui-validatebox" required="true" validType="wanMoney"/>万</td>
                       		
                         </tr>
                         <tr>
                             <td class="title">放款账户名:</td>
-                            <td>
-                                <input name="prjLoanLog.loanBankName"  class="easyui-validatebox" required="true"/>
-                            </td>
+                            <td><input name="prjLoanLog.loanAccountName"  class="easyui-validatebox" required="true"/></td>
                             <td class="title">放款银行:</td>
                             <td colspan="3">
-                                <x:combobox name="prjLoanLog.loanBankNo"
-                                            list="bankList" textField="codeName" valueField="codeNo"
-                                            required="true" pleaseSelect="false"/>
+                                <x:combobox name="prjLoanLog.loanBankName" list="bankList" textField="codeName" valueField="codeNo" required="true" pleaseSelect="false" cssStyle="142px;"/>
                             </td>
                         </tr>
                         <tr>
-                            <td class="title">放款支行:</td>
-                            <td><input name="prjLoanLog.subBank" class="easyui-validatebox" required="true"/></td>
-                            <td class="title">放款账号:</td>
-                            <td><input name="prjExt.loanAccountNo"  class="easyui-validatebox" required="true"/></td>
-                        <tr>
-                        <tr>
-                            <td class="title">放款支行:</td>
-                            <td><input name="prjLoanLog.subBank" class="easyui-validatebox" required="true"/></td>
+                            <td class="title">放款卡号:</td>
+                            <td><input name="prjLoanLog.loanAccountNo" class="easyui-validatebox" required="true"/></td>
                             <td class="title">放款流水号:</td>
                             <td><input name="prjLoanLog.loanSerialNum" class="easyui-validatebox" required="true"/></td>
+                        </tr>
                         <tr>
                             <td style="text-align: center;" colspan="4">
-                                <x:button iconCls="icon-audit" text="提交" click="doApply" effect="round"/>
+                                <x:button iconCls="icon-audit" text="提交" click="doLoanAdd" effect="round"/>
                             </td>
                         </tr>
                     </table>
@@ -132,13 +125,10 @@
                 window.history.go(-1);
             }
             
-            function doApply() {
-                if ($("#prj_form").form("validate") && $("#prjExt_form").form("validate")) {
-
-                    var url = '<s:url value="/prj/prjManage_doApply.jhtml"/>';
-                    var param1 = formToObject("prj_form");
-                    var param2 = formToObject("prjExt_form");
-                    var param = $.extend(param1, param2);
+            function doLoanAdd() {
+                if ($("#prjExt_form").form("validate")) {
+                    var url = '<s:url value="/prj/prjLoan_doLoanAdd.jhtml"/>';
+                    var param = formToObject("prjExt_form");
                     AddRunningDiv("提交处理中，请稍候...");
                     doPost(url, param, function (result) {
                         if (!printError(result)) {

@@ -30,7 +30,7 @@
                 <comment>放款时间</comment>
             </column>
         </property>
-        <property name="loanAmount" type="java.math.BigDecimal">
+        <property name="loanAmount" type="wanCent">
             <column name="loan_amount" precision="20" scale="0">
                 <comment>放款金额</comment>
             </column>
@@ -38,6 +38,11 @@
         <property name="loanBankName" type="java.lang.String">
             <column name="loan_bank_name" length="100">
                 <comment>放款银行</comment>
+            </column>
+        </property>
+        <property name="loanAccountName" type="java.lang.String">
+            <column name="loan_account_name" length="100">
+                <comment>放款账户名</comment>
             </column>
         </property>
         <property name="loanAccountNo" type="java.lang.String">

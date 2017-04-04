@@ -81,9 +81,12 @@
             <column name="loaned_amount" precision="20" scale="0">
             </column>
         </property>
-        
-        <property name="loanTime" type="int">
+        <property name="loanTime" type="secDate">
             <column name="loan_time">
+            </column>
+        </property>
+        <property name="loanTimes" type="long">
+            <column name="loan_times">
             </column>
         </property>
         <property name="totalRate" type="big_decimal">
