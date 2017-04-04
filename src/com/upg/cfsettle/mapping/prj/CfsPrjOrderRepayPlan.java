@@ -32,6 +32,12 @@ public class CfsPrjOrderRepayPlan implements Serializable {
 	private Date ctime;
 	private Date mtime;
 
+	private Integer totalPeriods;
+	private Date paybackTime;
+	private Long paybackAuditSysid;
+	private String paybackAuditName;
+
+
 	// Constructors
 
 	/** default constructor */
@@ -58,6 +64,59 @@ public class CfsPrjOrderRepayPlan implements Serializable {
 		this.version = version;
 		this.ctime = ctime;
 		this.mtime = mtime;
+	}
+
+	public CfsPrjOrderRepayPlan(Long id, Byte ptype, Long prjId, Long prjOrderId, Long repayPeriods, Date repayDate, BigDecimal priInterest, BigDecimal principal, BigDecimal yield, BigDecimal restPrincipal, Byte status, Long prjRepayPlanId, Long version, Date ctime, Date mtime, Date paybackTime, Long paybackAuditSysid) {
+		this.id = id;
+		this.ptype = ptype;
+		this.prjId = prjId;
+		this.prjOrderId = prjOrderId;
+		this.repayPeriods = repayPeriods;
+		this.repayDate = repayDate;
+		this.priInterest = priInterest;
+		this.principal = principal;
+		this.yield = yield;
+		this.restPrincipal = restPrincipal;
+		this.status = status;
+		this.prjRepayPlanId = prjRepayPlanId;
+		this.version = version;
+		this.ctime = ctime;
+		this.mtime = mtime;
+		this.paybackTime = paybackTime;
+		this.paybackAuditSysid = paybackAuditSysid;
+	}
+
+
+	public Integer getTotalPeriods() {
+		return totalPeriods;
+	}
+
+	public void setTotalPeriods(Integer totalPeriods) {
+		this.totalPeriods = totalPeriods;
+	}
+
+	public String getPaybackAuditName() {
+		return paybackAuditName;
+	}
+
+	public void setPaybackAuditName(String paybackAuditName) {
+		this.paybackAuditName = paybackAuditName;
+	}
+
+	public Date getPaybackTime() {
+		return paybackTime;
+	}
+
+	public void setPaybackTime(Date paybackTime) {
+		this.paybackTime = paybackTime;
+	}
+
+	public Long getPaybackAuditSysid() {
+		return paybackAuditSysid;
+	}
+
+	public void setPaybackAuditSysid(Long paybackAuditSysid) {
+		this.paybackAuditSysid = paybackAuditSysid;
 	}
 
 	// Property accessors

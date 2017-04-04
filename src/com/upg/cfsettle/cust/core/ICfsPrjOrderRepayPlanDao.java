@@ -10,13 +10,12 @@ import java.util.List;
  */
 public interface ICfsPrjOrderRepayPlanDao extends IBaseDAO<CfsPrjOrderRepayPlan,Long> {
 
+
     /**
-     *
-     * @param hql
+     *根据orderid和type查询订单还款计划
+     * @param
      * @return
      */
-    List<CfsPrjOrderRepayPlan> findNotPaidOff(String hql);
-
-
+    List<CfsPrjOrderRepayPlan> findByOrderIdAndType(Long prjOrderId,Byte ptype);
 
 }

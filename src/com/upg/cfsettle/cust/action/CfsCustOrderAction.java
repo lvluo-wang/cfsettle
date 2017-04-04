@@ -1,16 +1,17 @@
 package com.upg.cfsettle.cust.action;
 
 import com.upg.cfsettle.code.core.ICodeItemService;
-import com.upg.cfsettle.cust.core.CustOrderBean;
-import com.upg.cfsettle.cust.core.ICfsCustService;
-import com.upg.cfsettle.cust.core.ICfsPrjOrderService;
+import com.upg.cfsettle.cust.core.*;
 import com.upg.cfsettle.mapping.ficode.FiCodeItem;
 import com.upg.cfsettle.mapping.prj.CfsCust;
 import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.mapping.prj.CfsPrjOrder;
+import com.upg.cfsettle.mapping.prj.CfsPrjOrderRepayPlan;
 import com.upg.cfsettle.prj.core.IPrjService;
 import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.framework.base.BaseAction;
+import com.upg.ucars.util.DateTimeUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -19,19 +20,33 @@ import java.util.List;
  */
 public class CfsCustOrderAction extends BaseAction {
 
+    @Autowired
     private ICfsPrjOrderService prjOrderService;
+    @Autowired
+    private ICfsCustService custService;
+    @Autowired
+    private IPrjService prjService;
+    private ICodeItemService codeItemService;
+    @Autowired
+    private ICfsPrjOrderRepayPlanService prjOrderRepayPlanService;
+    @Autowired
+    ICfsPrjRepayPlanService prjRepayPlanService;
+
 
     private CustOrderBean searchBean;
-
     private CfsCust cust;
     private CfsPrjOrder prjOrder;
-
-    private ICfsCustService custService;
+    private CfsPrj prj;
     private List<FiCodeItem> bankList;
-    private ICodeItemService codeItemService;
     private List<CfsPrj> prjList;
-    private IPrjService prjService;
     private List<FiCodeItem> orderStatusList;
+    private Long prjOrderId;
+    //募集期订单还款计划
+    private CfsPrjOrderRepayPlan raisePrjOrderRepayPlan;
+    //还款计划总期数
+    private Integer totalPeriod;
+
+    private int raiseDay;
 
 
     public String main(){
@@ -41,18 +56,24 @@ public class CfsCustOrderAction extends BaseAction {
 
 
     public String list(){
-        System.out.print("xxx");
-        //todo
         return setDatagridInputStreamData(prjOrderService.findByCondition(searchBean,getPg()),getPg());
     }
 
     public String toView(){
-        //TODO
+        prjOrder = prjOrderService.getPrjOrderById(getPKId());
+        cust = custService.queryCfsCustById(prjOrder.getCustId());
+        prj = prjService.getPrjById(prjOrder.getPrjId());
+        //募集期利息和募集期利息状态 todo
+        raisePrjOrderRepayPlan = prjOrderRepayPlanService.getRaiseOrderRepayPlan(prjOrder.getId());
+        //总期数
+        totalPeriod  = prjRepayPlanService.getTotalPeriodByPrjId(prjOrder.getPrjId());
+        raiseDay = DateTimeUtil.getDaysBetween(prj.getStartBidTime(),prj.getEndBidTime());
         return VIEW;
     }
 
     public String toAdd(){
         cust = custService.queryCfsCustById(getPKId());
+        //募资中prj
         prjList = prjService.findPrjByStatus(Byte.valueOf("3"));
         bankList = codeItemService.getCodeItemByKey(UtilConstant.CFS_BANK_TYPE);
         return ADD;
@@ -60,6 +81,11 @@ public class CfsCustOrderAction extends BaseAction {
 
     public void doAdd(){
         prjOrderService.addPrjOrder(prjOrder);
+    }
+
+    public String orderRepayList(){
+       return setDatagridInputStreamData(prjOrderRepayPlanService.findByOrderIdAndType(prjOrderId,Byte.valueOf("1")),getPg());
+
     }
 
     public List<FiCodeItem> getOrderStatusList() {
@@ -140,5 +166,53 @@ public class CfsCustOrderAction extends BaseAction {
 
     public void setPrjService(IPrjService prjService) {
         this.prjService = prjService;
+    }
+
+    public CfsPrj getPrj() {
+        return prj;
+    }
+
+    public void setPrj(CfsPrj prj) {
+        this.prj = prj;
+    }
+
+    public ICfsPrjOrderRepayPlanService getPrjOrderRepayPlanService() {
+        return prjOrderRepayPlanService;
+    }
+
+    public void setPrjOrderRepayPlanService(ICfsPrjOrderRepayPlanService prjOrderRepayPlanService) {
+        this.prjOrderRepayPlanService = prjOrderRepayPlanService;
+    }
+
+    public Long getPrjOrderId() {
+        return prjOrderId;
+    }
+
+    public void setPrjOrderId(Long prjOrderId) {
+        this.prjOrderId = prjOrderId;
+    }
+
+    public CfsPrjOrderRepayPlan getRaisePrjOrderRepayPlan() {
+        return raisePrjOrderRepayPlan;
+    }
+
+    public void setRaisePrjOrderRepayPlan(CfsPrjOrderRepayPlan raisePrjOrderRepayPlan) {
+        this.raisePrjOrderRepayPlan = raisePrjOrderRepayPlan;
+    }
+
+    public Integer getTotalPeriod() {
+        return totalPeriod;
+    }
+
+    public void setTotalPeriod(Integer totalPeriod) {
+        this.totalPeriod = totalPeriod;
+    }
+
+    public int getRaiseDay() {
+        return raiseDay;
+    }
+
+    public void setRaiseDay(int raiseDay) {
+        this.raiseDay = raiseDay;
     }
 }

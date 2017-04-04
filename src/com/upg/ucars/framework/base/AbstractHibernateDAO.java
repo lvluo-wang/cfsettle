@@ -18,6 +18,7 @@ import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
+import org.hibernate.transform.Transformers;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
@@ -492,6 +493,42 @@ public abstract class AbstractHibernateDAO extends HibernateDaoSupport {
    
 				  });
     }
+
+	/***
+	 * findListByMap(sql分页查询)
+	 * @param sql
+	 * @param values
+	 * @param page
+	 * @param clazz
+	 * @return List<?>
+
+	 * @throws
+
+	 * @since
+	 */
+	protected List<?> findListByMap(final String sql,final Map<String, Object> values,final Page page,final Class<?> clazz){
+		Session session=super.getSession();
+		Query query=session.createSQLQuery(sql);
+		String sqlCount="select Count(1) from ("+sql+") count_view";
+		Query queryCount=session.createSQLQuery(sqlCount);
+		for (Map.Entry<String, Object> enty : values.entrySet()) {
+
+			query.setParameter(enty.getKey(),enty.getValue());
+			queryCount.setParameter(enty.getKey(),enty.getValue());
+		}
+
+		if(page!=null&&!page.isQueryAll()){
+			int rownum = ( (Number) queryCount.list().get(0)).intValue();
+			page.afterNew(rownum);
+			query.setFirstResult((page.getCurrentPage()-1)*page.getPageSize());
+			query.setMaxResults(page.getPageSize());
+		}
+		List<?> list=query.setResultTransformer(Transformers.aliasToBean(clazz)).list();
+		session.flush();
+		session.clear();
+//		session.close();
+		return list;
+	}
 	
 	/**
      * 通过标准的SQL查询数据

@@ -17,6 +17,7 @@ public interface ICfsPrjOrderService extends IBaseService {
 
     void addPrjOrder(CfsPrjOrder prjOrder);
 
+    CfsPrjOrder getPrjOrderById(Long id);
 	void batchDelete(List<Long> ids);
 
 	void updatePrjOrder(CfsPrjOrder cfsPrjOrder);

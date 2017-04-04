@@ -56,7 +56,7 @@
                         </tr>
                         <tr>
                             <td class="title">募集金额:</td>
-                            <td><input name="prj.demandAmount" class="easyui-validatebox" validType="positive_int" required="true" />万
+                            <td><input name="prj.demandAmount" class="easyui-validatebox" validType="positive_int" required="true" />
                             </td>
                             <td class="title">项目期限:</td>
                             <td>
@@ -87,7 +87,7 @@
                                             textField="codeName" valueField="codeNo" required="true"
                                             pleaseSelect="false"/></td>
                             <td class="title">项目成立金额:</td>
-                            <td><input name="prj.minLoanAmount" class="easyui-validatebox" required="true" />万
+                            <td><input name="prj.minLoanAmount" class="easyui-validatebox" required="true" />
                             </td>
                         </tr>
                         <tr>

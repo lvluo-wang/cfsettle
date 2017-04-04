@@ -11,16 +11,16 @@ import java.util.List;
 public interface ICfsPrjRepayPlanDao extends IBaseDAO<CfsPrjRepayPlan,Long> {
 
     /**
-     * 根据项目id查询未还款的还款计划
+     * 根据项目id和状态查询的还款计划（不包含募集期还款计划）
      * @param prjId
      * @return
      */
-    List<CfsPrjRepayPlan> findNotPaidOffByPrjId( Long prjId);
+    List<CfsPrjRepayPlan> findByPrjIdAndStatus( Long prjId,Byte status);
 
     /**
-     * 根据项目id查询还款计划
+     * 根据项目id查询所有还款计划（不包含募集期还款计划）
      * @param prjId
      * @return
      */
-    List<CfsPrjRepayPlan> findByPrjId(Long prjId);
+    List<CfsPrjRepayPlan> findNoRaisePlanByPrjId(Long prjId);
 }

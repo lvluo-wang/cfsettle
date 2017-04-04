@@ -105,9 +105,9 @@
 	
 	function toAddPrjOrder() {
         if(isSingleSelected(dataTable)){
-            var selectedId=dataTable.getSelectedField("uid");
-                var url="<s:url value='/custOrder/custOrder_toAdd.jhtml'/>";
-                requestAtWindow(url,"project_add_win","<s:text name='add'/>",{id:selectedId});
+            var selectedId=dataTable.getSelectedField("id");
+                var url="<s:url value='/custOrder/custOrder_toAdd.jhtml'/>?id="+selectedId;
+                requestAtWindow(url,"project_add_win","<s:text name='add'/>");
         }
     }
 	</script>

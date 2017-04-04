@@ -29,11 +29,11 @@
             </column>
         </property>
 
-        <property name="demandAmount" type="wanCent">
+        <property name="demandAmount" type="cent">
             <column name="demand_amount" precision="20" scale="0">
             </column>
         </property>
-        <property name="remainingAmount" type="wanCent">
+        <property name="remainingAmount" type="cent">
             <column name="remaining_amount" precision="20" scale="0">
             </column>
         </property>
@@ -73,7 +73,7 @@
             <column name="last_repay_time">
             </column>
         </property>
-        <property name="minLoanAmount" type="wanCent">
+        <property name="minLoanAmount" type="cent">
             <column name="min_loan_amount" precision="20" scale="0">
             </column>
         </property>

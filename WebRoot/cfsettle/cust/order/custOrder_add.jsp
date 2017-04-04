@@ -8,7 +8,7 @@
 <tiles:insertDefinition name="WIN_FORM_BUTTON">
     <tiles:putAttribute name="form">
                 <form class="busi_form" id="prjOrder_form">
-                    <input type="hidden" name="prjOrder.custId" value="${cust.uid}"/>
+                    <input type="hidden" name="prjOrder.custId" value="${cust.id}"/>
                     <table>
                         <colgroup>
                             <col width="20%"/>
@@ -41,8 +41,8 @@
                             <td class="title">投资项目:</td>
                             <td>
                                 <x:combobox name="prjOrder.prjId" class="easyui-validatebox" required="true"
-                                            list="prjList" textField="prjName" valueField="prjId"
-                                            cssStyle="width:30px;" pleaseSelect="false"/>
+                                            list="prjList" textField="prjName" valueField="id"
+                                            pleaseSelect="false"/>
                             </td>
                             <td class="title">合同编号:</td>
                             <td><input name="prjOrder.contractNo" class="easyui-validatebox" required="true" />
@@ -50,7 +50,7 @@
                         </tr>
                         <tr>
                             <td class="title">投资金额:</td>
-                            <td><input name="prjOrder.money" class="easyui-validatebox" required="true" />万
+                            <td><input name="prjOrder.money" class="easyui-validatebox" required="true" />
                             </td>
                             <td class="title">投资时间:</td>
                             <td>
@@ -65,7 +65,7 @@
                             <td>
                                 <x:combobox name="prjOrder.payBank" class="easyui-validatebox" required="true"
                                             list="bankList" textField="codeName" valueField="codeNo"
-                                            cssStyle="width:30px;" pleaseSelect="false"/>
+                                             pleaseSelect="false"/>
                             </td>
                             <td class="title">付款卡号:</td>
                             <td>
@@ -75,8 +75,9 @@
                         </tr>
                         <tr>
                             <td class="title">打印凭证: </td>
-                            <div id="payNotesDiv"></div>
+                            <td><div id="payNotesDiv"></div>
                             <input type="hidden" id="payNotesAttid" name="prjOrder.payNotesAttid"  required="true" />
+                            </td>
                             <td colspan="3">
                                 <s:include value="/platform/common/uploadFile.jsp">
                                     <s:param name="refresh">y</s:param>
@@ -138,8 +139,8 @@
                 });
             }
 
-            function doReturn() {
-                window.history.go(-1);
+            function doAddCancel() {
+                closeWindow("project_add_win");
             }
 
             function AddRunningDiv(str) {
@@ -162,7 +163,9 @@
                     AddRunningDiv("提交处理中，请稍候...");
                     doPost(url, param, function (result) {
                         if (!printError(result)) {
-                            setTimeout("history.back()", 3000);
+                            $(".datagrid-mask").remove();
+                            $(".datagrid-mask-msg").remove();
+                            closeWindow("project_add_win");
                             info("提交成功!");
                         } else {
                             $(".datagrid-mask").remove();

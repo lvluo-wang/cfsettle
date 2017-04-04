@@ -50,4 +50,6 @@ public interface IPrjService extends IBaseService {
 	 */
 	void updateCfsPrj(CfsPrj prj);
 
+    void updatePrj(CfsPrj prj);
+
 }
