@@ -1,4 +1,6 @@
 <%@page import="com.upg.cfsettle.util.CfsConstant"%>
+<%@ page import="com.upg.cfsettle.util.UtilConstant" %>
+<%@ page import="javax.rmi.CORBA.Util" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
@@ -23,6 +25,8 @@
 					<td>
 						<x:combobox name="searchBean.status" list="" textField="codeName" valueField="codeNo"/>
 					</td>
+				</tr>
+				<tr>
 					<td class="title">投资日期:</td>
 					<td>
 						<input id="beginTime" name="searchBean.startDate" class="Wdate" value="<s:date format="yyyy-MM-dd" name=""/>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'endTime\',{d:-31})}',maxDate:'#F{$dp.$D(\'endTime\')}',onpicked:function(){endTime.focus();}})" />
@@ -43,12 +47,12 @@
 				<x:column title="客户姓名" field="REAL_NAME" align="center" width="140"/>
 				<x:column title="客户手机" field="MOBILE" align="left" width="90"/>
 				<x:column title="购买项目" field="PRJ_NAME" align="center" width="150" />
-				<x:column title="购买金额" field="MONEY" align="center" width="150"/>
-				<x:column title="付款银行" field="PAY_BANK" align="center" width="80" formatter=""/>
+				<x:column title="购买金额" field="MONEY" align="center" width="150" formatter="formateMoney"/>
+				<x:column title="付款银行" field="PAY_BANK" align="center" width="80" formatter="formateBank"/>
 				<x:column title="付款卡号" field="PAY_ACCOUNT_NO" align="center" width="140"/>
-				<x:column title="预计还款时间" field="CURRENT_REPAY_DATE" align="center" width="40" formatter="formatTime"/>
-				<x:column title="还款期数" field="CURRENT_PREIOD" align="left" width="90" formatter="formatPeriod"/>
-				<x:column title="状态" field="STATUS" align="center" width="150" />
+				<x:column title="预计还款时间" field="CURRENT_REPAY_DATE" align="center" width="140" formatter="formatTime"/>
+				<x:column title="还款期数" field="CURRENT_PREIOD" align="center" width="90" formatter="formatPeriod"/>
+				<x:column title="状态" field="STATUS" align="center" width="150" formatter="formateStatus" />
 			</x:columns>
 		</x:datagrid>
 	</tiles:putAttribute>
@@ -61,7 +65,7 @@
 	
 	<tiles:putAttribute name="end">
 	<script type="text/javascript">
-	var keys=["<%=CfsConstant.CFS_COMM_YSE_NO%>","<%=CfsConstant.CFS_COMM_SEX%>"];
+	var keys=["<%=UtilConstant.CFS_BANK_TYPE%>","<%=UtilConstant.CFS_PRJ_ORDER_STATUS%>"];
 	var code=new XhhCodeUtil(keys);
 	code.loadData();
 
@@ -72,8 +76,18 @@
         return DateFormat.format(new Date(value*1000),"yyyy-MM-dd hh:mm:ss");
     }
 
+    function formateMoney(value) {
+		return value/100;
+    }
+
+    function formateStatus(value) {
+		return code.getValue("<%=UtilConstant.CFS_PRJ_ORDER_STATUS%>",value);
+    }
+    function formateBank(value) {
+		return code.getValue("<%=UtilConstant.CFS_BANK_TYPE%>",value);
+    }
     function formatPeriod(value,field,row) {
-		if(value == null){
+		if(value == ''){
 		    return '-';
 		}
 		return value+"/"+row.TOTAL_PERIOD;
@@ -87,7 +101,7 @@
 	function doView(){
 		if(isSingleSelected(dataTable)){
 			var selectedId=dataTable.getSelectedField("ID");
-			var url="<s:url value='/cust/custOrder_toView.jhtml'/>?id="+selectedId;
+			var url="<s:url value='/custOrder/custOrder_toView.jhtml'/>?id="+selectedId;
 			redirectUrl(url);
 		}
 	}

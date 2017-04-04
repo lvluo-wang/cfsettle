@@ -20,12 +20,8 @@
                 <comment>购买项目</comment>
             </column>
         </property>
-        <property name="prjName" type="java.lang.String">
-            <column name="prj_name" length="200">
-                <comment>项目名称</comment>
-            </column>
-        </property>
-        <property name="money" type="java.math.BigDecimal">
+
+        <property name="money" type="cent">
             <column name="money" precision="20" scale="0">
                 <comment>投资金额</comment>
             </column>

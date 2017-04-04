@@ -55,7 +55,7 @@
                         </tr>
                         <tr>
                             <td class="title">募集金额:</td>
-                            <td>${prj.demandAmount}万
+                            <td>${prj.demandAmount}
                             </td>
                             <td class="title">项目期限:</td>
                             <td>
@@ -79,7 +79,7 @@
                             <td class="title">还款方式:</td>
                             <td><x:codeItem codeKey="<%=UtilConstant.CFS_REPAYMENT_TYPE%>" codeNo="prj.repayWay" /></td>
                             <td class="title">项目成立金额:</td>
-                            <td>${prj.minLoanAmount}万
+                            <td>${prj.minLoanAmount}
                             </td>
                         </tr>
                         <tr>

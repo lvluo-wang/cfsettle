@@ -17,4 +17,6 @@ public interface ICfsPrjOrderService extends IBaseService {
 
     void addPrjOrder(CfsPrjOrder prjOrder);
 
+    CfsPrjOrder getPrjOrderById(Long id);
+
 }

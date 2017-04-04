@@ -34,4 +34,6 @@ public interface IPrjService extends IBaseService {
      */
     List<CfsPrj> findPrjByStatus(Byte status);
 
+    void updatePrj(CfsPrj prj);
+
 }

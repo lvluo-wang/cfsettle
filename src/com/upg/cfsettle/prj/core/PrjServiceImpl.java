@@ -101,12 +101,16 @@ public class PrjServiceImpl implements IPrjService {
 
     @Override
     public void updatePrjAndPrjExt(CfsPrj prj, CfsPrjExt prjExt) {
-        prj.setMtime(DateTimeUtil.getNowDateTime());
-        prj.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
-        prjDao.update(prj);
-        prjExt.setCtime(DateTimeUtil.getNowDateTime());
-        prjExt.setCsysid(SessionTool.getUserLogonInfo().getSysUserId());
-        prjExtDao.update(prjExt);
+        if(prj != null){
+            prj.setMtime(DateTimeUtil.getNowDateTime());
+            prj.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
+            prjDao.update(prj);
+        }
+        if(prjExt != null){
+            prjExt.setCtime(DateTimeUtil.getNowDateTime());
+            prjExt.setCsysid(SessionTool.getUserLogonInfo().getSysUserId());
+            prjExtDao.update(prjExt);
+        }
     }
 
     @Override
@@ -149,5 +153,11 @@ public class PrjServiceImpl implements IPrjService {
     @Override
     public List<CfsPrj> findPrjByStatus(Byte status) {
         return prjDao.findPrjByStatus(status);
+    }
+
+    @Override
+    public void updatePrj(CfsPrj prj) {
+        prj.setMtime(DateTimeUtil.getNowDateTime());
+        prjDao.update(prj);
     }
 }
