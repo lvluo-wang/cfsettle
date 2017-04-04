@@ -18,6 +18,7 @@ import com.upg.ucars.framework.base.SessionTool;
 import com.upg.ucars.mapping.basesystem.security.Buser;
 import com.upg.ucars.model.security.UserLogonInfo;
 import com.upg.ucars.util.DateTimeUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
@@ -117,4 +118,16 @@ public class CfsPrOrderServiceImpl implements ICfsPrjOrderService {
     public CfsPrjOrder getPrjOrderById(Long id) {
         return prjOrderDao.get(id);
     }
+
+	@Override
+	public void batchDelete(List<Long> ids) {
+		for(Long id:ids){
+			prjOrderDao.delete(id);
+		}
+	}
+
+	@Override
+	public void updatePrjOrder(CfsPrjOrder cfsPrjOrder) {
+		prjOrderDao.update(cfsPrjOrder);
+	}
 }

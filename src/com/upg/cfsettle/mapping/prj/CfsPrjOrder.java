@@ -19,7 +19,6 @@ public class CfsPrjOrder implements Serializable {
 	private Long id;
 	private Long custId;
 	private Long prjId;
-	private String prjName;
 	private BigDecimal money;
 	private Byte status;
 	private String contractNo;
@@ -56,7 +55,7 @@ public class CfsPrjOrder implements Serializable {
 	}
 
 	/** full constructor */
-	public CfsPrjOrder(Long custId, Long prjId, String prjName,
+	public CfsPrjOrder(Long custId, Long prjId,
 			BigDecimal money, Byte status, String contractNo,
 			Date investTime, String payBank, String payAccountNo,
 			Long payNotesAttid, String paySerialNum, String remark,
@@ -70,7 +69,6 @@ public class CfsPrjOrder implements Serializable {
 			Long msysid, Date mtime) {
 		this.custId = custId;
 		this.prjId = prjId;
-		this.prjName = prjName;
 		this.money = money;
 		this.status = status;
 		this.contractNo = contractNo;
@@ -125,14 +123,6 @@ public class CfsPrjOrder implements Serializable {
 
 	public void setPrjId(Long prjId) {
 		this.prjId = prjId;
-	}
-
-	public String getPrjName() {
-		return this.prjName;
-	}
-
-	public void setPrjName(String prjName) {
-		this.prjName = prjName;
 	}
 
 	public BigDecimal getMoney() {

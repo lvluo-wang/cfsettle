@@ -77,6 +77,11 @@
             <column name="min_loan_amount" precision="20" scale="0">
             </column>
         </property>
+        <property name="loanedAmount" type="wanCent">
+            <column name="loaned_amount" precision="20" scale="0">
+            </column>
+        </property>
+        
         <property name="loanTime" type="int">
             <column name="loan_time">
             </column>

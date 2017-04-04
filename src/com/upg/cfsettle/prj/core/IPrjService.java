@@ -33,6 +33,14 @@ public interface IPrjService extends IBaseService {
      * @return
      */
     List<CfsPrj> findPrjByStatus(Byte status);
+    
+    /**
+     * 查询待放款项目
+     * @param searchBean
+     * @param pg
+     * @return
+     */
+	List<Map<String, Object>> findLoanPrjByCondition(CfsPrj searchBean, Page pg);
 
     void updatePrj(CfsPrj prj);
 

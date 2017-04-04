@@ -160,4 +160,9 @@ public class PrjServiceImpl implements IPrjService {
         prj.setMtime(DateTimeUtil.getNowDateTime());
         prjDao.update(prj);
     }
+	@Override
+	public List<Map<String, Object>> findLoanPrjByCondition(CfsPrj searchBean,
+			Page pg) {
+		return prjDao.findLoanPrjByCondition(searchBean,pg);
+	}
 }
