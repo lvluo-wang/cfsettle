@@ -14,21 +14,21 @@
 			<table>
 				<tr>
 					<td class="title">客户姓名: </td>
-					<td><input name="searchBean.realName" /></td>
+					<td style="width: 20px;"><input name="searchBean.realName" /></td>
 					<td class="title">手机号: </td>
-					<td><input name="searchBean.mobile" /></td>
+					<td style="width: 20px;"><input name="searchBean.mobile" /></td>
 					<td class="title">项目名: </td>
-					<td><input name="searchBean.prjName" /></td>
+					<td style="width: 20px;"><input name="searchBean.prjName" /></td>
 					<td class="title">合同编号: </td>
-					<td><input name="searchBean.contractNo" /></td>
+					<td style="width: 20px;"><input name="searchBean.contractNo" /></td>
 					<td class="title">状态:</td>
-					<td>
-						<x:combobox name="searchBean.status" list="" textField="codeName" valueField="codeNo"/>
+					<td style="width: 20px;" >
+						<x:combobox name="searchBean.status" list="orderStatusList" textField="codeName" valueField="codeNo"/>
 					</td>
-				</tr>
+					</tr>
 				<tr>
 					<td class="title">投资日期:</td>
-					<td>
+					<td colspan="3">
 						<input id="beginTime" name="searchBean.startDate" class="Wdate" value="<s:date format="yyyy-MM-dd" name=""/>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'endTime\',{d:-31})}',maxDate:'#F{$dp.$D(\'endTime\')}',onpicked:function(){endTime.focus();}})" />
 						-
 						<input id="endTime" name="searchBean.endDate" class="Wdate" value="<s:date format="yyyy-MM-dd" name=""/>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'beginTime\',{d:31})}',minDate:'#F{$dp.$D(\'beginTime\')}'})" />
