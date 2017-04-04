@@ -4,7 +4,11 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="x" uri="/xcars-tags"%>
-<tiles:insertDefinition name="FUNC_QUERY_DATA">
+<tiles:insertDefinition name="FUNC_TOOL_QUERY_DATA">
+	<tiles:putAttribute name="tool">
+		<x:button iconCls="icon-audit" text="合同审核" click="doAudit" />
+		<x:button iconCls="icon-view" text="合同详情" click="contractView" />
+	</tiles:putAttribute>
 	<tiles:putAttribute name="query">
 		<form id="mainQueryForm" class="query_form">
 			<table>
