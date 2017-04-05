@@ -15,6 +15,25 @@ public class CustOrderBean {
     private Date startDate;
     private Date endDate;
 
+    //待审核合同信息
+    private boolean isFromNeedAudit;
+    private String serviceSysName;
+
+    public boolean isFromNeedAudit() {
+        return isFromNeedAudit;
+    }
+
+    public void setFromNeedAudit(boolean fromNeedAudit) {
+        isFromNeedAudit = fromNeedAudit;
+    }
+
+    public String getServiceSysName() {
+        return serviceSysName;
+    }
+
+    public void setServiceSysName(String serviceSysName) {
+        this.serviceSysName = serviceSysName;
+    }
 
     public String getPrjName() {
         return prjName;

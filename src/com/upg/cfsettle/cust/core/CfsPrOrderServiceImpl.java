@@ -10,6 +10,7 @@ import com.upg.cfsettle.organization.core.IOrgAreaDao;
 import com.upg.cfsettle.organization.core.IOrgDeptDao;
 import com.upg.cfsettle.organization.core.IOrgTeamDao;
 import com.upg.cfsettle.prj.core.IPrjService;
+import com.upg.cfsettle.util.CfsConstant;
 import com.upg.ucars.basesystem.UcarsHelper;
 import com.upg.ucars.basesystem.security.core.user.IUserService;
 import com.upg.ucars.framework.annotation.Service;
@@ -19,6 +20,7 @@ import com.upg.ucars.mapping.basesystem.security.Buser;
 import com.upg.ucars.model.security.UserLogonInfo;
 import com.upg.ucars.util.DateTimeUtil;
 
+import com.upg.ucars.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
@@ -55,6 +57,12 @@ public class CfsPrOrderServiceImpl implements ICfsPrjOrderService {
 
     @Override
     public void addPrjOrder(CfsPrjOrder prjOrder) {
+        if(!StringUtil.isEmpty(prjOrder.getContractNo())){
+            CfsPrjOrder cfsPrjOrder = getPrjOrderByContractNo(prjOrder.getContractNo());
+            if(cfsPrjOrder != null){
+                UcarsHelper.throwServiceException("该合同编号已作废");
+            }
+        }
         Long prjId = prjOrder.getPrjId();
         if(prjId == null) {
             UcarsHelper.throwServiceException("项目ID为空");
@@ -72,7 +80,7 @@ public class CfsPrOrderServiceImpl implements ICfsPrjOrderService {
                     if(prjOrder.getInvestTime().before(prj.getStartBidTime())){
                         UcarsHelper.throwServiceException("投资时间小于项目募集开始时间");
                     }
-                    prjOrder.setStatus(Byte.valueOf("1"));//待合同审核
+                    prjOrder.setStatus(CfsConstant.PRJ_ORDER_STATUS_AUDIT);//待合同审核
                     prjOrder.setCtime(DateTimeUtil.getNowDateTime());
                     UserLogonInfo logonInfo = SessionTool.getUserLogonInfo();
                     prjOrder.setCsysid(logonInfo.getSysUserId());
@@ -129,4 +137,9 @@ public class CfsPrOrderServiceImpl implements ICfsPrjOrderService {
 	public void updatePrjOrder(CfsPrjOrder cfsPrjOrder) {
 		prjOrderDao.update(cfsPrjOrder);
 	}
+
+    @Override
+    public CfsPrjOrder getPrjOrderByContractNo(String contractNo) {
+        return prjOrderDao.getPrjOrderByContractNo(contractNo);
+    }
 }

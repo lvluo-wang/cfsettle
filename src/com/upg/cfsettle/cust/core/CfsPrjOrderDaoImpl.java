@@ -64,6 +64,15 @@ public class CfsPrjOrderDaoImpl extends SysBaseDao<CfsPrjOrder,Long> implements 
                 long ctimeEndLong = DateUtils.addDays(endTime, 1).getTime()/1000;
                 sqlCreater.and(" prj_order.invest_time < :ctimeEndLong", "ctimeEndLong", ctimeEndLong , true);
             }
+            String serviceSysName = searchBean.getServiceSysName();
+            if(!StringUtil.isEmpty(serviceSysName)){
+                sqlCreater.and("prjOrder.service_sys_name  =:serviceSysName","serviceSysName",realName,true);
+            }
+            //´ýÉóºËºÏÍ¬,´ýÉóºË,´ý´ò¿î,ÉóºË²µ»Ø
+            boolean isFromNeedAudit = searchBean.isFromNeedAudit();
+            if(isFromNeedAudit){
+                sqlCreater.and("prj_order.status in (1,2,3)",true);
+            }
         }
         sqlCreater.orderBy("prj_order.invest_time",true);
         List<Map<String, Object>> result = getMapListByStanderdSQL(sqlCreater.getSql(),sqlCreater.getParameterMap(),page);
@@ -87,5 +96,15 @@ public class CfsPrjOrderDaoImpl extends SysBaseDao<CfsPrjOrder,Long> implements 
                 }
             }
         }
+    }
+
+    @Override
+    public CfsPrjOrder getPrjOrderByContractNo(String contractNo) {
+        String hql = "from CfsPrjOrder where contractNo =? and status=3";
+        List<CfsPrjOrder> list  = this.find(hql,contractNo);
+        if(list != null && list.size() >0){
+            return list.get(0);
+        }
+        return null;
     }
 }
