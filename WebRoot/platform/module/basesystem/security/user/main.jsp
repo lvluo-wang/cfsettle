@@ -17,7 +17,7 @@
 			<x:button icon="icon-search" click="doUserFunc" text="view,sysfunc"/>
 			<x:button icon="icon-reload" click="doResetPassword" text="resetPassword"/>
 			<x:button icon="icon-ok" click="changeStatus(2)" text="user.status.outLine"/>
-			<x:button icon="icon-no" click="changeStatus(4)" text="user.status.close"/>
+			<x:button icon="icon-no" click="changeStatus(4)" text="离职"/>
 			</s:if>
 		<s:else>
 			<x:button id="main_setOffline" icon="icon-set" click="setOffline" text="user.setOfflineStatus"/>
