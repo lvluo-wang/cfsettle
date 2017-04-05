@@ -17,9 +17,9 @@ public class CfsPrjOrderRepayPlanDaoImpl extends SysBaseDao<CfsPrjOrderRepayPlan
 
     @Override
     public List<CfsPrjOrderRepayPlan> findByOrderIdAndType(Long prjOrderId,Byte ptype) {
-        String sql = "select orderPlan.*,log.payback_audit_sysid,log.pay_back_time" +
+        String sql = "select orderPlan.*,log.payback_audit_sysid,log.payback_time" +
                 " from cfs_prj_order_repay_plan orderPlan left join cfs_prj_order_payback_log log" +
-                " on orderPlan.id=log.prjOrderRepayPlanId where orderPlan.prjOrderId=:prjOrderId and orderPlan.ptype=:ptype " +
+                " on orderPlan.id=log.prj_order_repay_plan_id where orderPlan.prj_order_id=:prjOrderId and orderPlan.ptype=:ptype " +
                 " order by orderPlan.repayPeriods asc";
         Map<String,Object> param = new HashedMap();
         param.put("prjOrderId",prjOrderId);

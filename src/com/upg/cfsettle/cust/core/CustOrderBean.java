@@ -15,7 +15,7 @@ public class CustOrderBean {
     private Date startDate;
     private Date endDate;
 
-    //´ıÉóºËºÏÍ¬ĞÅÏ¢
+    //å¾…å®¡æ ¸åˆåŒä¿¡æ¯
     private boolean isFromNeedAudit;
     private String serviceSysName;
 

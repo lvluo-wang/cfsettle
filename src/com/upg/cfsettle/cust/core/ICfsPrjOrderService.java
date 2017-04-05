@@ -25,7 +25,7 @@ public interface ICfsPrjOrderService extends IBaseService {
 
 
     /**
-     * 根据合同编号查询状态为退回重签的prjOrder
+     * 鏍规嵁鍚堝悓缂栧彿鏌ヨ閫�鍥為噸绛剧殑璁㈠崟
      * @param contractNo
      * @return
      */

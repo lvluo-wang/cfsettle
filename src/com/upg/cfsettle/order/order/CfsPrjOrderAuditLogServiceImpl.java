@@ -70,6 +70,6 @@ public class CfsPrjOrderAuditLogServiceImpl implements ICfsPrjOrderAuditLogServi
 
     @Override
     public List<Map<String, Object>> findOrderLog(OrderAuditLogBean searchBean,Page page) {
-        return null;
+        return prjOrderAuditLogDao.findOrderLog(searchBean,page);
     }
 }

@@ -68,7 +68,7 @@ public class CfsPrjOrderDaoImpl extends SysBaseDao<CfsPrjOrder,Long> implements 
             if(!StringUtil.isEmpty(serviceSysName)){
                 sqlCreater.and("prjOrder.service_sys_name  =:serviceSysName","serviceSysName",realName,true);
             }
-            //´ıÉóºËºÏÍ¬,´ıÉóºË,´ı´ò¿î,ÉóºË²µ»Ø
+            //å¾…å®¡æ ¸åˆåŒ,å¾…å®¡æ ¸,å¾…æ‰“æ¬¾,å®¡æ ¸é©³å›
             boolean isFromNeedAudit = searchBean.isFromNeedAudit();
             if(isFromNeedAudit){
                 sqlCreater.and("prj_order.status in (1,2,3)",true);

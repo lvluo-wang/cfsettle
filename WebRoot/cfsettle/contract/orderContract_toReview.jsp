@@ -70,6 +70,7 @@
                         if (!printError(result)) {
                             closeWindow("project_add_win");
                             info("提交成功");
+                            dataTable.load();
                         }
                     });
                 }
@@ -85,6 +86,7 @@
                         if (!printError(result)) {
                             closeWindow("project_add_win");
                             info("提交成功");
+                            dataTable.load();
                         }
                     });
                 }
