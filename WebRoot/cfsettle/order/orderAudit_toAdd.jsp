@@ -1,28 +1,51 @@
+<%@page import="com.upg.cfsettle.util.UtilConstant"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="x" uri="/xcars-tags"%>
 <tiles:insertDefinition name="WIN_FORM_BUTTON">
 	<tiles:putAttribute name="form">
-		<form class="busi_form" id="cfscustAddForm">
+		<form class="busi_form" id="cfsOrderAuditForm">
 			<table>
-				<tr>	
-					<td class="title">客户姓名<font color="red">*</font>:</td>
-					<td ><input name="cfsCust.realName" class="easyui-validatebox" maxLength="50" required="true"></td>
-					<td class="title">客户手机<font color="red">*</font>:</td>
-					<td ><input name="cfsCust.mobile" class="easyui-validatebox" maxLength="11" required="true" validType="mobile"></td>
-				</tr>
 				<tr>
-					<td class="title">身份证号<font color="red">*</font>:</td>
-					<td ><input name="cfsCust.idCard" class="easyui-validatebox" maxLength="21" required="true" validType="idCard"></td>
-					<td class="title">性别<font color="red">*</font>:</td>
-					<td ><x:combobox name="cfsCust.sex" list="sexList" required="true" textField="codeName" valueField="codeNo" cssStyle="width:142px;" pleaseSelect="false"/></td>
-				</tr>
+                    <td class="title">合同编号:</td>
+                    <td>${cfsPrjOrder.contractNo}</td>
+                    <td class="title">客户姓名:</td>
+                    <td>${cfsCust.realName}</td>
+                </tr>
+                <tr>
+                    <td class="title">所属客户经理:</td>
+                    <td>${cfsPrjOrder.serviceSysName}</td>
+                    <td class="title">客户经理电话:</td>
+                    <td>${cfsPrjOrder.mobile}</td>
+                </tr>
+                <tr>
+                    <td class="title">所属营业部:</td>
+                    <td>${cfsPrjOrder.ownedDeptName}</td>
+                    <td class="title">投资项目:</td>
+                    <td>${prj.prjName}</td>
+                </tr>
+                <tr>
+                    <td class="title">投资金额(元):</td>
+                    <td>${cfsPrjOrder.money}</td>
+                    <td class="title">投资时间:</td>
+                    <td><s:date format="yyyy-MM-dd HH:mm:ss" name="cfsPrjOrder.investTime"/></td>
+                </tr>
 				<tr>
-					<td class="title">身份证正面: </td>
-					<td>
-						<input name="cfsCust.cardFace" type="hidden" id="cfscust_face_card_id"/>
-						<img id="id_card_face_pic" alt="身份证正面" src="http://" height="100px" width="200px"/>
+                    <td class="title">付款银行:</td>
+                    <td>
+                        <x:codeItem codeNo="cfsPrjOrder.payBank" codeKey="<%=UtilConstant.CFS_BANK_TYPE%>"/>
+                    </td>
+                    <td class="title">资金流水编号:</td>
+                    <td>
+                    	<input name="cfsPrjOrder.paySerialNum" type="text" class="easyui-validatebox" maxLength="50" required="true"/>
+                    	<input name="cfsPrjOrder.id" type="hidden" value="${cfsPrjOrder.id}"/>
+                    </td>
+                </tr>
+				<tr>
+					<td class="title">打款凭证</td>
+                    <td><input name="cfsPrjOrder.payNotesAttid" type="hidden" id="order_pay_notes_id"/>
+						<img id="order_pay_notes_pic" alt="身份证正面" src="http://" height="100px" width="200px"/>
 					</td>
 					<td colspan="2">
 						<s:include value="/platform/common/uploadFile.jsp">
@@ -30,39 +53,28 @@
 							<s:param name="suffix">1</s:param>
 							<s:param name="imgServer">true</s:param>
 							<s:param name="nowater">1</s:param>
-							<s:param name="callback">idCardFaceCallBack</s:param>
+							<s:param name="callback">idCardPayNotesCallBack</s:param>
 							<s:param name="opt">{'fileExt':'*.gif;*.jpg;*.png;*.jpeg','fileDesc':'图片文件'}</s:param>
-						</s:include></td>
-				</tr>
-				<tr>
-					<td class="title">身份证反面: </td>
-					<td>
-						<input name="cfsCust.cardBack" type="hidden" id="cfscust_back_card_id"/>
-						<img id="id_card_back_pic" alt="身份证正面" src="http://" height="100px" width="200px"/>
+						</s:include>
 					</td>
-					<td colspan="2">
-						<s:include value="/platform/common/uploadFile.jsp">
-							<s:param name="refresh">y</s:param>
-							<s:param name="suffix">2</s:param>
-							<s:param name="imgServer">true</s:param>
-							<s:param name="nowater">1</s:param>
-							<s:param name="callback">idCardBackCallBack</s:param>
-							<s:param name="opt">{'fileExt':'*.gif;*.jpg;*.png;*.jpeg','fileDesc':'图片文件'}</s:param>
-						</s:include></td>
-				</tr>
+                </tr>
+                <tr>
+                    <td class="title">审核备注：</td>
+                    <td colspan="3"><textarea cols="65" class="easyui-validatebox" required="true" name="cfsPrjOrder.remark"></textarea></td>
+                </tr>
 			</table>
 		</form>
 	</tiles:putAttribute>
 	<tiles:putAttribute name="button">
-		<x:button id="save" iconCls="icon-save" text="save" click="doAddSave" effect="round" />
+		<x:button id="save" iconCls="icon-save" text="审核" click="doAddSave" effect="round" />
 		<x:button iconCls="icon-cancel" text="cancel" click="doAddCancel" effect="round" />
 	</tiles:putAttribute>
 	<tiles:putAttribute name="end">
 	<script type="text/javascript">
 	function doAddSave() {
-		var url="<s:url value='/cust/cfscust_doAdd.jhtml'/>";
-		if ($("#cfscustAddForm").form("validate")) {
-			doPost(url, formToObject("cfscustAddForm"),
+		var url="<s:url value='/order/orderAudit_doAudit.jhtml'/>";
+		if ($("#cfsOrderAuditForm").form("validate")) {
+			doPost(url, formToObject("cfsOrderAuditForm"),
 				function(result) {
 					if (!printError(result)) {
 						closeWindow("project_add_win");
@@ -75,14 +87,9 @@
 		closeWindow("project_add_win");
 	}
 
-	function idCardFaceCallBack(value) { 
-		$('#id_card_face_pic').attr('src',fileDownLoadUrl+"?id="+value.id);
-		$('#cfscust_face_card_id').val(value.id);
-	}
-	
-	function idCardBackCallBack(value) { 
-		$('#id_card_back_pic').attr('src',fileDownLoadUrl+"?id="+value.id);
-		$('#cfscust_back_card_id').val(value.id);
+	function idCardPayNotesCallBack(value) { 
+		$('#order_pay_notes_pic').attr('src',fileDownLoadUrl+"?id="+value.id);
+		$('#order_pay_notes_id').val(value.id);
 	}
 	</script>
 	</tiles:putAttribute>

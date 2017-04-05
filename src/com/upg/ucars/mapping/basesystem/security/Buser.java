@@ -80,6 +80,8 @@ public class Buser implements java.io.Serializable {
 	 * 用户编号
 	 */
 	private String userNo;
+	
+	private String posCode;
 	public String getEmail() {
 		return email;
 	}
@@ -326,5 +328,15 @@ public class Buser implements java.io.Serializable {
 
 	public void setIsChangePwd(Byte isChangePwd) {
 		this.isChangePwd = isChangePwd;
+	}
+
+
+	public String getPosCode() {
+		return posCode;
+	}
+
+
+	public void setPosCode(String posCode) {
+		this.posCode = posCode;
 	}
 }

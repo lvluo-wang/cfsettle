@@ -31,4 +31,6 @@ public interface ICfsPrjOrderService extends IBaseService {
      */
     CfsPrjOrder getPrjOrderByContractNo(String contractNo);
 
+	void doAuditPrjOrder(CfsPrjOrder cfsPrjOrder);
+
 }

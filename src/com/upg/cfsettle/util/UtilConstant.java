@@ -32,6 +32,13 @@ public final class UtilConstant {
 	public static final String CFS_PRJ_STATUS = "E011";//项目状态
 	public static final String CFS_COMM_PAY_STATUS = "E013";//佣金支付状态
 	public static final String CFS_PRJ_ORDER_STATUS = "E014";//订单状态
+	public static final String CFS_BUSER_POS_CODE = "COM003";//岗位名称
+	
+	public static final String CFS_CUST_MANAGER = "01";//客户经理
+	public static final String CFS_TEAM_MANAGER = "02";//团队长
+	public static final String CFS_DEPT_MANAGER = "03";//营业部负责人
+	public static final String CFS_AREA_MANAGER = "04";//区域经理
+
 
 
 

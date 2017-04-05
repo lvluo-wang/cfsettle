@@ -50,6 +50,9 @@
         <property name="roleStatus" type="java.lang.String">
         	<column name="ROLE_STATUS" length="4"/>
         </property>
+        <property name="posCode" type="java.lang.String">
+        	<column name="POS_CODE" length="4"/>
+        </property>
         <property name="areaId" type="java.lang.Long">
             <column name="AREA_ID" precision="22" scale="0" />
         </property>

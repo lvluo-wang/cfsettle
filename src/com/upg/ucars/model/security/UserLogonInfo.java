@@ -28,6 +28,7 @@ public class UserLogonInfo implements java.io.Serializable{
 	private Long areaId;
 	private Long deptId;
 	private Long teamId;
+	private String posCode;
 	public UserLogonInfo() {}
 	
 	public UserLogonInfo(Long sysUserId, String userNo, String userName,
@@ -168,5 +169,13 @@ public class UserLogonInfo implements java.io.Serializable{
 
 	public void setTeamId(Long teamId) {
 		this.teamId = teamId;
+	}
+
+	public String getPosCode() {
+		return posCode;
+	}
+
+	public void setPosCode(String posCode) {
+		this.posCode = posCode;
 	}
 }
