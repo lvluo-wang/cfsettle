@@ -41,8 +41,8 @@
 				<x:column title="项目收款银行" field="TENANT_BANK" align="left" width="140" formatter="formateBank"/>
 				<x:column title="项目收款支行" field="SUB_BANK" align="left" width="140" />
 				<x:column title="项目收款账号" field="ACCOUNT_NO" align="left" width="140" />
-				<x:column title="已放款金额(元)" field="LOANED_AMOUNT" align="center" width="140" formatter="formateRaiseAmount"/>
-				<x:column title="待放款金额(元)" field="LOANING_AMOUNT" align="left" width="140" formatter="formateRaiseAmount"/>
+				<x:column title="已放款金额(元)" field="LOANED_AMOUNT" align="center" width="140"/>
+				<x:column title="待放款金额(元)" field="LOANING_AMOUNT" align="left" width="140"/>
 				<x:column title="状态" field="STATUS" align="left" width="80" formatter="forPrjStatus"/>
 			</x:columns>
 		</x:datagrid>
@@ -77,7 +77,7 @@
     }
 
     function formateTimelimit(value,field,row) {
-	    var timeLimitUnit = code.getValue("<%=UtilConstant.CFS_TIMELIMIT_UNIT%>>",row.TIME_LIMIT_UNIT);
+	    var timeLimitUnit = code.getValue("<%=UtilConstant.CFS_TIMELIMIT_UNIT%>",row.TIME_LIMIT_UNIT);
 	    return value+timeLimitUnit;
 
     }

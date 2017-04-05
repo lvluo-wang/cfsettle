@@ -1,3 +1,4 @@
+<%@page import="com.upg.cfsettle.util.UtilConstant"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
@@ -76,6 +77,7 @@
 				<x:column title="name" field="userName" width="100" align="left" />
 				<x:column title="type" field="userType" width="100" align="left" formatter="userFormatter" />
 				<x:column title="email" field="email" width="200" align="left"/>
+				<x:column title="岗位" field="posCode" width="90" align="center" formatter="formatPosCode"/>
 				<x:column title="status" field="status" width="50" align="left" formatter="userFormatter"/>
 				<x:column title="roleStatus" field="roleStatus" width="100" align="left" formatter="userFormatter"/>
 			</x:columns>
@@ -92,6 +94,8 @@
 var keys=['B016','B002','B003'];
 var code=new CodeUtil(keys);
 code.loadData();
+var xhhCode = new XhhCodeUtil(["<%=UtilConstant.CFS_BUSER_POS_CODE%>"]);
+xhhCode.loadData();
 function userFormatter(value,field,row,rowIndex){
 	if(field == "userType"){
 		return code.getValue("B002",value);
@@ -110,6 +114,9 @@ function initPage(){
 
 }
 
+function formatPosCode(val){
+	return xhhCode.getValue("<%=UtilConstant.CFS_BUSER_POS_CODE%>",val);
+}
 	
 	function mainDoSearch(){
 		userMainDG.load();	

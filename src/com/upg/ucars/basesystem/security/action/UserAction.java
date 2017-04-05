@@ -2,20 +2,21 @@ package com.upg.ucars.basesystem.security.action;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.upg.cfsettle.common.CodeItemUtil;
+import com.upg.cfsettle.mapping.ficode.FiCodeItem;
 import com.upg.cfsettle.mapping.organization.CfsOrgArea;
 import com.upg.cfsettle.mapping.organization.CfsOrgDept;
 import com.upg.cfsettle.mapping.organization.CfsOrgTeam;
 import com.upg.cfsettle.organization.core.IOrgAreaService;
 import com.upg.cfsettle.organization.core.IOrgDeptService;
 import com.upg.cfsettle.organization.core.IOrgTeamService;
+import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.basesystem.dictionary.util.DictionaryUtil;
 import com.upg.ucars.basesystem.security.core.branch.IBranchService;
 import com.upg.ucars.basesystem.security.core.sysConfig.ISysConfigService;
@@ -106,6 +107,8 @@ public class UserAction extends BaseAction  {
 	private IOrgTeamService orgTeamService;
 	
 	private String isChangePwd;
+	
+	private List<FiCodeItem> posCodeList;
 	
 	/**
 	 * 
@@ -314,6 +317,7 @@ public class UserAction extends BaseAction  {
 	 */
 	private void prepare(){
 		userAreaList = orgAreaService.findByCondition(new CfsOrgArea(Byte.valueOf("1")), null);
+		posCodeList = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_BUSER_POS_CODE);
 		String userId = getId();
 		if( StringUtils.isNotBlank(userId) ){
 			user = userService.getUserById(Long.valueOf(userId));
@@ -389,6 +393,7 @@ public class UserAction extends BaseAction  {
 		retuser.setAreaId(user.getAreaId());
 		retuser.setDeptId(user.getDeptId());
 		retuser.setTeamId(user.getTeamId());
+		retuser.setPosCode(user.getPosCode());
 		Long brchId=user.getBrchId();
 		if(brchId!=null){
 			Branch brch=branchService.getBranchByBrchId(brchId);
@@ -729,5 +734,11 @@ public class UserAction extends BaseAction  {
 	}
 	public void setIsChangePwd(String isChangePwd) {
 		this.isChangePwd = isChangePwd;
+	}
+	public List<FiCodeItem> getPosCodeList() {
+		return posCodeList;
+	}
+	public void setPosCodeList(List<FiCodeItem> posCodeList) {
+		this.posCodeList = posCodeList;
 	}
 }

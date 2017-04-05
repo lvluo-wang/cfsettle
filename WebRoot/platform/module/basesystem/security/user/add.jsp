@@ -16,6 +16,12 @@
 		                    <col width="65%"/>
 		                 </colgroup>
 						 <tbody>
+						 <tr>
+							<td class="title">岗位:</td>
+							<td>
+								<x:combobox name="user.posCode" id="pos_code_add" valueField="codeNo" textField="codeName" list="posCodeList" pleaseSelect="false" cssStyle="width:142px;" onchange="posCodeChange"/>
+							</td>
+						</tr>
 						<tr>
 							<td class="title">手机号码:</td>
 							<!-- validType="serialNumbertextLength[3,18]" invalidMessage="请输入3至18位字符" -->
@@ -71,13 +77,13 @@
 									<x:combobox id="user_area_id" name="user.areaId"  value="${user.areaId}" valueField="id" textField="areaName" list="userAreaList" pleaseSelect="false" onchange="loadDeptList" required="true" cssStyle="width:142px;"/>
 								</td>
 							</tr>
-							<tr>
+							<tr id="user_dept_tr">
 								<td class="title">归属/负责营业部:</td>
 								<td>
 									<x:combobox id="user_dept_id" name="user.deptId"  value="${user.deptId}" valueField="id" textField="deptName" list="userDeptList" pleaseSelect="false" onchange="loadTeamList" cssStyle="width:142px;"/>
 								</td>
 							</tr>
-							<tr>
+							<tr id="user_team_tr">
 								<td class="title">归属/负责团队:</td>
 								<td>
 									<x:combobox id="user_team_id" name="user.teamId"  value="${user.teamId}" valueField="id" textField="teamName" list="userTeamList" pleaseSelect="false" cssStyle="width:142px;"/>
@@ -161,6 +167,19 @@
 	function loadTeamList(){
 		var teamId = $("#user_dept_id").xcombobox("getValue");
 		$("#user_team_id").xcombobox("reload",{'url':'<s:url value="/orgTeam/orgTeamManage_getCombobox.jhtml"/>?searchBean.ownedDept='+teamId+'&searchBean.status=1'});
+	}
+	
+	function posCodeChange(){
+		var posCode = $('#pos_code_add').xcombobox("getValue");
+		if(posCode=="03"){
+			$('#user_team_tr_add').hide();
+			$('#user_dept_tr_add').show();
+		}else if(posCode=="04"){
+			$('#user_dept_tr_add').hide();
+		}else{
+			$('#user_dept_tr_add').show();
+			$('#user_team_tr_add').show();
+		}
 	}
 </script>
 	</tiles:putAttribute>

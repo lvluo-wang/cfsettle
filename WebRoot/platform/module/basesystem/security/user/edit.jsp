@@ -14,6 +14,12 @@
                    <col width="65%"/>
                 </colgroup>
 			 <tbody>
+			 	<tr>
+					<td class="title">岗位:</td>
+					<td>
+						<x:combobox name="user.posCode"  valueField="codeNo" id="pos_code_edit" value="${user.posCode}" textField="codeName" list="posCodeList" pleaseSelect="false" cssStyle="width:142px;" onchange="posCodeEditChange"/>
+					</td>
+				</tr>
 				<tr>
 					<td class="title">手机号码:</td>
 					<td><input name="user.userNo" value="${user.userNo}" class="easyui-validatebox" maxlength="30" required="true" /><font color="red">*</font></td>
@@ -54,13 +60,13 @@
 								<x:combobox id="user_area_edit_id" name="user.areaId"  value="${user.areaId}" valueField="id" textField="areaName" list="userAreaList" pleaseSelect="false" onchange="loadDeptEditList" required="true" cssStyle="width:142px;"/>
 							</td>
 						</tr>
-						<tr>
+						<tr id="user_dept_tr_edit">
 							<td class="title">归属/负责营业部:</td>
 							<td>
 								<x:combobox id="user_dept_edit_id" name="user.deptId"  value="${user.deptId}" valueField="id" textField="deptName" list="userDeptList" pleaseSelect="false" onchange="loadTeamEditList" cssStyle="width:142px;"/>
 							</td>
 						</tr>
-						<tr>
+						<tr id="user_team_tr_edit">
 							<td class="title">归属/负责团队:</td>
 							<td>
 								<x:combobox id="user_team_edit_id" name="user.teamId"  value="${user.teamId}" valueField="id" textField="teamName" list="userTeamList" pleaseSelect="false" cssStyle="width:142px;"/>
@@ -78,6 +84,18 @@
 	</tiles:putAttribute>
 	<tiles:putAttribute name="end">
 <script type="text/javascript">
+	$(function(){
+		var posCode="${user.posCode}";
+		if(posCode=="03"){
+			$('#user_team_tr_edit').hide();
+		}else if(posCode=="04"){
+			$('#user_team_tr_edit').hide();
+			$('#user_dept_tr_edit').hide();
+		}else{
+			$('#user_dept_tr_edit').show();
+			$('#user_team_tr_edit').show();
+		}
+	});
 	function chooseBranch() {
 		var url = '<s:url value="/security/user_toChooseBrch.jhtml"/>';
 		requestAtWindow(url, "sel","<s:text name="choose"/><s:text name="branch"/>");
@@ -127,6 +145,26 @@
 	function loadTeamEditList(){
 		var teamId = $("#user_dept_edit_id").xcombobox("getValue");
 		$("#user_team_edit_id").xcombobox("reload",{'url':'<s:url value="/orgTeam/orgTeamManage_getCombobox.jhtml"/>?searchBean.ownedDept='+teamId+'&searchBean.status=1'});
+	}
+	
+	function posCodeEditChange(){
+		var posCode = $('#pos_code_edit').xcombobox("getValue");
+		if(posCode=="03"){
+			$('#user_team_tr_edit').hide();
+			$('#user_team_edit_id').xcombobox("setValue",'');
+			$('#user_dept_tr_edit').show();
+			loadDeptEditList();
+		}else if(posCode=="04"){
+			$('#user_team_tr_edit').hide();
+			$('#user_team_edit_id').xcombobox("setValue",'');
+			$('#user_dept_tr_edit').hide();
+			$('#user_dept_edit_id').xcombobox("setValue",'');
+		}else{
+			$('#user_dept_tr_edit').show();
+			$('#user_team_tr_edit').show();
+			loadDeptEditList();
+			loadTeamEditList();
+		}
 	}
 </script>
 	</tiles:putAttribute>

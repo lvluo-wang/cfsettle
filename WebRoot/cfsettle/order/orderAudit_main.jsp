@@ -7,7 +7,7 @@
 <tiles:insertDefinition name="FUNC_TOOL_QUERY_DATA">
 	<tiles:putAttribute name="tool">
 		<x:button iconCls="icon-audit" text="合同审核" click="doAudit" />
-		<x:button iconCls="icon-view" text="合同详情" click="contractView" />
+		<x:button iconCls="icon-view" text="合同详情" click="toView" />
 	</tiles:putAttribute>
 	<tiles:putAttribute name="query">
 		<form id="mainQueryForm" class="query_form">
@@ -48,7 +48,7 @@
 				<x:column title="客户手机" field="MOBILE" align="left" width="90"/>
 				<x:column title="购买项目" field="PRJ_NAME" align="center" width="150" />
 				<x:column title="购买金额" field="MONEY" align="center" width="150"/>
-				<x:column title="付款银行" field="PAY_BANK" align="center" width="80"/>
+				<x:column title="付款银行" field="PAY_BANK" align="center" width="80" formatter="formateBank"/>
 				<x:column title="付款卡号" field="PAY_ACCOUNT_NO" align="center" width="140"/>
 				<x:column title="服务员工" field="SERVICE_SYS_NAME" align="center" width="40"/>
 				<x:column title="状态" field="STATUS" align="center" width="150" />
@@ -57,12 +57,14 @@
 	</tiles:putAttribute>
 
 	<tiles:putAttribute name="window">
-	<!-- 弹出窗口定义开始 -->
+		<!-- 弹出窗口定义开始 -->
+		<div id="project_add_win" style="width:750px;height:auto;display:none;"></div>
+		<div id="project_edit_win" style="width:750px;height:auto;display:none;"></div>
 	</tiles:putAttribute>
 	
 	<tiles:putAttribute name="end">
 	<script type="text/javascript">
-	var keys=["<%=UtilConstant.CFS_TIMELIMIT_UNIT%>","<%=UtilConstant.CFS_REPAYMENT_TYPE%>"];
+	var keys=["<%=UtilConstant.CFS_TIMELIMIT_UNIT%>","<%=UtilConstant.CFS_REPAYMENT_TYPE%>","<%=UtilConstant.CFS_BANK_TYPE%>"];
 	var code=new XhhCodeUtil(keys);
 	code.loadData();
 	
@@ -73,8 +75,28 @@
 	function formatReapayWay(value){
 		 return code.getValue("<%=UtilConstant.CFS_REPAYMENT_TYPE%>",value);
 	}
+	
+	 function formateBank(value) {
+ 		return code.getValue("<%=UtilConstant.CFS_BANK_TYPE%>",value);
+     }
 	function doQuery(){
 		dataTable.load();
+	}
+	
+	function doAudit(){
+		if(isSingleSelected(dataTable)) {
+			var selectedId = dataTable.getSelectedField("ID");
+			var url="<s:url value='/order/orderAudit_toAdd.jhtml'/>?id="+selectedId;
+			requestAtWindow(url,"project_add_win","<s:text name='审核合同'/>");
+		}
+	}
+	
+	function toView(){
+		if(isSingleSelected(dataTable)) {
+			var selectedId = dataTable.getSelectedField("ID");
+			var url="<s:url value='/order/orderAudit_toView.jhtml'/>?id="+selectedId;
+			requestAtWindow(url,"project_edit_win","<s:text name='view'/>");
+		}
 	}
 	</script>
 	</tiles:putAttribute>

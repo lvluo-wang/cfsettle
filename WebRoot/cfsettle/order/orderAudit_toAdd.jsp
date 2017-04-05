@@ -6,50 +6,47 @@
 	<tiles:putAttribute name="form">
 		<form class="busi_form" id="cfscustAddForm">
 			<table>
-				<tr>	
-					<td class="title">客户姓名<font color="red">*</font>:</td>
-					<td ><input name="cfsCust.realName" class="easyui-validatebox" maxLength="50" required="true"></td>
-					<td class="title">客户手机<font color="red">*</font>:</td>
-					<td ><input name="cfsCust.mobile" class="easyui-validatebox" maxLength="11" required="true" validType="mobile"></td>
-				</tr>
 				<tr>
-					<td class="title">身份证号<font color="red">*</font>:</td>
-					<td ><input name="cfsCust.idCard" class="easyui-validatebox" maxLength="21" required="true" validType="idCard"></td>
-					<td class="title">性别<font color="red">*</font>:</td>
-					<td ><x:combobox name="cfsCust.sex" list="sexList" required="true" textField="codeName" valueField="codeNo" cssStyle="width:142px;" pleaseSelect="false"/></td>
-				</tr>
-				<tr>
-					<td class="title">身份证正面: </td>
-					<td>
-						<input name="cfsCust.cardFace" type="hidden" id="cfscust_face_card_id"/>
-						<img id="id_card_face_pic" alt="身份证正面" src="http://" height="100px" width="200px"/>
-					</td>
-					<td colspan="2">
-						<s:include value="/platform/common/uploadFile.jsp">
-							<s:param name="refresh">y</s:param>
-							<s:param name="suffix">1</s:param>
-							<s:param name="imgServer">true</s:param>
-							<s:param name="nowater">1</s:param>
-							<s:param name="callback">idCardFaceCallBack</s:param>
-							<s:param name="opt">{'fileExt':'*.gif;*.jpg;*.png;*.jpeg','fileDesc':'图片文件'}</s:param>
-						</s:include></td>
-				</tr>
-				<tr>
-					<td class="title">身份证反面: </td>
-					<td>
-						<input name="cfsCust.cardBack" type="hidden" id="cfscust_back_card_id"/>
-						<img id="id_card_back_pic" alt="身份证正面" src="http://" height="100px" width="200px"/>
-					</td>
-					<td colspan="2">
-						<s:include value="/platform/common/uploadFile.jsp">
-							<s:param name="refresh">y</s:param>
-							<s:param name="suffix">2</s:param>
-							<s:param name="imgServer">true</s:param>
-							<s:param name="nowater">1</s:param>
-							<s:param name="callback">idCardBackCallBack</s:param>
-							<s:param name="opt">{'fileExt':'*.gif;*.jpg;*.png;*.jpeg','fileDesc':'图片文件'}</s:param>
-						</s:include></td>
-				</tr>
+                    <td class="title">项目名:</td>
+                    <td>${prj.prjName}</td>
+                    <td class="title">项目方名:</td>
+                    <td>${prj.prjUseName}</td>
+                </tr>
+                <tr>
+                    <td class="title">项目联系电话:</td>
+                    <td>${prj.prjMobile}</td>
+                </tr>
+                <tr>
+                    <td class="title">募集金额:</td>
+                    <td>${prj.demandAmount}万</td>
+                    <td class="title">项目期限:</td>
+                    <td>
+                    	${prj.timeLimit}
+                        <x:codeItem codeNo="prj.timeLimitUnit" codeKey="<%=UtilConstant.CFS_TIMELIMIT_UNIT %>"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="title">项目利率:</td>
+                    <td>
+                       ${prj.yearRate}%
+                    </td>
+                    <td class="title">募集期利率:</td>
+                    <td>
+                        ${prj.periodRate}%
+                    </td>
+                </tr>
+                <tr>
+                    <td class="title">还款方式:</td>
+                    <td><x:codeItem codeNo="prj.repayWay" codeKey="<%=UtilConstant.CFS_REPAYMENT_TYPE %>"/></td>
+                    <td class="title">项目成立金额:</td>
+                    <td>${prj.minLoanAmount}万</td>
+                </tr>
+                <tr>
+                    <td class="title">融资开标时间：</td>
+                    <td><s:date format="yyyy-MM-dd HH:mm:ss" name="prj.startBidTime"/></td>
+                    <td class="title">融资截标时间：</td>
+                    <td><s:date format="yyyy-MM-dd HH:mm:ss" name="prj.endBidTime"/></td>
+                </tr>
 			</table>
 		</form>
 	</tiles:putAttribute>
