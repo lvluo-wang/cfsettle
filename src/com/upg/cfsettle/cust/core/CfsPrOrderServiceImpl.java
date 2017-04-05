@@ -127,6 +127,19 @@ public class CfsPrOrderServiceImpl implements ICfsPrjOrderService {
 
 	@Override
 	public void updatePrjOrder(CfsPrjOrder cfsPrjOrder) {
+		cfsPrjOrder.setMtime(DateTimeUtil.getNowDateTime());
+		cfsPrjOrder.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
 		prjOrderDao.update(cfsPrjOrder);
+	}
+
+	@Override
+	public void doAuditPrjOrder(CfsPrjOrder cfsPrjOrder) {
+		CfsPrjOrder order = this.getPrjOrderById(cfsPrjOrder.getId());
+		order.setRemark(cfsPrjOrder.getRemark());
+		order.setPayNotesAttid(cfsPrjOrder.getPayNotesAttid());
+		order.setPaySerialNum(cfsPrjOrder.getPaySerialNum());
+		order.setCollectAuditTime(DateTimeUtil.getNowDateTime());
+		order.setCollectAuditSysid(SessionTool.getUserLogonInfo().getSysUserId());
+		this.updatePrjOrder(order);
 	}
 }

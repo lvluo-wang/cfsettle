@@ -94,7 +94,7 @@
 	function toView(){
 		if(isSingleSelected(dataTable)) {
 			var selectedId = dataTable.getSelectedField("ID");
-			var url="<s:url value='/order/orderAudit_toView.jhtml'/>?id="+selectedId;
+			var url="<s:url value='/order/orderAudit_toEdit.jhtml'/>?id="+selectedId;
 			requestAtWindow(url,"project_edit_win","<s:text name='view'/>");
 		}
 	}

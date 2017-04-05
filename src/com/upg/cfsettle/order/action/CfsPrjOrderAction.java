@@ -1,11 +1,23 @@
 package com.upg.cfsettle.order.action;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.upg.cfsettle.cust.core.CustOrderBean;
+import com.upg.cfsettle.cust.core.ICfsCustService;
 import com.upg.cfsettle.cust.core.ICfsPrjOrderService;
+import com.upg.cfsettle.mapping.prj.CfsCust;
+import com.upg.cfsettle.mapping.prj.CfsPrj;
+import com.upg.cfsettle.mapping.prj.CfsPrjExt;
 import com.upg.cfsettle.mapping.prj.CfsPrjOrder;
+import com.upg.cfsettle.prj.core.IPrjExtService;
+import com.upg.cfsettle.prj.core.IPrjService;
+import com.upg.ucars.factory.DynamicPropertyTransfer;
 import com.upg.ucars.framework.base.BaseAction;
+import com.upg.ucars.mapping.basesystem.security.Buser;
+import com.upg.ucars.util.PropertyTransVo;
 
 @SuppressWarnings("serial")
 public class CfsPrjOrderAction extends BaseAction {
@@ -16,6 +28,20 @@ public class CfsPrjOrderAction extends BaseAction {
 	private ICfsPrjOrderService prjOrderService;
 	
 	private CfsPrjOrder cfsPrjOrder;
+	
+	private CfsPrj prj;
+	
+	private CfsPrjExt prjExt;
+	
+	private CfsCust cfsCust;
+	@Autowired
+	private IPrjService prjService;
+	@Autowired
+	private IPrjExtService prjExtService;
+	@Autowired
+	private ICfsCustService custService;
+	
+	
 	
 	/**
 	 * 跳转CfsPrjOrder主页
@@ -44,7 +70,15 @@ public class CfsPrjOrderAction extends BaseAction {
 	 * @return
 	 */
 	public String toAdd(){
-		return ADD;
+		cfsPrjOrder = prjOrderService.getPrjOrderById(getPKId());
+		cfsCust = custService.queryCfsCustById(cfsPrjOrder.getCustId());
+		prj = prjService.getPrjById(cfsPrjOrder.getPrjId());
+		prjExt = prjExtService.getPrjExtByPrjId(cfsPrjOrder.getPrjId());
+		List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
+    	trans.add(new PropertyTransVo("csysid", Buser.class, "userId", "userNo","mobile"));
+    	trans.add(new PropertyTransVo("collectAuditSysid", Buser.class, "userId", "userName","contractAuditUser"));
+    	cfsPrjOrder = DynamicPropertyTransfer.transform(cfsPrjOrder, trans);
+		return SUCCESS;
 	}
 	
 	/**
@@ -54,7 +88,15 @@ public class CfsPrjOrderAction extends BaseAction {
 	 * @return
 	 */
 	public String toEdit(){
-		return EDIT;
+		cfsPrjOrder = prjOrderService.getPrjOrderById(getPKId());
+		cfsCust = custService.queryCfsCustById(cfsPrjOrder.getCustId());
+		prj = prjService.getPrjById(cfsPrjOrder.getPrjId());
+		prjExt = prjExtService.getPrjExtByPrjId(cfsPrjOrder.getPrjId());
+		List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
+    	trans.add(new PropertyTransVo("csysid", Buser.class, "userId", "userNo","mobile"));
+    	trans.add(new PropertyTransVo("collectAuditSysid", Buser.class, "userId", "userName","contractAuditUser"));
+    	cfsPrjOrder = DynamicPropertyTransfer.transform(cfsPrjOrder, trans);
+		return SUCCESS;
 	}
 	
 	/**
@@ -67,12 +109,12 @@ public class CfsPrjOrderAction extends BaseAction {
 	}
 	
 	/**
-	 * 修改CfsPrjOrder信息
+	 * 审核CfsPrjOrder信息
 	 * @author renzhuolun
-	 * @date 2014年8月8日 上午10:58:10
+	 * @date 2017年4月5日 下午6:39:00
 	 */
-	public void doEdit(){
-		prjOrderService.updatePrjOrder(cfsPrjOrder);
+	public void doAudit(){
+		prjOrderService.doAuditPrjOrder(cfsPrjOrder);
 	}
 	
 	/**
@@ -109,5 +151,28 @@ public class CfsPrjOrderAction extends BaseAction {
 	public void setCfsPrjOrder(CfsPrjOrder cfsPrjOrder) {
 		this.cfsPrjOrder = cfsPrjOrder;
 	}
-	
+
+	public CfsPrj getPrj() {
+		return prj;
+	}
+
+	public void setPrj(CfsPrj prj) {
+		this.prj = prj;
+	}
+
+	public CfsPrjExt getPrjExt() {
+		return prjExt;
+	}
+
+	public void setPrjExt(CfsPrjExt prjExt) {
+		this.prjExt = prjExt;
+	}
+
+	public CfsCust getCfsCust() {
+		return cfsCust;
+	}
+
+	public void setCfsCust(CfsCust cfsCust) {
+		this.cfsCust = cfsCust;
+	}
 }

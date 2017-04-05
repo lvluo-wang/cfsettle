@@ -22,4 +22,6 @@ public interface ICfsPrjOrderService extends IBaseService {
 
 	void updatePrjOrder(CfsPrjOrder cfsPrjOrder);
 
+	void doAuditPrjOrder(CfsPrjOrder cfsPrjOrder);
+
 }
