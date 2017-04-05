@@ -11,7 +11,7 @@ public class PrjLoanLogDaoImpl extends SysBaseDao<CfsPrjLoanLog,Long> implements
 
 	@Override
 	public List<CfsPrjLoanLog> getByPrjId(Long prjId) {
-		String hql = "from CfsPrjLoanLog where prjId=?";
+		String hql = "from CfsPrjLoanLog where prjId=? order by loanTimes desc";
 		return this.find(hql, prjId);
 	}
 }

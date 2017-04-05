@@ -34,7 +34,17 @@ public class PrjLoanLogServiceImpl implements IPrjLoanLogService {
 			UcarsHelper.throwServiceException("可放款额度超过项目可放宽的余额,请重新填写放款金额");
 		}
 		List<CfsPrjLoanLog> list = prjLoanLogDao.getByPrjId(loanLog.getPrjId());
-		loanLog.setLoanTimes(CollectionUtils.isEmpty(list)?1:list.size()+1L);
+		if(CollectionUtils.isEmpty(list)){
+			loanLog.setLoanTimes(1L);
+			if(loanLog.getLoanTime().getTime() < prj.getEndBidTime().getTime()){
+				UcarsHelper.throwServiceException("放款时间必须大于项目的成立时间");
+			}
+		}else{
+			CfsPrjLoanLog log = list.get(0);
+			if(loanLog.getLoanTime().getTime() < log.getLoanTime().getTime()){
+				UcarsHelper.throwServiceException("放款时间必须大于项目的最后一次放款时间");
+			}
+		}
 		loanLog.setRemark("员工"+SessionTool.getUserLogonInfo().getUserName()+"在"+DateTimeUtil.getCurDateTime()+"对项目"+loanLog.getPrjName()+"放款"+loanLog.getLoanAmount()+"万");
 		prjService.updateCfsPrj(prj);
 		loanLog.setCtime(DateTimeUtil.getNowDateTime());
