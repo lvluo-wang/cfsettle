@@ -133,7 +133,15 @@ public class CfsPrjOrderAction extends BaseAction {
 	 * @return
 	 */
 	public String toView(){
-		return VIEW;
+		cfsPrjOrder = prjOrderService.getPrjOrderById(getPKId());
+		cfsCust = custService.queryCfsCustById(cfsPrjOrder.getCustId());
+		prj = prjService.getPrjById(cfsPrjOrder.getPrjId());
+		prjExt = prjExtService.getPrjExtByPrjId(cfsPrjOrder.getPrjId());
+		List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
+    	trans.add(new PropertyTransVo("csysid", Buser.class, "userId", "userNo","mobile"));
+    	trans.add(new PropertyTransVo("collectAuditSysid", Buser.class, "userId", "userName","contractAuditUser"));
+    	cfsPrjOrder = DynamicPropertyTransfer.transform(cfsPrjOrder, trans);
+		return SUCCESS;
 	}
 	
 	public CustOrderBean getSearchBean() {

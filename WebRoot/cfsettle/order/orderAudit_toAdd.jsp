@@ -45,7 +45,7 @@
 				<tr>
 					<td class="title">打款凭证</td>
                     <td><input name="cfsPrjOrder.payNotesAttid" type="hidden" id="order_pay_notes_id"/>
-						<img id="order_pay_notes_pic" alt="身份证正面" src="http://" height="100px" width="200px"/>
+						<img id="order_pay_notes_pic" alt="打款凭证" src="http://" height="100px" width="200px"/>
 					</td>
 					<td colspan="2">
 						<s:include value="/platform/common/uploadFile.jsp">
@@ -66,16 +66,17 @@
 		</form>
 	</tiles:putAttribute>
 	<tiles:putAttribute name="button">
-		<x:button id="save" iconCls="icon-save" text="审核" click="doAddSave" effect="round" />
-		<x:button iconCls="icon-cancel" text="cancel" click="doAddCancel" effect="round" />
+		<x:button id="save" iconCls="icon-save" text="审核通过" click="doAddSave(2)" effect="round" />
+		<x:button iconCls="icon-cancel" text="审核不通过" click="doAddSave(3)" effect="round" />
 	</tiles:putAttribute>
 	<tiles:putAttribute name="end">
 	<script type="text/javascript">
-	function doAddSave() {
+	function doAddSave(status) {
 		var url="<s:url value='/order/orderAudit_doAudit.jhtml'/>";
 		if ($("#cfsOrderAuditForm").form("validate")) {
-			doPost(url, formToObject("cfsOrderAuditForm"),
-				function(result) {
+			var param = formToObject("cfsOrderAuditForm");
+			param['cfsPrjOrder.status'] = status;
+			doPost(url, formToObject("cfsOrderAuditForm"),function(result) {
 					if (!printError(result)) {
 						closeWindow("project_add_win");
 						dataTable.refresh();

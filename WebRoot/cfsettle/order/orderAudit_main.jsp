@@ -50,8 +50,8 @@
 				<x:column title="购买金额" field="MONEY" align="center" width="150"/>
 				<x:column title="付款银行" field="PAY_BANK" align="center" width="80" formatter="formateBank"/>
 				<x:column title="付款卡号" field="PAY_ACCOUNT_NO" align="center" width="140"/>
-				<x:column title="服务员工" field="SERVICE_SYS_NAME" align="center" width="40"/>
-				<x:column title="状态" field="STATUS" align="center" width="150" />
+				<x:column title="服务员工" field="SERVICE_SYS_NAME" align="center" width="90"/>
+				<x:column title="状态" field="STATUS" align="center" width="150" formatter="formatOrderStatus"/>
 			</x:columns>
 		</x:datagrid>
 	</tiles:putAttribute>
@@ -64,7 +64,7 @@
 	
 	<tiles:putAttribute name="end">
 	<script type="text/javascript">
-	var keys=["<%=UtilConstant.CFS_TIMELIMIT_UNIT%>","<%=UtilConstant.CFS_REPAYMENT_TYPE%>","<%=UtilConstant.CFS_BANK_TYPE%>"];
+	var keys=["<%=UtilConstant.CFS_TIMELIMIT_UNIT%>","<%=UtilConstant.CFS_REPAYMENT_TYPE%>","<%=UtilConstant.CFS_BANK_TYPE%>","<%=UtilConstant.CFS_PRJ_ORDER_STATUS%>"];
 	var code=new XhhCodeUtil(keys);
 	code.loadData();
 	
@@ -82,19 +82,27 @@
 	function doQuery(){
 		dataTable.load();
 	}
-	
+	function formatOrderStatus(value){
+		return code.getValue("<%=UtilConstant.CFS_PRJ_ORDER_STATUS%>",value);
+	}
 	function doAudit(){
 		if(isSingleSelected(dataTable)) {
-			var selectedId = dataTable.getSelectedField("ID");
-			var url="<s:url value='/order/orderAudit_toAdd.jhtml'/>?id="+selectedId;
-			requestAtWindow(url,"project_add_win","<s:text name='审核合同'/>");
+			var row = dataTable.getSelectedFirstRow();
+			if(row.STATUS=='1'||row.STATUS=='3'){
+				var selectedId = dataTable.getSelectedField("ID");
+				var url="<s:url value='/order/orderAudit_toAdd.jhtml'/>?id="+selectedId;
+				requestAtWindow(url,"project_add_win","<s:text name='审核合同'/>");
+			}else{
+				warning('只有待审核合同才能审核');
+				return;
+			}
 		}
 	}
 	
 	function toView(){
 		if(isSingleSelected(dataTable)) {
 			var selectedId = dataTable.getSelectedField("ID");
-			var url="<s:url value='/order/orderAudit_toEdit.jhtml'/>?id="+selectedId;
+			var url="<s:url value='/order/orderAudit_toView.jhtml'/>?id="+selectedId;
 			requestAtWindow(url,"project_edit_win","<s:text name='view'/>");
 		}
 	}

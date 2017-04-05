@@ -1,5 +1,11 @@
 package com.upg.cfsettle.cust.core;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.upg.cfsettle.mapping.organization.CfsOrgArea;
 import com.upg.cfsettle.mapping.organization.CfsOrgDept;
 import com.upg.cfsettle.mapping.organization.CfsOrgTeam;
@@ -19,13 +25,7 @@ import com.upg.ucars.framework.base.SessionTool;
 import com.upg.ucars.mapping.basesystem.security.Buser;
 import com.upg.ucars.model.security.UserLogonInfo;
 import com.upg.ucars.util.DateTimeUtil;
-
 import com.upg.ucars.util.StringUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by zuobaoshi on 2017/4/2.
@@ -153,6 +153,7 @@ public class CfsPrOrderServiceImpl implements ICfsPrjOrderService {
 		order.setPaySerialNum(cfsPrjOrder.getPaySerialNum());
 		order.setCollectAuditTime(DateTimeUtil.getNowDateTime());
 		order.setCollectAuditSysid(SessionTool.getUserLogonInfo().getSysUserId());
+		order.setStatus(cfsPrjOrder.getStatus());
 		this.updatePrjOrder(order);
 	}
 }
