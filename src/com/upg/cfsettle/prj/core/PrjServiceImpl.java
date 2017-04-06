@@ -1,6 +1,8 @@
 package com.upg.cfsettle.prj.core;
 
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -8,8 +10,15 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.upg.cfsettle.cust.core.ICfsPrjOrderService;
 import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.mapping.prj.CfsPrjExt;
+import com.upg.cfsettle.mapping.prj.CfsPrjOrder;
+import com.upg.cfsettle.mapping.prj.CfsPrjOrderRepayPlan;
+import com.upg.cfsettle.mapping.prj.RepayPlanInfo;
+import com.upg.cfsettle.util.CfsConstant;
+import com.upg.cfsettle.util.CfsUtils;
+import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.basesystem.UcarsHelper;
 import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.Page;
@@ -34,6 +43,8 @@ public class PrjServiceImpl implements IPrjService {
 
     @Autowired
     private IPrjExtService prjExtService;
+    @Autowired
+    private ICfsPrjOrderService prjOrderService;
 
     @Override
     public List<Map<String, Object>> findByCondition(CfsPrj searchBean, Page page) {
@@ -171,5 +182,130 @@ public class PrjServiceImpl implements IPrjService {
 		prj.setMtime(DateTimeUtil.getNowDateTime());
 		prj.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
 		prjDao.update(prj);
+	}
+
+	@Override
+	public void genRepayPlanAutoTask() {
+		List<CfsPrj> list = prjDao.findRepayPlanPrj();
+		for(final CfsPrj prj :list){
+			if(CfsConstant.PRJ_REPAY_WAY_A.equals(prj.getRepayWay())){
+				UcarsHelper.asyncExecute(new Runnable() {
+					@Override
+					public void run() {
+						genRepayWayA(prj);
+					}
+				});
+			}else if(CfsConstant.PRJ_REPAY_WAY_B.equals(prj.getRepayWay())){
+				UcarsHelper.asyncExecute(new Runnable() {
+					@Override
+					public void run() {
+						genRepayWayB(prj);
+					}
+				});
+			}else if(CfsConstant.PRJ_REPAY_WAY_C.equals(prj.getRepayWay())){
+				UcarsHelper.asyncExecute(new Runnable() {
+					@Override
+					public void run() {
+						genRepayWayC(prj);
+					}
+				});
+			}else if(CfsConstant.PRJ_REPAY_WAY_D.equals(prj.getRepayWay())){
+				UcarsHelper.asyncExecute(new Runnable() {
+					@Override
+					public void run() {
+						genRepayWayD(prj);
+					}
+				});
+			}
+		}
+	}
+	
+	/**
+	 * 生成到期还本付息还款计划
+	 * @author renzhuolun
+	 * @date 2017年4月6日 下午12:53:59
+	 * @param prj
+	 */
+	private void genRepayWayA(CfsPrj prj) {
+		List<CfsPrjOrder> orders = prjOrderService.getPrjOrdersByPrjId(prj.getId());
+		List<RepayPlanInfo> planInfos = new ArrayList<RepayPlanInfo>();
+	    planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_PERIODS, prj.getEndBidTime()));
+		planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL, DateTimeUtil.addDay(prj.getEndBidTime(), prj.getTimeLimitDay())));
+		List<CfsPrjOrderRepayPlan> orderPlans = genPrjOrderPlan(planInfos,prj,orders);
+		
+	}
+	
+	/**
+	 *  生成按月付息到期还本还款计划
+	 * @author renzhuolun
+	 * @date 2017年4月6日 下午12:54:37
+	 * @param prj
+	 */
+	private void genRepayWayB(CfsPrj prj) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/**
+	 * 生成按季付息到期还本还款计划
+	 * @author renzhuolun
+	 * @date 2017年4月6日 下午12:55:09
+	 * @param prj
+	 */
+	private void genRepayWayC(CfsPrj prj) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/**
+	 *  生成按半年付息到期还本还款计划
+	 * @author renzhuolun
+	 * @date 2017年4月6日 下午12:55:37
+	 * @param prj
+	 */
+	private void genRepayWayD(CfsPrj prj) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/**
+	 * 生成订单的还款计划
+	 * @author renzhuolun
+	 * @date 2017年4月6日 下午4:15:14
+	 * @param planInfos
+	 * @param orders
+	 * @return
+	 */
+	private List<CfsPrjOrderRepayPlan> genPrjOrderPlan(List<RepayPlanInfo> planInfos,CfsPrj prj, List<CfsPrjOrder> orders) {
+		List<CfsPrjOrderRepayPlan> plans = new ArrayList<CfsPrjOrderRepayPlan>();
+		for(RepayPlanInfo info :planInfos){
+			Long repayPeriods = 0L;
+			for(CfsPrjOrder order :orders){
+				BigDecimal yield = new BigDecimal(0);
+				CfsPrjOrderRepayPlan orderPlan = new CfsPrjOrderRepayPlan();
+				if(UtilConstant.PTYPE_PERIODS.equals(info.getPtype())){
+					yield = CfsUtils.calcSumRealAmount(order.getMoney(), new BigDecimal(DateTimeUtil.getDaysBetween(order.getInvestTime(), info.getRepayDate())), prj.getPeriodRate());
+					orderPlan.setPrincipal(new BigDecimal(0));
+				}else{
+					yield = CfsUtils.calcSumRealAmount(order.getMoney(), new BigDecimal(prj.getTimeLimitDay()), prj.getYearRate());
+					orderPlan.setRepayDate(DateTimeUtil.addDay(prj.getEndBidTime(),prj.getTimeLimitDay()));
+					orderPlan.setPrincipal(order.getMoney());
+				}
+				orderPlan.setRepayDate(info.getRepayDate());
+				orderPlan.setPtype(info.getPtype());
+				orderPlan.setPrjId(order.getPrjId());
+				orderPlan.setPrjOrderId(order.getId());
+				orderPlan.setRepayPeriods(repayPeriods);
+				orderPlan.setPriInterest(yield.add(orderPlan.getPrincipal()));
+				orderPlan.setYield(yield);
+				orderPlan.setRestPrincipal(order.getMoney().subtract(orderPlan.getPrincipal()));
+				orderPlan.setStatus(UtilConstant.REPAY_STATUS_1);
+				orderPlan.setCtime(DateTimeUtil.getNowDateTime());
+				orderPlan.setMtime(DateTimeUtil.getNowDateTime());
+				plans.add(orderPlan);
+			}
+			repayPeriods++;
+		}
+		return plans;
 	}
 }

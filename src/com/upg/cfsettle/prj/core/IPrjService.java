@@ -1,12 +1,12 @@
 package com.upg.cfsettle.prj.core;
 
+import java.util.List;
+import java.util.Map;
+
 import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.mapping.prj.CfsPrjExt;
 import com.upg.ucars.framework.base.IBaseService;
 import com.upg.ucars.framework.base.Page;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by zuo on 2017/3/30.
@@ -51,5 +51,11 @@ public interface IPrjService extends IBaseService {
 	void updateCfsPrj(CfsPrj prj);
 
     void updatePrj(CfsPrj prj);
-
+    
+    /**
+     * 生成项目的还款计划
+     * @author renzhuolun
+     * @date 2017年4月6日 上午11:14:11
+     */
+	void genRepayPlanAutoTask();
 }

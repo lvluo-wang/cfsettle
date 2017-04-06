@@ -15,11 +15,6 @@
                 <comment>项目id</comment>
             </column>
         </property>
-        <property name="prjRepayId" type="java.lang.Long">
-            <column name="prj_repay_id">
-                <comment>项目还款id</comment>
-            </column>
-        </property>
         <property name="repayPeriods" type="java.lang.Long">
             <column name="repay_periods">
                 <comment>还款期数</comment>
@@ -55,13 +50,13 @@
                 <comment>1-待还款 2-已还款 3-废弃(不还款)</comment>
             </column>
         </property>
-        <property name="ctime" type="secDate">
+        <property name="ctime" type="secDate" update="false">
             <column name="ctime" />
         </property>
         <property name="csysid" type="java.lang.Long" update="false">
             <column name="csysid" />
         </property>
-        <property name="mtime" type="secDate" update="false">
+        <property name="mtime" type="secDate">
             <column name="mtime" />
         </property>
         <property name="msysid" type="java.lang.Long">

@@ -107,4 +107,10 @@ public class CfsPrjOrderDaoImpl extends SysBaseDao<CfsPrjOrder,Long> implements 
         }
         return null;
     }
+
+	@Override
+	public List<CfsPrjOrder> getPrjOrdersByPrjId(Long prjId) {
+		 String hql = "from CfsPrjOrder where prjId =? and status=4";
+	     return this.find(hql,prjId);
+	}
 }

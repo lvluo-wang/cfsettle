@@ -39,7 +39,16 @@ public final class UtilConstant {
 	public static final String CFS_DEPT_MANAGER = "03";//营业部负责人
 	public static final String CFS_AREA_MANAGER = "04";//区域经理
 
-
+	public static final String TIME_LIMIT_YEAR = "Y"; //期限-年
+	public static final String TIME_LIMIT_MONTH = "M";//期限-月
+	
+	public static final Byte   PTYPE_NORMAL = 1; //正常利息
+	public static final Byte   PTYPE_PERIODS = 2; //募集期利息
+	
+	public static final Byte   REPAY_STATUS_1 = 1; //待还款
+	public static final Byte   REPAY_STATUS_2 = 2; //已还款
+	public static final Byte   REPAY_STATUS_3 = 3; //还款结束
+	
 
 
 	//常用数字字符串

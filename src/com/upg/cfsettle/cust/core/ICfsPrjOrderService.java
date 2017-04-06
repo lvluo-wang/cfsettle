@@ -32,5 +32,14 @@ public interface ICfsPrjOrderService extends IBaseService {
     CfsPrjOrder getPrjOrderByContractNo(String contractNo);
 
 	void doAuditPrjOrder(CfsPrjOrder cfsPrjOrder);
+	
+	/**
+	 * 获取项目订单
+	 * @author renzhuolun
+	 * @date 2017年4月6日 下午1:01:28
+	 * @param id
+	 * @return
+	 */
+	List<CfsPrjOrder> getPrjOrdersByPrjId(Long prjId);
 
 }

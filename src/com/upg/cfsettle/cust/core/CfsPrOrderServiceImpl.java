@@ -156,4 +156,9 @@ public class CfsPrOrderServiceImpl implements ICfsPrjOrderService {
 		order.setStatus(cfsPrjOrder.getStatus());
 		this.updatePrjOrder(order);
 	}
+
+	@Override
+	public List<CfsPrjOrder> getPrjOrdersByPrjId(Long prjId) {
+		return prjOrderDao.getPrjOrdersByPrjId(prjId);
+	}
 }

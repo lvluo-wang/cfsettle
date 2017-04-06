@@ -15,6 +15,11 @@
                 <comment>项目id</comment>
             </column>
         </property>
+        <property name="prjOrderId" type="java.lang.Long">
+            <column name="prj_order_id">
+                <comment>订单id</comment>
+            </column>
+        </property>
         <property name="prjName" type="java.lang.String">
             <column name="prj_name" length="100">
                 <comment>项目名称</comment>

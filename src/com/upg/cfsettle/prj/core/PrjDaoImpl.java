@@ -1,9 +1,11 @@
 package com.upg.cfsettle.prj.core;
 
 import com.upg.cfsettle.mapping.prj.CfsPrj;
+import com.upg.finance.mapping.yrzif.FiPrj;
 import com.upg.ucars.framework.annotation.Dao;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.SysBaseDao;
+import com.upg.ucars.util.DateTimeUtil;
 import com.upg.ucars.util.SQLCreater;
 import com.upg.ucars.util.StringUtil;
 
@@ -64,5 +66,12 @@ public class PrjDaoImpl extends SysBaseDao<CfsPrj,Long> implements IPrjDao {
         }
         sqlCreater.orderBy("prj.ctime",true);
         return getMapListByStanderdSQL(sqlCreater.getSql(),sqlCreater.getParameterMap(),page);
+	}
+
+	@Override
+	public List<CfsPrj> findRepayPlanPrj() {
+		Long nowSec = Long.valueOf(DateTimeUtil.getNowSeconds());
+		String hql = "from CfsPrj prj where prj.status=4 and prj.endBidTime <= "+nowSec+"order by ctime desc";
+        return this.find(hql);
 	}
 }

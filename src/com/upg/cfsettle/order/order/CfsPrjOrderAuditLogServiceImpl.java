@@ -1,5 +1,10 @@
 package com.upg.cfsettle.order.order;
 
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.upg.cfsettle.cust.core.ICfsPrjOrderService;
 import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.mapping.prj.CfsPrjOrder;
@@ -11,11 +16,6 @@ import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.SessionTool;
 import com.upg.ucars.util.DateTimeUtil;
-import org.apache.struts2.components.Date;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by zuo on 2017/4/5.
@@ -49,6 +49,7 @@ public class CfsPrjOrderAuditLogServiceImpl implements ICfsPrjOrderAuditLogServi
             prjOrderAuditLog.setCsysid(SessionTool.getUserLogonInfo().getSysUserId());
             prjOrderAuditLog.setContractNo(cfsPrjOrder.getContractNo());
             prjOrderAuditLog.setPrjId(cfsPrjOrder.getPrjId());
+            prjOrderAuditLog.setPrjOrderId(prjOrder.getId());
             prjOrderAuditLog.setPrjName(prj.getPrjName());
             prjOrderAuditLog.setAuditTime(DateTimeUtil.getNowDateTime());
             prjOrderAuditLogDao.save(prjOrderAuditLog);

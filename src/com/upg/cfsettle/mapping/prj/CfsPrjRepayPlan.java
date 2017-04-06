@@ -18,7 +18,6 @@ public class CfsPrjRepayPlan implements Serializable {
 	private static final long serialVersionUID = -3188188350686457544L;
 	private Long id;
 	private Long prjId;
-	private Long prjRepayId;
 	private Long repayPeriods;
 	private Date repayDate;
 	private BigDecimal priInterest;
@@ -38,13 +37,12 @@ public class CfsPrjRepayPlan implements Serializable {
 	}
 
 	/** full constructor */
-	public CfsPrjRepayPlan(Long prjId, Long prjRepayId,
+	public CfsPrjRepayPlan(Long prjId,
 			Long repayPeriods, Date repayDate, BigDecimal priInterest,
 			BigDecimal principal, BigDecimal yield, BigDecimal restPrincipal,
 			Byte status, Date ctime, Long csysid, Date mtime,
 			Long msysid) {
 		this.prjId = prjId;
-		this.prjRepayId = prjRepayId;
 		this.repayPeriods = repayPeriods;
 		this.repayDate = repayDate;
 		this.priInterest = priInterest;
@@ -74,14 +72,6 @@ public class CfsPrjRepayPlan implements Serializable {
 
 	public void setPrjId(Long prjId) {
 		this.prjId = prjId;
-	}
-
-	public Long getPrjRepayId() {
-		return this.prjRepayId;
-	}
-
-	public void setPrjRepayId(Long prjRepayId) {
-		this.prjRepayId = prjRepayId;
 	}
 
 	public Long getRepayPeriods() {

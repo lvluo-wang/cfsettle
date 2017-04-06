@@ -65,11 +65,11 @@
                 <comment>项目还款计划id</comment>
             </column>
         </property>
-        <property name="version" type="java.lang.Long">
+        <version  name="version" type="java.lang.Long">
             <column name="version">
                 <comment>版本</comment>
             </column>
-        </property>
+        </version >
         <property name="ctime" type="secDate" update="false">
             <column name="ctime" />
         </property>

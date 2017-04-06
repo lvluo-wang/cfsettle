@@ -6,6 +6,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
@@ -479,5 +482,17 @@ public class UcarsHelper {
 			ret = StringUtils.EMPTY;
 		}
 		return ret;
+	}
+	
+	private static final ThreadPoolExecutor	THREAD_POOL_EXECUTOR	= new ThreadPoolExecutor(5, 50, 30l,
+			TimeUnit.MINUTES,
+			new ArrayBlockingQueue<Runnable>(100),
+			new ThreadPoolExecutor.CallerRunsPolicy());
+	/**
+	* 提交需要异步执行的动作
+	*  
+	*/
+	public static final void asyncExecute(Runnable command) {
+	THREAD_POOL_EXECUTOR.execute(command);
 	}
 }

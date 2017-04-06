@@ -17,6 +17,7 @@ public class CfsPrjOrderAuditLog implements Serializable {
 	private static final long serialVersionUID = 8852649765662216728L;
 	private Long id;
 	private Long prjId;
+	private Long prjOrderId;
 	private String prjName;
 	private String contractNo;
 	private Byte status;
@@ -150,4 +151,11 @@ public class CfsPrjOrderAuditLog implements Serializable {
 		this.mtime = mtime;
 	}
 
+	public Long getPrjOrderId() {
+		return prjOrderId;
+	}
+
+	public void setPrjOrderId(Long prjOrderId) {
+		this.prjOrderId = prjOrderId;
+	}
 }

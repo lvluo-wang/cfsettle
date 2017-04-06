@@ -27,4 +27,9 @@ public class CfsConstant {
 	public final static Byte PRJ_ORDER_STATUS_TO_REAPY = 6; //待还款
 	public final static Byte PRJ_ORDER_STATUS_REPAYING = 7; //还款中
 	public final static Byte PRJ_ORDER_STATUS_REPAYED = 8; //已还款
+	
+	public final static String PRJ_REPAY_WAY_A = "A"; //到期还本付息
+	public final static String PRJ_REPAY_WAY_B = "B"; //每月付息到期还本
+	public final static String PRJ_REPAY_WAY_C = "C"; //每季付息到期还本
+	public final static String PRJ_REPAY_WAY_D = "D"; //每半年付息到期还本
 }
