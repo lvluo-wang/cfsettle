@@ -21,7 +21,7 @@
 					<td><input name="searchBean.prjName" style="width:130px"/></td>
 					<td class="title">状态:</td>
 					<td>
-						<x:combobox name="searchBean.status" list="prjStatusList" textField="codeName" valueField="codeNo" cssStyle="width:80px;"/>
+						<x:combobox name="searchBean.status" list="prjStatusList" textField="codeName" valueField="codeNo" value="4" cssStyle="width:80px;"/>
 					</td>
 					<td><x:button iconCls="icon-search" text="query" click="doQuery"/></td>
 				</tr>
@@ -94,9 +94,15 @@
 		
 	function toAdd(){
 		if(isSingleSelected(dataTable)) {
-			var selectedId = dataTable.getSelectedField("ID");
-			var url="<s:url value='/prj/prjLoan_toAdd.jhtml'/>?id="+selectedId;
-			redirectUrl(url);
+			var row = dataTable.getSelectedFirstRow();
+			if(row.STATUS=='4'){
+				var selectedId = dataTable.getSelectedField("ID");
+				var url="<s:url value='/prj/prjLoan_toAdd.jhtml'/>?id="+selectedId;
+				redirectUrl(url);
+			}else{
+				warning('只有待放款项目才能放款');
+				return;
+			}
 		}
 	}
 

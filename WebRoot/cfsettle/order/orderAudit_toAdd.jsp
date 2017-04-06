@@ -66,7 +66,7 @@
 		</form>
 	</tiles:putAttribute>
 	<tiles:putAttribute name="button">
-		<x:button id="save" iconCls="icon-save" text="审核通过" click="doAddSave(2)" effect="round" />
+		<x:button id="save" iconCls="icon-save" text="审核通过" click="doAddSave(4)" effect="round" />
 		<x:button iconCls="icon-cancel" text="审核不通过" click="doAddSave(3)" effect="round" />
 	</tiles:putAttribute>
 	<tiles:putAttribute name="end">
@@ -76,7 +76,7 @@
 		if ($("#cfsOrderAuditForm").form("validate")) {
 			var param = formToObject("cfsOrderAuditForm");
 			param['cfsPrjOrder.status'] = status;
-			doPost(url, formToObject("cfsOrderAuditForm"),function(result) {
+			doPost(url, param,function(result) {
 					if (!printError(result)) {
 						closeWindow("project_add_win");
 						dataTable.refresh();

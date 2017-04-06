@@ -8,6 +8,7 @@ import org.springframework.util.CollectionUtils;
 
 import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.mapping.prj.CfsPrjLoanLog;
+import com.upg.cfsettle.util.CfsConstant;
 import com.upg.ucars.basesystem.UcarsHelper;
 import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.Page;
@@ -44,6 +45,9 @@ public class PrjLoanLogServiceImpl implements IPrjLoanLogService {
 			if(loanLog.getLoanTime().getTime() < log.getLoanTime().getTime()){
 				UcarsHelper.throwServiceException("放款时间必须大于项目的最后一次放款时间");
 			}
+		}
+		if(prj.getLoanedAmount().compareTo(prj.getDemandAmount().subtract(prj.getRemainingAmount()))==0){
+			prj.setStatus(CfsConstant.PRJ_STATUS_TO_PAYBACK);
 		}
 		loanLog.setRemark("员工"+SessionTool.getUserLogonInfo().getUserName()+"在"+DateTimeUtil.getCurDateTime()+"对项目"+loanLog.getPrjName()+"放款"+loanLog.getLoanAmount()+"万");
 		prjService.updateCfsPrj(prj);

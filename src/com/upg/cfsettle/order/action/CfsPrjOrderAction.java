@@ -5,15 +5,18 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.upg.cfsettle.common.CodeItemUtil;
 import com.upg.cfsettle.cust.core.CustOrderBean;
 import com.upg.cfsettle.cust.core.ICfsCustService;
 import com.upg.cfsettle.cust.core.ICfsPrjOrderService;
+import com.upg.cfsettle.mapping.ficode.FiCodeItem;
 import com.upg.cfsettle.mapping.prj.CfsCust;
 import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.mapping.prj.CfsPrjExt;
 import com.upg.cfsettle.mapping.prj.CfsPrjOrder;
 import com.upg.cfsettle.prj.core.IPrjExtService;
 import com.upg.cfsettle.prj.core.IPrjService;
+import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.factory.DynamicPropertyTransfer;
 import com.upg.ucars.framework.base.BaseAction;
 import com.upg.ucars.mapping.basesystem.security.Buser;
@@ -41,6 +44,8 @@ public class CfsPrjOrderAction extends BaseAction {
 	@Autowired
 	private ICfsCustService custService;
 	
+	private List<FiCodeItem> orderStatus;
+	
 	
 	
 	/**
@@ -50,6 +55,7 @@ public class CfsPrjOrderAction extends BaseAction {
 	 * @return
 	 */
 	public String main(){
+		orderStatus = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_PRJ_ORDER_STATUS);
 		return MAIN;
 	}
 	
@@ -182,5 +188,13 @@ public class CfsPrjOrderAction extends BaseAction {
 
 	public void setCfsCust(CfsCust cfsCust) {
 		this.cfsCust = cfsCust;
+	}
+
+	public List<FiCodeItem> getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(List<FiCodeItem> orderStatus) {
+		this.orderStatus = orderStatus;
 	}
 }

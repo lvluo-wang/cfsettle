@@ -6,8 +6,8 @@
 <%@ taglib prefix="x" uri="/xcars-tags"%>
 <tiles:insertDefinition name="FUNC_TOOL_QUERY_DATA">
 	<tiles:putAttribute name="tool">
-		<x:button iconCls="icon-audit" text="合同审核" click="doAudit" />
-		<x:button iconCls="icon-view" text="合同详情" click="toView" />
+		<x:button iconCls="icon-audit" text="收款审核" click="doAudit" />
+		<x:button iconCls="icon-view" text="收款详情" click="toView" />
 	</tiles:putAttribute>
 	<tiles:putAttribute name="query">
 		<form id="mainQueryForm" class="query_form">
@@ -25,7 +25,7 @@
 				<tr>
 					<td class="title">状态:</td>
 					<td>
-						<x:combobox name="searchBean.status" list="" textField="codeName" valueField="codeNo"/>
+						<x:combobox name="searchBean.status" list="orderStatus" textField="codeName" valueField="codeNo" value="2"/>
 					</td>
 					<td class="title">投资日期:</td>
 					<td colspan="3">
@@ -47,7 +47,7 @@
 				<x:column title="客户姓名" field="REAL_NAME" align="center" width="140"/>
 				<x:column title="客户手机" field="MOBILE" align="left" width="90"/>
 				<x:column title="购买项目" field="PRJ_NAME" align="center" width="150" />
-				<x:column title="购买金额" field="MONEY" align="center" width="150"/>
+				<x:column title="购买金额(元)" field="MONEY" align="center" width="150"/>
 				<x:column title="付款银行" field="PAY_BANK" align="center" width="80" formatter="formateBank"/>
 				<x:column title="付款卡号" field="PAY_ACCOUNT_NO" align="center" width="140"/>
 				<x:column title="服务员工" field="SERVICE_SYS_NAME" align="center" width="90"/>
@@ -88,12 +88,12 @@
 	function doAudit(){
 		if(isSingleSelected(dataTable)) {
 			var row = dataTable.getSelectedFirstRow();
-			if(row.STATUS=='1'||row.STATUS=='3'){
+			if(row.STATUS=='2'||row.STATUS=='3'){
 				var selectedId = dataTable.getSelectedField("ID");
 				var url="<s:url value='/order/orderAudit_toAdd.jhtml'/>?id="+selectedId;
-				requestAtWindow(url,"project_add_win","<s:text name='审核合同'/>");
+				requestAtWindow(url,"project_add_win","<s:text name='收款审核'/>");
 			}else{
-				warning('只有待审核合同才能审核');
+				warning('只有待打款审核合同才能操作');
 				return;
 			}
 		}
