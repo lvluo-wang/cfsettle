@@ -1,6 +1,7 @@
 package com.upg.cfsettle.organization.core;
 
 import com.upg.cfsettle.mapping.organization.CfsOrgDept;
+import com.upg.cfsettle.organization.bean.OrganizationBean;
 import com.upg.ucars.framework.base.IBaseDAO;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.QueryCondition;
@@ -18,4 +19,8 @@ public interface IOrgDeptDao extends IBaseDAO<CfsOrgDept,Long> {
 
 
     public <T> List<T> queryByCondition(QueryCondition qc, Page page) throws DAOException;
+
+    //根据营业部对应的区域
+    OrganizationBean getByDeptId(Long deptId);
+
 }

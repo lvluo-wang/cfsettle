@@ -1,11 +1,13 @@
 package com.upg.cfsettle.organization.core;
 
 import com.upg.cfsettle.mapping.organization.CfsOrgDept;
+import com.upg.cfsettle.organization.bean.OrganizationBean;
 import com.upg.ucars.framework.annotation.Dao;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.SysBaseDao;
 import com.upg.ucars.util.SQLCreater;
 import com.upg.ucars.util.StringUtil;
+import org.apache.commons.collections.map.HashedMap;
 
 import java.util.List;
 import java.util.Map;
@@ -34,5 +36,19 @@ public class OrgDeptDaoImpl extends SysBaseDao<CfsOrgDept,Long> implements IOrgD
         }
         sqlCreater.orderBy("dept.ctime",true);
         return getMapListByStanderdSQL(sqlCreater.getSql(),sqlCreater.getParameterMap(),page);
+    }
+
+    @Override
+    public OrganizationBean getByDeptId(Long deptId) {
+        String sql = "select dept.dept_name,area.area.area_name from cfs_org_dept dept,cfs_org_area area" +
+                " where dept.area_id=area.id" +
+                " and dept.id=:deptId";
+        Map<String,Object> param = new HashedMap();
+        param.put("deptId",deptId);
+        List<OrganizationBean> list = (List<OrganizationBean>) this.findListByMap(sql,param,null,OrganizationBean.class);
+        if(list != null && list.size() >0){
+            return list.get(0);
+        }
+        return null;
     }
 }

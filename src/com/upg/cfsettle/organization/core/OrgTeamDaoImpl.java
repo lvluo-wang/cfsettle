@@ -1,11 +1,13 @@
 package com.upg.cfsettle.organization.core;
 
 import com.upg.cfsettle.mapping.organization.CfsOrgTeam;
+import com.upg.cfsettle.organization.bean.OrganizationBean;
 import com.upg.ucars.framework.annotation.Dao;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.SysBaseDao;
 import com.upg.ucars.util.SQLCreater;
 import com.upg.ucars.util.StringUtil;
+import org.apache.commons.collections.map.HashedMap;
 
 import java.util.List;
 import java.util.Map;
@@ -42,5 +44,19 @@ public class OrgTeamDaoImpl extends SysBaseDao<CfsOrgTeam,Long> implements IOrgT
         }
         sqlCreater.orderBy("team.ctime",true);
         return getMapListByStanderdSQL(sqlCreater.getSql(),sqlCreater.getParameterMap(),page);
+    }
+
+    @Override
+    public OrganizationBean getByTeamId(Long teamId) {
+        String sql = "select team.team_name,dept.dept_name,area.area_name from cfs_org_team team,cfs_org_dept dept,cfs_org_area area" +
+                " where team.dept_id=dept.id and team.area_id=area.id" +
+                " and team.id=:teamId";
+        Map<String,Object> param = new HashedMap();
+        param.put("teamId",teamId);
+        List<OrganizationBean> list = (List<OrganizationBean>) this.findListByMap(sql,param,null,OrganizationBean.class);
+        if(list != null && list.size() >0){
+            return list.get(0);
+        }
+        return null;
     }
 }

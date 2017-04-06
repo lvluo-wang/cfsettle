@@ -5,6 +5,12 @@ import com.upg.cfsettle.mapping.organization.CfsOrgArea;
 import com.upg.cfsettle.mapping.organization.CfsOrgDept;
 import com.upg.cfsettle.mapping.organization.CfsOrgTeam;
 import com.upg.cfsettle.mapping.prj.CfsCustBuserRelate;
+import com.upg.cfsettle.organization.bean.OrganizationBean;
+import com.upg.cfsettle.organization.core.IOrgAreaDao;
+import com.upg.cfsettle.organization.core.IOrgDeptDao;
+import com.upg.cfsettle.organization.core.IOrgTeamDao;
+import com.upg.cfsettle.util.CfsConstant;
+import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.factory.DynamicPropertyTransfer;
 import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.ICommonDAO;
@@ -33,6 +39,12 @@ public class BuserServiceImpl implements IBuserService {
     private ICommonDAO commonDAO;
     @Autowired
     private ICfsCustBuserRelateDao buserRelateDao;
+    @Autowired
+    private IOrgTeamDao teamDao;
+    @Autowired
+    private IOrgDeptDao deptDao;
+    @Autowired
+    private IOrgAreaDao areaDao;
 
     @Override
     public List<Buser> queryBuser(Buser user, Page page) {
@@ -51,7 +63,41 @@ public class BuserServiceImpl implements IBuserService {
                 //员工名下客户人员
                 List<CfsCustBuserRelate> buserRelateList = buserRelateDao.findByBuserId(buser.getUserId());
                 Integer custNum = buserRelateList == null ? 0 : buserRelateList.size();
-             buser = (Buser) DynamicPropertyTransfer.dynamicAddProperty(buser, "custNum", custNum.toString());
+            buser = (Buser) DynamicPropertyTransfer.dynamicAddProperty(buser, "custNum", custNum.toString());
+            if(buser.getPosCode().equals(UtilConstant.CFS_CUST_MANAGER)
+                    || buser.getPosCode().equals(UtilConstant.CFS_TEAM_MANAGER)){
+                //客户经理/团队长
+                if(buser.getTeamId() != null) {
+                    OrganizationBean organizationBean = teamDao.getByTeamId(buser.getTeamId());
+                    if(organizationBean != null){
+                        buser = (Buser) DynamicPropertyTransfer.dynamicAddProperty(buser, "teamName", organizationBean.getTeamName());
+                        buser = (Buser) DynamicPropertyTransfer.dynamicAddProperty(buser, "deptName", organizationBean.getDeptName());
+                        buser = (Buser) DynamicPropertyTransfer.dynamicAddProperty(buser, "areaName", organizationBean.getAreaName());
+                    }
+                }
+            }
+            if(buser.getPosCode().equals(UtilConstant.CFS_DEPT_MANAGER)){
+                //营业部负责人
+                if(buser.getDeptId() != null) {
+                    OrganizationBean organizationBean = deptDao.getByDeptId(buser.getDeptId());
+                    if(organizationBean != null){
+                        buser = (Buser) DynamicPropertyTransfer.dynamicAddProperty(buser, "teamName", "-");
+                        buser = (Buser) DynamicPropertyTransfer.dynamicAddProperty(buser, "deptName", organizationBean.getDeptName());
+                        buser = (Buser) DynamicPropertyTransfer.dynamicAddProperty(buser, "areaName", organizationBean.getAreaName());
+                    }
+                }
+            }
+            if(buser.getPosCode().equals(UtilConstant.CFS_AREA_MANAGER)){
+                //区域经理
+                if(buser.getAreaId() != null) {
+                    CfsOrgArea area = areaDao.get(buser.getDeptId());
+                    if(area != null){
+                        buser = (Buser) DynamicPropertyTransfer.dynamicAddProperty(buser, "teamName", "-");
+                        buser = (Buser) DynamicPropertyTransfer.dynamicAddProperty(buser, "deptName", "-");
+                        buser = (Buser) DynamicPropertyTransfer.dynamicAddProperty(buser, "areaName", area.getAreaName());
+                    }
+                }
+            }
         }
         List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
        /* trans.add(new PropertyTransVo("areaId", CfsOrgArea.class, "id", "areaName","areaName"));
