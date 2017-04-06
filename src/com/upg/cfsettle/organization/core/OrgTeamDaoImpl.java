@@ -48,8 +48,8 @@ public class OrgTeamDaoImpl extends SysBaseDao<CfsOrgTeam,Long> implements IOrgT
 
     @Override
     public OrganizationBean getByTeamId(Long teamId) {
-        String sql = "select team.team_name,dept.dept_name,area.area_name from cfs_org_team team,cfs_org_dept dept,cfs_org_area area" +
-                " where team.dept_id=dept.id and team.area_id=area.id" +
+        String sql = "select team.team_name as teamName,dept.dept_name as deptName,area.area_name as areaName from cfs_org_team team,cfs_org_dept dept,cfs_org_area area" +
+                " where team.owned_dept=dept.id and team.owned_area=area.id" +
                 " and team.id=:teamId";
         Map<String,Object> param = new HashedMap();
         param.put("teamId",teamId);

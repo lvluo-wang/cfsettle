@@ -40,8 +40,8 @@ public class OrgDeptDaoImpl extends SysBaseDao<CfsOrgDept,Long> implements IOrgD
 
     @Override
     public OrganizationBean getByDeptId(Long deptId) {
-        String sql = "select dept.dept_name,area.area.area_name from cfs_org_dept dept,cfs_org_area area" +
-                " where dept.area_id=area.id" +
+        String sql = "select dept.dept_name as deptName,area.area_name as areaName from cfs_org_dept dept,cfs_org_area area" +
+                " where dept.owned_area=area.id" +
                 " and dept.id=:deptId";
         Map<String,Object> param = new HashedMap();
         param.put("deptId",deptId);

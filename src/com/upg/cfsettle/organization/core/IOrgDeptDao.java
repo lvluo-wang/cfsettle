@@ -20,7 +20,12 @@ public interface IOrgDeptDao extends IBaseDAO<CfsOrgDept,Long> {
 
     public <T> List<T> queryByCondition(QueryCondition qc, Page page) throws DAOException;
 
-    //根据营业部对应的区域
+
+    /**
+     * 鏌ヨ钀ヤ笟閮ㄥ叧鑱旂殑鍖哄煙
+     * @param deptId
+     * @return
+     */
     OrganizationBean getByDeptId(Long deptId);
 
 }

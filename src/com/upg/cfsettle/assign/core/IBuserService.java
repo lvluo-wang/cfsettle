@@ -11,5 +11,5 @@ import java.util.List;
  */
 public interface IBuserService extends IBaseService {
 
-    List<Buser> queryBuser(Buser user, Page page);
+    List<BuserSale> queryBuser(Buser user, Page page);
 }

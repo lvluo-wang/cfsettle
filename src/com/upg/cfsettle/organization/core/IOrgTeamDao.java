@@ -15,7 +15,11 @@ public interface IOrgTeamDao extends IBaseDAO<CfsOrgTeam,Long> {
 
     List<Map<String, Object>> findByCondition(OrgTeamBean searchBean, Page page);
 
-    //¸ù¾İteamId²éÕÒÆäÓªÒµ²¿ºÍÇøÓò
+    /**
+     * æŸ¥è¯¢å›¢é˜Ÿå…³è”çš„è¥ä¸šéƒ¨å’ŒåŒºåŸŸ
+     * @param teamId
+     * @return
+     */
     OrganizationBean getByTeamId(Long teamId);
 
 
