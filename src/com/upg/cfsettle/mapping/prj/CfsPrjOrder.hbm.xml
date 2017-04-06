@@ -96,7 +96,7 @@
                 <comment>还款审核人</comment>
             </column>
         </property>
-        <property name="serviceSysType" type="java.lang.Long">
+        <property name="serviceSysType" type="java.lang.String">
             <column name="service_sys_type">
                 <comment>服务员类型</comment>
             </column>

@@ -1,15 +1,22 @@
 package com.upg.cfsettle.prj.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.upg.cfsettle.code.core.ICodeItemService;
 import com.upg.cfsettle.mapping.ficode.FiCodeItem;
 import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.mapping.prj.CfsPrjExt;
+import com.upg.cfsettle.mapping.prj.CfsPrjLoanLog;
 import com.upg.cfsettle.prj.core.IPrjExtService;
+import com.upg.cfsettle.prj.core.IPrjLoanLogService;
 import com.upg.cfsettle.prj.core.IPrjService;
 import com.upg.cfsettle.util.UtilConstant;
+import com.upg.ucars.factory.DynamicPropertyTransfer;
 import com.upg.ucars.framework.base.BaseAction;
+import com.upg.ucars.mapping.basesystem.security.Buser;
+import com.upg.ucars.util.PropertyTransVo;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created by zuo on 2017/3/30.
@@ -18,15 +25,18 @@ public class PrjAction extends BaseAction {
 
     private CfsPrj searchBean;
 
-
     private ICodeItemService codeItemService;
 
     private IPrjService prjService;
 
     private IPrjExtService prjExtService;
+    @Autowired
+    private IPrjLoanLogService loanLogService;
 
     private CfsPrj prj;
     private CfsPrjExt prjExt;
+    private CfsPrjLoanLog prjLoanLog;
+
 
     private List<FiCodeItem> bankList;
     private List<FiCodeItem> repaymentTypeList;
@@ -83,6 +93,14 @@ public class PrjAction extends BaseAction {
         prj = prjService.getPrjById(getPKId());
         prjExt = prjExtService.getPrjExtByPrjId(getPKId());
         return "toReview";
+    }
+
+    public String loanIssue(){
+        List<CfsPrjLoanLog> list = loanLogService.findByCondition(prjLoanLog,getPg());
+        List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
+        trans.add(new PropertyTransVo("csysid", Buser.class, "userId", "userName","sysUserName"));
+        list = DynamicPropertyTransfer.transform(list, trans);
+        return setDatagridInputStreamData(list,getPg());
     }
 
     public void doReview(){
@@ -168,5 +186,13 @@ public class PrjAction extends BaseAction {
 
     public void setPrjExt(CfsPrjExt prjExt) {
         this.prjExt = prjExt;
+    }
+
+    public CfsPrjLoanLog getPrjLoanLog() {
+        return prjLoanLog;
+    }
+
+    public void setPrjLoanLog(CfsPrjLoanLog prjLoanLog) {
+        this.prjLoanLog = prjLoanLog;
     }
 }

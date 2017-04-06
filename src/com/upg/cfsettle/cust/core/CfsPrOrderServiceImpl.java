@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import com.upg.cfsettle.common.CodeItemUtil;
+import com.upg.cfsettle.util.UtilConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.upg.cfsettle.mapping.organization.CfsOrgArea;
@@ -69,8 +71,8 @@ public class CfsPrOrderServiceImpl implements ICfsPrjOrderService {
         }
             CfsPrj prj = prjService.getPrjById(prjId);
             if(prj !=null){
-                //募集中状态
-                if(prj.getStatus().equals(Byte.valueOf("3"))){
+                //投资中状态
+                if(prj.getStatus().equals(CfsConstant.PRJ_STATUS_INVESTING)){
                     if(prj.getRemainingAmount().compareTo(prjOrder.getMoney())<0){
                         UcarsHelper.throwServiceException("项目剩余投资金额不足");
                     }
@@ -101,18 +103,17 @@ public class CfsPrOrderServiceImpl implements ICfsPrjOrderService {
                         Buser user = userService.getUserById(cfsCustBuserRelate.getSysId());
                         if(user != null){
                             prjOrder.setServiceSysName(user.getUserName());
+                            prjOrder.setServiceSysType(CodeItemUtil.getCodeNameByKey(UtilConstant.CFS_BUSER_POS_CODE,user.getPosCode()));
                         }
-                        //todo 服务类型
-
                     }
                     prjOrderDao.save(prjOrder);
                     //update prj remainingAmount
                     BigDecimal remainingAmount = prj.getRemainingAmount().subtract(prjOrder.getMoney());
                     prj.setRemainingAmount(remainingAmount);
-                    if(remainingAmount.compareTo(BigDecimal.ZERO) == 0){
+                   /* if(remainingAmount.compareTo(BigDecimal.ZERO) == 0){
                         //募资完成，待放款
-                        prj.setStatus(Byte.valueOf("4"));
-                    }
+                        prj.setStatus(CfsConstant.PRJ_STATUS_TO_LOAN);
+                    }*/
                     prjService.updatePrj(prj);
 
                 }else{

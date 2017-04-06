@@ -134,7 +134,7 @@
 
                 <%--//todo--%>
                 <h3>放款记录</h3>
-                <div>
+                <div class="func_data_area">
                     <x:datagrid id="dataTableIssue" url="" height="120" pagebar="false" autoload="" >
                         <x:columns>
                             <x:column title="放款次数" field="operator" align="center" width="150" />
@@ -148,7 +148,7 @@
                 </div>
                     <%--//todo--%>
                 <h3>回款记录</h3>
-                <div>
+                <div class="func_data_area">
                     <x:datagrid id="dataTableRepay" url="" height="120" pagebar="false" autoload="" >
                         <x:columns>
                             <x:column title="回款次数" field="operator" align="center" width="150" />

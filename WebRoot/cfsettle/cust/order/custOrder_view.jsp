@@ -85,7 +85,7 @@
                             <td class="title">归属团队</td>
                             <td>${prjOrder.ownedTeamName}</td>
                             <td class="title">服务员工职位</td>
-                            <td>${prjOrder.serviceSysType}</td>
+                            <td><x:codeItem codeKye="<%=UtilConstant.CFS_BUSER_POS_CODE%>" codeNo="prjOrder.serviceSysType"/></td>
                         </tr>
                         <tr>
                             <td class="title">归属区域</td>
@@ -111,14 +111,14 @@
                                 <img id="payNotes" src="" alt="打印凭证" height="300px;" width="330px;">
                             </td>
                         </tr>
-                            <%--//todo--%>
+
                         <tr>
                             <td colspan="4">
                         <h3>还款计划</h3>
                             </td>
                         </tr>
-                        <div>
-                            <x:datagrid id="dataTableRepay" url="/custOrder/custOrder_orderRepayList.jhtml?prjOrderid=${prjOrder.id}" height="120" pagebar="false" autoload="true" >
+                        <div class="func_data_area">
+                            <x:datagrid id="dataTableRepay"  url="/custOrder/custOrder_orderRepayList.jhtml?prjOrderid=${prjOrder.id}" height="120" pagebar="false" autoload="true" >
                                 <x:columns>
                                     <x:column title="预计还款时间" field="repayDate" align="center" width="150" />
                                     <x:column title="还款本金" field="principal" align="center" width="150"/>

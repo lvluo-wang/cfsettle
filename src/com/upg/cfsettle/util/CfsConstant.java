@@ -16,9 +16,11 @@ public class CfsConstant {
 	public final static Byte PRJ_STATUS_PAYBACKED = 7; //已回款
 	public final static Byte PRJ_STATUS_FAILED = 8; //流标
 
+	//prj_order_audit_log status
 	public final static Byte CONTRACT_LOG_STATUS_PASS = 1; //审核通过
 	public final static Byte CONTRACT_LOG_STATUS_REJECT = 2; //审核驳回
 
+	//prj_order status
 	public final static Byte PRJ_ORDER_STATUS_AUDIT = 1; //待合同审核
 	public final static Byte PRJ_ORDER_STATUS_PAY = 2; //待打款审核
 	public final static Byte PRJ_ORDER_STATUS_REJECT = 3; //退回重签

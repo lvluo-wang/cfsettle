@@ -10,5 +10,18 @@ import java.util.List;
  */
 public interface ICfsCustBuserRelateDao extends IBaseDAO<CfsCustBuserRelate,Long> {
 
+    /**
+     * 客户的关联服务人员
+     * @param custId
+     * @return
+     */
     List<CfsCustBuserRelate> findByCustId(Long custId);
+
+
+    /**
+     * 服务人员名下的客户
+     * @param buserId
+     * @return
+     */
+    List<CfsCustBuserRelate> findByBuserId(Long buserId);
 }

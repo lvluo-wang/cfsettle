@@ -34,7 +34,7 @@ public class CfsPrjOrder implements Serializable {
 	private Long collectAuditSysid;
 	private Date repayAuditTime;
 	private Long repayAuidtSysid;
-	private Long serviceSysType;
+	private String serviceSysType;
 	private Long serviceSysid;
 	private String serviceSysName;
 	private Long ownedTeam;
@@ -62,7 +62,7 @@ public class CfsPrjOrder implements Serializable {
 			Date contractAuditTime, Long contractAuidtSysid,
 			Date collectAuditTime, Long collectAuditSysid,
 			Date repayAuditTime, Long repayAuidtSysid,
-			Long serviceSysType, Long serviceSysid,
+			String serviceSysType, Long serviceSysid,
 			String serviceSysName, Long ownedTeam, String ownedTeamName,
 			Long ownedDept, String ownedDeptName, Long ownedArea,
 			String ownedAreaName, Long csysid, Date ctime,
@@ -245,11 +245,11 @@ public class CfsPrjOrder implements Serializable {
 		this.repayAuidtSysid = repayAuidtSysid;
 	}
 
-	public Long getServiceSysType() {
-		return this.serviceSysType;
+	public String getServiceSysType() {
+		return serviceSysType;
 	}
 
-	public void setServiceSysType(Long serviceSysType) {
+	public void setServiceSysType(String serviceSysType) {
 		this.serviceSysType = serviceSysType;
 	}
 
