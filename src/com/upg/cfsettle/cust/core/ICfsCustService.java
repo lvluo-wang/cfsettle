@@ -52,4 +52,12 @@ public interface ICfsCustService extends IBaseService {
 	 */
 	void deleteById(Long pkId);
 
+
+	/**
+	 * 员工名下的所有客户
+	 * @param buserId
+	 * @return
+	 */
+	List<CfsCust> findAllCustByBuserId(Long buserId);
+
 }

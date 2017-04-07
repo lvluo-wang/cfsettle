@@ -58,8 +58,7 @@ public class BuserServiceImpl implements IBuserService {
             try {
                 BeanUtils.copyProperties(buserSale, buser);
                 //客户数量
-                List<CfsCustBuserRelate> buserRelateList = buserRelateDao.findByBuserId(buser.getUserId());
-                Integer custNum = buserRelateList == null ? 0 : buserRelateList.size();
+                Integer custNum = buserRelateDao.getCustCount(buser.getUserId());
                 buserSale.setCustNum(custNum);
                 if (buser.getPosCode().equals(UtilConstant.CFS_CUST_MANAGER)
                         || buser.getPosCode().equals(UtilConstant.CFS_TEAM_MANAGER)) {

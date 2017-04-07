@@ -6,7 +6,7 @@
 <struts>
 	<package name="assign" namespace="/assign" extends="pkg-base">
 		<action name="assignManage_*" class="com.upg.cfsettle.assign.action.CustAssignAction" method="{1}">
-			<result name="main">/cfsettle/assign/assign_{1}.jsp</result>
+			<result name="success">/cfsettle/assign/assign_{1}.jsp</result>
 		</action>
 	</package>
 </struts>

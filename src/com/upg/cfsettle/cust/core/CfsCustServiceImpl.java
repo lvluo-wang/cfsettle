@@ -71,4 +71,9 @@ public class CfsCustServiceImpl implements ICfsCustService{
 		
 		cfsCustDao.delete(id);
 	}
+
+	@Override
+	public List<CfsCust> findAllCustByBuserId(Long buserId) {
+		return cfsCustDao.findAllCustByBuserId(buserId);
+	}
 }
