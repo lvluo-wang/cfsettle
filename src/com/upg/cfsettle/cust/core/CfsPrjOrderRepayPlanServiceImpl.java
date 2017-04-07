@@ -44,4 +44,9 @@ public class CfsPrjOrderRepayPlanServiceImpl implements ICfsPrjOrderRepayPlanSer
         }
         return null;
     }
+
+	@Override
+	public void addPrjOrderRepayPlan(CfsPrjOrderRepayPlan orderPlan) {
+		prjOrderRepayPlanDao.save(orderPlan);
+	}
 }

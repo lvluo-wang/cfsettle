@@ -15,4 +15,7 @@ public interface ICfsPrjOrderRepayPlanService extends IBaseService {
 
     //募集期利息
     CfsPrjOrderRepayPlan getRaiseOrderRepayPlan(Long prjOrderId);
+
+
+	void addPrjOrderRepayPlan(CfsPrjOrderRepayPlan orderPlan);
 }

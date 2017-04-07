@@ -10,11 +10,14 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.upg.cfsettle.cust.core.ICfsPrjOrderRepayPlanService;
 import com.upg.cfsettle.cust.core.ICfsPrjOrderService;
+import com.upg.cfsettle.cust.core.ICfsPrjRepayPlanService;
 import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.mapping.prj.CfsPrjExt;
 import com.upg.cfsettle.mapping.prj.CfsPrjOrder;
 import com.upg.cfsettle.mapping.prj.CfsPrjOrderRepayPlan;
+import com.upg.cfsettle.mapping.prj.CfsPrjRepayPlan;
 import com.upg.cfsettle.mapping.prj.RepayPlanInfo;
 import com.upg.cfsettle.util.CfsConstant;
 import com.upg.cfsettle.util.CfsUtils;
@@ -45,6 +48,10 @@ public class PrjServiceImpl implements IPrjService {
     private IPrjExtService prjExtService;
     @Autowired
     private ICfsPrjOrderService prjOrderService;
+    @Autowired
+    private ICfsPrjRepayPlanService prjRepayPlan;
+    @Autowired
+    private ICfsPrjOrderRepayPlanService prjOrderRepayPlan;
 
     @Override
     public List<Map<String, Object>> findByCondition(CfsPrj searchBean, Page page) {
@@ -229,12 +236,12 @@ public class PrjServiceImpl implements IPrjService {
 	private void genRepayWayA(CfsPrj prj) {
 		List<CfsPrjOrder> orders = prjOrderService.getPrjOrdersByPrjId(prj.getId());
 		List<RepayPlanInfo> planInfos = new ArrayList<RepayPlanInfo>();
-	    planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_PERIODS, prj.getEndBidTime()));
-		planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL, DateTimeUtil.addDay(prj.getEndBidTime(), prj.getTimeLimitDay())));
+	    planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_PERIODS, prj.getEndBidTime(),0L));
+		planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL, DateTimeUtil.addDay(prj.getEndBidTime(), prj.getTimeLimitDay()),1L));
 		List<CfsPrjOrderRepayPlan> orderPlans = genPrjOrderPlan(planInfos,prj,orders);
-		
+		genPrjPlan(planInfos,orderPlans,prj);
 	}
-	
+
 	/**
 	 *  生成按月付息到期还本还款计划
 	 * @author renzhuolun
@@ -242,8 +249,22 @@ public class PrjServiceImpl implements IPrjService {
 	 * @param prj
 	 */
 	private void genRepayWayB(CfsPrj prj) {
-		// TODO Auto-generated method stub
-		
+		//TODO  还没有实现
+		Integer count = 0;
+		if(UtilConstant.TIME_LIMIT_YEAR.equals(prj.getTimeLimitUnit())){
+			count = prj.getTimeLimit()*12;
+		}else{
+			count = prj.getTimeLimit();
+		}
+		List<CfsPrjOrder> orders = prjOrderService.getPrjOrdersByPrjId(prj.getId());
+		List<RepayPlanInfo> planInfos = new ArrayList<RepayPlanInfo>();
+		planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_PERIODS, prj.getEndBidTime(),0L));
+		if(prj.getEndBidTime().getTime()< DateTimeUtil.getMonth(new Date())){
+			
+		}
+		planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL, DateTimeUtil.addDay(prj.getEndBidTime(), prj.getTimeLimitDay()),1L));
+		List<CfsPrjOrderRepayPlan> orderPlans = genPrjOrderPlan(planInfos,prj,orders);
+		genPrjPlan(planInfos,orderPlans,prj);
 	}
 	
 	/**
@@ -253,8 +274,13 @@ public class PrjServiceImpl implements IPrjService {
 	 * @param prj
 	 */
 	private void genRepayWayC(CfsPrj prj) {
-		// TODO Auto-generated method stub
-		
+		//TODO  还没有实现
+		List<CfsPrjOrder> orders = prjOrderService.getPrjOrdersByPrjId(prj.getId());
+		List<RepayPlanInfo> planInfos = new ArrayList<RepayPlanInfo>();
+		planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_PERIODS, prj.getEndBidTime(),0L));
+		planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL, DateTimeUtil.addDay(prj.getEndBidTime(), prj.getTimeLimitDay()),1L));
+		List<CfsPrjOrderRepayPlan> orderPlans = genPrjOrderPlan(planInfos,prj,orders);
+		genPrjPlan(planInfos,orderPlans,prj);
 	}
 	
 	/**
@@ -264,8 +290,13 @@ public class PrjServiceImpl implements IPrjService {
 	 * @param prj
 	 */
 	private void genRepayWayD(CfsPrj prj) {
-		// TODO Auto-generated method stub
-		
+		//TODO  还没有实现
+		List<CfsPrjOrder> orders = prjOrderService.getPrjOrdersByPrjId(prj.getId());
+		List<RepayPlanInfo> planInfos = new ArrayList<RepayPlanInfo>();
+		planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_PERIODS, prj.getEndBidTime(),0L));
+		planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL, DateTimeUtil.addDay(prj.getEndBidTime(), prj.getTimeLimitDay()),1L));
+		List<CfsPrjOrderRepayPlan> orderPlans = genPrjOrderPlan(planInfos,prj,orders);
+		genPrjPlan(planInfos,orderPlans,prj);
 	}
 	
 	/**
@@ -279,7 +310,6 @@ public class PrjServiceImpl implements IPrjService {
 	private List<CfsPrjOrderRepayPlan> genPrjOrderPlan(List<RepayPlanInfo> planInfos,CfsPrj prj, List<CfsPrjOrder> orders) {
 		List<CfsPrjOrderRepayPlan> plans = new ArrayList<CfsPrjOrderRepayPlan>();
 		for(RepayPlanInfo info :planInfos){
-			Long repayPeriods = 0L;
 			for(CfsPrjOrder order :orders){
 				BigDecimal yield = new BigDecimal(0);
 				CfsPrjOrderRepayPlan orderPlan = new CfsPrjOrderRepayPlan();
@@ -295,7 +325,7 @@ public class PrjServiceImpl implements IPrjService {
 				orderPlan.setPtype(info.getPtype());
 				orderPlan.setPrjId(order.getPrjId());
 				orderPlan.setPrjOrderId(order.getId());
-				orderPlan.setRepayPeriods(repayPeriods);
+				orderPlan.setRepayPeriods(info.getRepayPeriods());
 				orderPlan.setPriInterest(yield.add(orderPlan.getPrincipal()));
 				orderPlan.setYield(yield);
 				orderPlan.setRestPrincipal(order.getMoney().subtract(orderPlan.getPrincipal()));
@@ -304,8 +334,25 @@ public class PrjServiceImpl implements IPrjService {
 				orderPlan.setMtime(DateTimeUtil.getNowDateTime());
 				plans.add(orderPlan);
 			}
-			repayPeriods++;
 		}
 		return plans;
+	}
+	
+	private void genPrjPlan(List<RepayPlanInfo> planInfos, List<CfsPrjOrderRepayPlan> orderPlans, CfsPrj prj) {
+		for(RepayPlanInfo info :planInfos){
+			CfsPrjRepayPlan plan = new CfsPrjRepayPlan(prj.getId(),info.getRepayPeriods(),info.getRepayDate(),UtilConstant.DEFAULT_ZERO,
+					UtilConstant.DEFAULT_ZERO,UtilConstant.DEFAULT_ZERO,UtilConstant.DEFAULT_ZERO,UtilConstant.REPAY_STATUS_1,
+				DateTimeUtil.getNowDateTime(),DateTimeUtil.getNowDateTime());
+			prjRepayPlan.addPrjRepayPlan(plan);
+			for(CfsPrjOrderRepayPlan orderPlan:orderPlans){
+				plan.setPriInterest(plan.getPriInterest().add(orderPlan.getPriInterest()));
+				plan.setPrincipal(plan.getPrincipal().add(orderPlan.getPrincipal()));
+				plan.setYield(plan.getYield().add(orderPlan.getYield()));
+				plan.setRestPrincipal(plan.getRestPrincipal().add(orderPlan.getRestPrincipal()));
+				orderPlan.setPrjRepayPlanId(plan.getId());
+				prjOrderRepayPlan.addPrjOrderRepayPlan(orderPlan);
+			}
+			prjRepayPlan.updatePrjRepayPlan(plan);
+		}
 	}
 }

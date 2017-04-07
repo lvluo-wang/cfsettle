@@ -40,8 +40,7 @@ public class CfsPrjRepayPlan implements Serializable {
 	public CfsPrjRepayPlan(Long prjId,
 			Long repayPeriods, Date repayDate, BigDecimal priInterest,
 			BigDecimal principal, BigDecimal yield, BigDecimal restPrincipal,
-			Byte status, Date ctime, Long csysid, Date mtime,
-			Long msysid) {
+			Byte status, Date ctime, Date mtime) {
 		this.prjId = prjId;
 		this.repayPeriods = repayPeriods;
 		this.repayDate = repayDate;
@@ -51,9 +50,7 @@ public class CfsPrjRepayPlan implements Serializable {
 		this.restPrincipal = restPrincipal;
 		this.status = status;
 		this.ctime = ctime;
-		this.csysid = csysid;
 		this.mtime = mtime;
-		this.msysid = msysid;
 	}
 
 	// Property accessors

@@ -1,5 +1,7 @@
 package com.upg.cfsettle.util;
 
+import java.math.BigDecimal;
+
 /**
  * 常用基本数据状态定义
  * @author renzhuolun
@@ -48,6 +50,8 @@ public final class UtilConstant {
 	public static final Byte   REPAY_STATUS_1 = 1; //待还款
 	public static final Byte   REPAY_STATUS_2 = 2; //已还款
 	public static final Byte   REPAY_STATUS_3 = 3; //还款结束
+	
+	public static final BigDecimal DEFAULT_ZERO = new BigDecimal(0); //默认0值
 	
 
 

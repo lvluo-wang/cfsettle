@@ -1,16 +1,15 @@
 package com.upg.cfsettle.prj.core;
 
+import java.util.List;
+import java.util.Map;
+
 import com.upg.cfsettle.mapping.prj.CfsPrj;
-import com.upg.finance.mapping.yrzif.FiPrj;
 import com.upg.ucars.framework.annotation.Dao;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.SysBaseDao;
 import com.upg.ucars.util.DateTimeUtil;
 import com.upg.ucars.util.SQLCreater;
 import com.upg.ucars.util.StringUtil;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by zuo on 2017/3/30.

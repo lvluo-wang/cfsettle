@@ -13,6 +13,8 @@ public class RepayPlanInfo implements Serializable{
 	private Byte ptype;
 	
 	private Date repayDate;
+	
+	private Long repayPeriods;
 
 	public Byte getPtype() {
 		return ptype;
@@ -30,11 +32,20 @@ public class RepayPlanInfo implements Serializable{
 		this.repayDate = repayDate;
 	}
 
-	public RepayPlanInfo(Byte ptype, Date repayDate) {
+	public RepayPlanInfo(Byte ptype, Date repayDate,Long repayPeriods) {
 		this.ptype = ptype;
 		this.repayDate = repayDate;
+		this.repayPeriods = repayPeriods;
 	}
 	
 	public RepayPlanInfo() {
+	}
+
+	public Long getRepayPeriods() {
+		return repayPeriods;
+	}
+
+	public void setRepayPeriods(Long repayPeriods) {
+		this.repayPeriods = repayPeriods;
 	}
 }

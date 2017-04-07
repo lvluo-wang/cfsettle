@@ -20,4 +20,14 @@ public class CfsPrjRepayPlanServiceImpl implements ICfsPrjRepayPlanService {
         List<CfsPrjRepayPlan> prjRepayPlanList = prjRepayPlanDao.findNoRaisePlanByPrjId(prjId);
         return prjRepayPlanList == null ? null : prjRepayPlanList.size();
     }
+
+	@Override
+	public void addPrjRepayPlan(CfsPrjRepayPlan plan) {
+		prjRepayPlanDao.save(plan);
+	}
+
+	@Override
+	public void updatePrjRepayPlan(CfsPrjRepayPlan plan) {
+		prjRepayPlanDao.saveOrUpdate(plan);
+	}
 }

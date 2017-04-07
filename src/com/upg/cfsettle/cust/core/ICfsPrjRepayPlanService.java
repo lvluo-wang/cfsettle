@@ -1,5 +1,6 @@
 package com.upg.cfsettle.cust.core;
 
+import com.upg.cfsettle.mapping.prj.CfsPrjRepayPlan;
 import com.upg.ucars.framework.base.IBaseService;
 
 /**
@@ -14,4 +15,8 @@ public interface ICfsPrjRepayPlanService extends IBaseService {
      * @return
      */
     Integer getTotalPeriodByPrjId(Long prjId);
+
+	void addPrjRepayPlan(CfsPrjRepayPlan plan);
+
+	void updatePrjRepayPlan(CfsPrjRepayPlan plan);
 }
