@@ -20,12 +20,12 @@ public class CfsCustBuserRelateDaoImpl extends SysBaseDao<CfsCustBuserRelate,Lon
     }
 
     @Override
-    public List<CfsCustBuserRelate> findByBuserId(Long buserId) {
+    public Integer getCustCount(Long buserId) {
         String hql = "from CfsCustBuserRelate relate where relate.sysId=?";
         List<CfsCustBuserRelate> list = this.find(hql,buserId);
         if(list != null && list.size() >0){
-            return list;
+            return list.size();
         }
-        return Collections.emptyList();
+        return 0;
     }
 }

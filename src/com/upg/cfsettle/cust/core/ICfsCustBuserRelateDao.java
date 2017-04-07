@@ -11,7 +11,7 @@ import java.util.List;
 public interface ICfsCustBuserRelateDao extends IBaseDAO<CfsCustBuserRelate,Long> {
 
     /**
-     * ¿Í»§µÄ¹ØÁª·şÎñÈËÔ±
+     * å®¢æˆ·å…³è”çš„æœåŠ¡äººå‘˜
      * @param custId
      * @return
      */
@@ -19,9 +19,9 @@ public interface ICfsCustBuserRelateDao extends IBaseDAO<CfsCustBuserRelate,Long
 
 
     /**
-     * ·şÎñÈËÔ±ÃûÏÂµÄ¿Í»§
+     *æœåŠ¡äººå‘˜åä¸‹çš„å®¢æˆ·æ•°é‡
      * @param buserId
      * @return
      */
-    List<CfsCustBuserRelate> findByBuserId(Long buserId);
+    Integer getCustCount(Long buserId);
 }
