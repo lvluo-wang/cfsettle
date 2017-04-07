@@ -5,23 +5,26 @@
 <%@ taglib prefix="x" uri="/xcars-tags"%>
 <tiles:insertDefinition name="FUNC_TOOL_QUERY_DATA">
 	<tiles:putAttribute name="tool">
-		<x:button iconCls="icon-add" text="放款录入" click="toAdd"/>
-		<x:button iconCls="icon-view" text="放款详情" click="toView"/>
-		<x:button iconCls="icon-down" text="导出Excel" click="doExport"/>
+		<x:button iconCls="icon-add" text="回款录入" click="toAdd"/>
+		<x:button iconCls="icon-view" text="回款详情" click="toView"/>
+		<x:button iconCls="icon-reload" text="本周截止回款" click="queryWeek"/>
+		<x:button iconCls="icon-reload" text="本月截止回款" click="queryMonth"/>
 	</tiles:putAttribute>
 	<tiles:putAttribute name="query">
 			<form id="mainQueryForm" class="query_form">
 			<table>
 				<tr>
-					<td class="title">借款人姓名: </td>
-					<td><input name="searchBean.prjUseName" style="width:130px"/></td>
-					<td class="title">借款人手机: </td>
-					<td><input name="searchBean.prjMobile" style="width:130px"/></td>
 					<td class="title">项目名: </td>
 					<td><input name="searchBean.prjName" style="width:130px"/></td>
 					<td class="title">状态:</td>
 					<td>
 						<x:combobox name="searchBean.status" list="prjStatusList" textField="codeName" valueField="codeNo" cssStyle="width:80px;"/>
+					</td>
+					<td class="title">回款截止时间:</td>
+					<td colspan="3">
+						<input id="beginTime" name="searchBean.startDate" class="Wdate" value="<s:date format="yyyy-MM-dd" name=""/>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'endTime\',{d:-31})}',maxDate:'#F{$dp.$D(\'endTime\')}',onpicked:function(){endTime.focus();}})" />
+						-
+						<input id="endTime" name="searchBean.endDate" class="Wdate" value="<s:date format="yyyy-MM-dd" name=""/>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'beginTime\',{d:31})}',minDate:'#F{$dp.$D(\'beginTime\')}'})" />
 					</td>
 					<td><x:button iconCls="icon-search" text="query" click="doQuery"/></td>
 				</tr>
@@ -74,6 +77,14 @@
 
     function formateRate(value) {
 		return value+"%";
+    }
+    
+    function queryWeek(){
+    	dataTable.load();
+    }
+    
+    function queryMonth(){
+    	dataTable.load();
     }
 
     function formateTimelimit(value,field,row) {
