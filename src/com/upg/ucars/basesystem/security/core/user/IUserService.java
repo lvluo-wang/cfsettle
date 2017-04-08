@@ -373,5 +373,13 @@ public interface IUserService extends IBaseService {
 	public List<Buser> getUsersByRoleAndBrch(String roleName,String brchNo);
 
 	public List<Buser> getUserByIdList(List<Long> idList);
-	
+
+	/**
+	 * 营业部下的所有员工
+	 * @param deptId
+	 * @return
+	 */
+	public List<Buser> getUserByDeptId(Long deptId);
+
+
 }

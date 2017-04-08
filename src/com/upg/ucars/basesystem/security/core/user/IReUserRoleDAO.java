@@ -42,4 +42,5 @@ public interface IReUserRoleDAO extends IBaseDAO<ReUserRole, Long> {
 	public List<Buser> getUsersByRoleNameAndBrch(String roleName,Long brchId);
 	
 	public List<Buser> getUsersByRoleIdAndBrch(Long roleId,Long brchId);
+
 }

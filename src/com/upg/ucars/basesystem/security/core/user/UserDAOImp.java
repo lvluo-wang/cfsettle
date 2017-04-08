@@ -303,5 +303,11 @@ public class UserDAOImp extends BaseDAO<Buser,Long> implements IUserDAO {
 		}
 		return ret == null ? new ArrayList<Buser>(0) : ret;
 	}
+
+	@Override
+	public List<Buser> getUserByDeptId(Long deptId) {
+		String hql = "select u from Buser u where u.deptId=? and u.status !=4";
+		return find(hql,deptId);
+	}
 	
 }

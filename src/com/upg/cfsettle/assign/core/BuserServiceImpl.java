@@ -12,9 +12,11 @@ import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.ICommonDAO;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.QueryCondition;
+import com.upg.ucars.framework.base.SessionTool;
 import com.upg.ucars.mapping.basesystem.security.Buser;
 import com.upg.ucars.model.ConditionBean;
 import com.upg.ucars.model.OrderBean;
+import com.upg.ucars.model.security.UserLogonInfo;
 import com.upg.ucars.util.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -47,6 +49,18 @@ public class BuserServiceImpl implements IBuserService {
         if (user != null && user.getUserName() != null) {
             conditionList.add(new ConditionBean("user.userName", ConditionBean.LIKE, user.getUserName()));
         }
+        UserLogonInfo logonInfo = SessionTool.getUserLogonInfo();
+        //营业部负责人
+        if(logonInfo.getPosCode() != null && logonInfo.getPosCode().equals(UtilConstant.CFS_DEPT_MANAGER)){
+            conditionList.add(new ConditionBean("user.deptId", ConditionBean.EQUAL, logonInfo.getDeptId()));
+        }
+        //管理员
+        if(logonInfo.getUserType() != null && logonInfo.getUserType().equals(Buser.TYPE_BRCH_GLOBAL_MANAGER)){
+            String[] posCodes = new String[]
+                    {UtilConstant.CFS_DEPT_MANAGER,UtilConstant.CFS_AREA_MANAGER,UtilConstant.CFS_CUST_MANAGER,
+                    UtilConstant.CFS_TEAM_MANAGER};
+            conditionList.add(new ConditionBean("user.posCode", ConditionBean.IN, posCodes));
+        }
         QueryCondition qc = new QueryCondition(hql);
         qc.addConditionList(conditionList);
         qc.addOrder(new OrderBean("userId"));
@@ -56,7 +70,7 @@ public class BuserServiceImpl implements IBuserService {
         for (Buser buser : list) {
             buserSale = new BuserSale();
             try {
-                BeanUtils.copyProperties(buserSale, buser);
+                BeanUtils.copyNoNullProperties(buserSale, buser);
                 //客户数量
                 Integer custNum = buserRelateDao.getCustCount(buser.getUserId());
                 buserSale.setCustNum(custNum);
@@ -99,5 +113,26 @@ public class BuserServiceImpl implements IBuserService {
             buserSaleList.add(buserSale);
         }
         return buserSaleList;
+    }
+
+    @Override
+    public List<Buser> queryAllSale() {
+        String hql = "select user from Buser user where " +
+                " user.userId >3 ";
+        List<ConditionBean> conditionList = new ArrayList<ConditionBean>();
+        QueryCondition qc = new QueryCondition(hql);
+        qc.addConditionList(conditionList);
+        qc.addOrder(new OrderBean("userId"));
+        List<Buser> list = commonDAO.queryByCondition(qc, null);
+        return list;
+    }
+
+    @Override
+    public void doAssignForCustIds(String custIds, Long buserId) {
+        List<CfsCustBuserRelate> custBuserRelateList = buserRelateDao.getCustBuserRelateListBycustIds(custIds);
+        for(CfsCustBuserRelate cfsCustBuserRelate : custBuserRelateList){
+            cfsCustBuserRelate.setSysId(buserId);
+            buserRelateDao.update(cfsCustBuserRelate);
+        }
     }
 }

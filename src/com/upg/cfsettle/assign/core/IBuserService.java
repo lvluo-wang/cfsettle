@@ -12,4 +12,8 @@ import java.util.List;
 public interface IBuserService extends IBaseService {
 
     List<BuserSale> queryBuser(Buser user, Page page);
+
+    List<Buser> queryAllSale();
+
+    void doAssignForCustIds(String custIds,Long buserId);
 }

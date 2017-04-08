@@ -147,5 +147,8 @@ public interface IUserDAO extends IBaseDAO<Buser,Long> {
 	 * @throws DAOException
 	 */
 	public List<Sysfunc> queryUserFunc(Long userId,String userRoleStatus) throws DAOException;
-	
+
+
+	public List<Buser> getUserByDeptId(Long deptId);
+
 }

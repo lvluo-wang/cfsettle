@@ -12,7 +12,7 @@ public class CfsCustDaoImpl extends SysBaseDao<CfsCust, Long> implements ICfsCus
 
     @Override
     public List<CfsCust> findAllCustByBuserId(Long buserId) {
-        String hql = "from CfsCust cust,CfsCustBuserRelate relate where " +
+        String hql = "select cust from CfsCust cust,CfsCustBuserRelate relate where " +
                 " cust.id=relate.custId and relate.sysId=?";
         List<CfsCust> list = this.find(hql,buserId);
         if(list != null && list.size() >0){

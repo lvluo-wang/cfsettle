@@ -2,6 +2,7 @@ package com.upg.cfsettle.cust.core;
 
 import com.upg.cfsettle.mapping.prj.CfsCustBuserRelate;
 import com.upg.ucars.framework.base.IBaseDAO;
+import com.upg.ucars.framework.exception.DAOException;
 
 import java.util.List;
 
@@ -24,4 +25,7 @@ public interface ICfsCustBuserRelateDao extends IBaseDAO<CfsCustBuserRelate,Long
      * @return
      */
     Integer getCustCount(Long buserId);
+
+
+    List<CfsCustBuserRelate> getCustBuserRelateListBycustIds(String custIds) throws DAOException;
 }

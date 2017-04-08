@@ -5,27 +5,9 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="x" uri="/xcars-tags"%>
-<tiles:insertDefinition name="FUNC_TOOL_QUERY_DATA">
-	<tiles:putAttribute name="tool">
-		<x:button iconCls="icon-view" text="客户分配" click="" />
-		<span class="separator"></span>
-		<x:button iconCls="icon-remove" text="del" click="doRemove" />
-	</tiles:putAttribute>
+<tiles:insertDefinition name="FUNC_QUERY_DATA">
 	<tiles:putAttribute name="query">
 			<form id="mainQueryForm" class="query_form">
-			<table>
-				<tr>
-					<td class="title">客户姓名: </td>
-					<td><input name="searchBean.realName" style="width:130px"></input></td>
-					<td class="title">客户手机: </td>
-					<td><input name="searchBean.mobile" style="width:130px"></input></td>
-					<td class="title">是否验证:</td>
-					<td>
-						<x:combobox name="searchBean.isValid" list="yseNo" textField="codeName" valueField="codeNo"/>
-					</td>
-					<td><x:button iconCls="icon-search" text="query" click="doQuery"/></td>
-				</tr>
-			</table>
 		</form>
 	</tiles:putAttribute>
 	<tiles:putAttribute name="data">
@@ -46,8 +28,8 @@
 
 	<tiles:putAttribute name="window">
 	<!-- 弹出窗口定义开始 -->
-	<div id="project_add_win" style="width:750px;height:700px;display:none;"></div>
-	<div id="project_edit_win" style="width:750px;height:auto;display:none;"></div>
+	<div id="project_add_win" style="width:750px;height:500px;display:none;"></div>
+	<div id="selectWin" style="width:300px;height:auto;display:none;"></div>
 	</tiles:putAttribute>
 	
 	<tiles:putAttribute name="end">
@@ -73,7 +55,7 @@
 		}else if(field == "custNum"){
 			return value+"人";
 		}else if(field == "userId"){
-			if(row.status == 2 && row.custNum > 0){
+			if(row.status == 4 && row.custNum > 0){
 				return "<a href='#' onclick='assignCust("+value+")'>待分配</a>";
 			}
 			if(row.status == 4 && row.custNum == 0){
