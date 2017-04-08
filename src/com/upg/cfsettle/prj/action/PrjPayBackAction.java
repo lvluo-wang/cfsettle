@@ -6,10 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.upg.cfsettle.common.CodeItemUtil;
+import com.upg.cfsettle.cust.core.ICfsPrjRepayPlanService;
 import com.upg.cfsettle.mapping.ficode.FiCodeItem;
 import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.mapping.prj.CfsPrjExt;
 import com.upg.cfsettle.mapping.prj.CfsPrjLoanLog;
+import com.upg.cfsettle.mapping.prj.CfsPrjRepayPlan;
 import com.upg.cfsettle.prj.core.IPrjExtService;
 import com.upg.cfsettle.prj.core.IPrjLoanLogService;
 import com.upg.cfsettle.prj.core.IPrjService;
@@ -22,7 +24,7 @@ import com.upg.ucars.util.PropertyTransVo;
 @SuppressWarnings("serial")
 public class PrjPayBackAction extends BaseAction {
 
-    private CfsPrj searchBean;
+    private CfsPrjRepayPlan searchBean;
     
     @Autowired
     private IPrjService prjService;
@@ -30,6 +32,8 @@ public class PrjPayBackAction extends BaseAction {
     private IPrjExtService prjExtService;
     @Autowired
     private IPrjLoanLogService loanLogService;
+    @Autowired
+    private ICfsPrjRepayPlanService prjRepayPlanService;
 
     private CfsPrj prj;
     private CfsPrjExt prjExt;
@@ -61,12 +65,12 @@ from cfs_prj_repay_plan plan join cfs_prj prj on plan.prj_id = prj.id
 
 
     public String main(){
-        prjStatusList = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_PRJ_STATUS);
+        prjStatusList = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_PRJ_REPAY_PLAN_STATUS);
         return SUCCESS;
     }
 
     public String list(){
-        return setDatagridInputStreamData(prjService.findLoanPrjByCondition(searchBean,getPg()),getPg());
+        return setDatagridInputStreamData(prjRepayPlanService.findByCondition(searchBean,getPg()),getPg());
     }
 
     public String toAdd(){
@@ -113,15 +117,15 @@ from cfs_prj_repay_plan plan join cfs_prj prj on plan.prj_id = prj.id
         this.prjExtService = prjExtService;
     }
 
-    public CfsPrj getSearchBean() {
-        return searchBean;
-    }
+    public CfsPrjRepayPlan getSearchBean() {
+		return searchBean;
+	}
 
-    public void setSearchBean(CfsPrj searchBean) {
-        this.searchBean = searchBean;
-    }
+	public void setSearchBean(CfsPrjRepayPlan searchBean) {
+		this.searchBean = searchBean;
+	}
 
-    public List<FiCodeItem> getBankList() {
+	public List<FiCodeItem> getBankList() {
         return bankList;
     }
 

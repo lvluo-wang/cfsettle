@@ -32,21 +32,20 @@
 		</form>
 	</tiles:putAttribute>
 	<tiles:putAttribute name="data">
-		<x:datagrid id="dataTable" singleSelect="true" url="/prj/prjLoan_list.jhtml" autoload="true" form="mainQueryForm">
+		<x:datagrid id="dataTable" singleSelect="true" url="/prj/payBack_list.jhtml" autoload="true" form="mainQueryForm">
 			<x:columns>
 				<x:column title="" checkbox="true" field="ID" />
 				<x:column title="项目名" field="PRJ_NAME" align="center" width="140"/>
-				<x:column title="计划募集金额(元)" field="DEMAND_AMOUNT" align="center" width="140"/>
-				<x:column title="实际募集金额(元)" field="REMAINING_AMOUNT" align="left" width="140" formatter="formateRaiseAmount" />
-				<x:column title="项目期限" field="TIME_LIMIT" align="left" width="80" formatter="formateTimelimit"/>
-				<x:column title="年利率" field="YEAR_RATE" align="left" width="80" formatter="formateRate"/>
-				<x:column title="还款时间" field="LAST_REPAY_TIME" align="left" width="140" formatter="formatTime"/>
-				<x:column title="项目收款银行" field="TENANT_BANK" align="left" width="140" formatter="formateBank"/>
-				<x:column title="项目收款支行" field="SUB_BANK" align="left" width="140" />
-				<x:column title="项目收款账号" field="ACCOUNT_NO" align="left" width="140" />
-				<x:column title="已放款金额(元)" field="LOANED_AMOUNT" align="center" width="140"/>
-				<x:column title="待放款金额(元)" field="LOANING_AMOUNT" align="left" width="140"/>
-				<x:column title="状态" field="STATUS" align="left" width="80" formatter="forPrjStatus"/>
+				<x:column title="项目电话" field="PRJ_MOBILE" align="center" width="90"/>
+				<x:column title="实际募集金额(元)" field="ACT_AMOUNT" align="center" width="120"/>
+				<x:column title="项目利率" field="YEAR_RATE" align="center" width="60" formatter="formateRate"/>
+				<x:column title="项目期限" field="TIME_LIMIT" align="center" width="60" formatter="formateTimelimit"/>
+				<x:column title="回款本息(元)" field="PRI_INTEREST" align="center" width="100"/>
+				<x:column title="回款本金(元)" field="PRINCIPAL" align="center" width="100" />
+				<x:column title="回款利息(元)" field="YIELD" align="center" width="100"/>
+				<x:column title="回款截止时间" field="REPAY_DATE" align="center" width="90" formatter="format2Date"/>
+				<x:column title="回款期数" field="REPAY_PERIODS" align="center" width="140" formatter="formatPeriods"/>
+				<x:column title="状态" field="STATUS" align="center" width="80" formatter="forRepayPlanStatus"/>
 			</x:columns>
 		</x:datagrid>
 	</tiles:putAttribute>
@@ -58,18 +57,13 @@
 	<tiles:putAttribute name="end">
 	<script type="text/javascript">
 	var keys=["<%=UtilConstant.CFS_TIMELIMIT_UNIT%>","<%=UtilConstant.CFS_BANK_TYPE%>","<%=UtilConstant.CFS_REPAYMENT_TYPE%>"
-	,"<%=UtilConstant.CFS_PRJ_STATUS%>"];
+	,"<%=UtilConstant.CFS_PRJ_REPAY_PLAN_STATUS%>"];
 	var code=new XhhCodeUtil(keys);
 	code.loadData();
 
-	function forPrjStatus(value){
-		 return code.getValue("<%=UtilConstant.CFS_PRJ_STATUS%>",value);
+	function forRepayPlanStatus(value){
+		 return code.getValue("<%=UtilConstant.CFS_PRJ_REPAY_PLAN_STATUS%>",value);
 	}
-
-	function formateRaiseAmount(value,field,row) {
-	    return row.DEMAND_AMOUNT-value;
-
-    }
 
     function formateBank(value) {
         return code.getValue("<%=UtilConstant.CFS_BANK_TYPE%>",value);
@@ -92,12 +86,14 @@
 	    return value+timeLimitUnit;
 
     }
-	function formatTime(value) {
-	    if(value == ""){
-	        return '';
-		}
-		return DateFormat.format(new Date(value*1000),"yyyy-MM-dd hh:mm:ss");
-	}
+    
+    function formatPeriods(val){
+    	if(val==0){
+    		return "募集期";
+    	}else{
+    		return "第"+val+"期";
+    	}
+    }
 
 	function doQuery(){
 		dataTable.load();

@@ -29,7 +29,15 @@ public class CfsPrjRepayPlan implements Serializable {
 	private Long csysid;
 	private Date mtime;
 	private Long msysid;
-
+	
+	/**
+	 * 辅助查询字段
+	 */
+	 private String prjName;
+	 
+	 private Date startDate;
+	 
+	 private Date endDate;
 	// Constructors
 
 	/** default constructor */
@@ -159,4 +167,27 @@ public class CfsPrjRepayPlan implements Serializable {
 		this.msysid = msysid;
 	}
 
+	public String getPrjName() {
+		return prjName;
+	}
+
+	public void setPrjName(String prjName) {
+		this.prjName = prjName;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
 }

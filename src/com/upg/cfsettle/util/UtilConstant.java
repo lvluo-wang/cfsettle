@@ -35,6 +35,7 @@ public final class UtilConstant {
 	public static final String CFS_COMM_PAY_STATUS = "E013";//佣金支付状态
 	public static final String CFS_PRJ_ORDER_STATUS = "E014";//订单状态
 	public static final String CFS_BUSER_POS_CODE = "COM003";//岗位名称
+	public static final String CFS_PRJ_REPAY_PLAN_STATUS = "E015"; //项目还款状态
 	
 	public static final String CFS_CUST_MANAGER = "01";//客户经理
 	public static final String CFS_TEAM_MANAGER = "02";//团队长
@@ -50,6 +51,7 @@ public final class UtilConstant {
 	public static final Byte   REPAY_STATUS_1 = 1; //待还款
 	public static final Byte   REPAY_STATUS_2 = 2; //已还款
 	public static final Byte   REPAY_STATUS_3 = 3; //还款结束
+	
 	
 	public static final BigDecimal DEFAULT_ZERO = new BigDecimal(0); //默认0值
 	
