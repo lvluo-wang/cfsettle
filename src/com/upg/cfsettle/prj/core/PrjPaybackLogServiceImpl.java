@@ -9,9 +9,7 @@ import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.mapping.prj.CfsPrjPaybackLog;
 import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.Page;
-import com.upg.ucars.framework.base.QueryCondition;
 import com.upg.ucars.framework.base.SessionTool;
-import com.upg.ucars.model.ConditionBean;
 import com.upg.ucars.util.DateTimeUtil;
 
 @Service
@@ -26,6 +24,8 @@ public class PrjPaybackLogServiceImpl implements IPrjPaybackLogService {
 	@Override
 	public void addPrjPayBackLog(CfsPrjPaybackLog payBackLog) {
 		CfsPrj prj = prjService.getPrjById(payBackLog.getPrjId());
+		prj.setPayBackAmount(prj.getPayBackAmount().add(payBackLog.getPaybackAmount()));
+		prj.setPayBackTimes(prj.getPayBackTimes()+1L);
 		prjService.updateCfsPrj(prj);
 		payBackLog.setCtime(DateTimeUtil.getNowDateTime());
 		payBackLog.setCsysid(SessionTool.getUserLogonInfo().getSysUserId());

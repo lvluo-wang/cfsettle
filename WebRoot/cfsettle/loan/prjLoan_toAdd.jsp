@@ -93,7 +93,7 @@
                       			<input name="prjLoanLog.prjName" value="${prj.prjName}" type="hidden"/>
                       		</td>
                       		<td class="title">放款金额:</td>
-                      		<td><input name="prjLoanLog.loanAmount" class="easyui-validatebox" required="true" validType="wanMoney"/>万</td>
+                      		<td><input name="prjLoanLog.loanAmount" class="easyui-validatebox" required="true" validType="money"/>元</td>
                       		
                         </tr>
                         <tr>

@@ -38,4 +38,9 @@ public class CfsPrjRepayPlanServiceImpl implements ICfsPrjRepayPlanService {
 	public List<Map<String, Object>> findByCondition(CfsPrjRepayPlan searchBean, Page page) {
 		return prjRepayPlanDao.findByCondition(searchBean,page);
 	}
+
+	@Override
+	public CfsPrjRepayPlan getPrjRepayPlanById(Long id) {
+		return prjRepayPlanDao.get(id);
+	}
 }

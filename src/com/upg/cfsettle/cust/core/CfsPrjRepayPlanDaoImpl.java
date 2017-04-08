@@ -45,7 +45,7 @@ public class CfsPrjRepayPlanDaoImpl extends SysBaseDao<CfsPrjRepayPlan,Long> imp
 	@Override
 	public List<Map<String, Object>> findByCondition(CfsPrjRepayPlan searchBean, Page page) {
 		String sql = "select prj.id,prj.prj_name,prj.prj_mobile,(prj.demand_amount-prj.remaining_amount)/100 as act_amount,prj.time_limit,prj.time_limit_unit,prj.year_rate,"
-				+ "(plan.pri_interest/100) as pri_interest ,(plan.principal/100)as principal,(plan.yield/100) as yield,FROM_UNIXTIME(plan.repay_date) as repay_date,"
+				+ "(plan.pri_interest/100) as pri_interest ,(plan.principal/100)as principal,(plan.yield/100) as yield,FROM_UNIXTIME(plan.repay_date) as repay_date,plan.id as planid,"
 				+ "plan.repay_periods,plan.status from cfs_prj_repay_plan plan join cfs_prj prj on plan.prj_id = prj.id";
         SQLCreater sqlCreater = new SQLCreater(sql,false);
         if(searchBean != null){

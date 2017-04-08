@@ -40,6 +40,8 @@ public class PrjPayBackAction extends BaseAction {
     private CfsPrjExt prjExt;
     
     private CfsPrjPaybackLog paybackLog;
+    
+    private CfsPrjRepayPlan repayPlan;
 
     private List<FiCodeItem> bankList;
     private List<FiCodeItem> repaymentTypeList;
@@ -60,8 +62,9 @@ public class PrjPayBackAction extends BaseAction {
         bankList = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_BANK_TYPE);
         repaymentTypeList = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_REPAYMENT_TYPE);
         timeLimitUnitList = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_TIMELIMIT_UNIT);
-        prj = prjService.getPrjById(getPKId());
-        prjExt = prjExtService.getPrjExtByPrjId(getPKId());
+        repayPlan =  prjRepayPlanService.getPrjRepayPlanById(getPKId());
+        prj = prjService.getPrjById(repayPlan.getPrjId());
+        prjExt = prjExtService.getPrjExtByPrjId(repayPlan.getPrjId());
         return SUCCESS;
     }
 
@@ -154,5 +157,13 @@ public class PrjPayBackAction extends BaseAction {
 
 	public void setPaybackLog(CfsPrjPaybackLog paybackLog) {
 		this.paybackLog = paybackLog;
+	}
+
+	public CfsPrjRepayPlan getRepayPlan() {
+		return repayPlan;
+	}
+
+	public void setRepayPlan(CfsPrjRepayPlan repayPlan) {
+		this.repayPlan = repayPlan;
 	}
 }

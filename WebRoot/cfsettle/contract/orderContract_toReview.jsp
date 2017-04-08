@@ -43,9 +43,9 @@
                     <td>${prjOrder.payAccountNo}</td>
                 </tr>
                 <tr>
-                    <td calss="title">审核备注</td>
-                    <input type="hidden" name="prjOrderAuditLog.status" id="auditStatus"/>
+                    <td class="title">审核备注</td>
                     <td colspan="3">
+                    <input type="hidden" name="prjOrderAuditLog.status" id="auditStatus"/>
                         <textarea name="prjOrderAuditLog.remark" class="easyui-validatebox" required="true" cols="30"
                                   style="width: 100%" id="verifyDesc"></textarea>
                     </td>

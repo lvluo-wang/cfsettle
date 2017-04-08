@@ -25,4 +25,6 @@ public interface ICfsPrjRepayPlanService extends IBaseService {
 	void updatePrjRepayPlan(CfsPrjRepayPlan plan);
 
 	List<Map<String,Object>> findByCondition(CfsPrjRepayPlan searchBean, Page page);
+
+	CfsPrjRepayPlan getPrjRepayPlanById(Long id);
 }

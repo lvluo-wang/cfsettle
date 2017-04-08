@@ -101,8 +101,8 @@
 		
 	function toAdd(){
 		if(isSingleSelected(dataTable)) {
-			var selectedId = dataTable.getSelectedField("ID");
-			var url="<s:url value='/prj/prjLoan_toAdd.jhtml'/>?id="+selectedId;
+			var selectedId = dataTable.getSelectedField("PLANID");
+			var url="<s:url value='/prj/payBack_toAdd.jhtml'/>?id="+selectedId;
 			redirectUrl(url);
 		}
 	}
