@@ -28,21 +28,21 @@
                 <tr>
                     <td class="title">项目联系电话:</td>
                     <td>${prj.prjMobile}</td>
-                </tr>
-                <tr>
                     <td class="title">项目期限:</td>
                     <td>
                     	${prj.timeLimit}
                         <x:codeItem codeNo="prj.timeLimitUnit" codeKey="<%=UtilConstant.CFS_TIMELIMIT_UNIT %>"/>
                     </td>
-                    <td class="title">项目利率:</td>
-                    <td>
-                       ${prj.yearRate}%
-                    </td>
                 </tr>
                 <tr>
-                    <td class="title">募集金额:</td>
-                    <td>${prj.demandAmount}万</td>
+                    <td class="title">项目年化利率:</td>
+                    <td>${prj.yearRate}%</td>
+                    <td class="title">项目成立时间：</td>
+                    <td><s:date format="yyyy-MM-dd HH:mm:ss" name="prj.endBidTime"/></td>
+                </tr>
+                <tr>
+                    <td class="title">实际募集金额:</td>
+                    <td>${prj.demandAmount-prj.remainingAmount}万</td>
                     <td class="title">募集期利率:</td>
                     <td>
                         ${prj.periodRate}%
@@ -57,8 +57,6 @@
                 <tr>
                     <td class="title">融资开标时间：</td>
                     <td><s:date format="yyyy-MM-dd HH:mm:ss" name="prj.startBidTime"/></td>
-                    <td class="title">融资截标时间：</td>
-                    <td><s:date format="yyyy-MM-dd HH:mm:ss" name="prj.endBidTime"/></td>
                 </tr>
                 </table>
             </form>

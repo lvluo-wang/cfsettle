@@ -45,24 +45,6 @@ public class PrjPayBackAction extends BaseAction {
     private List<FiCodeItem> timeLimitUnitList;
     private List<FiCodeItem> prjStatusList;
     
-    /**
-     select 
-   prj.prj_name,
-   prj.prj_mobile,
-   (prj.demand_amount-prj.remaining_amount)/100 as act_amount,
-   prj.time_limit,
-   prj.time_limit_unit,
-   prj.year_rate,
-   (plan.pri_interest/100) as pri_interest ,
-   (plan.principal/100)as principal,
-   (plan.yield/100) as yield,
-   FROM_UNIXTIME(plan.repay_date) as repay_date,
-   plan.repay_periods,
-   plan.status
-
-from cfs_prj_repay_plan plan join cfs_prj prj on plan.prj_id = prj.id
-     */
-
 
     public String main(){
         prjStatusList = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_PRJ_REPAY_PLAN_STATUS);
