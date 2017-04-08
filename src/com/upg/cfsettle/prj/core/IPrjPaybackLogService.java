@@ -1,6 +1,7 @@
 package com.upg.cfsettle.prj.core;
 
 import java.util.List;
+import java.util.Map;
 
 import com.upg.cfsettle.mapping.prj.CfsPrjPaybackLog;
 import com.upg.ucars.framework.base.IBaseService;
@@ -21,5 +22,5 @@ public interface IPrjPaybackLogService extends IBaseService {
      * @param page
      * @return
      */
-    List<CfsPrjPaybackLog> findByCondition(CfsPrjPaybackLog searchBean,Page page);
+    List<Map<String,Object>> findByCondition(CfsPrjPaybackLog searchBean,Page page);
 }

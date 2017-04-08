@@ -1,6 +1,7 @@
 package com.upg.cfsettle.prj.core;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -34,16 +35,8 @@ public class PrjPaybackLogServiceImpl implements IPrjPaybackLogService {
 	}
 
 	@Override
-	public List<CfsPrjPaybackLog> findByCondition(CfsPrjPaybackLog searchBean,Page page) {
-		String hql = "from CfsPrjPaybackLog cfsPrjPaybackLog";
-		QueryCondition condition = new QueryCondition(hql);
-		if (searchBean != null) {
-			Long prjId = searchBean.getPrjId();
-			if (prjId != null) {
-				condition.addCondition(new ConditionBean("cfsPrjPaybackLog.prjId", ConditionBean.EQUAL, prjId));
-			}
-		}
-		return paybackLogDao.queryEntity( condition.getConditionList(), page);
+	public List<Map<String,Object>> findByCondition(CfsPrjPaybackLog searchBean,Page page) {
+		return paybackLogDao.findByCondition(searchBean, page);
 	}
 
 	@Override

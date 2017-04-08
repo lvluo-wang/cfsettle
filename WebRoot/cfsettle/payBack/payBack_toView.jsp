@@ -72,55 +72,57 @@
    		<div class="func_data_area">
    			<x:datagrid id="dataTableView" singleSelect="true" url="/prj/payBack_listPayBack.jhtml?payBackLog.prjId=${prj.id}" autoload="true" form="mainQueryForm">
 				<x:columns>
-					<x:column title="回款期数" field="paybackTimes" align="center" width="140" formatter="formatTimes"/>
-					<x:column title="回款截止时间" field="prjName" align="center" width="140"/>
-					<x:column title="实际回款时间" field="loanTime" align="center" width="120" formatter="format2Time"/>
-					<x:column title="回款金额" field="loanAmount" align="left" width="80"/>
-					<x:column title="付款账户名" field="loanBankName" align="left" width="80" formatter="formateBank"/>
-					<x:column title="付款银行" field="loanAccountNo" align="left" width="180"/>
-					<x:column title="付款账号" field="loanSerialNum" align="left" width="240"/>
-					<x:column title="资金流水号" field="loanSerialNum" align="left" width="240"/>
-					<x:column title="状态" field="loanSerialNum" align="left" width="240"/>
+					<x:column title="回款期数" field="REPAY_PERIODS" align="center" width="140" formatter="formatTimes"/>
+					<x:column title="回款截止时间" field="REPAY_DATE" align="center" width="140" formatter="format2Date"/>
+					<x:column title="实际回款时间" field="PAYBACK_TIME" align="center" width="120" formatter="format2Time"/>
+					<x:column title="回款金额" field="PAYBACK_AMOUNT" align="left" width="80"/>
+					<x:column title="付款账户名" field="PAYBACK_BANK" align="left" width="80" formatter="formateBank"/>
+					<x:column title="付款银行" field="PAYBACK_ACCOUNT_NAME" align="left" width="180"/>
+					<x:column title="付款账号" field="PAYBACK_ACCOUNT_NO" align="left" width="240"/>
+					<x:column title="资金流水号" field="PAYBACK_SERIAL_NUM" align="left" width="240"/>
+					<x:column title="状态" field="STATUS" align="left" width="240"/>
 					<x:column title="操作人" field="sysUserName" align="left" width="90"/>
-					<x:column title="审核卑职" field="loanSerialNum" align="left" width="240"/>
+					<x:column title="审核卑职" field="REMARK" align="left" width="240"/>
 				</x:columns>
 			</x:datagrid>
 		</div>
     </tiles:putAttribute>
     <tiles:putAttribute name="end">
-        <script type="text/javascript">
-        	
-        var keys=["<%=UtilConstant.CFS_BANK_TYPE%>"];
-    	var code=new XhhCodeUtil(keys);
-    	code.loadData();
-
-        function formateBank(value) {
-    		return code.getValue("<%=UtilConstant.CFS_BANK_TYPE%>",value);
-        }
-            function doReturn() {
-                window.history.go(-1);
-            }
-            
-            function formatTimes(val){
-            	return "第"+val+"次";
-            }
-            
-            function doLoanAdd() {
-                if ($("#prjExt_form").form("validate")) {
-                    var url = '<s:url value="/prj/prjLoan_doLoanAdd.jhtml"/>';
-                    var param = formToObject("prjExt_form");
-                    AddRunningDiv("提交处理中，请稍候...");
-                    doPost(url, param, function (result) {
-                        if (!printError(result)) {
-                            setTimeout("history.back()", 3000);
-                            info("提交成功!");
-                        } else {
-                            $(".datagrid-mask").remove();
-                            $(".datagrid-mask-msg").remove();
-                        }
-                    });
-                }
-            }
-        </script>
+     <script type="text/javascript">
+	    var keys=["<%=UtilConstant.CFS_BANK_TYPE%>"];
+	 	var code=new XhhCodeUtil(keys);
+	 	code.loadData();
+	
+	     function formateBank(value) {
+	 		return code.getValue("<%=UtilConstant.CFS_BANK_TYPE%>",value);
+	     }
+	     function doReturn() {
+	         window.history.go(-1);
+	     }
+	         
+	      function formatTimes(val){
+	      	if(val==0||val==""){
+	      		return "募集期";
+	      	}
+	      	return "第"+val+"次";
+	      }
+	         
+	      function doLoanAdd() {
+	          if ($("#prjExt_form").form("validate")) {
+	              var url = '<s:url value="/prj/prjLoan_doLoanAdd.jhtml"/>';
+	              var param = formToObject("prjExt_form");
+	              AddRunningDiv("提交处理中，请稍候...");
+	              doPost(url, param, function (result) {
+	                  if (!printError(result)) {
+	                      setTimeout("history.back()", 3000);
+	                      info("提交成功!");
+	                  } else {
+	                      $(".datagrid-mask").remove();
+	                      $(".datagrid-mask-msg").remove();
+	                  }
+	              });
+	          }
+	      }
+     </script>
     </tiles:putAttribute>
 </tiles:insertDefinition>

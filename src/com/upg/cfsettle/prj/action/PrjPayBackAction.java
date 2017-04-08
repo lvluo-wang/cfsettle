@@ -2,6 +2,7 @@ package com.upg.cfsettle.prj.action;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -76,7 +77,7 @@ public class PrjPayBackAction extends BaseAction {
     }
     
     public String listPayBack(){
-    	List<CfsPrjPaybackLog> list = paybackLogService.findByCondition(paybackLog,getPg());
+    	List<Map<String,Object>> list = paybackLogService.findByCondition(paybackLog,getPg());
     	List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
     	trans.add(new PropertyTransVo("csysid", Buser.class, "userId", "userName","sysUserName"));
     	list = DynamicPropertyTransfer.transform(list, trans);
