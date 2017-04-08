@@ -709,6 +709,26 @@ Xdatagrid.prototype={
 		}
 		return data;
 	},
+    /**
+     * 获得所有行的指定字段的值
+     * var data = id.getSelectedFields("name");
+     * 则data = "upg1,upg2,upg3"
+     * @param fieldName 与列中的field配置一致。
+     * @return object 如下形式返回upg1,upg2,upg3
+     * */
+    getAllFields:function(fieldName){
+        if(!fieldName || fieldName.length <= 0) return {};
+        var len  = this.selResults.length;
+        var sp ="",data ="";
+        for(var i=0;i<len;i++){
+                var tmp_data = this.getValue(this.jsonData[i], fieldName);
+                if(tmp_data||tmp_data==0||tmp_data==='false'){
+                    data=data+sp+tmp_data;
+                    sp=",";
+            }
+        }
+        return data;
+    },
 	/**
 	 * 获得选择的第一行的多项数据
 	 * var data = id.getSelectedMutField(["name","add"]);

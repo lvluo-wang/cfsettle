@@ -22,6 +22,8 @@
             <div title="项目信息" class="car_loan">
                 <form class="busi_form" id="prj_form">
                     <input type="hidden" value="${prj.id}" name="prj.id"/>
+                    <input type="hidden" value="${prj.demandAmount}" id="demandAmount"/>
+                    <input type="hidden" value="${prj.remainingAmount}" id="remainingAmount"/>
                     <table>
                         <colgroup>
                             <col width="20%"/>
@@ -132,17 +134,16 @@
                     </table>
                 </form>
 
-                <%--//todo--%>
                 <h3>放款记录</h3>
                 <div class="func_data_area">
-                    <x:datagrid id="dataTableIssue" url="" height="120" pagebar="false" autoload="" >
+                    <x:datagrid id="dataTableIssue" url="/prj/prjManage_loanIssue.jhtml?prjLoanLog.prjId=${prj.id}" height="120" pagebar="false" autoload="true" >
                         <x:columns>
-                            <x:column title="放款次数" field="operator" align="center" width="150" />
-                            <x:column title="放款时间" field="ctime" align="center" width="150"/>
-                            <x:column title="放款金额" field="remark" align="center" width="200" />
-                            <x:column title="已放款总额" field="remark" align="center" width="200" />
-                            <x:column title="剩余待放款" field="remark" align="center" width="200" />
-                            <x:column title="放款审核人" field="remark" align="center" width="200" />
+                            <x:column title="放款次数" field="loanTimes" align="center" width="150" />
+                            <x:column title="放款时间" field="loanTime" align="center" width="150"/>
+                            <x:column title="放款金额" field="loanAmount" align="center" width="200" />
+                            <x:column title="已放款总额" field="loanAmount" align="center" width="200" formatter="formateIssueAmount"/>
+                            <x:column title="剩余待放款" field="loanAmount" align="center" width="200" formatter="formateRemainIssueAmount" />
+                            <x:column title="放款审核人" field="userName" align="center" width="200" />
                         </x:columns>
                     </x:datagrid>
                 </div>
@@ -168,6 +169,34 @@
     <tiles:putAttribute name="end">
         <script type="text/javascript">
 
+            function formateRemainIssueAmount(){
+               var demandAmount =  $('#demandAmount').val();
+                var remainingAmount = $('#remainingAmount').val();
+                var amount = demandAmount-remainingAmount;
+                var allLoanAmount = dataTableIssue.getAllFields("loanAmount")
+                var result;
+                if(allLoanAmount) {
+                    var arr = [];
+                    arr = allLoanAmount.split(',');
+                    for (var i in arr) {
+                        result = +i;
+                    }
+                    return amount - result;
+                }
+            }
+
+            function formateIssueAmount() {
+                var allLoanAmount = dataTableIssue.getAllFields("loanAmount")
+                var result;
+                if(allLoanAmount) {
+                    var arr = [];
+                    arr = allLoanAmount.split(',');
+                    for (var i in arr) {
+                        result = +i;
+                    }
+                    return  result;
+                }
+            }
 
             $(function () {
                 $('#tt').css("height", $(document.body).height() - 50).tabs({});

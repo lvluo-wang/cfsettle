@@ -95,6 +95,10 @@ public class PrjAction extends BaseAction {
         return "toReview";
     }
 
+    /**
+     * 放款记录
+     * @return
+     */
     public String loanIssue(){
         List<CfsPrjLoanLog> list = loanLogService.findByCondition(prjLoanLog,getPg());
         List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
