@@ -23,11 +23,14 @@ public class CfsPrjPaybackLog implements Serializable {
 	private Long paybackTimes;
 	private Date paybackTime;
 	private BigDecimal paybackAmount;
-	private String paybackBankName;
+	private String paybackBank;
 	private String paybackAccountNo;
+	private String paybackAccountName;
 	private String paybackSerialNum;
 	private String remark;
 	private Byte status;
+	private String collectionBank;
+	private String collectionAccountNo;
 	private Long paybackAuditSysid;
 	private Date paybackAuditTime;
 	private Long csysid;
@@ -44,7 +47,7 @@ public class CfsPrjPaybackLog implements Serializable {
 	/** full constructor */
 	public CfsPrjPaybackLog(Long prjId, String prjName,
 			Long prjRepayPlanId, Long paybackTimes, Date paybackTime,
-			BigDecimal paybackAmount, String paybackBankName,
+			BigDecimal paybackAmount, String paybackBank,
 			String paybackAccountNo, String paybackSerialNum, String remark,
 			Byte status, Long paybackAuditSysid, Date paybackAuditTime,
 			Long csysid, Date ctime, Long msysid, Date mtime) {
@@ -54,7 +57,7 @@ public class CfsPrjPaybackLog implements Serializable {
 		this.paybackTimes = paybackTimes;
 		this.paybackTime = paybackTime;
 		this.paybackAmount = paybackAmount;
-		this.paybackBankName = paybackBankName;
+		this.paybackBank = paybackBank;
 		this.paybackAccountNo = paybackAccountNo;
 		this.paybackSerialNum = paybackSerialNum;
 		this.remark = remark;
@@ -125,12 +128,12 @@ public class CfsPrjPaybackLog implements Serializable {
 		this.paybackAmount = paybackAmount;
 	}
 
-	public String getPaybackBankName() {
-		return this.paybackBankName;
+	public String getPaybackBank() {
+		return this.paybackBank;
 	}
 
-	public void setPaybackBankName(String paybackBankName) {
-		this.paybackBankName = paybackBankName;
+	public void setPaybackBank(String paybackBank) {
+		this.paybackBank = paybackBank;
 	}
 
 	public String getPaybackAccountNo() {
@@ -211,5 +214,29 @@ public class CfsPrjPaybackLog implements Serializable {
 
 	public void setMtime(Date mtime) {
 		this.mtime = mtime;
+	}
+
+	public String getPaybackAccountName() {
+		return paybackAccountName;
+	}
+
+	public void setPaybackAccountName(String paybackAccountName) {
+		this.paybackAccountName = paybackAccountName;
+	}
+
+	public String getCollectionBank() {
+		return collectionBank;
+	}
+
+	public void setCollectionBank(String collectionBank) {
+		this.collectionBank = collectionBank;
+	}
+
+	public String getCollectionAccountNo() {
+		return collectionAccountNo;
+	}
+
+	public void setCollectionAccountNo(String collectionAccountNo) {
+		this.collectionAccountNo = collectionAccountNo;
 	}
 }

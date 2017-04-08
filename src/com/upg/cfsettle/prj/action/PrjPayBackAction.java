@@ -10,10 +10,10 @@ import com.upg.cfsettle.cust.core.ICfsPrjRepayPlanService;
 import com.upg.cfsettle.mapping.ficode.FiCodeItem;
 import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.mapping.prj.CfsPrjExt;
-import com.upg.cfsettle.mapping.prj.CfsPrjLoanLog;
+import com.upg.cfsettle.mapping.prj.CfsPrjPaybackLog;
 import com.upg.cfsettle.mapping.prj.CfsPrjRepayPlan;
 import com.upg.cfsettle.prj.core.IPrjExtService;
-import com.upg.cfsettle.prj.core.IPrjLoanLogService;
+import com.upg.cfsettle.prj.core.IPrjPaybackLogService;
 import com.upg.cfsettle.prj.core.IPrjService;
 import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.factory.DynamicPropertyTransfer;
@@ -30,15 +30,15 @@ public class PrjPayBackAction extends BaseAction {
     private IPrjService prjService;
     @Autowired
     private IPrjExtService prjExtService;
-    @Autowired
-    private IPrjLoanLogService loanLogService;
+    @Autowired 
+    private IPrjPaybackLogService paybackLogService;
     @Autowired
     private ICfsPrjRepayPlanService prjRepayPlanService;
 
     private CfsPrj prj;
     private CfsPrjExt prjExt;
     
-    private CfsPrjLoanLog prjLoanLog;
+    private CfsPrjPaybackLog paybackLog;
 
     private List<FiCodeItem> bankList;
     private List<FiCodeItem> repaymentTypeList;
@@ -64,8 +64,8 @@ public class PrjPayBackAction extends BaseAction {
         return SUCCESS;
     }
 
-    public void doLoanAdd(){
-    	loanLogService.addPrjLoanLog(prjLoanLog);
+    public void doPayBackAdd(){
+    	paybackLogService.addPrjPayBackLog(paybackLog);
 
     }
 
@@ -75,8 +75,8 @@ public class PrjPayBackAction extends BaseAction {
         return SUCCESS;
     }
     
-    public String listLoan(){
-    	List<CfsPrjLoanLog> list = loanLogService.findByCondition(prjLoanLog,getPg());
+    public String listPayBack(){
+    	List<CfsPrjPaybackLog> list = paybackLogService.findByCondition(paybackLog,getPg());
     	List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
     	trans.add(new PropertyTransVo("csysid", Buser.class, "userId", "userName","sysUserName"));
     	list = DynamicPropertyTransfer.transform(list, trans);
@@ -147,12 +147,11 @@ public class PrjPayBackAction extends BaseAction {
         this.prjExt = prjExt;
     }
 
-	public CfsPrjLoanLog getPrjLoanLog() {
-		return prjLoanLog;
+	public CfsPrjPaybackLog getPaybackLog() {
+		return paybackLog;
 	}
 
-	public void setPrjLoanLog(CfsPrjLoanLog prjLoanLog) {
-		this.prjLoanLog = prjLoanLog;
+	public void setPaybackLog(CfsPrjPaybackLog paybackLog) {
+		this.paybackLog = paybackLog;
 	}
-    
 }

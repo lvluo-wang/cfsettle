@@ -89,6 +89,14 @@
             <column name="loan_times">
             </column>
         </property>
+        <property name="payBackAmount" type="cent">
+            <column name="pay_back_amount" precision="20" scale="0">
+            </column>
+        </property>
+        <property name="payBackTimes" type="long">
+            <column name="pay_back_times">
+            </column>
+        </property>
         <property name="totalRate" type="big_decimal">
             <column name="total_rate" precision="20" scale="0">
             </column>

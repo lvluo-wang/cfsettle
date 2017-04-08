@@ -41,33 +41,17 @@
                     <td><s:date format="yyyy-MM-dd HH:mm:ss" name="prj.endBidTime"/></td>
                 </tr>
                 <tr>
-                    <td class="title">实际募集金额:</td>
-                    <td>${prj.demandAmount-prj.remainingAmount}万</td>
-                    <td class="title">募集期利率:</td>
-                    <td>
-                        ${prj.periodRate}%
-                    </td>
+                    <td class="title">实际募集金额(元):</td>
+                    <td>${prj.demandAmount-prj.remainingAmount}</td>
+                    <td class="title">已回款金额(元):</td>
+                    <td>${prj.payBackAmount}</td>
                 </tr>
                 <tr>
-                    <td class="title">还款方式:</td>
-                    <td><x:codeItem codeNo="prj.repayWay" codeKey="<%=UtilConstant.CFS_REPAYMENT_TYPE %>"/></td>
-                    <td class="title">项目成立金额:</td>
-                    <td>${prj.minLoanAmount}万</td>
+                    <td class="title">剩余回款金额(元):</td>
+                    <td>${prj.demandAmount-prj.remainingAmount-prj.payBackAmount}</td>
+                    <td class="title">已回款期数:</td>
+                    <td>Y/M</td>
                 </tr>
-                <tr>
-                    <td class="title">融资开标时间：</td>
-                    <td><s:date format="yyyy-MM-dd HH:mm:ss" name="prj.startBidTime"/></td>
-                </tr>
-                </table>
-            </form>
-            <form class="busi_form" id="prjExt_form">
-                <table>
-                    <colgroup>
-                        <col width="15%"/>
-                        <col width="30%"/>
-                        <col width="15%"/>
-                        <col width="30%"/>
-                    </colgroup>
                 <tr>
                     <td class="title">收款账户名:</td>
                     <td>${prjExt.tenantName}</td>
@@ -80,19 +64,25 @@
                     <td class="title">收款账号:</td>
                     <td >${prjExt.accountNo}</td>
                 </tr>
-            </table>
-        </form>
+                <tr>
+                    <td style="text-align: left;" colspan="4"><b>回款信息记录</b></td>
+                </tr>
+               </table>
+            </form>
    		<div class="func_data_area">
-   			<x:datagrid id="dataTableView" singleSelect="true" url="/prj/prjLoan_listLoan.jhtml?prjLoanLog.prjId=${prj.id}" autoload="true" form="mainQueryForm">
+   			<x:datagrid id="dataTableView" singleSelect="true" url="/prj/payBack_listPayBack.jhtml?payBackLog.prjId=${prj.id}" autoload="true" form="mainQueryForm">
 				<x:columns>
-					<x:column title="放款次数" field="loanTimes" align="center" width="140" formatter="formatTimes"/>
-					<x:column title="项目名" field="prjName" align="center" width="140"/>
-					<x:column title="放款时间" field="loanTime" align="center" width="120" formatter="format2Time"/>
-					<x:column title="放款金额(万)" field="loanAmount" align="left" width="80"/>
-					<x:column title="放款银行" field="loanBankName" align="left" width="80" formatter="formateBank"/>
-					<x:column title="放款卡号" field="loanAccountNo" align="left" width="180"/>
-					<x:column title="资金流水" field="loanSerialNum" align="left" width="240"/>
+					<x:column title="回款期数" field="paybackTimes" align="center" width="140" formatter="formatTimes"/>
+					<x:column title="回款截止时间" field="prjName" align="center" width="140"/>
+					<x:column title="实际回款时间" field="loanTime" align="center" width="120" formatter="format2Time"/>
+					<x:column title="回款金额" field="loanAmount" align="left" width="80"/>
+					<x:column title="付款账户名" field="loanBankName" align="left" width="80" formatter="formateBank"/>
+					<x:column title="付款银行" field="loanAccountNo" align="left" width="180"/>
+					<x:column title="付款账号" field="loanSerialNum" align="left" width="240"/>
+					<x:column title="资金流水号" field="loanSerialNum" align="left" width="240"/>
+					<x:column title="状态" field="loanSerialNum" align="left" width="240"/>
 					<x:column title="操作人" field="sysUserName" align="left" width="90"/>
+					<x:column title="审核卑职" field="loanSerialNum" align="left" width="240"/>
 				</x:columns>
 			</x:datagrid>
 		</div>
