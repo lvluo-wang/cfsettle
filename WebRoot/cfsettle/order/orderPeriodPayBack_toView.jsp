@@ -33,7 +33,7 @@
                 </tr>
                 <tr>
                     <td class="title">所属营业部:</td>
-                    <td>${dept.deptName}</td>
+                    <td>${prjOrder.ownedDeptName}</td>
                     <td class="title">投资项目:</td>
                     <td>${prj.prjName}</td>
                 </tr>

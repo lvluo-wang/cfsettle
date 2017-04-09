@@ -8,17 +8,13 @@ import com.upg.cfsettle.common.CodeItemUtil;
 import com.upg.cfsettle.cust.core.ICfsCustService;
 import com.upg.cfsettle.cust.core.ICfsPrjOrderRepayPlanService;
 import com.upg.cfsettle.cust.core.ICfsPrjOrderService;
-import com.upg.cfsettle.cust.core.ICustBuserRelateService;
 import com.upg.cfsettle.mapping.ficode.FiCodeItem;
-import com.upg.cfsettle.mapping.organization.CfsOrgDept;
 import com.upg.cfsettle.mapping.prj.CfsCust;
-import com.upg.cfsettle.mapping.prj.CfsCustBuserRelate;
 import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.mapping.prj.CfsPrjExt;
 import com.upg.cfsettle.mapping.prj.CfsPrjOrder;
 import com.upg.cfsettle.mapping.prj.CfsPrjOrderPaybackLog;
 import com.upg.cfsettle.mapping.prj.CfsPrjOrderRepayPlan;
-import com.upg.cfsettle.organization.core.IOrgDeptService;
 import com.upg.cfsettle.prj.core.IPrjExtService;
 import com.upg.cfsettle.prj.core.IPrjService;
 import com.upg.cfsettle.util.UtilConstant;
@@ -43,10 +39,7 @@ public class OrderPeriodPayBackAction extends BaseAction {
 	private ICfsCustService custService;
 	@Autowired
 	private IUserService userService;
-	@Autowired
-	private ICustBuserRelateService buserRelateService;
-	@Autowired
-	private IOrgDeptService deptService;
+	
 	private List<FiCodeItem> prjStatus;
 	
 	private List<FiCodeItem> planStatus;
@@ -63,7 +56,6 @@ public class OrderPeriodPayBackAction extends BaseAction {
 	
 	private Buser buser;
 	
-	private CfsOrgDept dept;
 	
 	
 	
@@ -103,11 +95,7 @@ public class OrderPeriodPayBackAction extends BaseAction {
 		prjExt = prjExtService.getPrjExtByPrjId(orderRepayPlan.getPrjId());
 		prjOrder = orderService.getPrjOrderById(orderRepayPlan.getPrjOrderId());
 		cfsCust = custService.queryCfsCustById(prjOrder.getCustId());
-		CfsCustBuserRelate relate = buserRelateService.getRelateByCustId(prjOrder.getCustId());
-		if(relate != null){
-			buser = userService.getUserById(relate.getSysId());
-			dept =  deptService.getOrgDeptById(buser.getDeptId());
-		}
+		buser = userService.getUserById(prjOrder.getServiceSysid());
 		return SUCCESS;
 	}
 	
@@ -123,11 +111,7 @@ public class OrderPeriodPayBackAction extends BaseAction {
 		prjExt = prjExtService.getPrjExtByPrjId(orderRepayPlan.getPrjId());
 		prjOrder = orderService.getPrjOrderById(orderRepayPlan.getPrjOrderId());
 		cfsCust = custService.queryCfsCustById(prjOrder.getCustId());
-		CfsCustBuserRelate relate = buserRelateService.getRelateByCustId(prjOrder.getCustId());
-		if(relate != null){
-			buser = userService.getUserById(relate.getSysId());
-			dept =  deptService.getOrgDeptById(buser.getDeptId());
-		}
+		buser = userService.getUserById(prjOrder.getServiceSysid());
 		return SUCCESS;
 	}
 
@@ -201,13 +185,5 @@ public class OrderPeriodPayBackAction extends BaseAction {
 
 	public void setBuser(Buser buser) {
 		this.buser = buser;
-	}
-
-	public CfsOrgDept getDept() {
-		return dept;
-	}
-
-	public void setDept(CfsOrgDept dept) {
-		this.dept = dept;
 	}
 }
