@@ -1,11 +1,15 @@
 package com.upg.cfsettle.cust.core;
 
 import com.upg.cfsettle.mapping.prj.CfsPrjRepayPlan;
+import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.Page;
+import com.upg.ucars.util.DateTimeUtil;
+import com.upg.ucars.util.StringUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +40,14 @@ public class CfsPrjRepayPlanServiceImpl implements ICfsPrjRepayPlanService {
 
 	@Override
 	public List<Map<String, Object>> findByCondition(CfsPrjRepayPlan searchBean, Page page) {
+		if(!StringUtil.isEmpty(searchBean.getQueryType())){
+			searchBean.setStartDate(DateTimeUtil.getNowDateTime());
+			if(UtilConstant.TIME_LIMIT_WEEK.equals(searchBean.getQueryType())){
+				searchBean.setEndDate(DateTimeUtil.addDay(DateTimeUtil.getNowDateTime(), 7));
+			}else if(UtilConstant.TIME_LIMIT_MONTH.equals(searchBean.getQueryType())){
+				searchBean.setEndDate(DateTimeUtil.getStringToDateMinute(DateTimeUtil.LastDateOfMonth(DateTimeUtil.toDateString(new Date()))));
+			}
+		}
 		return prjRepayPlanDao.findByCondition(searchBean,page);
 	}
 

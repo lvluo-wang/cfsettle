@@ -44,6 +44,7 @@ public final class UtilConstant {
 
 	public static final String TIME_LIMIT_YEAR = "Y"; //期限-年
 	public static final String TIME_LIMIT_MONTH = "M";//期限-月
+	public static final String TIME_LIMIT_WEEK = "W";//期限-周
 	
 	public static final Byte   PTYPE_NORMAL = 1; //正常利息
 	public static final Byte   PTYPE_PERIODS = 2; //募集期利息

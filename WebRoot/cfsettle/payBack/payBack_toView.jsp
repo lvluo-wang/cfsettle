@@ -70,17 +70,17 @@
                </table>
             </form>
    		<div class="func_data_area">
-   			<x:datagrid id="dataTableView" singleSelect="true" url="/prj/payBack_listPayBack.jhtml?payBackLog.prjId=${prj.id}" autoload="true" form="mainQueryForm">
+   			<x:datagrid id="dataTableView" singleSelect="true" url="/prj/payBack_listPayBack.jhtml?payBackLog.prjId=${prj.id}" autoload="true">
 				<x:columns>
 					<x:column title="回款期数" field="REPAY_PERIODS" align="center" width="140" formatter="formatTimes"/>
 					<x:column title="回款截止时间" field="REPAY_DATE" align="center" width="140" formatter="format2Date"/>
 					<x:column title="实际回款时间" field="PAYBACK_TIME" align="center" width="120" formatter="format2Time"/>
-					<x:column title="回款金额" field="PAYBACK_AMOUNT" align="center" width="80"/>
+					<x:column title="回款金额(元)" field="PAYBACK_AMOUNT" align="center" width="80"/>
 					<x:column title="付款账户名" field="PAYBACK_BANK" align="center" width="80" formatter="formateBank"/>
 					<x:column title="付款银行" field="PAYBACK_ACCOUNT_NAME" align="center" width="180"/>
 					<x:column title="付款账号" field="PAYBACK_ACCOUNT_NO" align="center" width="180"/>
 					<x:column title="资金流水号" field="PAYBACK_SERIAL_NUM" align="center" width="180"/>
-					<x:column title="状态" field="STATUS" align="center" width="50"/>
+					<x:column title="状态" field="STATUS" align="center" width="50" formatter="formattStatus"/>
 					<x:column title="操作人" field="sysUserName" align="center" width="90"/>
 					<x:column title="审核备注" field="REMARK" align="center" width="240"/>
 				</x:columns>
@@ -89,7 +89,10 @@
     </tiles:putAttribute>
     <tiles:putAttribute name="end">
      <script type="text/javascript">
-	    var keys=["<%=UtilConstant.CFS_BANK_TYPE%>"];
+     	$(function(){
+     		dataTableView.setHeight(document.body.clientWidth-870);
+     	});
+	    var keys=["<%=UtilConstant.CFS_BANK_TYPE%>","<%=UtilConstant.CFS_PRJ_REPAY_PLAN_STATUS%>"];
 	 	var code=new XhhCodeUtil(keys);
 	 	code.loadData();
 	
@@ -98,6 +101,10 @@
 	     }
 	     function doReturn() {
 	         window.history.go(-1);
+	     }
+	     
+	     function formattStatus(val){
+	    	 return code.getValue("<%=UtilConstant.CFS_PRJ_REPAY_PLAN_STATUS%>",val);
 	     }
 	         
 	      function formatTimes(val){

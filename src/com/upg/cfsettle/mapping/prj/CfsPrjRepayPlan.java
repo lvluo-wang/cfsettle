@@ -38,6 +38,8 @@ public class CfsPrjRepayPlan implements Serializable {
 	 private Date startDate;
 	 
 	 private Date endDate;
+	 
+	 private String queryType;
 	// Constructors
 
 	/** default constructor */
@@ -189,5 +191,13 @@ public class CfsPrjRepayPlan implements Serializable {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	public String getQueryType() {
+		return queryType;
+	}
+
+	public void setQueryType(String queryType) {
+		this.queryType = queryType;
 	}
 }

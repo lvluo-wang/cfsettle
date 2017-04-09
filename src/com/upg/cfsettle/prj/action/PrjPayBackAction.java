@@ -1,6 +1,5 @@
 package com.upg.cfsettle.prj.action;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,10 +16,7 @@ import com.upg.cfsettle.prj.core.IPrjExtService;
 import com.upg.cfsettle.prj.core.IPrjPaybackLogService;
 import com.upg.cfsettle.prj.core.IPrjService;
 import com.upg.cfsettle.util.UtilConstant;
-import com.upg.ucars.factory.DynamicPropertyTransfer;
 import com.upg.ucars.framework.base.BaseAction;
-import com.upg.ucars.mapping.basesystem.security.Buser;
-import com.upg.ucars.util.PropertyTransVo;
 
 @SuppressWarnings("serial")
 public class PrjPayBackAction extends BaseAction {
@@ -81,9 +77,6 @@ public class PrjPayBackAction extends BaseAction {
     
     public String listPayBack(){
     	List<Map<String,Object>> list = paybackLogService.findByCondition(paybackLog,getPg());
-//    	List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
-//    	trans.add(new PropertyTransVo("csysid", Buser.class, "userId", "userName","sysUserName"));
-//    	list = DynamicPropertyTransfer.transform(list, trans);
         return setDatagridInputStreamData(list,getPg());
     }
 

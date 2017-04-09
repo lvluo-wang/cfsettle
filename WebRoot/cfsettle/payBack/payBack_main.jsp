@@ -74,10 +74,12 @@
     }
     
     function queryWeek(){
+    	dataTable.params={'searchBean.queryType':'W'};
     	dataTable.load();
     }
     
     function queryMonth(){
+    	dataTable.params={'searchBean.queryType':'M'};
     	dataTable.load();
     }
 
@@ -96,6 +98,7 @@
     }
 
 	function doQuery(){
+		dataTable.params={'searchBean.queryType':''};
 		dataTable.load();
 	}
 		

@@ -37,7 +37,11 @@ public class CfsPrjPaybackLog implements Serializable {
 	private Date ctime;
 	private Long msysid;
 	private Date mtime;
-
+	
+	private Date startDate;
+	
+	private Date endDate;
+	
 	// Constructors
 
 	/** default constructor */
@@ -238,5 +242,21 @@ public class CfsPrjPaybackLog implements Serializable {
 
 	public void setCollectionAccountNo(String collectionAccountNo) {
 		this.collectionAccountNo = collectionAccountNo;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 }
