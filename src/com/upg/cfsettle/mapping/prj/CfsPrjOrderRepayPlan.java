@@ -22,6 +22,7 @@ public class CfsPrjOrderRepayPlan implements Serializable {
 	private Long prjOrderId;
 	private Long repayPeriods;
 	private Date repayDate;
+	private Long countDay;
 	private BigDecimal priInterest;
 	private BigDecimal principal;
 	private BigDecimal yield;
@@ -241,4 +242,11 @@ public class CfsPrjOrderRepayPlan implements Serializable {
 		this.mtime = mtime;
 	}
 
+	public Long getCountDay() {
+		return countDay;
+	}
+
+	public void setCountDay(Long countDay) {
+		this.countDay = countDay;
+	}
 }

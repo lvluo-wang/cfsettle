@@ -314,6 +314,7 @@ public class PrjServiceImpl implements IPrjService {
 				BigDecimal yield = new BigDecimal(0);
 				CfsPrjOrderRepayPlan orderPlan = new CfsPrjOrderRepayPlan();
 				if(UtilConstant.PTYPE_PERIODS.equals(info.getPtype())){
+					orderPlan.setCountDay(Long.valueOf(DateTimeUtil.getDaysBetween(order.getInvestTime(), info.getRepayDate())));
 					yield = CfsUtils.calcSumRealAmount(order.getMoney(), new BigDecimal(DateTimeUtil.getDaysBetween(order.getInvestTime(), info.getRepayDate())), prj.getPeriodRate());
 					orderPlan.setPrincipal(new BigDecimal(0));
 				}else{

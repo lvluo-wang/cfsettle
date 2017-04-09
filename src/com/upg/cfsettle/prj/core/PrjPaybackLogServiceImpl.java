@@ -1,6 +1,5 @@
 package com.upg.cfsettle.prj.core;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -8,13 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.mapping.prj.CfsPrjPaybackLog;
-import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.basesystem.security.core.user.IUserService;
 import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.SessionTool;
 import com.upg.ucars.util.DateTimeUtil;
-import com.upg.ucars.util.StringUtil;
 
 @Service
 public class PrjPaybackLogServiceImpl implements IPrjPaybackLogService {

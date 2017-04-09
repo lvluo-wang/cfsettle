@@ -1,12 +1,16 @@
 package com.upg.cfsettle.cust.core;
 
+import com.upg.cfsettle.mapping.prj.CfsPrjOrderPaybackLog;
 import com.upg.cfsettle.mapping.prj.CfsPrjOrderRepayPlan;
 import com.upg.ucars.basesystem.security.core.user.IUserService;
 import com.upg.ucars.framework.annotation.Service;
+import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.mapping.basesystem.security.Buser;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zuobaoshi on 2017/4/4.
@@ -48,5 +52,15 @@ public class CfsPrjOrderRepayPlanServiceImpl implements ICfsPrjOrderRepayPlanSer
 	@Override
 	public void addPrjOrderRepayPlan(CfsPrjOrderRepayPlan orderPlan) {
 		prjOrderRepayPlanDao.save(orderPlan);
+	}
+
+	@Override
+	public List<Map<String, Object>> findByCondition(CfsPrjOrderPaybackLog searchBean, Page page) {
+		return prjOrderRepayPlanDao.findByCondition(searchBean,page);
+	}
+
+	@Override
+	public CfsPrjOrderRepayPlan getprjOrderPlanById(Long id) {
+		return prjOrderRepayPlanDao.get(id);
 	}
 }

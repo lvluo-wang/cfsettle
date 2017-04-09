@@ -8,5 +8,11 @@
         <action name="/orderAudit_*" class="com.upg.cfsettle.order.action.CfsPrjOrderAction" method="{1}">
             <result name="success">/cfsettle/order/orderAudit_{1}.jsp</result>
         </action>
+        <action name="/orderPeriod_*" class="com.upg.cfsettle.order.action.OrderPeriodPayBackAction" method="{1}">
+            <result name="success">/cfsettle/order/orderPeriodPayBack_{1}.jsp</result>
+        </action>
+        <action name="/orderUse_*" class="com.upg.cfsettle.order.action.OrderUsePayBackAction" method="{1}">
+            <result name="success">/cfsettle/order/orderUsePayBack_{1}.jsp</result>
+        </action>
     </package>
 </struts>

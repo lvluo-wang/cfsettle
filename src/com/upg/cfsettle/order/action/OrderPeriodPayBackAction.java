@@ -1,0 +1,213 @@
+package com.upg.cfsettle.order.action;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.upg.cfsettle.common.CodeItemUtil;
+import com.upg.cfsettle.cust.core.ICfsCustService;
+import com.upg.cfsettle.cust.core.ICfsPrjOrderRepayPlanService;
+import com.upg.cfsettle.cust.core.ICfsPrjOrderService;
+import com.upg.cfsettle.cust.core.ICustBuserRelateService;
+import com.upg.cfsettle.mapping.ficode.FiCodeItem;
+import com.upg.cfsettle.mapping.organization.CfsOrgDept;
+import com.upg.cfsettle.mapping.prj.CfsCust;
+import com.upg.cfsettle.mapping.prj.CfsCustBuserRelate;
+import com.upg.cfsettle.mapping.prj.CfsPrj;
+import com.upg.cfsettle.mapping.prj.CfsPrjExt;
+import com.upg.cfsettle.mapping.prj.CfsPrjOrder;
+import com.upg.cfsettle.mapping.prj.CfsPrjOrderPaybackLog;
+import com.upg.cfsettle.mapping.prj.CfsPrjOrderRepayPlan;
+import com.upg.cfsettle.organization.core.IOrgDeptService;
+import com.upg.cfsettle.prj.core.IPrjExtService;
+import com.upg.cfsettle.prj.core.IPrjService;
+import com.upg.cfsettle.util.UtilConstant;
+import com.upg.ucars.basesystem.security.core.user.IUserService;
+import com.upg.ucars.framework.base.BaseAction;
+import com.upg.ucars.mapping.basesystem.security.Buser;
+
+@SuppressWarnings("serial")
+public class OrderPeriodPayBackAction extends BaseAction {
+	
+	private CfsPrjOrderPaybackLog searchBean;
+	
+	@Autowired
+	private ICfsPrjOrderRepayPlanService orderPlanService;
+	@Autowired
+	private IPrjService prjService;
+	@Autowired
+	private IPrjExtService prjExtService;
+	@Autowired
+	private ICfsPrjOrderService orderService;
+	@Autowired
+	private ICfsCustService custService;
+	@Autowired
+	private IUserService userService;
+	@Autowired
+	private ICustBuserRelateService buserRelateService;
+	@Autowired
+	private IOrgDeptService deptService;
+	private List<FiCodeItem> prjStatus;
+	
+	private List<FiCodeItem> planStatus;
+	
+	private CfsPrj prj;
+	
+	private CfsPrjExt prjExt;
+	
+	private CfsPrjOrderRepayPlan orderRepayPlan;
+	
+	private CfsPrjOrder prjOrder;
+	
+	private CfsCust cfsCust;
+	
+	private Buser buser;
+	
+	private CfsOrgDept dept;
+	
+	
+	
+	
+	
+	/**
+	 * 跳转CfsPrjOrder主页
+	 * @author renzhuolun
+	 * @date 2017年4月4日 下午2:08:53
+	 * @return
+	 */
+	public String main(){
+		prjStatus = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_PRJ_STATUS);
+		planStatus = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_PRJ_REPAY_PLAN_STATUS);
+		return SUCCESS;
+	}
+	
+	/**
+	 * 订单回款查询
+	 * @author renzhuolun
+	 * @date 2014年8月5日 下午12:36:58
+	 * @return
+	 */
+	public String list(){
+		return setDatagridInputStreamData(orderPlanService.findByCondition(searchBean, getPg()), getPg());
+	}
+	
+	/**
+	 * 募集期还款添加
+	 * @author renzhuolun
+	 * @date 2017年4月9日 下午8:17:00
+	 * @return
+	 */
+	public String toAdd(){
+		orderRepayPlan = orderPlanService.getprjOrderPlanById(getPKId());
+		prj = prjService.getPrjById(orderRepayPlan.getPrjId());
+		prjExt = prjExtService.getPrjExtByPrjId(orderRepayPlan.getPrjId());
+		prjOrder = orderService.getPrjOrderById(orderRepayPlan.getPrjOrderId());
+		cfsCust = custService.queryCfsCustById(prjOrder.getCustId());
+		CfsCustBuserRelate relate = buserRelateService.getRelateByCustId(prjOrder.getCustId());
+		if(relate != null){
+			buser = userService.getUserById(relate.getSysId());
+			dept =  deptService.getOrgDeptById(buser.getDeptId());
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 募集期还款详情
+	 * @author renzhuolun
+	 * @date 2017年4月9日 下午8:17:21
+	 * @return
+	 */
+	public String toView(){
+		orderRepayPlan = orderPlanService.getprjOrderPlanById(getPKId());
+		prj = prjService.getPrjById(orderRepayPlan.getPrjId());
+		prjExt = prjExtService.getPrjExtByPrjId(orderRepayPlan.getPrjId());
+		prjOrder = orderService.getPrjOrderById(orderRepayPlan.getPrjOrderId());
+		cfsCust = custService.queryCfsCustById(prjOrder.getCustId());
+		CfsCustBuserRelate relate = buserRelateService.getRelateByCustId(prjOrder.getCustId());
+		if(relate != null){
+			buser = userService.getUserById(relate.getSysId());
+			dept =  deptService.getOrgDeptById(buser.getDeptId());
+		}
+		return SUCCESS;
+	}
+
+	public CfsPrjOrderPaybackLog getSearchBean() {
+		return searchBean;
+	}
+
+	public void setSearchBean(CfsPrjOrderPaybackLog searchBean) {
+		this.searchBean = searchBean;
+	}
+
+	public List<FiCodeItem> getPrjStatus() {
+		return prjStatus;
+	}
+
+	public void setPrjStatus(List<FiCodeItem> prjStatus) {
+		this.prjStatus = prjStatus;
+	}
+
+	public List<FiCodeItem> getPlanStatus() {
+		return planStatus;
+	}
+
+	public void setPlanStatus(List<FiCodeItem> planStatus) {
+		this.planStatus = planStatus;
+	}
+
+	public CfsPrj getPrj() {
+		return prj;
+	}
+
+	public void setPrj(CfsPrj prj) {
+		this.prj = prj;
+	}
+
+	public CfsPrjExt getPrjExt() {
+		return prjExt;
+	}
+
+	public void setPrjExt(CfsPrjExt prjExt) {
+		this.prjExt = prjExt;
+	}
+
+	public CfsPrjOrderRepayPlan getOrderRepayPlan() {
+		return orderRepayPlan;
+	}
+
+	public void setOrderRepayPlan(CfsPrjOrderRepayPlan orderRepayPlan) {
+		this.orderRepayPlan = orderRepayPlan;
+	}
+
+	public CfsPrjOrder getPrjOrder() {
+		return prjOrder;
+	}
+
+	public void setPrjOrder(CfsPrjOrder prjOrder) {
+		this.prjOrder = prjOrder;
+	}
+
+	public CfsCust getCfsCust() {
+		return cfsCust;
+	}
+
+	public void setCfsCust(CfsCust cfsCust) {
+		this.cfsCust = cfsCust;
+	}
+
+	public Buser getBuser() {
+		return buser;
+	}
+
+	public void setBuser(Buser buser) {
+		this.buser = buser;
+	}
+
+	public CfsOrgDept getDept() {
+		return dept;
+	}
+
+	public void setDept(CfsOrgDept dept) {
+		this.dept = dept;
+	}
+}

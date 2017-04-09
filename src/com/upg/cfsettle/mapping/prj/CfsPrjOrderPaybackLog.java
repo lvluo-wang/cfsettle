@@ -35,6 +35,21 @@ public class CfsPrjOrderPaybackLog implements Serializable {
 	private Date ctime;
 	private Long msysid;
 	private Date mtime;
+	
+	//辅助查询字段
+	private String realName;
+	
+	private String mobile;
+	
+	private Byte prjStatus;
+	
+	private Date startDate;
+	
+	private Date endDate;
+	
+	private Byte isPeriod;
+	
+	
 
 	// Constructors
 
@@ -224,4 +239,51 @@ public class CfsPrjOrderPaybackLog implements Serializable {
 		this.mtime = mtime;
 	}
 
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public Byte getPrjStatus() {
+		return prjStatus;
+	}
+
+	public void setPrjStatus(Byte prjStatus) {
+		this.prjStatus = prjStatus;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public Byte getIsPeriod() {
+		return isPeriod;
+	}
+
+	public void setIsPeriod(Byte isPeriod) {
+		this.isPeriod = isPeriod;
+	}
 }
