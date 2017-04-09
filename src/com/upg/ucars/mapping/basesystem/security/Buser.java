@@ -9,7 +9,7 @@ import java.util.Date;
  * @date 2011-1-27 上午09:21:22
  *
  */
-public class Buser implements java.io.Serializable {
+public class  Buser implements java.io.Serializable {
 	/**
 	 * 实施人员
 	 */

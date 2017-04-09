@@ -76,4 +76,9 @@ public class CfsCustServiceImpl implements ICfsCustService{
 	public List<CfsCust> findAllCustByBuserId(Long buserId) {
 		return cfsCustDao.findAllCustByBuserId(buserId);
 	}
+
+	@Override
+	public List<CfsCustInfo> findByConditionAndPosCode(CustSearchBean searchBean, Page page) {
+		return cfsCustDao.findByConditionAndPosCode(searchBean,page);
+	}
 }

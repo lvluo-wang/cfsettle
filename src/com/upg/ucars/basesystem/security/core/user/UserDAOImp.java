@@ -309,5 +309,43 @@ public class UserDAOImp extends BaseDAO<Buser,Long> implements IUserDAO {
 		String hql = "select u from Buser u where u.deptId=? and u.status !=4";
 		return find(hql,deptId);
 	}
-	
+
+	@Override
+	public List<Long> getUserIdByTeamId(Long teamId) {
+		String hql = "select u.userId from Buser u where u.teamId=?";
+		List<Long> list=null;
+		try {
+			list = getHibernateTemplate().find(hql,teamId);
+		}catch(Throwable t){
+			ExceptionManager.throwException(DAOException.class, ErrorCodeConst.DB_OPERATION_ERROR, new String[]{hql.toString()}, t);
+		}
+
+		return list == null ? new ArrayList<Long>(0) : list;
+	}
+
+	@Override
+	public List<Long> getUserIdByDeptId(Long deptId) {
+		String hql = "select u.userId from Buser u where u.deptId=?";
+		List<Long> list=null;
+		try {
+			list = getHibernateTemplate().find(hql,deptId);
+		}catch(Throwable t){
+			ExceptionManager.throwException(DAOException.class, ErrorCodeConst.DB_OPERATION_ERROR, new String[]{hql.toString()}, t);
+		}
+
+		return list == null ? new ArrayList<Long>(0) : list;
+	}
+
+	@Override
+	public List<Long> getUserIdByAreaId(Long deptId) {
+		String hql = "select u.userId from Buser u where u.areaId=?";
+		List<Long> list=null;
+		try {
+			list = getHibernateTemplate().find(hql,deptId);
+		}catch(Throwable t){
+			ExceptionManager.throwException(DAOException.class, ErrorCodeConst.DB_OPERATION_ERROR, new String[]{hql.toString()}, t);
+		}
+
+		return list == null ? new ArrayList<Long>(0) : list;
+	}
 }

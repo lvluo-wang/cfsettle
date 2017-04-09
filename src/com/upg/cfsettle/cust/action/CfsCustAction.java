@@ -1,7 +1,14 @@
 package com.upg.cfsettle.cust.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.upg.cfsettle.cust.core.CfsCustInfo;
+import com.upg.cfsettle.cust.core.CustSearchBean;
+import com.upg.demo.template.obj.CustInfo;
+import com.upg.ucars.factory.DynamicPropertyTransfer;
+import com.upg.ucars.mapping.basesystem.security.Buser;
+import com.upg.ucars.util.PropertyTransVo;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.upg.cfsettle.common.CodeItemUtil;
@@ -24,6 +31,8 @@ public class CfsCustAction extends BaseAction {
 	private List<FiCodeItem>  sexList;
 	
 	private CfsCust cfsCust;
+
+	private CustSearchBean custSearchBean;
 	
 	
 	/**
@@ -87,6 +96,20 @@ public class CfsCustAction extends BaseAction {
 	public void doAdd(){
 		cfsCustService.addCfsCust(cfsCust);
 	}
+
+	public String infoMain(){
+		yseNo = CodeItemUtil.getCodeItemsByKey(CfsConstant.CFS_COMM_YSE_NO);
+		return "infoMain";
+	}
+
+	public String infoList(){
+		List<CfsCustInfo> list  = cfsCustService.findByConditionAndPosCode(custSearchBean,getPg());
+		List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
+		trans.add(new PropertyTransVo("sysIdLong", Buser.class, "userId", "userName","userName"));
+		trans.add(new PropertyTransVo("sysIdLong", Buser.class, "userId", "posCode","posCode"));
+		list = DynamicPropertyTransfer.transform(list, trans);
+		return setDatagridInputStreamData(cfsCustService.findByConditionAndPosCode(custSearchBean,getPg()),getPg());
+	}
 	
 	public CfsCust getSearchBean() {
 		return searchBean;
@@ -118,5 +141,13 @@ public class CfsCustAction extends BaseAction {
 
 	public void setCfsCust(CfsCust cfsCust) {
 		this.cfsCust = cfsCust;
+	}
+
+	public CustSearchBean getCustSearchBean() {
+		return custSearchBean;
+	}
+
+	public void setCustSearchBean(CustSearchBean custSearchBean) {
+		this.custSearchBean = custSearchBean;
 	}
 }

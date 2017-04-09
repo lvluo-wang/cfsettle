@@ -7,6 +7,7 @@
 	<package name="cust" namespace="/cust" extends="pkg-base">
 		<action name="cfscust_*" class="com.upg.cfsettle.cust.action.CfsCustAction" method="{1}">
 			<result name="main">/cfsettle/cust/cfscust_{1}.jsp</result>
+			<result name="infoMain">/cfsettle/cust/cfscust_{1}.jsp</result>
 		</action>
 	</package>
 </struts>

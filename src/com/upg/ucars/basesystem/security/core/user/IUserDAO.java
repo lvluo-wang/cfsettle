@@ -151,4 +151,25 @@ public interface IUserDAO extends IBaseDAO<Buser,Long> {
 
 	public List<Buser> getUserByDeptId(Long deptId);
 
+	/**
+	 * 获得团队下的所有员工
+	 * @param teamId
+	 * @return
+	 */
+	public List<Long> getUserIdByTeamId(Long teamId);
+
+	/**
+	 * 获得营业部下的所有员工
+	 * @param deptId
+	 * @return
+	 */
+	public List<Long> getUserIdByDeptId(Long deptId);
+
+	/**
+	 * 获得该区域下的所有的员工
+	 * @param areaId
+	 * @return
+	 */
+	public List<Long> getUserIdByAreaId(Long areaId);
+
 }

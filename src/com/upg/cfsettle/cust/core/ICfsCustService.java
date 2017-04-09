@@ -60,4 +60,12 @@ public interface ICfsCustService extends IBaseService {
 	 */
 	List<CfsCust> findAllCustByBuserId(Long buserId);
 
+	/**
+	 * 客户信息列表
+	 * @param searchBean
+	 * @param page
+	 * @return
+	 */
+	List<CfsCustInfo> findByConditionAndPosCode(CustSearchBean searchBean, Page page);
+
 }
