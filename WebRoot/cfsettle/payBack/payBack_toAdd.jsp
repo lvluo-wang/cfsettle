@@ -103,7 +103,7 @@
 		                </tr>
 		                <tr>
 		                    <td class="title">资金流水编号:</td>
-		                    <td><input name="paybackLog.payBackAmount" class="easyui-validatebox" required="true"/></td>
+		                    <td><input name="paybackLog.paybackSerialNum" class="easyui-validatebox" required="true"/></td>
 		                    <td colspan="2"></td>
 		                </tr>
 		                 <tr>

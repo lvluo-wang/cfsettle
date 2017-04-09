@@ -81,9 +81,9 @@ public class PrjPayBackAction extends BaseAction {
     
     public String listPayBack(){
     	List<Map<String,Object>> list = paybackLogService.findByCondition(paybackLog,getPg());
-    	List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
-    	trans.add(new PropertyTransVo("csysid", Buser.class, "userId", "userName","sysUserName"));
-    	list = DynamicPropertyTransfer.transform(list, trans);
+//    	List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
+//    	trans.add(new PropertyTransVo("csysid", Buser.class, "userId", "userName","sysUserName"));
+//    	list = DynamicPropertyTransfer.transform(list, trans);
         return setDatagridInputStreamData(list,getPg());
     }
 

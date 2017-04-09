@@ -65,7 +65,7 @@
                     <td >${prjExt.accountNo}</td>
                 </tr>
                 <tr>
-                    <td style="text-align: left;" colspan="4"><b>回款信息记录</b></td>
+                    <td style="text-align: center;" colspan="4"><b>回款信息记录</b></td>
                 </tr>
                </table>
             </form>
@@ -75,14 +75,14 @@
 					<x:column title="回款期数" field="REPAY_PERIODS" align="center" width="140" formatter="formatTimes"/>
 					<x:column title="回款截止时间" field="REPAY_DATE" align="center" width="140" formatter="format2Date"/>
 					<x:column title="实际回款时间" field="PAYBACK_TIME" align="center" width="120" formatter="format2Time"/>
-					<x:column title="回款金额" field="PAYBACK_AMOUNT" align="left" width="80"/>
-					<x:column title="付款账户名" field="PAYBACK_BANK" align="left" width="80" formatter="formateBank"/>
-					<x:column title="付款银行" field="PAYBACK_ACCOUNT_NAME" align="left" width="180"/>
-					<x:column title="付款账号" field="PAYBACK_ACCOUNT_NO" align="left" width="240"/>
-					<x:column title="资金流水号" field="PAYBACK_SERIAL_NUM" align="left" width="240"/>
-					<x:column title="状态" field="STATUS" align="left" width="240"/>
-					<x:column title="操作人" field="sysUserName" align="left" width="90"/>
-					<x:column title="审核卑职" field="REMARK" align="left" width="240"/>
+					<x:column title="回款金额" field="PAYBACK_AMOUNT" align="center" width="80"/>
+					<x:column title="付款账户名" field="PAYBACK_BANK" align="center" width="80" formatter="formateBank"/>
+					<x:column title="付款银行" field="PAYBACK_ACCOUNT_NAME" align="center" width="180"/>
+					<x:column title="付款账号" field="PAYBACK_ACCOUNT_NO" align="center" width="180"/>
+					<x:column title="资金流水号" field="PAYBACK_SERIAL_NUM" align="center" width="180"/>
+					<x:column title="状态" field="STATUS" align="center" width="50"/>
+					<x:column title="操作人" field="sysUserName" align="center" width="90"/>
+					<x:column title="审核备注" field="REMARK" align="center" width="240"/>
 				</x:columns>
 			</x:datagrid>
 		</div>
