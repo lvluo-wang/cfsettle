@@ -24,6 +24,20 @@ public class CfsOrgDept implements java.io.Serializable {
 	public CfsOrgDept() {
 	}
 
+	public CfsOrgDept(Long ownedArea, Byte status) {
+		this.ownedArea = ownedArea;
+		this.status = status;
+	}
+
+	public CfsOrgDept(Byte status, Long id) {
+		this.status = status;
+		this.id = id;
+	}
+
+	public CfsOrgDept(Byte status) {
+		this.status = status;
+	}
+
 	public Long getId() {
 		return id;
 	}

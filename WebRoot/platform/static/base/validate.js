@@ -281,7 +281,18 @@ $.extend($.fn.validatebox.defaults.rules, {
     	},
     	message:global.valid_compareDate
     },
-    orgCode:{
+	compareNum: {
+		validator: function (value, param) {
+			if(value&&param) {
+				return  value < $('#' + param[0]).val();
+			}else{
+				return true;
+			}
+		}, 
+		message: '项目成立金额不能大于募集金额'
+	},
+
+	orgCode:{
     	validator: function (value, param) {
         	if (value){
         		return /^[A-Za-z0-9]{8}-[A-Za-z0-9]{1}/.test(value);

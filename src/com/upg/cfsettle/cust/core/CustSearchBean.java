@@ -8,9 +8,9 @@ public class CustSearchBean {
     private String realName;
     private String mobile;
     private String custManager;
-    private String teamName;
-    private String deptName;
-    private String areaName;
+    private Long team;
+    private Long dept;
+    private Long area;
     private Byte isValid;
 
     public String getRealName() {
@@ -37,28 +37,28 @@ public class CustSearchBean {
         this.custManager = custManager;
     }
 
-    public String getTeamName() {
-        return teamName;
+    public Long getTeam() {
+        return team;
     }
 
-    public void setTeamName(String teamName) {
-        this.teamName = teamName;
+    public void setTeam(Long team) {
+        this.team = team;
     }
 
-    public String getDeptName() {
-        return deptName;
+    public Long getDept() {
+        return dept;
     }
 
-    public void setDeptName(String deptName) {
-        this.deptName = deptName;
+    public void setDept(Long dept) {
+        this.dept = dept;
     }
 
-    public String getAreaName() {
-        return areaName;
+    public Long getArea() {
+        return area;
     }
 
-    public void setAreaName(String areaName) {
-        this.areaName = areaName;
+    public void setArea(Long area) {
+        this.area = area;
     }
 
     public Byte getIsValid() {

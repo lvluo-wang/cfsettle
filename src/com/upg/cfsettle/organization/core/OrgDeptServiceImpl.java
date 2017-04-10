@@ -72,6 +72,9 @@ public class OrgDeptServiceImpl implements IOrgDeptService {
         	if(!StringUtil.isEmpty(searchBean.getDeptName())){
         		qc.addCondition(new ConditionBean("dept.deptName", ConditionBean.LIKE,searchBean.getDeptName()));
         	}
+            if(searchBean.getId() != null){
+                qc.addCondition(new ConditionBean("dept.id", ConditionBean.EQUAL,searchBean.getId()));
+            }
         }
         List list = this.orgDeptDao.queryByCondition(qc, page);
         return list;

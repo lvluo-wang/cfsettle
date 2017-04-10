@@ -20,8 +20,11 @@ import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.rmi.CORBA.Util;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Dao
 public class CfsCustDaoImpl extends SysBaseDao<CfsCust, Long> implements ICfsCustDao{
@@ -53,7 +56,7 @@ public class CfsCustDaoImpl extends SysBaseDao<CfsCust, Long> implements ICfsCus
                 " on cust.id=relate.cust_id where 1=1 ");
         UserLogonInfo logonInfo = SessionTool.getUserLogonInfo();
         Map<String,Object> param = new HashedMap();
-        if(logonInfo.getPosCode().equals(UtilConstant.CFS_CUST_MANAGER)){
+        if(!StringUtil.isEmpty(logonInfo.getPosCode()) && logonInfo.getPosCode().equals(UtilConstant.CFS_CUST_MANAGER)){
             //客户经理
             if(logonInfo.getTeamId() != null){
                 sql.append(" and relate.sys_id=:sysId");
@@ -61,30 +64,26 @@ public class CfsCustDaoImpl extends SysBaseDao<CfsCust, Long> implements ICfsCus
             }
         }
         StringBuffer busers = new StringBuffer();
-        List<Long> buserIds = null;
-        if(logonInfo.getPosCode().equals(UtilConstant.CFS_TEAM_MANAGER)
+        List<Long> buserIds = new ArrayList<>();
+        if(!StringUtil.isEmpty(logonInfo.getPosCode()) && logonInfo.getPosCode().equals(UtilConstant.CFS_TEAM_MANAGER)
          && logonInfo.getTeamId() != null){
             //团队长
             //获得该团的所有员工
             buserIds = userDAO.getUserIdByTeamId(logonInfo.getTeamId());
         }
-        if(logonInfo.getPosCode().equals(UtilConstant.CFS_DEPT_MANAGER)
+        if(!StringUtil.isEmpty(logonInfo.getPosCode()) && logonInfo.getPosCode().equals(UtilConstant.CFS_DEPT_MANAGER)
                 && logonInfo.getDeptId() != null){
             //营业部负责人
             //获得该营业部下的所有员工
             buserIds = userDAO.getUserIdByDeptId(logonInfo.getDeptId());
         }
-        if(logonInfo.getPosCode().equals(UtilConstant.CFS_AREA_MANAGER)
+        if(!StringUtil.isEmpty(logonInfo.getPosCode()) && logonInfo.getPosCode().equals(UtilConstant.CFS_AREA_MANAGER)
                 && logonInfo.getAreaId() != null){
             //区域经理
             //获得该营区域下的所有员工
             buserIds = userDAO.getUserIdByAreaId(logonInfo.getAreaId());
         }
 
-        if(buserIds.size() > 0){
-            sql.append(" and relate.sys_id in (:busers)");
-            param.put("busers",buserIds.toArray());
-        }
         if(searchBean != null){
             String realName = searchBean.getRealName();
             if(!StringUtil.isEmpty(realName)){
@@ -106,14 +105,44 @@ public class CfsCustDaoImpl extends SysBaseDao<CfsCust, Long> implements ICfsCus
                 }
             }
             //todo 团队／营业部／区域
+            Set<Long> searchBuserIds = new HashSet<>();
+            Long team = searchBean.getTeam();
+            if(team != null){
+               List<Long> list = userDAO.getUserIdByTeamId(team);
+                searchBuserIds.addAll(list);
+            }
+            Long dept = searchBean.getDept();
+            if(dept != null){
+                List<Long>  list = userDAO.getUserIdByDeptId(dept);
+                searchBuserIds.addAll(list);
+            }
+            Long area = searchBean.getArea();
+            if(dept != null){
+                List<Long> list = userDAO.getUserIdByAreaId(area);
+                searchBuserIds.addAll(list);
+            }
+            if(searchBuserIds.size() > 0){
+                sql.append(" and relate.sys_id in (:searchBuserIds)");
+                param.put("searchBuserIds",searchBuserIds);
+            }
             Byte isValid = searchBean.getIsValid();
             if(isValid != null){
                 sql.append(" and cust.is_valid=:isValid");
                 param.put("isValid",isValid);
             }
         }
-        List<CfsCustInfo> reslut = (List<CfsCustInfo>) this.findListByMap(sql.toString(),param,page,CfsCustInfo.class);
-        addOrganization(reslut);
+        List<CfsCustInfo> reslut = Collections.emptyList();
+        if(buserIds.size() > 0){
+            sql.append(" and relate.sys_id in (:busers)");
+            param.put("busers",buserIds);
+            reslut = (List<CfsCustInfo>) this.findListByMap(sql.toString(),param,page,CfsCustInfo.class);
+            addOrganization(reslut);
+        }else{
+            if(logonInfo.getUserType().equals(Buser.TYPE_BRCH_GLOBAL_MANAGER)){
+                reslut = (List<CfsCustInfo>) this.findListByMap(sql.toString(),param,page,CfsCustInfo.class);
+                addOrganization(reslut);
+            }
+        }
         return reslut;
     }
 

@@ -5,10 +5,25 @@ package com.upg.cfsettle.organization.core;
  */
 public class OrgTeamBean {
 
+    private Long teamId;
     private String teamName;
     private Long ownedArea;
     private Long ownedDept;
     private Byte status;
+
+    public OrgTeamBean(Byte status) {
+        this.status = status;
+    }
+
+    public OrgTeamBean(Long ownedDept, Byte status) {
+        this.ownedDept = ownedDept;
+        this.status = status;
+    }
+
+    public OrgTeamBean(Byte status, Long teamId) {
+        this.status = status;
+        this.teamId = teamId;
+    }
 
     public String getTeamName() {
         return teamName;

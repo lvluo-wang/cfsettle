@@ -22,6 +22,13 @@ public interface IOrgTeamDao extends IBaseDAO<CfsOrgTeam,Long> {
      */
     OrganizationBean getByTeamId(Long teamId);
 
+    /**
+     * 根据团队名查询
+     * @param teamName
+     * @return
+     */
+    OrganizationBean getByTeamName(String teamName);
+
 
 
 }

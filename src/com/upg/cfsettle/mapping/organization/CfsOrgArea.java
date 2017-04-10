@@ -24,6 +24,11 @@ public class CfsOrgArea implements java.io.Serializable {
 		this.status = status;
 	}
 
+	public CfsOrgArea(Long id, Byte status) {
+		this.id = id;
+		this.status = status;
+	}
+
 	public CfsOrgArea(Long id, String areaName, String overRange, Byte status, Long csysid, Date ctime, Long msysid, Date mtime) {
 		this.id = id;
 		this.areaName = areaName;

@@ -1,5 +1,6 @@
 package com.upg.cfsettle.prj.action;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,7 +76,13 @@ public class PrjAction extends BaseAction {
     }
 
     public void doEdit(){
-        prjService.updatePrjAndPrjExt(prj,prjExt);
+        try {
+            prjService.updatePrjAndPrjExt(prj,prjExt);
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     public String toView(){
