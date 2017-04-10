@@ -118,7 +118,7 @@ public class BuserServiceImpl implements IBuserService {
     @Override
     public List<Buser> queryAllSale() {
         String hql = "select user from Buser user where " +
-                " user.userId >3 ";
+                " user.userId >3 and user.status!=4";
         List<ConditionBean> conditionList = new ArrayList<ConditionBean>();
         QueryCondition qc = new QueryCondition(hql);
         qc.addConditionList(conditionList);

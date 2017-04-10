@@ -29,10 +29,6 @@
 			var nodes = $('#'+treeId).tree('getChecked');		
 			var s='';
 			if(nodes!=null){
-			    if(nodes.length >1){
-			        info("请单选")
-					return;
-				}
 				for(var i=0;i<nodes.length;i++){				
 					if(s!=''){
 						s+=',';
@@ -45,6 +41,13 @@
 	
 		function doSave(){
 			var beIds = getTreeCheckedNodeId("roleTree");
+            var nodes = $('#roleTree').tree('getChecked');
+            if(nodes!=null) {
+                if (nodes.length > 1) {
+                    info("请单选")
+                    return;
+                }
+            }
 			var userId = $("#custIds").attr("value");
 			$.messager.confirm(global.alert,"确认分配吗？", function(r){
 				if(r){

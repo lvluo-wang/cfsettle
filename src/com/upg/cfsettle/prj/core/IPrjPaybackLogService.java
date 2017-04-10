@@ -23,4 +23,7 @@ public interface IPrjPaybackLogService extends IBaseService {
      * @return
      */
     List<Map<String,Object>> findByCondition(CfsPrjPaybackLog searchBean,Page page);
+
+
+    List<Map<String, Object>> findByPrjPaybackLogByPrjId(Long prjId);
 }

@@ -9,11 +9,18 @@ import com.upg.cfsettle.mapping.prj.CfsPrjOrder;
 import com.upg.cfsettle.mapping.prj.CfsPrjOrderRepayPlan;
 import com.upg.cfsettle.prj.core.IPrjService;
 import com.upg.cfsettle.util.UtilConstant;
+import com.upg.ucars.factory.DynamicPropertyTransfer;
 import com.upg.ucars.framework.base.BaseAction;
+import com.upg.ucars.framework.base.SessionTool;
+import com.upg.ucars.mapping.basesystem.security.Buser;
+import com.upg.ucars.model.security.UserLogonInfo;
 import com.upg.ucars.util.DateTimeUtil;
+import com.upg.ucars.util.PropertyTransVo;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zuobaoshi on 2017/4/2.
@@ -33,6 +40,8 @@ public class CfsCustOrderAction extends BaseAction {
     ICfsPrjRepayPlanService prjRepayPlanService;
 
 
+    private List<FiCodeItem> buserPosCodeList;
+    private UserLogonInfo logonInfo;
     private CustOrderBean searchBean;
     private CfsCust cust;
     private CfsPrjOrder prjOrder;
@@ -86,6 +95,24 @@ public class CfsCustOrderAction extends BaseAction {
     public String orderRepayList(){
        return setDatagridInputStreamData(prjOrderRepayPlanService.findByOrderIdAndType(prjOrderId,Byte.valueOf("1")),getPg());
 
+    }
+
+    public String infoMain(){
+        logonInfo = SessionTool.getUserLogonInfo();
+        buserPosCodeList = codeItemService.getCodeItemByKey(UtilConstant.CFS_BUSER_POS_CODE);
+        return "orderInfo";
+    }
+
+    public String orderInfoList(){
+        searchBean.setByLogonInfo(true);
+        List<Map<String,Object>> list = prjOrderService.findByCondition(searchBean,getPg());
+        for(Map<String,Object> map :list){
+            map.put("SERVICE_SYSID",Long.valueOf(map.get("SERVICE_SYSID").toString()));
+        }
+        List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
+        //trans.add(new PropertyTransVo("SERVICE_SYSID", Buser.class, "userId", "status","buserStatus"));
+        //list = DynamicPropertyTransfer.transform(list, trans);
+        return setDatagridInputStreamData(list,getPg());
     }
 
     public List<FiCodeItem> getOrderStatusList() {
@@ -214,5 +241,21 @@ public class CfsCustOrderAction extends BaseAction {
 
     public void setRaiseDay(int raiseDay) {
         this.raiseDay = raiseDay;
+    }
+
+    public List<FiCodeItem> getBuserPosCodeList() {
+        return buserPosCodeList;
+    }
+
+    public void setBuserPosCodeList(List<FiCodeItem> buserPosCodeList) {
+        this.buserPosCodeList = buserPosCodeList;
+    }
+
+    public UserLogonInfo getLogonInfo() {
+        return logonInfo;
+    }
+
+    public void setLogonInfo(UserLogonInfo logonInfo) {
+        this.logonInfo = logonInfo;
     }
 }

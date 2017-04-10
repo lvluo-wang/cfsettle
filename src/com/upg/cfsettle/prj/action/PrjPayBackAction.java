@@ -3,6 +3,7 @@ package com.upg.cfsettle.prj.action;
 import java.util.List;
 import java.util.Map;
 
+import com.upg.ucars.framework.base.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.upg.cfsettle.common.CodeItemUtil;
@@ -43,6 +44,8 @@ public class PrjPayBackAction extends BaseAction {
     private List<FiCodeItem> repaymentTypeList;
     private List<FiCodeItem> timeLimitUnitList;
     private List<FiCodeItem> prjStatusList;
+    //用于项目详情中的回款记录查询
+    private Long prjId;
     
 
     public String main(){
@@ -78,6 +81,11 @@ public class PrjPayBackAction extends BaseAction {
     public String listPayBack(){
     	List<Map<String,Object>> list = paybackLogService.findByCondition(paybackLog,getPg());
         return setDatagridInputStreamData(list,getPg());
+    }
+
+    public String listPayBackLog(){
+        List<Map<String,Object>> list = paybackLogService.findByPrjPaybackLogByPrjId(prjId);
+        return setDatagridInputStreamData(list,new Page());
     }
 
     public List<FiCodeItem> getPrjStatusList() {
@@ -159,4 +167,12 @@ public class PrjPayBackAction extends BaseAction {
 	public void setRepayPlan(CfsPrjRepayPlan repayPlan) {
 		this.repayPlan = repayPlan;
 	}
+
+    public Long getPrjId() {
+        return prjId;
+    }
+
+    public void setPrjId(Long prjId) {
+        this.prjId = prjId;
+    }
 }

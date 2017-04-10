@@ -167,22 +167,22 @@
                             <x:column title="放款金额" field="loanAmount" align="center" width="200" />
                             <x:column title="已放款总额" field="loanAmount" align="center" width="200" formatter="formateIssueAmount"/>
                             <x:column title="剩余待放款" field="loanAmount" align="center" width="200" formatter="formateRemainIssueAmount" />
-                            <x:column title="放款审核人" field="userName" align="center" width="200" />
+                            <x:column title="放款录入人" field="userName" align="center" width="200" />
                         </x:columns>
                     </x:datagrid>
                 </div>
                     <%--//todo--%>
                 <h3>回款记录</h3>
                 <div class="func_data_area">
-                    <x:datagrid id="dataTableRepay" url="" height="120" pagebar="false" autoload="" >
+                    <x:datagrid id="dataTableRepay" url="/prj/payBack_listPayBackLog.jhtml?prjId=${prj.id}" height="120" pagebar="false" autoload="true" >
                         <x:columns>
-                            <x:column title="回款次数" field="operator" align="center" width="150" />
-                            <x:column title="回款时间" field="ctime" align="center" width="150"/>
-                            <x:column title="回款金额" field="remark" align="center" width="200" />
-                            <x:column title="已回款总额" field="remark" align="center" width="200" />
-                            <x:column title="剩余待回款" field="remark" align="center" width="200" />
-                            <x:column title="回款截止时间" field="remark" align="center" width="200" />
-                            <x:column title="回款审核人" field="remark" align="center" width="200" />
+                            <x:column title="回款次数" field="REPAY_PERIODS" align="center" width="150" />
+                            <x:column title="回款时间" field="PAYBACK_TIME" align="center" width="150"/>
+                            <x:column title="回款金额" field="PAYBACK_AMOUNT" align="center" width="150" />
+                            <x:column title="已回款总额" field="PAYBACK_TOTAL_AMOUNT" align="center" width="150" />
+                            <x:column title="剩余待回款" field="NEED_REPAY_AMOUNT" align="center" width="150" />
+                            <x:column title="回款截止时间" field="REPAY_DATE" align="center" width="150" />
+                            <x:column title="回款录入人" field="sysUserName" align="center" width="150" />
                         </x:columns>
                     </x:datagrid>
                 </div>

@@ -29,12 +29,13 @@
 					<td class="title">营业部: </td>
 						<td><x:combobox  textField="deptName" valueField="id" list="userDeptList" name="custSearchBean.dept" /></td>
 					</s:if>
+				</tr>
+				<tr>
 					<s:if test='logonInfo.posCode!=@com.upg.cfsettle.util.UtilConstant@CFS_CUST_MANAGER
 					&& logonInfo.posCode!=@com.upg.cfsettle.util.UtilConstant@CFS_TEAM_MANAGER
 					&& logonInfo.posCode!=@com.upg.cfsettle.util.UtilConstant@CFS_DEPT_MANAGER'>
 					<td class="title">区域: </td>
 						<td><x:combobox  textField="areaName" valueField="id" list="userAreaList" name="custSearchBean.area" /></td>
-
 					</s:if>
 					<td class="title">是否验证:</td>
 					<td>
@@ -57,10 +58,10 @@
 				<x:column title="身份证号" field="idCard" align="center" width="150" />
 				<x:column title="添加时间" field="ctime" align="center" width="150" formatter="formatTime"/>
 				<x:column title="归属员工类型" field="posCode" align="center" width="100" formatter="formatPosCode"/>
-				<x:column title="归属员工姓名" field="userName" align="center" width="100"/>
-				<x:column title="归属团队" field="teamName" align="center" width="120" />
-				<x:column title="归属营业部" field="deptName" align="center" width="120"/>
-				<x:column title="归属区域" field="areaName" align="center" width="120"/>
+				<x:column title="归属员工姓名" field="userName" align="center" width="100" formatter="formatBuser"/>
+				<x:column title="归属团队" field="teamName" align="center" width="120" formatter="formatBuser"/>
+				<x:column title="归属营业部" field="deptName" align="center" width="120" formatter="formatBuser"/>
+				<x:column title="归属区域" field="areaName" align="center" width="120" formatter="formatBuser"/>
 				<x:column title="验证" field="isValid" align="center" width="40" formatter="formatYesNo"/>
 			</x:columns>
 		</x:datagrid>
@@ -84,8 +85,21 @@
 		 return code.getValue("<%=CfsConstant.CFS_COMM_YSE_NO%>",value);
 	}
 
-    function formatPosCode(value){
+    function formatPosCode(value,field,row){
+	    if(row.buserStatus=='4'){
+	        return '待分配';
+		}
         return code.getValue("<%=UtilConstant.CFS_BUSER_POS_CODE%>",value);
+    }
+
+    function formatBuser(value,field,row) {
+        if(row.buserStatus=='4'){
+            if(field == 'userName'){
+               return '待分配';
+			}
+			return '-';
+        }
+        return value;
     }
 	function formatTime(value) {
 		if(value == ""){

@@ -90,7 +90,7 @@ public class CustAssignAction extends BaseAction{
         UserLogonInfo logoner = SessionTool.getUserLogonInfo();
         List<Buser> buserList = new ArrayList<>();
         //营业部负责人所在营业部下所有员工
-        if(logoner.getPosCode().equals(UtilConstant.CFS_DEPT_MANAGER)){
+        if(!StringUtil.isEmpty(logoner.getPosCode()) && logoner.getPosCode().equals(UtilConstant.CFS_DEPT_MANAGER)){
             Long deptId = logoner.getDeptId();
             buserList = userService.getUserByDeptId(deptId);
         }

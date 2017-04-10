@@ -18,6 +18,25 @@ public class CustOrderBean {
     //待审核合同信息
     private boolean isFromNeedAudit;
     private String serviceSysName;
+    private String serviceSysType;
+    //来自有数据权限的订单信息列表
+    private boolean byLogonInfo;
+
+    public boolean isByLogonInfo() {
+        return byLogonInfo;
+    }
+
+    public void setByLogonInfo(boolean byLogonInfo) {
+        this.byLogonInfo = byLogonInfo;
+    }
+
+    public String getServiceSysType() {
+        return serviceSysType;
+    }
+
+    public void setServiceSysType(String serviceSysType) {
+        this.serviceSysType = serviceSysType;
+    }
 
     public boolean isFromNeedAudit() {
         return isFromNeedAudit;

@@ -131,6 +131,7 @@ public class CfsCustAction extends BaseAction {
 		List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
 		trans.add(new PropertyTransVo("sysIdLong", Buser.class, "userId", "userName","userName"));
 		trans.add(new PropertyTransVo("sysIdLong", Buser.class, "userId", "posCode","posCode"));
+		trans.add(new PropertyTransVo("sysIdLong", Buser.class, "userId", "status","buserStatus"));
 		list = DynamicPropertyTransfer.transform(list, trans);
 		return setDatagridInputStreamData(list,getPg());
 	}

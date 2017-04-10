@@ -9,7 +9,7 @@
 			<result name="main">/cfsettle/cust/order/custOrder_main.jsp</result>
 			<result name="view">/cfsettle/cust/order/custOrder_view.jsp</result>
 			<result name="add">/cfsettle/cust/order/custOrder_add.jsp</result>
-
+			<result name="orderInfo">/cfsettle/cust/order/custOrder_infoMain.jsp</result>
 		</action>
 	</package>
 </struts>

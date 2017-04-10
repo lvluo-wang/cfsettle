@@ -1,5 +1,6 @@
 package com.upg.cfsettle.prj.core;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -49,5 +50,21 @@ public class PrjPaybackLogServiceImpl implements IPrjPaybackLogService {
 	@Override
 	public CfsPrjPaybackLog getCfsPrjPaybackLogById(Long id) {
 		return paybackLogDao.get(id);
+	}
+
+	@Override
+	public List<Map<String,Object>> findByPrjPaybackLogByPrjId(Long prjId) {
+		List<Map<String,Object>> list  = paybackLogDao.findByPrjPaybackLogByPrjId(prjId);
+		//已还总金额
+		BigDecimal payBackTotalAmount = paybackLogDao.getPayBackTotalAmount(prjId);
+		//应还总金额
+		BigDecimal prjRepayTotalAmount = paybackLogDao.getPrjRepayTotalAmount(prjId);
+		BigDecimal needRepayAmount = prjRepayTotalAmount.subtract(payBackTotalAmount);
+		for(Map<String,Object> map:list){
+			map.put("sysUserName", map.get("CSYSID")==null?"":userService.getUserById(Long.valueOf(map.get("CSYSID").toString())).getUserName());
+			map.put("NEED_REPAY_AMOUNT",needRepayAmount);
+			map.put("PAYBACK_TOTAL_AMOUNT",payBackTotalAmount);
+		}
+		return list;
 	}
 }
