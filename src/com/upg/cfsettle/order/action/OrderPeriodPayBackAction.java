@@ -1,5 +1,6 @@
 package com.upg.cfsettle.order.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,10 @@ import com.upg.cfsettle.prj.core.IPrjExtService;
 import com.upg.cfsettle.prj.core.IPrjService;
 import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.basesystem.security.core.user.IUserService;
+import com.upg.ucars.factory.DynamicPropertyTransfer;
 import com.upg.ucars.framework.base.BaseAction;
 import com.upg.ucars.mapping.basesystem.security.Buser;
+import com.upg.ucars.util.PropertyTransVo;
 
 @SuppressWarnings("serial")
 public class OrderPeriodPayBackAction extends BaseAction {
@@ -40,7 +43,7 @@ public class OrderPeriodPayBackAction extends BaseAction {
 	private ICfsCustService custService;
 	@Autowired
 	private IUserService userService;
-	
+	@Autowired
 	private ICfsPrjOrderPaybackLogService orderPaybackLogService;
 	
 	private List<FiCodeItem> prjStatus;
@@ -120,7 +123,9 @@ public class OrderPeriodPayBackAction extends BaseAction {
 	
 	public String listPeriod(){
 		List<CfsPrjOrderPaybackLog> list = orderPaybackLogService.findByOrderRepayPlanId(getPKId(),getPg());
-		return setDatagridInputStreamData(list, getPg());
+		List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
+    	trans.add(new PropertyTransVo("csysid", Buser.class, "userId", "userName","sysUserName"));
+		return setDatagridInputStreamData(DynamicPropertyTransfer.transform(list, trans), getPg());
 	}
 
 	public CfsPrjOrderPaybackLog getSearchBean() {

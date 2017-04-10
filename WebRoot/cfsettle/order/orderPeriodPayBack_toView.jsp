@@ -74,7 +74,7 @@
                 </tr>
                 <tr>
                     <td class="title">收款支行:</td>
-                    <td>${prjOrder.payAccountNo}(待确认)</td>
+                    <td>${prjOrder.paySubBank}</td>
                     <td class="title">付款卡号:</td>
                     <td>${prjOrder.payAccountNo}</td>
                 </tr>
@@ -83,14 +83,14 @@
    		<div class="func_data_area">
    			<x:datagrid id="dataTableView" singleSelect="true" url="/order/orderPeriod_listPeriod.jhtml?id=${orderRepayPlan.id}" autoload="true">
 				<x:columns>
-					<x:column title="付息时间" field="REPAY_PERIODS" align="center" width="140" formatter="formatTimes"/>
-					<x:column title="付息金额" field="REPAY_DATE" align="center" width="140" formatter="format2Date"/>
-					<x:column title="付款账户名" field="PAYBACK_TIME" align="center" width="120" formatter="format2Time"/>
-					<x:column title="付款银行" field="PAYBACK_AMOUNT" align="center" width="80"/>
-					<x:column title="付款账号" field="PAYBACK_BANK" align="center" width="80" formatter="formateBank"/>
-					<x:column title="资金流水编号" field="PAYBACK_SERIAL_NUM" align="center" width="180"/>
+					<x:column title="付息时间" field="paybackTime" align="center" width="140" formatter="format2Time"/>
+					<x:column title="付息金额(元)" field="paybackAmount" align="center" width="140"/>
+					<x:column title="付款账户名" field="paybackBankName" align="center" width="120"/>
+					<x:column title="付款银行" field="paybackAccountNo" align="center" width="180"/>
+					<x:column title="付款账号" field="paybackAccountNo" align="center" width="180"/>
+					<x:column title="资金流水编号" field="paybackSerialNum" align="center" width="180"/>
 					<x:column title="操作人" field="sysUserName" align="center" width="90"/>
-					<x:column title="审核备注" field="REMARK" align="center" width="240"/>
+					<x:column title="审核备注" field="remark" align="center" width="240"/>
 				</x:columns>
 			</x:datagrid>
 		</div>

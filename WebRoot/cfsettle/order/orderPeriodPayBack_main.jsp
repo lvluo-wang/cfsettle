@@ -45,8 +45,8 @@
 				<x:column title="合同编号" field="CONTRACT_NO" align="center" width="140" formatter="formatContract"/>
 				<x:column title="客户名" field="REAL_NAME" align="center" width="90"/>
 				<x:column title="购买项目" field="PRJ_NAME" align="center" width="120"/>
-				<x:column title="投资时间" field="INVEST_TIME" align="center" width="120" formatter="format2Time"/>
-				<x:column title="项目启动时间" field="END_BID_TIME" align="center" width="120" formatter="format2Time"/>
+				<x:column title="投资时间" field="INVEST_TIME" align="center" width="140" formatter="format2Time"/>
+				<x:column title="项目启动时间" field="END_BID_TIME" align="center" width="140" formatter="format2Time"/>
 				<x:column title="计息天数" field="COUNT_DAY" align="center" width="70"/>
 				<x:column title="募集期利率" field="PERIOD_RATE" align="center" width="70" formatter="formateRate"/>
 				<x:column title="代付利息" field="PRI_INTEREST" align="center" width="100"/>

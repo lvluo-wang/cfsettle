@@ -17,40 +17,38 @@
 		                    <col width="30%"/>
 		                </colgroup>
 		                <tr>
-		                    <td style="text-align: center;" colspan="4"><b>项目基本信息</b></td>
+		                    <td style="text-align: left;" colspan="4"><b>客户信息</b></td>
 		                </tr>
 		                <tr>
-		                    <td class="title">项目名:</td>
+		                    <td class="title">合同编号:</td>
+		                    <td>${prjOrder.contractNo}</td>
+		                    <td class="title">客户姓名:</td>
+		                    <td>${cfsCust.realName}</td>
+		                </tr>
+		                <tr>
+		                    <td class="title">投资项目:</td>
 		                    <td>${prj.prjName}</td>
-		                    <td class="title">项目方名:</td>
-		                    <td>${prj.prjUseName}</td>
-		                </tr>
-		                <tr>
-		                    <td class="title">项目联系电话:</td>
-		                    <td>${prj.prjMobile}</td>
-		                    <td class="title">项目期限:</td>
+			                <td class="title">项目期限:</td>
 		                    <td>
 		                    	${prj.timeLimit}
 		                        <x:codeItem codeNo="prj.timeLimitUnit" codeKey="<%=UtilConstant.CFS_TIMELIMIT_UNIT %>"/>
 		                    </td>
 		                </tr>
 		                <tr>
-		                    <td class="title">项目年化利率:</td>
-		                    <td>${prj.yearRate}%</td>
-		                    <td class="title">项目成立时间：</td>
-		                    <td><s:date format="yyyy-MM-dd HH:mm:ss" name="prj.endBidTime"/></td>
+		                    <td class="title">募集期利息:</td>
+		                    <td>${prj.periodRate}%</td>
+		                    <td class="title">投资时间:</td>
+		                    <td><s:date format="yyyy-MM-dd HH:mm:ss" name="prjOrder.investTime"/></td>
 		                </tr>
 		                <tr>
-		                    <td class="title">实际募集金额(元):</td>
-		                    <td>${prj.demandAmount-prj.remainingAmount}</td>
-		                    <td class="title">已回款期数:</td>
-		                    <td>Y/M</td>
+		                    <td class="title">投资金额(元)：</td>
+		                    <td>${prjOrder.money}</td>
+		                    <td class="title">计息天数:</td>
+		                    <td>${orderRepayPlan.countDay}</td>
 		                </tr>
 		                <tr>
-		                    <td class="title">回款本息(元):</td>
-		                    <td>${prj.payBackAmount}</td>
-		                    <td class="title">回款截止时间:</td>
-		                    <td>${prj.lastRepayTime}</td>
+		                    <td class="title">待付利息(元):</td>
+		                    <td>${orderRepayPlan.priInterest}</td>
 		                </tr>
                     </table>
                 </form>
@@ -63,20 +61,21 @@
 		                    <col width="30%"/>
 		                </colgroup>
 		                <tr>
-		                    <td style="text-align: left;" colspan="4"><b>借款人付款信息</b></td>
+		                    <td style="text-align: left;" colspan="4"><b>客户收款银行信息</b></td>
 		                </tr>
 		                <tr>
-		                    <td class="title">付款账户名:</td>
-		                    <td><input name="paybackLog.paybackAccountName"  class="easyui-validatebox" required="true"/></td>
-		                    <td class="title">付款银行:</td>
+		                    <td class="title">收款账户名:</td>
+		                    <td>${cfsCust.realName}</td>
+		                    <td class="title">收款银行:</td>
 		                    <td>
-		                    	<x:combobox name="paybackLog.paybackBank" class="easyui-validatebox" list="bankList" textField="codeName" valueField="codeNo" required="true" pleaseSelect="false" cssStyle="142px;"/>
+		                    	<x:codeItem codeNo="prjOrder.payBank" codeKey="<%=UtilConstant.CFS_BANK_TYPE%>"/>
 		                    </td>
 		                </tr>
 		                <tr>
-		                    <td class="title">付款卡号:</td>
-		                    <td><input name="paybackLog.paybackAccountNo"  class="easyui-validatebox" required="true"/></td>
-		                    <td colspan="2"></td>
+		                    <td class="title">收款支行:</td>
+		                    <td>${prjOrder.paySubBank}</td>
+		                    <td class="title">收款卡号:</td>
+		                    <td>${prjOrder.payAccountNo}</td>
 		                </tr>
 		                <tr>
 		                    <td style="text-align: left;" colspan="4"><b>公司收款信息</b></td>

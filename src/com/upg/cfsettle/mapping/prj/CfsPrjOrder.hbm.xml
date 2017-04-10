@@ -51,6 +51,11 @@
                 <comment>付款账号</comment>
             </column>
         </property>
+         <property name="paySubBank" type="java.lang.String">
+            <column name="pay_sub_bank" length="200">
+                <comment>付款执行</comment>
+            </column>
+        </property>
         <property name="payNotesAttid" type="java.lang.Long">
             <column name="pay_notes_attid">
                 <comment>打款凭证</comment>

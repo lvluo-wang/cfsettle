@@ -24,6 +24,7 @@ public class CfsPrjOrder implements Serializable {
 	private String contractNo;
 	private Date investTime;
 	private String payBank;
+	private String paySubBank;
 	private String payAccountNo;
 	private Long payNotesAttid;
 	private String paySerialNum;
@@ -349,4 +350,11 @@ public class CfsPrjOrder implements Serializable {
 		this.mtime = mtime;
 	}
 
+	public String getPaySubBank() {
+		return paySubBank;
+	}
+
+	public void setPaySubBank(String paySubBank) {
+		this.paySubBank = paySubBank;
+	}
 }
