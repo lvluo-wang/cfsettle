@@ -63,20 +63,32 @@
                     <td><x:codeItem codeNo="prj.status" codeKey="<%=UtilConstant.CFS_PRJ_STATUS %>"/></td>
                     <td colspan="2"></td>
                 </tr>
+                <tr>
+                    <td style="text-align: left;" colspan="4"><b>客户收款银行信息</b></td>
+                </tr>
+                 <tr>
+                    <td class="title">收款账户名:</td>
+                    <td>${cfsCust.realName}</td>
+                    <td class="title">收款银行：</td>
+                    <td><x:codeItem codeNo="prjOrder.payBank" codeKey="<%=UtilConstant.CFS_BANK_TYPE %>"/></td>
+                </tr>
+                <tr>
+                    <td class="title">收款支行:</td>
+                    <td>${prjOrder.payAccountNo}(待确认)</td>
+                    <td class="title">付款卡号:</td>
+                    <td>${prjOrder.payAccountNo}</td>
+                </tr>
                </table>
             </form>
    		<div class="func_data_area">
-   			<x:datagrid id="dataTableView" singleSelect="true" url="/prj/payBack_listPayBack.jhtml?payBackLog.prjId=${prj.id}" autoload="true">
+   			<x:datagrid id="dataTableView" singleSelect="true" url="/order/orderPeriod_listPeriod.jhtml?id=${orderRepayPlan.id}" autoload="true">
 				<x:columns>
-					<x:column title="回款期数" field="REPAY_PERIODS" align="center" width="140" formatter="formatTimes"/>
-					<x:column title="回款截止时间" field="REPAY_DATE" align="center" width="140" formatter="format2Date"/>
-					<x:column title="实际回款时间" field="PAYBACK_TIME" align="center" width="120" formatter="format2Time"/>
-					<x:column title="回款金额(元)" field="PAYBACK_AMOUNT" align="center" width="80"/>
-					<x:column title="付款账户名" field="PAYBACK_BANK" align="center" width="80" formatter="formateBank"/>
-					<x:column title="付款银行" field="PAYBACK_ACCOUNT_NAME" align="center" width="180"/>
-					<x:column title="付款账号" field="PAYBACK_ACCOUNT_NO" align="center" width="180"/>
-					<x:column title="资金流水号" field="PAYBACK_SERIAL_NUM" align="center" width="180"/>
-					<x:column title="状态" field="STATUS" align="center" width="50" formatter="formattStatus"/>
+					<x:column title="付息时间" field="REPAY_PERIODS" align="center" width="140" formatter="formatTimes"/>
+					<x:column title="付息金额" field="REPAY_DATE" align="center" width="140" formatter="format2Date"/>
+					<x:column title="付款账户名" field="PAYBACK_TIME" align="center" width="120" formatter="format2Time"/>
+					<x:column title="付款银行" field="PAYBACK_AMOUNT" align="center" width="80"/>
+					<x:column title="付款账号" field="PAYBACK_BANK" align="center" width="80" formatter="formateBank"/>
+					<x:column title="资金流水编号" field="PAYBACK_SERIAL_NUM" align="center" width="180"/>
 					<x:column title="操作人" field="sysUserName" align="center" width="90"/>
 					<x:column title="审核备注" field="REMARK" align="center" width="240"/>
 				</x:columns>

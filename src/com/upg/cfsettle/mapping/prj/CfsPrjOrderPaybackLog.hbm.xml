@@ -40,7 +40,7 @@
                 <comment>回款时间</comment>
             </column>
         </property>
-        <property name="paybackAmount" type="java.math.BigDecimal">
+        <property name="paybackAmount" type="cent">
             <column name="payback_amount" precision="20" scale="0">
                 <comment>回款金额</comment>
             </column>

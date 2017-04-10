@@ -15,6 +15,7 @@ import com.upg.cfsettle.mapping.prj.CfsPrjExt;
 import com.upg.cfsettle.mapping.prj.CfsPrjOrder;
 import com.upg.cfsettle.mapping.prj.CfsPrjOrderPaybackLog;
 import com.upg.cfsettle.mapping.prj.CfsPrjOrderRepayPlan;
+import com.upg.cfsettle.order.order.ICfsPrjOrderPaybackLogService;
 import com.upg.cfsettle.prj.core.IPrjExtService;
 import com.upg.cfsettle.prj.core.IPrjService;
 import com.upg.cfsettle.util.UtilConstant;
@@ -39,6 +40,8 @@ public class OrderPeriodPayBackAction extends BaseAction {
 	private ICfsCustService custService;
 	@Autowired
 	private IUserService userService;
+	
+	private ICfsPrjOrderPaybackLogService orderPaybackLogService;
 	
 	private List<FiCodeItem> prjStatus;
 	
@@ -113,6 +116,11 @@ public class OrderPeriodPayBackAction extends BaseAction {
 		cfsCust = custService.queryCfsCustById(prjOrder.getCustId());
 		buser = userService.getUserById(prjOrder.getServiceSysid());
 		return SUCCESS;
+	}
+	
+	public String listPeriod(){
+		List<CfsPrjOrderPaybackLog> list = orderPaybackLogService.findByOrderRepayPlanId(getPKId(),getPg());
+		return setDatagridInputStreamData(list, getPg());
 	}
 
 	public CfsPrjOrderPaybackLog getSearchBean() {
