@@ -1,5 +1,6 @@
 package com.upg.cfsettle.prj.core;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public interface IPrjService extends IBaseService {
 
     CfsPrj getPrjById(Long id);
 
-    void updatePrjAndPrjExt(CfsPrj prj, CfsPrjExt prjExt);
+    void updatePrjAndPrjExt(CfsPrj prj, CfsPrjExt prjExt) throws InvocationTargetException, IllegalAccessException;
 
     void auditPrjAndPrjExt(CfsPrj prj, CfsPrjExt prjExt);
 

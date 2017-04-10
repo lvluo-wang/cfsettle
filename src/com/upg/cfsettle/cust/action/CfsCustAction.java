@@ -5,9 +5,19 @@ import java.util.List;
 
 import com.upg.cfsettle.cust.core.CfsCustInfo;
 import com.upg.cfsettle.cust.core.CustSearchBean;
+import com.upg.cfsettle.mapping.organization.CfsOrgArea;
+import com.upg.cfsettle.mapping.organization.CfsOrgDept;
+import com.upg.cfsettle.mapping.organization.CfsOrgTeam;
+import com.upg.cfsettle.organization.core.IOrgAreaService;
+import com.upg.cfsettle.organization.core.IOrgDeptService;
+import com.upg.cfsettle.organization.core.IOrgTeamService;
+import com.upg.cfsettle.organization.core.OrgTeamBean;
+import com.upg.cfsettle.util.UtilConstant;
 import com.upg.demo.template.obj.CustInfo;
 import com.upg.ucars.factory.DynamicPropertyTransfer;
+import com.upg.ucars.framework.base.SessionTool;
 import com.upg.ucars.mapping.basesystem.security.Buser;
+import com.upg.ucars.model.security.UserLogonInfo;
 import com.upg.ucars.util.PropertyTransVo;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,6 +43,20 @@ public class CfsCustAction extends BaseAction {
 	private CfsCust cfsCust;
 
 	private CustSearchBean custSearchBean;
+
+	private UserLogonInfo logonInfo;
+
+	private List<CfsOrgArea> userAreaList;
+
+	private List<CfsOrgDept> userDeptList;
+
+	private List<CfsOrgTeam> userTeamList;
+	@Autowired
+	private IOrgAreaService areaService;
+	@Autowired
+	private IOrgDeptService deptService;
+	@Autowired
+	private IOrgTeamService teamService;
 	
 	
 	/**
@@ -98,7 +122,7 @@ public class CfsCustAction extends BaseAction {
 	}
 
 	public String infoMain(){
-		yseNo = CodeItemUtil.getCodeItemsByKey(CfsConstant.CFS_COMM_YSE_NO);
+		getSearchConditon();;
 		return "infoMain";
 	}
 
@@ -108,7 +132,38 @@ public class CfsCustAction extends BaseAction {
 		trans.add(new PropertyTransVo("sysIdLong", Buser.class, "userId", "userName","userName"));
 		trans.add(new PropertyTransVo("sysIdLong", Buser.class, "userId", "posCode","posCode"));
 		list = DynamicPropertyTransfer.transform(list, trans);
-		return setDatagridInputStreamData(cfsCustService.findByConditionAndPosCode(custSearchBean,getPg()),getPg());
+		return setDatagridInputStreamData(list,getPg());
+	}
+
+	private void getSearchConditon(){
+		yseNo = CodeItemUtil.getCodeItemsByKey(CfsConstant.CFS_COMM_YSE_NO);
+		logonInfo = SessionTool.getUserLogonInfo();
+		userAreaList = new ArrayList<>();
+		userDeptList = new ArrayList<>();
+		userTeamList = new ArrayList<>();
+		if(logonInfo.getPosCode() !=null && logonInfo.getPosCode().equals(UtilConstant.CFS_AREA_MANAGER)){
+			userAreaList = areaService.findByCondition(new CfsOrgArea(logonInfo.getAreaId(),Byte.valueOf("1")),null);
+			userDeptList = deptService.find(new CfsOrgDept(logonInfo.getAreaId(),Byte.valueOf("1")),null);
+			for(CfsOrgDept orgDept: userDeptList){
+				List<CfsOrgTeam> list = teamService.find(new OrgTeamBean(orgDept.getId(),Byte.valueOf("1")),null);
+				userTeamList.addAll(list);
+			}
+		}
+		if(logonInfo.getPosCode() !=null && logonInfo.getPosCode().equals(UtilConstant.CFS_DEPT_MANAGER)){
+			userDeptList = deptService.find(new CfsOrgDept(Byte.valueOf("1"),logonInfo.getDeptId()),null);
+			for(CfsOrgDept orgDept: userDeptList){
+				List<CfsOrgTeam> list = teamService.find(new OrgTeamBean(orgDept.getId(),Byte.valueOf("1")),null);
+				userTeamList.addAll(list);
+			}
+		}
+		if(logonInfo.getPosCode() !=null && logonInfo.getPosCode().equals(UtilConstant.CFS_TEAM_MANAGER)){
+			userTeamList = teamService.find(new OrgTeamBean(Byte.valueOf("1"),logonInfo.getTeamId()),null);
+		}
+		if(logonInfo.getUserType().equals(Buser.TYPE_BRCH_GLOBAL_MANAGER)){
+			userAreaList = areaService.findByCondition(new CfsOrgArea(Byte.valueOf("1")),null);
+			userDeptList = deptService.find(null,null);
+			userTeamList = teamService.find(new OrgTeamBean(Byte.valueOf("1")),null);
+		}
 	}
 	
 	public CfsCust getSearchBean() {
@@ -149,5 +204,37 @@ public class CfsCustAction extends BaseAction {
 
 	public void setCustSearchBean(CustSearchBean custSearchBean) {
 		this.custSearchBean = custSearchBean;
+	}
+
+	public UserLogonInfo getLogonInfo() {
+		return logonInfo;
+	}
+
+	public void setLogonInfo(UserLogonInfo logonInfo) {
+		this.logonInfo = logonInfo;
+	}
+
+	public List<CfsOrgArea> getUserAreaList() {
+		return userAreaList;
+	}
+
+	public void setUserAreaList(List<CfsOrgArea> userAreaList) {
+		this.userAreaList = userAreaList;
+	}
+
+	public List<CfsOrgDept> getUserDeptList() {
+		return userDeptList;
+	}
+
+	public void setUserDeptList(List<CfsOrgDept> userDeptList) {
+		this.userDeptList = userDeptList;
+	}
+
+	public List<CfsOrgTeam> getUserTeamList() {
+		return userTeamList;
+	}
+
+	public void setUserTeamList(List<CfsOrgTeam> userTeamList) {
+		this.userTeamList = userTeamList;
 	}
 }

@@ -112,6 +112,30 @@
                             </td>
                         </tr>
                         <tr>
+                            <td class="title" >选择-省份:</td>
+                            <td >
+                                <x:combobox id="edit_province_id" readOnly="true" name="prjExt.provinceId" onchange="changeProvince" value="${prjExt.provinceId}"  required="true" valueField="id" textField="nameCn"/>
+                            </td>
+                            <td class="title" >选择-城市:</td>
+                            <td >
+                                <x:combobox id="edit_city_id" readOnly="true" name="prjExt.cityId" onchange="changeCity" value="${prjExt.cityId}" required="true" valueField="id" textField="nameCn"/>
+                            </td>
+                            </td>
+                        </tr>
+                        <script type="text/javascript">
+
+                            $("#edit_province_id").xcombobox("reload",{'url':'<s:url value="/dictionary/dictionary_getProvinces.jhtml"/>'});
+                            //编辑的时候加下面两条语句
+                            $("#edit_city_id").xcombobox("reload",{'url':'<s:url value="/dictionary/dictionary_getAreaListByPid.jhtml"/>?areaPid=${prjExt.provinceId}'});
+
+                            function changeProvince(provinceId){
+                                if(provinceId){
+                                    $("#edit_city_id").xcombobox("reload",{'url':'<s:url value="/dictionary/dictionary_getAreaListByPid.jhtml"/>?areaPid='+provinceId});
+                                }
+
+                            }
+                        </script>
+                        <tr>
                             <td class="title">收款支行:</td>
                             <td>
                                 ${prjExt.subBank}

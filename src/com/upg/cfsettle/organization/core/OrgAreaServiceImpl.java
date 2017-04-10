@@ -36,6 +36,9 @@ public class OrgAreaServiceImpl implements IOrgAreaService {
             if(null != searchBean.getStatus()){
                 condition.addCondition(new ConditionBean("cfsOrgArea.status",ConditionBean.EQUAL,searchBean.getStatus()));
             }
+            if(null != searchBean.getId()){
+                condition.addCondition(new ConditionBean("cfsOrgArea.id",ConditionBean.EQUAL,searchBean.getId()));
+            }
         }
         condition.addOrder(new OrderBean("cfsOrgArea.ctime",true));
         return orgAreaDao.queryEntity( condition.getConditionList(), pg);

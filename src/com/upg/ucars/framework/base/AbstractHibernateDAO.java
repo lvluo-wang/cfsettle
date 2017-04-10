@@ -512,9 +512,13 @@ public abstract class AbstractHibernateDAO extends HibernateDaoSupport {
 		String sqlCount="select Count(1) from ("+sql+") count_view";
 		Query queryCount=session.createSQLQuery(sqlCount);
 		for (Map.Entry<String, Object> enty : values.entrySet()) {
-
-			query.setParameter(enty.getKey(),enty.getValue());
-			queryCount.setParameter(enty.getKey(),enty.getValue());
+			if(enty.getValue() instanceof Collection){
+				query.setParameterList(enty.getKey(), (Collection) enty.getValue());
+				queryCount.setParameterList(enty.getKey(), (Collection) enty.getValue());
+			}else{
+				query.setParameter(enty.getKey(),enty.getValue());
+				queryCount.setParameter(enty.getKey(),enty.getValue());
+			}
 		}
 
 		if(page!=null&&!page.isQueryAll()){

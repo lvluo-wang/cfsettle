@@ -24,6 +24,10 @@ public class CfsOrgTeam implements java.io.Serializable {
 	public CfsOrgTeam() {
 	}
 
+	public CfsOrgTeam(Byte status) {
+		this.status = status;
+	}
+
 	public Long getId() {
 		return id;
 	}

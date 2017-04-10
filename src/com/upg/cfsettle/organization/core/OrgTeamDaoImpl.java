@@ -59,4 +59,10 @@ public class OrgTeamDaoImpl extends SysBaseDao<CfsOrgTeam,Long> implements IOrgT
         }
         return null;
     }
+
+    @Override
+    public OrganizationBean getByTeamName(String teamName) {
+        String hql = "select ";
+        return null;
+    }
 }

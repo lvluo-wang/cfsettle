@@ -69,6 +69,7 @@ public class PrjServiceImpl implements IPrjService {
         prj.setCsysid(SessionTool.getUserLogonInfo().getSysUserId());
         prj.setStatus(Byte.valueOf("1"));
         prj.setRemainingAmount(prj.getDemandAmount());
+		prj.setLoanedAmount(BigDecimal.ZERO);
         dealPrjTimeLimitDay(prj);
         //prj.setYearRate(RateUtil.rateToPercent(prj.getYearRate()));
         //prj.setPeriodRate(RateUtil.rateToPercent(prj.getPeriodRate()));
@@ -118,16 +119,20 @@ public class PrjServiceImpl implements IPrjService {
     }
 
     @Override
-    public void updatePrjAndPrjExt(CfsPrj prj, CfsPrjExt prjExt) {
+    public void updatePrjAndPrjExt(CfsPrj prj, CfsPrjExt prjExt) throws InvocationTargetException, IllegalAccessException {
         if(prj != null){
-            prj.setMtime(DateTimeUtil.getNowDateTime());
-            prj.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
-            prjDao.update(prj);
+			CfsPrj updatePrj = prjDao.get(prj.getId());
+			BeanUtils.copyNoNullProperties(updatePrj,prj);
+			updatePrj.setMtime(DateTimeUtil.getNowDateTime());
+			updatePrj.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
+            prjDao.update(updatePrj);
         }
         if(prjExt != null){
-            prjExt.setCtime(DateTimeUtil.getNowDateTime());
-            prjExt.setCsysid(SessionTool.getUserLogonInfo().getSysUserId());
-            prjExtDao.update(prjExt);
+			CfsPrjExt updatePrjExt = prjExtDao.get(prjExt.getPrjId());
+			BeanUtils.copyNoNullProperties(updatePrjExt,prjExt);
+			updatePrjExt.setCtime(DateTimeUtil.getNowDateTime());
+			updatePrjExt.setCsysid(SessionTool.getUserLogonInfo().getSysUserId());
+            prjExtDao.update(updatePrjExt);
         }
     }
 
