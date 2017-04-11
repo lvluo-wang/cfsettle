@@ -3,28 +3,35 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="x" uri="/xcars-tags"%>
-<tiles:insertDefinition name="FUNC_TOOL_QUERY_DATA">
-	<tiles:putAttribute name="tool">
-		<x:button iconCls="icon-add" text="回款录入" click="toAdd"/>
-		<x:button iconCls="icon-view" text="回款详情" click="toView"/>
-		<x:button iconCls="icon-reload" text="本周截止回款" click="queryWeek"/>
-		<x:button iconCls="icon-reload" text="本月截止回款" click="queryMonth"/>
-	</tiles:putAttribute>
+<tiles:insertDefinition name="FUNC_QUERY_DATA">
 	<tiles:putAttribute name="query">
 			<form id="mainQueryForm" class="query_form">
 			<table>
 				<tr>
+					<td class="title">客户姓名: </td>
+					<td>
+						<input name="searchBean.realName" style="width:130px"/>
+						<input name="searchBean.isPeriod" type="hidden" value="1"/>
+					</td>
+					<td class="title">客户手机: </td>
+					<td><input name="searchBean.mobile" style="width:130px"/></td>
 					<td class="title">项目名: </td>
 					<td><input name="searchBean.prjName" style="width:130px"/></td>
-					<td class="title">状态:</td>
+					<td class="title">还款状态:</td>
 					<td>
-						<x:combobox name="searchBean.status" list="prjStatusList" textField="codeName" valueField="codeNo" cssStyle="width:80px;"/>
+						<x:combobox name="searchBean.status" list="planStatus" textField="codeName" valueField="codeNo" cssStyle="width:114px;"/>
 					</td>
-					<td class="title">回款截止时间:</td>
+				</tr>
+				<tr>
+					<td class="title">投资时间:</td>
 					<td colspan="3">
-						<input id="beginTime" name="searchBean.startDate" class="Wdate" value="<s:date format="yyyy-MM-dd" name=""/>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'endTime\',{d:-31})}',maxDate:'#F{$dp.$D(\'endTime\')}',onpicked:function(){endTime.focus();}})" />
+						<input id="beginTime" name="searchBean.startDate" class="Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
 						-
-						<input id="endTime" name="searchBean.endDate" class="Wdate" value="<s:date format="yyyy-MM-dd" name=""/>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'beginTime\',{d:31})}',minDate:'#F{$dp.$D(\'beginTime\')}'})" />
+						<input id="endTime" name="searchBean.endDate" class="Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
+					</td>
+					<td class="title">项目状态:</td>
+					<td>
+						<x:combobox name="searchBean.prjStatus" list="prjStatus" textField="codeName" valueField="codeNo" cssStyle="width:114px;"/>
 					</td>
 					<td><x:button iconCls="icon-search" text="query" click="doQuery"/></td>
 				</tr>
@@ -32,20 +39,20 @@
 		</form>
 	</tiles:putAttribute>
 	<tiles:putAttribute name="data">
-		<x:datagrid id="dataTable" singleSelect="true" url="/prj/payBack_list.jhtml" autoload="true" form="mainQueryForm">
+		<x:datagrid id="dataTable" singleSelect="true" url="/order/orderUse_list.jhtml" autoload="true" form="mainQueryForm">
 			<x:columns>
 				<x:column title="" checkbox="true" field="ID" />
-				<x:column title="项目名" field="PRJ_NAME" align="center" width="140"/>
-				<x:column title="项目电话" field="PRJ_MOBILE" align="center" width="90"/>
-				<x:column title="实际募集金额(元)" field="ACT_AMOUNT" align="center" width="120"/>
-				<x:column title="项目利率" field="YEAR_RATE" align="center" width="60" formatter="formateRate"/>
-				<x:column title="项目期限" field="TIME_LIMIT" align="center" width="60" formatter="formateTimelimit"/>
-				<x:column title="回款本息(元)" field="PRI_INTEREST" align="center" width="100"/>
-				<x:column title="回款本金(元)" field="PRINCIPAL" align="center" width="100" />
-				<x:column title="回款利息(元)" field="YIELD" align="center" width="100"/>
-				<x:column title="回款截止时间" field="REPAY_DATE" align="center" width="90" formatter="format2Date"/>
-				<x:column title="回款期数" field="REPAY_PERIODS" align="center" width="140" formatter="formatPeriods"/>
-				<x:column title="状态" field="STATUS" align="center" width="80" formatter="forRepayPlanStatus"/>
+				<x:column title="合同编号" field="CONTRACT_NO" align="center" width="140" formatter="formatContract"/>
+				<x:column title="客户名" field="REAL_NAME" align="center" width="90"/>
+				<x:column title="购买项目" field="PRJ_NAME" align="center" width="120"/>
+				<x:column title="投资时间" field="INVEST_TIME" align="center" width="140" formatter="format2Time"/>
+				<x:column title="项目启动时间" field="END_BID_TIME" align="center" width="140" formatter="format2Time"/>
+				<x:column title="计息天数" field="COUNT_DAY" align="center" width="70"/>
+				<x:column title="募集期利率" field="PERIOD_RATE" align="center" width="70" formatter="formateRate"/>
+				<x:column title="代付利息" field="PRI_INTEREST" align="center" width="100"/>
+				<x:column title="购买金额" field="MONEY" align="center" width="90"/>
+				<x:column title="项目状态" field="PRJSTATUS" align="center" width="140" formatter="formatPrjStatus"/>
+				<x:column title="状态" field="PLANSTATUS" align="center" width="80" formatter="formatPlanStatus"/>
 			</x:columns>
 		</x:datagrid>
 	</tiles:putAttribute>
@@ -56,38 +63,40 @@
 	
 	<tiles:putAttribute name="end">
 	<script type="text/javascript">
-	var keys=["<%=UtilConstant.CFS_TIMELIMIT_UNIT%>","<%=UtilConstant.CFS_BANK_TYPE%>","<%=UtilConstant.CFS_REPAYMENT_TYPE%>"
-	,"<%=UtilConstant.CFS_PRJ_REPAY_PLAN_STATUS%>"];
+	var keys=["<%=UtilConstant.CFS_PRJ_STATUS%>","<%=UtilConstant.CFS_PRJ_REPAY_PLAN_STATUS%>"];
 	var code=new XhhCodeUtil(keys);
 	code.loadData();
 
-	function forRepayPlanStatus(value){
-		 return code.getValue("<%=UtilConstant.CFS_PRJ_REPAY_PLAN_STATUS%>",value);
+	function formatPrjStatus(value){
+		return code.getValue("<%=UtilConstant.CFS_PRJ_STATUS%>",value);
 	}
 
-    function formateBank(value) {
-        return code.getValue("<%=UtilConstant.CFS_BANK_TYPE%>",value);
+    function formatPlanStatus(val,field,row) {
+   		var value = code.getValue("<%=UtilConstant.CFS_PRJ_REPAY_PLAN_STATUS%>",val);
+    	if(val==1){
+    		return"<a href='javascript:toRepay("+row.ID+")'>"+value+"</a>";
+    	}else{
+    		return value;
+    	}
     }
-
+	
     function formateRate(value) {
 		return value+"%";
     }
     
-    function queryWeek(){
-    	dataTable.params={'searchBean.queryType':'W'};
-    	dataTable.load();
+    function formatContract(val,field,row){
+    	return "<a href='javascript:toUsePay("+row.ID+")'>"+val+"</a>";
     }
     
-    function queryMonth(){
-    	dataTable.params={'searchBean.queryType':'M'};
-    	dataTable.load();
-    }
-
-    function formateTimelimit(value,field,row) {
-	    var timeLimitUnit = code.getValue("<%=UtilConstant.CFS_TIMELIMIT_UNIT%>",row.TIME_LIMIT_UNIT);
-	    return value+timeLimitUnit;
-
-    }
+    function toUsePay(planId) {
+		var url = '<s:url value="/order/orderUse_toView.jhtml"/>?id='+planId;
+		redirectUrl(url);
+	}
+    
+    function toRepay(planId) {
+		var url = '<s:url value="/order/orderUse_toAdd.jhtml"/>?id='+planId;
+		redirectUrl(url);
+	}
     
     function formatPeriods(val){
     	if(val==0){
@@ -98,27 +107,8 @@
     }
 
 	function doQuery(){
-		dataTable.params={'searchBean.queryType':''};
 		dataTable.load();
 	}
-		
-	function toAdd(){
-		if(isSingleSelected(dataTable)) {
-			var selectedId = dataTable.getSelectedField("PLANID");
-			var url="<s:url value='/prj/payBack_toAdd.jhtml'/>?id="+selectedId;
-			redirectUrl(url);
-		}
-	}
-
-	function toView(){
-		if(isSingleSelected(dataTable)) {
-			var selectedId = dataTable.getSelectedField("ID");
-            var status = dataTable.getSelectedField("STATUS");
-            var url = "<s:url value='/prj/payBack_toView.jhtml'/>?id="+selectedId;
-            redirectUrl(url);
-		}
-	}
-
 	</script>
 	</tiles:putAttribute>
 </tiles:insertDefinition>

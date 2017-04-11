@@ -74,7 +74,7 @@
     function formatPlanStatus(val,field,row) {
    		var value = code.getValue("<%=UtilConstant.CFS_PRJ_REPAY_PLAN_STATUS%>",val);
     	if(val==1){
-    		return"<a href='javascript:toRepay("+row.ID+")'>"+val+"</a>";
+    		return"<a href='javascript:toRepay("+row.ID+")'>"+value+"</a>";
     	}else{
     		return value;
     	}

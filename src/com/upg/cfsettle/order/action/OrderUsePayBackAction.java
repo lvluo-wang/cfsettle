@@ -6,17 +6,21 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.upg.cfsettle.common.CodeItemUtil;
-import com.upg.cfsettle.cust.core.CustOrderBean;
 import com.upg.cfsettle.cust.core.ICfsCustService;
+import com.upg.cfsettle.cust.core.ICfsPrjOrderRepayPlanService;
 import com.upg.cfsettle.cust.core.ICfsPrjOrderService;
 import com.upg.cfsettle.mapping.ficode.FiCodeItem;
 import com.upg.cfsettle.mapping.prj.CfsCust;
 import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.mapping.prj.CfsPrjExt;
 import com.upg.cfsettle.mapping.prj.CfsPrjOrder;
+import com.upg.cfsettle.mapping.prj.CfsPrjOrderPaybackLog;
+import com.upg.cfsettle.mapping.prj.CfsPrjOrderRepayPlan;
+import com.upg.cfsettle.order.order.ICfsPrjOrderPaybackLogService;
 import com.upg.cfsettle.prj.core.IPrjExtService;
 import com.upg.cfsettle.prj.core.IPrjService;
 import com.upg.cfsettle.util.UtilConstant;
+import com.upg.ucars.basesystem.security.core.user.IUserService;
 import com.upg.ucars.factory.DynamicPropertyTransfer;
 import com.upg.ucars.framework.base.BaseAction;
 import com.upg.ucars.mapping.basesystem.security.Buser;
@@ -25,26 +29,45 @@ import com.upg.ucars.util.PropertyTransVo;
 @SuppressWarnings("serial")
 public class OrderUsePayBackAction extends BaseAction {
 	
-	private CustOrderBean searchBean;
+private CfsPrjOrderPaybackLog searchBean;
+	
+	private CfsPrjOrderPaybackLog orderPayLog;
 	
 	@Autowired
-	private ICfsPrjOrderService prjOrderService;
-	
-	private CfsPrjOrder cfsPrjOrder;
-	
-	private CfsPrj prj;
-	
-	private CfsPrjExt prjExt;
-	
-	private CfsCust cfsCust;
+	private ICfsPrjOrderRepayPlanService orderPlanService;
 	@Autowired
 	private IPrjService prjService;
 	@Autowired
 	private IPrjExtService prjExtService;
 	@Autowired
+	private ICfsPrjOrderService orderService;
+	@Autowired
 	private ICfsCustService custService;
+	@Autowired
+	private IUserService userService;
+	@Autowired
+	private ICfsPrjOrderPaybackLogService orderPaybackLogService;
 	
-	private List<FiCodeItem> orderStatus;
+	private List<FiCodeItem> prjStatus;
+	
+	private List<FiCodeItem> planStatus;
+	
+	private List<FiCodeItem> bankTypes;
+	
+	private CfsPrj prj;
+	
+	private CfsPrjExt prjExt;
+	
+	private CfsPrjOrderRepayPlan orderRepayPlan;
+	
+	private CfsPrjOrder prjOrder;
+	
+	private CfsCust cfsCust;
+	
+	private Buser buser;
+	
+	
+	
 	
 	
 	
@@ -55,115 +78,92 @@ public class OrderUsePayBackAction extends BaseAction {
 	 * @return
 	 */
 	public String main(){
-		orderStatus = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_PRJ_ORDER_STATUS);
+		prjStatus = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_PRJ_STATUS);
+		planStatus = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_PRJ_REPAY_PLAN_STATUS);
 		return SUCCESS;
 	}
 	
 	/**
-	 * 查询CfsPrjOrder信息
+	 * 订单回款查询
 	 * @author renzhuolun
 	 * @date 2014年8月5日 下午12:36:58
 	 * @return
 	 */
 	public String list(){
-		return setDatagridInputStreamData(prjOrderService.findByCondition(searchBean, getPg()), getPg());
+		return setDatagridInputStreamData(orderPlanService.findByCondition(searchBean, getPg()), getPg());
 	}
 	
 	/**
-	 * 跳转新增页面
+	 * 募集期还款添加
 	 * @author renzhuolun
-	 * @date 2014年8月5日 下午12:38:01
+	 * @date 2017年4月9日 下午8:17:00
 	 * @return
 	 */
 	public String toAdd(){
-		cfsPrjOrder = prjOrderService.getPrjOrderById(getPKId());
-		cfsCust = custService.queryCfsCustById(cfsPrjOrder.getCustId());
-		prj = prjService.getPrjById(cfsPrjOrder.getPrjId());
-		prjExt = prjExtService.getPrjExtByPrjId(cfsPrjOrder.getPrjId());
-		List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
-    	trans.add(new PropertyTransVo("csysid", Buser.class, "userId", "userNo","mobile"));
-    	trans.add(new PropertyTransVo("collectAuditSysid", Buser.class, "userId", "userName","contractAuditUser"));
-    	cfsPrjOrder = DynamicPropertyTransfer.transform(cfsPrjOrder, trans);
+		orderRepayPlan = orderPlanService.getprjOrderPlanById(getPKId());
+		prj = prjService.getPrjById(orderRepayPlan.getPrjId());
+		prjExt = prjExtService.getPrjExtByPrjId(orderRepayPlan.getPrjId());
+		prjOrder = orderService.getPrjOrderById(orderRepayPlan.getPrjOrderId());
+		cfsCust = custService.queryCfsCustById(prjOrder.getCustId());
+		buser = userService.getUserById(prjOrder.getServiceSysid());
+		bankTypes = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_BANK_TYPE);
 		return SUCCESS;
 	}
 	
 	/**
-	 * 跳转编辑页面
+	 * 创建订单还款日志
 	 * @author renzhuolun
-	 * @date 2014年8月8日 上午9:35:23
-	 * @return
-	 */
-	public String toEdit(){
-		cfsPrjOrder = prjOrderService.getPrjOrderById(getPKId());
-		cfsCust = custService.queryCfsCustById(cfsPrjOrder.getCustId());
-		prj = prjService.getPrjById(cfsPrjOrder.getPrjId());
-		prjExt = prjExtService.getPrjExtByPrjId(cfsPrjOrder.getPrjId());
-		List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
-    	trans.add(new PropertyTransVo("csysid", Buser.class, "userId", "userNo","mobile"));
-    	trans.add(new PropertyTransVo("collectAuditSysid", Buser.class, "userId", "userName","contractAuditUser"));
-    	cfsPrjOrder = DynamicPropertyTransfer.transform(cfsPrjOrder, trans);
-		return SUCCESS;
-	}
-	
-	/**
-	 * 批量删除CfsPrjOrder信息
-	 * @author renzhuolun
-	 * @date 2014年8月8日 上午9:28:16
-	 */
-	public void batchDelete(){
-		prjOrderService.batchDelete(getIdList());
-	}
-	
-	/**
-	 * 审核CfsPrjOrder信息
-	 * @author renzhuolun
-	 * @date 2017年4月5日 下午6:39:00
-	 */
-	public void doAudit(){
-		prjOrderService.doAuditPrjOrder(cfsPrjOrder);
-	}
-	
-	/**
-	 * 新增CfsPrjOrder信息
-	 * @author renzhuolun
-	 * @date 2014年8月11日 上午10:42:31
+	 * @date 2017年4月11日 上午11:42:31
 	 */
 	public void doAdd(){
-		prjOrderService.addPrjOrder(cfsPrjOrder);
+		orderPaybackLogService.addOrderPaybackLog(orderPayLog);
 	}
 	
 	/**
-	 * 查看CfsPrjOrder
+	 * 募集期还款详情
 	 * @author renzhuolun
-	 * @date 2016年8月19日 下午2:33:51
+	 * @date 2017年4月9日 下午8:17:21
 	 * @return
 	 */
 	public String toView(){
-		cfsPrjOrder = prjOrderService.getPrjOrderById(getPKId());
-		cfsCust = custService.queryCfsCustById(cfsPrjOrder.getCustId());
-		prj = prjService.getPrjById(cfsPrjOrder.getPrjId());
-		prjExt = prjExtService.getPrjExtByPrjId(cfsPrjOrder.getPrjId());
-		List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
-    	trans.add(new PropertyTransVo("csysid", Buser.class, "userId", "userNo","mobile"));
-    	trans.add(new PropertyTransVo("collectAuditSysid", Buser.class, "userId", "userName","contractAuditUser"));
-    	cfsPrjOrder = DynamicPropertyTransfer.transform(cfsPrjOrder, trans);
+		orderRepayPlan = orderPlanService.getprjOrderPlanById(getPKId());
+		prj = prjService.getPrjById(orderRepayPlan.getPrjId());
+		prjExt = prjExtService.getPrjExtByPrjId(orderRepayPlan.getPrjId());
+		prjOrder = orderService.getPrjOrderById(orderRepayPlan.getPrjOrderId());
+		cfsCust = custService.queryCfsCustById(prjOrder.getCustId());
+		buser = userService.getUserById(prjOrder.getServiceSysid());
 		return SUCCESS;
 	}
 	
-	public CustOrderBean getSearchBean() {
+	public String listPeriod(){
+		List<CfsPrjOrderPaybackLog> list = orderPaybackLogService.findByOrderRepayPlanId(getPKId(),getPg());
+		List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
+    	trans.add(new PropertyTransVo("csysid", Buser.class, "userId", "userName","sysUserName"));
+		return setDatagridInputStreamData(DynamicPropertyTransfer.transform(list, trans), getPg());
+	}
+
+	public CfsPrjOrderPaybackLog getSearchBean() {
 		return searchBean;
 	}
 
-	public void setSearchBean(CustOrderBean searchBean) {
+	public void setSearchBean(CfsPrjOrderPaybackLog searchBean) {
 		this.searchBean = searchBean;
 	}
 
-	public CfsPrjOrder getCfsPrjOrder() {
-		return cfsPrjOrder;
+	public List<FiCodeItem> getPrjStatus() {
+		return prjStatus;
 	}
 
-	public void setCfsPrjOrder(CfsPrjOrder cfsPrjOrder) {
-		this.cfsPrjOrder = cfsPrjOrder;
+	public void setPrjStatus(List<FiCodeItem> prjStatus) {
+		this.prjStatus = prjStatus;
+	}
+
+	public List<FiCodeItem> getPlanStatus() {
+		return planStatus;
+	}
+
+	public void setPlanStatus(List<FiCodeItem> planStatus) {
+		this.planStatus = planStatus;
 	}
 
 	public CfsPrj getPrj() {
@@ -182,6 +182,22 @@ public class OrderUsePayBackAction extends BaseAction {
 		this.prjExt = prjExt;
 	}
 
+	public CfsPrjOrderRepayPlan getOrderRepayPlan() {
+		return orderRepayPlan;
+	}
+
+	public void setOrderRepayPlan(CfsPrjOrderRepayPlan orderRepayPlan) {
+		this.orderRepayPlan = orderRepayPlan;
+	}
+
+	public CfsPrjOrder getPrjOrder() {
+		return prjOrder;
+	}
+
+	public void setPrjOrder(CfsPrjOrder prjOrder) {
+		this.prjOrder = prjOrder;
+	}
+
 	public CfsCust getCfsCust() {
 		return cfsCust;
 	}
@@ -190,11 +206,27 @@ public class OrderUsePayBackAction extends BaseAction {
 		this.cfsCust = cfsCust;
 	}
 
-	public List<FiCodeItem> getOrderStatus() {
-		return orderStatus;
+	public Buser getBuser() {
+		return buser;
 	}
 
-	public void setOrderStatus(List<FiCodeItem> orderStatus) {
-		this.orderStatus = orderStatus;
+	public void setBuser(Buser buser) {
+		this.buser = buser;
+	}
+
+	public List<FiCodeItem> getBankTypes() {
+		return bankTypes;
+	}
+
+	public void setBankTypes(List<FiCodeItem> bankTypes) {
+		this.bankTypes = bankTypes;
+	}
+
+	public CfsPrjOrderPaybackLog getOrderPayLog() {
+		return orderPayLog;
+	}
+
+	public void setOrderPayLog(CfsPrjOrderPaybackLog orderPayLog) {
+		this.orderPayLog = orderPayLog;
 	}
 }

@@ -71,10 +71,9 @@ public class CfsPrjOrderRepayPlanDaoImpl extends SysBaseDao<CfsPrjOrderRepayPlan
             	sqlCreater.and("p.ptype =:isPeriod","isPeriod",isPeriod,true);
             }else{
             	isPeriod = 0;
-            	sqlCreater.and("ptype.ptype >:isPeriod","isPeriod",isPeriod,true);
+            	sqlCreater.and("p.ptype >:isPeriod","isPeriod",isPeriod,true);
             }
         }
-        sqlCreater.orderBy("p.repay_periods",true);
         return getMapListByStanderdSQL(sqlCreater.getSql(),sqlCreater.getParameterMap(),page);
 	}
 }
