@@ -45,9 +45,14 @@
                 <comment>回款金额</comment>
             </column>
         </property>
-        <property name="paybackBankName" type="java.lang.String">
-            <column name="payback_bank_name" length="100">
+        <property name="paybackBank" type="java.lang.String">
+            <column name="payback_bank" length="20">
                 <comment>回款银行</comment>
+            </column>
+        </property>
+        <property name="paybackSubBank" type="java.lang.String">
+            <column name="payback_sub_bank" length="200">
+                <comment>回款支行</comment>
             </column>
         </property>
         <property name="paybackAccountNo" type="java.lang.String">

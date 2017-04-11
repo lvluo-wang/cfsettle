@@ -6,6 +6,7 @@ import com.upg.ucars.basesystem.security.core.user.IUserService;
 import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.mapping.basesystem.security.Buser;
+import com.upg.ucars.util.DateTimeUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -62,5 +63,11 @@ public class CfsPrjOrderRepayPlanServiceImpl implements ICfsPrjOrderRepayPlanSer
 	@Override
 	public CfsPrjOrderRepayPlan getprjOrderPlanById(Long id) {
 		return prjOrderRepayPlanDao.get(id);
+	}
+
+	@Override
+	public void updatePrjOrderRepayPlan(CfsPrjOrderRepayPlan plan) {
+		plan.setMtime(DateTimeUtil.getNowDateTime());
+		prjOrderRepayPlanDao.update(plan);
 	}
 }

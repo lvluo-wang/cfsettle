@@ -31,6 +31,8 @@ public class OrderPeriodPayBackAction extends BaseAction {
 	
 	private CfsPrjOrderPaybackLog searchBean;
 	
+	private CfsPrjOrderPaybackLog orderPayLog;
+	
 	@Autowired
 	private ICfsPrjOrderRepayPlanService orderPlanService;
 	@Autowired
@@ -49,6 +51,8 @@ public class OrderPeriodPayBackAction extends BaseAction {
 	private List<FiCodeItem> prjStatus;
 	
 	private List<FiCodeItem> planStatus;
+	
+	private List<FiCodeItem> bankTypes;
 	
 	private CfsPrj prj;
 	
@@ -102,7 +106,17 @@ public class OrderPeriodPayBackAction extends BaseAction {
 		prjOrder = orderService.getPrjOrderById(orderRepayPlan.getPrjOrderId());
 		cfsCust = custService.queryCfsCustById(prjOrder.getCustId());
 		buser = userService.getUserById(prjOrder.getServiceSysid());
+		bankTypes = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_BANK_TYPE);
 		return SUCCESS;
+	}
+	
+	/**
+	 * 创建订单还款日志
+	 * @author renzhuolun
+	 * @date 2017年4月11日 上午11:42:31
+	 */
+	public void doAdd(){
+		orderPaybackLogService.addOrderPaybackLog(orderPayLog);
 	}
 	
 	/**
@@ -198,5 +212,21 @@ public class OrderPeriodPayBackAction extends BaseAction {
 
 	public void setBuser(Buser buser) {
 		this.buser = buser;
+	}
+
+	public List<FiCodeItem> getBankTypes() {
+		return bankTypes;
+	}
+
+	public void setBankTypes(List<FiCodeItem> bankTypes) {
+		this.bankTypes = bankTypes;
+	}
+
+	public CfsPrjOrderPaybackLog getOrderPayLog() {
+		return orderPayLog;
+	}
+
+	public void setOrderPayLog(CfsPrjOrderPaybackLog orderPayLog) {
+		this.orderPayLog = orderPayLog;
 	}
 }

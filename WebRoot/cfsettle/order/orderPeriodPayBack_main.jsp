@@ -72,8 +72,12 @@
 	}
 
     function formatPlanStatus(val,field,row) {
-    	var val = code.getValue("<%=UtilConstant.CFS_PRJ_REPAY_PLAN_STATUS%>",val);
-    	return"<a href='javascript:toRepay("+row.ID+")'>"+val+"</a>";
+   		var value = code.getValue("<%=UtilConstant.CFS_PRJ_REPAY_PLAN_STATUS%>",val);
+    	if(val==1){
+    		return"<a href='javascript:toRepay("+row.ID+")'>"+val+"</a>";
+    	}else{
+    		return value;
+    	}
     }
 	
     function formateRate(value) {

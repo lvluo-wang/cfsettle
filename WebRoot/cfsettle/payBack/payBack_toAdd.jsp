@@ -70,7 +70,7 @@
 		                    <td><input name="paybackLog.paybackAccountName"  class="easyui-validatebox" required="true"/></td>
 		                    <td class="title">付款银行:</td>
 		                    <td>
-		                    	<x:combobox name="paybackLog.paybackBank" class="easyui-validatebox" list="bankList" textField="codeName" valueField="codeNo" required="true" pleaseSelect="false" cssStyle="142px;"/>
+		                    	<x:combobox name="paybackLog.paybackBank" class="easyui-validatebox" list="bankList" textField="codeName" valueField="codeNo" required="true" pleaseSelect="false" cssStyle="width:142px;"/>
 		                    </td>
 		                </tr>
 		                <tr>
@@ -96,7 +96,7 @@
 		                <tr>
 		                    <td class="title">收款银行:</td>
 		                    <td>
-								<x:combobox name="paybackLog.collectionBank" class="easyui-validatebox" list="bankList" textField="codeName" valueField="codeNo" required="true" pleaseSelect="false" cssStyle="142px;"/>
+								<x:combobox name="paybackLog.collectionBank" class="easyui-validatebox" list="bankList" textField="codeName" valueField="codeNo" required="true" pleaseSelect="false" cssStyle="width:142px;"/>
 							</td>
 		                    <td class="title">收款卡号:</td>
 		                    <td><input name="paybackLog.collectionAccountNo"  class="easyui-validatebox" required="true"/></td>

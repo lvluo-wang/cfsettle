@@ -85,8 +85,8 @@
 				<x:columns>
 					<x:column title="付息时间" field="paybackTime" align="center" width="140" formatter="format2Time"/>
 					<x:column title="付息金额(元)" field="paybackAmount" align="center" width="140"/>
-					<x:column title="付款账户名" field="paybackBankName" align="center" width="120"/>
-					<x:column title="付款银行" field="paybackAccountNo" align="center" width="180"/>
+					<x:column title="付款支行" field="paybackSubBank" align="center" width="120"/>
+					<x:column title="付款银行" field="paybackBank" align="center" width="180" formatter="formateBank"/>
 					<x:column title="付款账号" field="paybackAccountNo" align="center" width="180"/>
 					<x:column title="资金流水编号" field="paybackSerialNum" align="center" width="180"/>
 					<x:column title="操作人" field="sysUserName" align="center" width="90"/>

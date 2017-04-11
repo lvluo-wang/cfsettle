@@ -40,4 +40,12 @@ public interface ICfsPrjOrderRepayPlanService extends IBaseService {
 	 * @return
 	 */
 	CfsPrjOrderRepayPlan getprjOrderPlanById(Long id);
+
+	/**
+	 * 修改订单还款计划
+	 * @author renzhuolun
+	 * @date 2017年4月11日 上午11:52:44
+	 * @param plan
+	 */
+	void updatePrjOrderRepayPlan(CfsPrjOrderRepayPlan plan);
 }

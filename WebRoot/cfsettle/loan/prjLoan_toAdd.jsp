@@ -101,7 +101,7 @@
                             <td><input name="prjLoanLog.loanAccountName"  class="easyui-validatebox" required="true"/></td>
                             <td class="title">放款银行:</td>
                             <td colspan="3">
-                                <x:combobox name="prjLoanLog.loanBankName" list="bankList" textField="codeName" valueField="codeNo" required="true" pleaseSelect="false" cssStyle="142px;"/>
+                                <x:combobox name="prjLoanLog.loanBankName" list="bankList" textField="codeName" valueField="codeNo" required="true" pleaseSelect="false" cssStyle="width:142px;"/>
                             </td>
                         </tr>
                         <tr>

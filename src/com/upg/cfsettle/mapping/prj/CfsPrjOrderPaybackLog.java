@@ -24,7 +24,8 @@ public class CfsPrjOrderPaybackLog implements Serializable {
 	private Long paybackTimes;
 	private Date paybackTime;
 	private BigDecimal paybackAmount;
-	private String paybackBankName;
+	private String paybackBank;
+	private String paybackSubBank;
 	private String paybackAccountNo;
 	private String paybackSerialNum;
 	private String remark;
@@ -61,7 +62,7 @@ public class CfsPrjOrderPaybackLog implements Serializable {
 	public CfsPrjOrderPaybackLog(Long prjId, String prjName,
 			Long prjOrderId, Long prjOrderRepayPlanId,
 			Long paybackTimes, Date paybackTime,
-			BigDecimal paybackAmount, String paybackBankName,
+			BigDecimal paybackAmount, String paybackBank,
 			String paybackAccountNo, String paybackSerialNum, String remark,
 			Byte status, Long paybackAuditSysid, Date paybackAuditTime,
 			Long csysid, Date ctime, Long msysid, Date mtime) {
@@ -72,7 +73,7 @@ public class CfsPrjOrderPaybackLog implements Serializable {
 		this.paybackTimes = paybackTimes;
 		this.paybackTime = paybackTime;
 		this.paybackAmount = paybackAmount;
-		this.paybackBankName = paybackBankName;
+		this.paybackBank = paybackBank;
 		this.paybackAccountNo = paybackAccountNo;
 		this.paybackSerialNum = paybackSerialNum;
 		this.remark = remark;
@@ -150,13 +151,21 @@ public class CfsPrjOrderPaybackLog implements Serializable {
 	public void setPaybackAmount(BigDecimal paybackAmount) {
 		this.paybackAmount = paybackAmount;
 	}
-
-	public String getPaybackBankName() {
-		return this.paybackBankName;
+	
+	public String getPaybackBank() {
+		return paybackBank;
 	}
 
-	public void setPaybackBankName(String paybackBankName) {
-		this.paybackBankName = paybackBankName;
+	public void setPaybackBank(String paybackBank) {
+		this.paybackBank = paybackBank;
+	}
+
+	public String getPaybackSubBank() {
+		return paybackSubBank;
+	}
+
+	public void setPaybackSubBank(String paybackSubBank) {
+		this.paybackSubBank = paybackSubBank;
 	}
 
 	public String getPaybackAccountNo() {

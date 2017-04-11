@@ -78,37 +78,39 @@
 		                    <td>${prjOrder.payAccountNo}</td>
 		                </tr>
 		                <tr>
-		                    <td style="text-align: left;" colspan="4"><b>公司收款信息</b></td>
+		                    <td style="text-align: left;" colspan="4"><b>公司付款账户信息</b></td>
 		                </tr>
 		                <tr>
-		                    <td class="title">收款时间:</td>
+		                    <td class="title">付款时间:</td>
 		                    <td>
-		                    	<input class="Wdate easyui-validatebox" type="text" required="true" name="paybackLog.paybackTime" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
-                      			<input name="paybackLog.prjId" value="${prj.id}" type="hidden"/>
-                      			<input name="paybackLog.prjName" value="${prj.prjName}" type="hidden"/>
-                      			<input name="paybackLog.prjRepayPlanId" value="${repayPlan.id}" type="hidden"/>
-                      			<input name="paybackLog.paybackTimes" value="${repayPlan.repayPeriods}" type="hidden"/>
+		                    	<input class="Wdate easyui-validatebox" type="text" required="true" name="orderPayLog.paybackTime" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+                      			<input name="orderPayLog.prjId" value="${prj.id}" type="hidden"/>
+                      			<input name="orderPayLog.prjName" value="${prj.prjName}" type="hidden"/>
+                      			<input name="orderPayLog.prjOrderId" value="${prjOrder.id}" type="hidden"/>
+                      			<input name="orderPayLog.prjOrderRepayPlanId" value="${orderRepayPlan.id}" type="hidden"/>
+                      			<input name="orderPayLog.paybackTimes" value="${repayPlan.repayPeriods}" type="hidden"/>
 		                    </td>
-		                    <td class="title">收款金额：</td>
-		                    <td><input name="paybackLog.paybackAmount" class="easyui-validatebox" required="true" validType="money"/>元</td>
+		                    <td class="title">付款金额：</td>
+		                    <td><input name="orderPayLog.paybackAmount" class="easyui-validatebox" required="true" validType="money"/>元</td>
 		                </tr>
 		                <tr>
-		                    <td class="title">收款银行:</td>
+		                    <td class="title">付款银行:</td>
 		                    <td>
-								<x:combobox name="paybackLog.collectionBank" class="easyui-validatebox" list="bankList" textField="codeName" valueField="codeNo" required="true" pleaseSelect="false" cssStyle="142px;"/>
+								<x:combobox name="orderPayLog.paybackBank" class="easyui-validatebox" list="bankTypes" textField="codeName" valueField="codeNo" required="true" pleaseSelect="false" cssStyle="width:142px;"/>
 							</td>
-		                    <td class="title">收款卡号:</td>
-		                    <td><input name="paybackLog.collectionAccountNo"  class="easyui-validatebox" required="true"/></td>
+		                    <td class="title">付款卡号:</td>
+		                    <td><input name="orderPayLog.paybackAccountNo"  class="easyui-validatebox" required="true"/></td>
 		                </tr>
 		                <tr>
+		                	<td class="title">付款支行:</td>
+		                    <td><input name="orderPayLog.paybackSubBank" class="easyui-validatebox" required="true"/></td>
 		                    <td class="title">资金流水编号:</td>
-		                    <td><input name="paybackLog.paybackSerialNum" class="easyui-validatebox" required="true"/></td>
-		                    <td colspan="2"></td>
+		                    <td><input name="orderPayLog.paybackSerialNum" class="easyui-validatebox" required="true"/></td>
 		                </tr>
 		                 <tr>
 		                    <td class="title">备注</td>
 		                    <td colspan="3">
-		                        <textarea name="paybackLog.remark" class="easyui-validatebox" required="true" cols="30" style="width: 70%"></textarea>
+		                        <textarea name="orderPayLog.remark" class="easyui-validatebox" required="true" cols="30" style="width: 70%"></textarea>
 		                    </td>
 		                </tr>
 		                <tr>
@@ -130,8 +132,8 @@
             }
             
             function doPaybackAdd() {
-                if ($("#prjExt_form").form("validate")) {
-                    var url = '<s:url value="/prj/payBack_doPayBackAdd.jhtml"/>';
+                if ($("#payack_form").form("validate")) {
+                    var url = '<s:url value="/order/orderPeriod_doAdd.jhtml"/>';
                     var param = formToObject("payack_form");
                     AddRunningDiv("提交处理中，请稍候...");
                     doPost(url, param, function (result) {
