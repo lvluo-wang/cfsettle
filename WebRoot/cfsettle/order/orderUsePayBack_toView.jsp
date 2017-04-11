@@ -17,7 +17,13 @@
                     <col width="30%"/>
                 </colgroup>
                 <tr>
-                    <td style="text-align: center;" colspan="4"><b>项目基本信息</b></td>
+                    <td style="text-align: left;" colspan="4"><b>客户信息</b></td>
+                </tr>
+                <tr>
+                    <td class="title">合同编号:</td>
+                    <td>${prjOrder.contractNo}</td>
+                    <td class="title">项目方名:</td>
+                    <td>${cfsCust.realName}</td>
                 </tr>
                 <tr>
                     <td class="title">项目名:</td>
