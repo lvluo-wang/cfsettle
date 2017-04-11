@@ -9,6 +9,7 @@ import com.upg.cfsettle.mapping.prj.CfsPrjOrder;
 import com.upg.cfsettle.mapping.prj.CfsPrjOrderRepayPlan;
 import com.upg.cfsettle.prj.core.IPrjService;
 import com.upg.cfsettle.util.UtilConstant;
+import com.upg.ucars.basesystem.security.core.user.IUserService;
 import com.upg.ucars.factory.DynamicPropertyTransfer;
 import com.upg.ucars.framework.base.BaseAction;
 import com.upg.ucars.framework.base.SessionTool;
@@ -38,6 +39,8 @@ public class CfsCustOrderAction extends BaseAction {
     private ICfsPrjOrderRepayPlanService prjOrderRepayPlanService;
     @Autowired
     ICfsPrjRepayPlanService prjRepayPlanService;
+    @Autowired
+    private IUserService userService;
 
 
     private List<FiCodeItem> buserPosCodeList;
@@ -70,6 +73,13 @@ public class CfsCustOrderAction extends BaseAction {
 
     public String toView(){
         prjOrder = prjOrderService.getPrjOrderById(getPKId());
+        List<CfsPrjOrder> list = new ArrayList<>();
+        list.add(prjOrder);
+        List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
+        trans.add(new PropertyTransVo("contractAuidtSysid", Buser.class, "userId", "userName","contractAuidtSysName"));
+        trans.add(new PropertyTransVo("collectAuditSysid", Buser.class, "userId", "userName","collectAuditSysName"));
+        list = DynamicPropertyTransfer.transform(list, trans);
+        prjOrder = list.get(0);
         cust = custService.queryCfsCustById(prjOrder.getCustId());
         prj = prjService.getPrjById(prjOrder.getPrjId());
         //募集期利息和募集期利息状态 todo
@@ -107,11 +117,11 @@ public class CfsCustOrderAction extends BaseAction {
         searchBean.setByLogonInfo(true);
         List<Map<String,Object>> list = prjOrderService.findByCondition(searchBean,getPg());
         for(Map<String,Object> map :list){
-            map.put("SERVICE_SYSID",Long.valueOf(map.get("SERVICE_SYSID").toString()));
+            if(map.containsKey("SERVICE_SYSID") && map.get("SERVICE_SYSID")!=null){
+               Buser buser = userService.getUserById(Long.valueOf(map.get("SERVICE_SYSID").toString()));
+               map.put("BUSER_STATUS",buser.getStatus());
+            }
         }
-        List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
-        //trans.add(new PropertyTransVo("SERVICE_SYSID", Buser.class, "userId", "status","buserStatus"));
-        //list = DynamicPropertyTransfer.transform(list, trans);
         return setDatagridInputStreamData(list,getPg());
     }
 

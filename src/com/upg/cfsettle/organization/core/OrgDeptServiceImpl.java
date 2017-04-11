@@ -2,6 +2,7 @@ package com.upg.cfsettle.organization.core;
 
 import com.upg.cfsettle.mapping.organization.CfsOrgArea;
 import com.upg.cfsettle.mapping.organization.CfsOrgDept;
+import com.upg.cfsettle.organization.bean.OrganizationBean;
 import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.QueryCondition;
@@ -78,5 +79,10 @@ public class OrgDeptServiceImpl implements IOrgDeptService {
         }
         List list = this.orgDeptDao.queryByCondition(qc, page);
         return list;
+    }
+
+    @Override
+    public OrganizationBean getByDeptId(Long deptId) {
+        return orgDeptDao.getByDeptId(deptId);
     }
 }

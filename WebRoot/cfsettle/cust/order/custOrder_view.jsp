@@ -55,9 +55,14 @@
                         </tr>
                         <tr>
                             <td class="title">项目成立时间</td>
+                            <%--todo 加字段--%>
                             <td><s:date name="prj.endBidTime" format="yyyy-MM-dd HH:mm:ss"/></td>
                             <td class="title">还款期数</td>
-                            <td>${totalPeriod}</td>
+                            <td>
+                                <c:if test="totalPeriod !=0">
+                            ${totalPeriod}
+                                </c:if>
+                            </td>
                         </tr>
                         <tr>
                             <td class="title">募集期利率</td>
@@ -85,7 +90,7 @@
                             <td class="title">归属团队</td>
                             <td>${prjOrder.ownedTeamName}</td>
                             <td class="title">服务员工职位</td>
-                            <td><x:codeItem codeKye="<%=UtilConstant.CFS_BUSER_POS_CODE%>" codeNo="prjOrder.serviceSysType"/></td>
+                            <td>${prjOrder.serviceSysType}</td>
                         </tr>
                         <tr>
                             <td class="title">归属区域</td>
@@ -97,13 +102,13 @@
                             <td class="title">合同审核时间</td>
                             <td><s:date name="prjOrder.contractAuditTime" format="yyyy-MM-dd HH:mm:ss"/></td>
                             <td class="title">合同审核人</td>
-                            <td>${prjOrder.contractAuidtSysid}</td>
+                            <td>${prjOrder.contractAuidtSysName}</td>
                         </tr>
                         <tr>
                             <td class="title">收款审核时间</td>
                             <td><s:date name="prjOrder.collectAuditTime" format="yyyy-MM-dd HH:mm:ss"/></td>
                             <td class="title">收款审核人</td>
-                            <td>${prjOrder.collectAuditSysid}</td>
+                            <td>${prjOrder.collectAuditSysName}</td>
                         </tr>
                         <tr>
                             <td class="title">打印凭证</td>

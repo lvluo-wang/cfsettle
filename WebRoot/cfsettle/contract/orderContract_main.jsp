@@ -52,7 +52,7 @@
 				<x:column title="购买金额" field="MONEY" align="center" width="150" formatter="formateMoney"/>
 				<x:column title="付款银行" field="PAY_BANK" align="center" width="80" formatter="formateBank"/>
 				<x:column title="付款卡号" field="PAY_ACCOUNT_NO" align="center" width="140"/>
-				<x:column title="服务员工名" field="SERVICE_SYSY_NAME" align="center" width="140"/>
+				<x:column title="服务员工名" field="SERVICE_SYS_NAME" align="center" width="140"/>
 				<x:column title="状态" field="STATUS" align="center" width="150" formatter="formateStatus" />
 			</x:columns>
 		</x:datagrid>

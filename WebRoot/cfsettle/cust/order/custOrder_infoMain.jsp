@@ -67,9 +67,6 @@
 	</tiles:putAttribute>
 
 	<tiles:putAttribute name="window">
-	<!-- 弹出窗口定义开始 -->
-	<div id="project_add_win" style="width:750px;height:480px;display:none;"></div>
-	<div id="project_edit_win" style="width:750px;height:480px;display:none;"></div>
 	</tiles:putAttribute>
 	
 	<tiles:putAttribute name="end">
@@ -96,7 +93,7 @@
 		return code.getValue("<%=UtilConstant.CFS_BANK_TYPE%>",value);
     }
     function formateLeaveJob(value,field,row) {
-		if(row.buserStatus=='4'){
+		if(row.BUSER_STATUS=='4'){
 		    return "待分配";
 		}
 		return value;
