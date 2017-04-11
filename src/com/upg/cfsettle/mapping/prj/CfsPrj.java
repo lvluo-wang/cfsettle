@@ -28,6 +28,7 @@ public class CfsPrj implements java.io.Serializable {
 	private String repayWay;
 	private Date startBidTime;
 	private Date endBidTime;
+	private Date bulidTime;
 	private Date lastRepayTime;
 	private BigDecimal minLoanAmount;
 	private BigDecimal loanedAmount;
@@ -316,5 +317,13 @@ public class CfsPrj implements java.io.Serializable {
 
 	public void setPayBackTimes(Long payBackTimes) {
 		this.payBackTimes = payBackTimes;
+	}
+
+	public Date getBulidTime() {
+		return bulidTime;
+	}
+
+	public void setBulidTime(Date bulidTime) {
+		this.bulidTime = bulidTime;
 	}
 }

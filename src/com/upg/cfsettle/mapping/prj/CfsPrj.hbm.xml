@@ -69,6 +69,10 @@
             <column name="end_bid_time">
             </column>
         </property>
+        <property name="bulidTime" type="secDate">
+            <column name="bulid_time">
+            </column>
+        </property>
         <property name="lastRepayTime" type="secDate">
             <column name="last_repay_time">
             </column>
