@@ -1,6 +1,7 @@
 package com.upg.cfsettle.organization.core;
 
 import com.upg.cfsettle.mapping.organization.CfsOrgDept;
+import com.upg.cfsettle.organization.bean.OrganizationBean;
 import com.upg.ucars.framework.base.IBaseService;
 import com.upg.ucars.framework.base.Page;
 
@@ -21,4 +22,6 @@ public interface IOrgDeptService extends IBaseService {
     void updateOrgDept(CfsOrgDept orgDept);
 
     List<CfsOrgDept> find(CfsOrgDept searchBean, Page page);
+
+    OrganizationBean getByDeptId(Long deptId);
 }

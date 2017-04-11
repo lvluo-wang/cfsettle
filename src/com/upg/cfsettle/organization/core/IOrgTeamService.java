@@ -1,6 +1,7 @@
 package com.upg.cfsettle.organization.core;
 
 import com.upg.cfsettle.mapping.organization.CfsOrgTeam;
+import com.upg.cfsettle.organization.bean.OrganizationBean;
 import com.upg.ucars.framework.base.IBaseService;
 import com.upg.ucars.framework.base.Page;
 
@@ -21,4 +22,6 @@ public interface IOrgTeamService extends IBaseService {
     CfsOrgTeam getOrgTeam(Long id);
 
 	List<CfsOrgTeam> find(OrgTeamBean searchBean, Page page);
+
+    OrganizationBean getByTeamId(Long teamId);
 }

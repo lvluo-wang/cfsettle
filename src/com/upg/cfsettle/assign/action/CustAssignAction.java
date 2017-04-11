@@ -3,7 +3,12 @@ package com.upg.cfsettle.assign.action;
 import com.upg.cfsettle.assign.core.IBuserService;
 import com.upg.cfsettle.code.core.ICodeItemService;
 import com.upg.cfsettle.cust.core.ICfsCustService;
+import com.upg.cfsettle.mapping.organization.CfsOrgArea;
 import com.upg.cfsettle.mapping.prj.CfsCust;
+import com.upg.cfsettle.organization.bean.OrganizationBean;
+import com.upg.cfsettle.organization.core.IOrgAreaService;
+import com.upg.cfsettle.organization.core.IOrgDeptService;
+import com.upg.cfsettle.organization.core.IOrgTeamService;
 import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.basesystem.security.core.user.IUserService;
 import com.upg.ucars.framework.base.BaseAction;
@@ -14,6 +19,7 @@ import com.upg.ucars.mapping.basesystem.security.Role;
 import com.upg.ucars.model.JQueryTreeNode;
 import com.upg.ucars.model.security.UserLogonInfo;
 import com.upg.ucars.util.StringUtil;
+import org.apache.cxf.Bus;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -34,6 +40,12 @@ public class CustAssignAction extends BaseAction{
     private IUserService userService;
     @Autowired
     private ICodeItemService codeItemService;
+    @Autowired
+    private IOrgTeamService teamService;
+    @Autowired
+    private IOrgDeptService deptService;
+    @Autowired
+    private IOrgAreaService areaService;
 
     private Buser searchBean;
 
@@ -46,6 +58,9 @@ public class CustAssignAction extends BaseAction{
     private String treeJSONInfo;
 
     private Long selectBuser;
+
+    private Buser buser;
+    private OrganizationBean organizationBean;
 
     public String main(){
         loginPosCode = SessionTool.getUserLogonInfo().getPosCode();
@@ -67,6 +82,26 @@ public class CustAssignAction extends BaseAction{
         pg.setCurrentPage(1);
         pg.setPageSize(30);
         return setDatagridInputStreamData(custService.findAllCustByBuserId(buserId),pg);
+    }
+
+    public String toView(){
+        buserId = getPKId();
+        buser = userService.getUserById(buserId);
+        if(buser.getTeamId() !=null){
+            organizationBean = teamService.getByTeamId(buser.getTeamId());
+        }
+        if(buser.getTeamId()==null && buser.getDeptId() !=null){
+            organizationBean = deptService.getByDeptId(buser.getDeptId());
+        }
+        if(buser.getTeamId()==null && buser.getDeptId() ==null
+                && buser.getAreaId() !=null){
+            CfsOrgArea orgArea = areaService.getOrgAreaById(buser.getAreaId());
+            if(orgArea != null){
+                organizationBean = new OrganizationBean();
+                organizationBean.setAreaName(orgArea.getAreaName());
+            }
+        }
+        return SUCCESS;
     }
 
     public String selectSale(){
@@ -169,5 +204,21 @@ public class CustAssignAction extends BaseAction{
 
     public void setTreeJSONInfo(String treeJSONInfo) {
         this.treeJSONInfo = treeJSONInfo;
+    }
+
+    public Buser getBuser() {
+        return buser;
+    }
+
+    public void setBuser(Buser buser) {
+        this.buser = buser;
+    }
+
+    public OrganizationBean getOrganizationBean() {
+        return organizationBean;
+    }
+
+    public void setOrganizationBean(OrganizationBean organizationBean) {
+        this.organizationBean = organizationBean;
     }
 }

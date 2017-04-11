@@ -3,6 +3,7 @@ package com.upg.cfsettle.organization.core;
 import com.upg.cfsettle.mapping.organization.CfsOrgArea;
 import com.upg.cfsettle.mapping.organization.CfsOrgDept;
 import com.upg.cfsettle.mapping.organization.CfsOrgTeam;
+import com.upg.cfsettle.organization.bean.OrganizationBean;
 import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.QueryCondition;
@@ -82,4 +83,9 @@ public class OrgTeamServiceImpl implements IOrgTeamService {
 	        condition.addOrder(new OrderBean("cfsOrgTeam.ctime",true));
 	        return orgTeamDao.queryEntity( condition.getConditionList(), page);
 	}
+
+    @Override
+    public OrganizationBean getByTeamId(Long teamId) {
+        return orgTeamDao.getByTeamId(teamId);
+    }
 }

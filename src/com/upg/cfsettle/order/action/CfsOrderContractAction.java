@@ -12,7 +12,9 @@ import com.upg.cfsettle.mapping.prj.CfsPrjOrderAuditLog;
 import com.upg.cfsettle.order.order.ICfsPrjOrderAuditLogService;
 import com.upg.cfsettle.order.order.OrderAuditLogBean;
 import com.upg.cfsettle.prj.core.IPrjService;
+import com.upg.cfsettle.util.CfsConstant;
 import com.upg.cfsettle.util.UtilConstant;
+import com.upg.ucars.basesystem.UcarsHelper;
 import com.upg.ucars.framework.base.BaseAction;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -57,18 +59,21 @@ public class CfsOrderContractAction extends BaseAction {
 
     public String toReview(){
         prjOrder = prjOrderService.getPrjOrderById(getPKId());
+        if(!prjOrder.getStatus().equals(CfsConstant.PRJ_ORDER_STATUS_AUDIT)
+                || !prjOrder.getServiceSysid().equals(CfsConstant.PRJ_ORDER_STATUS_REJECT)){
+            UcarsHelper.throwActionException("该订单状态不能审核");
+        }
         cust = custService.queryCfsCustById(prjOrder.getCustId());
         prj = prjService.getPrjById(prjOrder.getPrjId());
         return SUCCESS;
     }
 
     public String list(){
+        orderBean.setFromNeedAudit(true);
         return setDatagridInputStreamData(prjOrderService.findByCondition(orderBean,getPg()),getPg());
     }
 
-    /**
-     * ��ͬ���
-     */
+
     public void doReview(){
         prjOrderAuditLogService.prjOrderAudit(prjOrder,prjOrderAuditLog);
     }

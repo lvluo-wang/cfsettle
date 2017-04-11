@@ -5,7 +5,10 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="x" uri="/xcars-tags"%>
-<tiles:insertDefinition name="FUNC_QUERY_DATA">
+<tiles:insertDefinition name="FUNC_TOOL_QUERY_DATA">
+	<tiles:putAttribute name="tool">
+		<x:button iconCls="icon-view" text="客户明细" click="doView" />
+</tiles:putAttribute>
 	<tiles:putAttribute name="query">
 			<form id="mainQueryForm" class="query_form">
 		</form>
@@ -56,7 +59,7 @@
 			return value+"人";
 		}else if(field == "userId"){
 			if(row.status == 4 && row.custNum > 0){
-				return "<a href='#' onclick='assignCust("+value+")'>待分配</a>";
+				return "<a href='#' onclick='assignCust("+value+")'><font color=blue>待分配</font></a>";
 			}
 			if(row.status == 4 && row.custNum == 0){
 				return '已分配';
@@ -71,6 +74,14 @@
 		function assignCust(value) {
 			var url="<s:url value='/assign/assignManage_toAssign.jhtml'/>?id="+value;
 			requestAtWindow(url,"project_add_win","客户分配");
+		}
+
+		function doView(){
+			if(isSingleSelected(dataTable)){
+				var selectedId=dataTable.getSelectedField("userId");
+				var url="<s:url value='/assign/assignManage_toView.jhtml'/>?id="+selectedId;
+				requestAtWindow(url,"project_add_win","客户明细");
+			}
 		}
 	</script>
 	</tiles:putAttribute>
