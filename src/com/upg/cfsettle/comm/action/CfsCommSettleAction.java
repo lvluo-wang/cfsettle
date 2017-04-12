@@ -37,7 +37,7 @@ public class CfsCommSettleAction extends BaseAction {
 	 */
 	public String main(){
 		commStatus = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_COMM_PAY_STATUS);
-		return MAIN;
+		return SUCCESS;
 	}
 	
 	/**

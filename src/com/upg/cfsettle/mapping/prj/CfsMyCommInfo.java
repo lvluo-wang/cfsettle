@@ -18,6 +18,9 @@ public class CfsMyCommInfo implements Serializable {
 	private static final long serialVersionUID = -8401744569661929519L;
 	private Long id;
 	private Long sysid;
+	private String sysUserName;
+	private String posCode;
+	private String mobile;
 	private Date commSettleDate;
 	private BigDecimal commMoney;
 	private Date payTime;
@@ -213,4 +216,27 @@ public class CfsMyCommInfo implements Serializable {
 		this.mtime = mtime;
 	}
 
+	public String getSysUserName() {
+		return sysUserName;
+	}
+
+	public void setSysUserName(String sysUserName) {
+		this.sysUserName = sysUserName;
+	}
+
+	public String getPosCode() {
+		return posCode;
+	}
+
+	public void setPosCode(String posCode) {
+		this.posCode = posCode;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 }

@@ -10,6 +10,7 @@ import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.QueryCondition;
 import com.upg.ucars.model.ConditionBean;
+import com.upg.ucars.util.StringUtil;
 
 @Service
 public class CfsMyCommInfoServiceImpl implements ICfsMyCommInfoService{
@@ -29,6 +30,22 @@ public class CfsMyCommInfoServiceImpl implements ICfsMyCommInfoService{
 			Byte payStatus = searchBean.getPayStatus();
 			if (payStatus != null) {
 				condition.addCondition(new ConditionBean("cfsMyCommInfo.payStatus", ConditionBean.EQUAL, payStatus));
+			}
+			String sysUserName = searchBean.getSysUserName();
+			if (StringUtil.isEmpty(sysUserName)) {
+				condition.addCondition(new ConditionBean("cfsMyCommInfo.sysUserName", ConditionBean.LIKE, sysUserName));
+			}
+			String posCode = searchBean.getPosCode();
+			if (StringUtil.isEmpty(posCode)) {
+				condition.addCondition(new ConditionBean("cfsMyCommInfo.posCode", ConditionBean.EQUAL, posCode));
+			}
+			String mobile = searchBean.getMobile();
+			if (StringUtil.isEmpty(mobile)) {
+				condition.addCondition(new ConditionBean("cfsMyCommInfo.mobile", ConditionBean.LIKE, mobile));
+			}
+			Long sysid = searchBean.getSysid();
+			if (sysid != null) {
+				condition.addCondition(new ConditionBean("cfsMyCommInfo.sysid", ConditionBean.EQUAL, sysid));
 			}
 		}
 		return cfsMyCommInfoDao.queryEntity( condition.getConditionList(), page);

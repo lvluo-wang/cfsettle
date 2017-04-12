@@ -40,26 +40,10 @@ public class CfsMyCommInfoAction extends BaseAction {
 		return MAIN;
 	}
 	
-	/**
-	 * 项目佣金
-	 * @return
-	 */
-	public String prjComm(){
-		return "prjComm";
-	}
-	
-	/**
-	 * 项目佣金List
-	 * @return
-	 */
-	public String prjCommList(){
-		List<CfsPrj> list = prjService.findPrjByCondition(cfsPrj, getPg());
-		return setDatagridInputStreamData(list, getPg());
-	}
 	
 	/**
 	 * 查询信息
-	 * @date 2014年8月5日 下午12:36:58
+	 * @date 2017年4月12日 下午12:36:58
 	 * @return
 	 */
 	public String list(){

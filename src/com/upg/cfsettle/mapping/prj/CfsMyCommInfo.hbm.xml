@@ -15,6 +15,21 @@
                 <comment>计提结算人员</comment>
             </column>
         </property>
+        <property name="sysUserName" type="java.lang.String">
+            <column name="sys_user_name">
+                <comment>计提结算人员姓名</comment>
+            </column>
+        </property>
+        <property name="posCode" type="java.lang.String">
+            <column name="pos_code">
+                <comment>计提结算人员岗位</comment>
+            </column>
+        </property>
+        <property name="mobile" type="java.lang.String">
+            <column name="mobile">
+                <comment>计提结算人员手机</comment>
+            </column>
+        </property>
         <property name="commSettleDate" type="secDate">
             <column name="comm_settle_date">
                 <comment>佣金计提月份</comment>
