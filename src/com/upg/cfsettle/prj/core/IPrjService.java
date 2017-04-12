@@ -59,8 +59,4 @@ public interface IPrjService extends IBaseService {
      * @date 2017年4月6日 上午11:14:11
      */
 	void genRepayPlanAutoTask();
-
-
-    public List<CfsPrj> findAllSuccedPrjLastMonth();
-
-    }
+}
