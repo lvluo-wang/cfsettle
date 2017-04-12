@@ -22,73 +22,76 @@
                 <tr>
                     <td class="title">合同编号:</td>
                     <td>${prjOrder.contractNo}</td>
-                    <td class="title">项目方名:</td>
+                    <td class="title">客户姓名:</td>
                     <td>${cfsCust.realName}</td>
                 </tr>
                 <tr>
-                    <td class="title">项目名:</td>
-                    <td>${prj.prjName}</td>
-                    <td class="title">项目方名:</td>
-                    <td>${prj.prjUseName}</td>
+                    <td class="title">所属客户经理:</td>
+                    <td>${buser.userName}</td>
+                    <td class="title">客户经理电话:</td>
+                    <td>${buser.userNo}</td>
                 </tr>
                 <tr>
-                    <td class="title">项目联系电话:</td>
-                    <td>${prj.prjMobile}</td>
-                    <td class="title">项目期限:</td>
+                    <td class="title">所属营业部:</td>
+                    <td>${prjOrder.ownedDeptName}</td>
+                    <td class="title">投资项目:</td>
+                    <td>${prj.prjName}</td>
+                </tr>
+                <tr>
+	                <td class="title">项目期限:</td>
                     <td>
                     	${prj.timeLimit}
                         <x:codeItem codeNo="prj.timeLimitUnit" codeKey="<%=UtilConstant.CFS_TIMELIMIT_UNIT %>"/>
                     </td>
+                    <td class="title">投资时间:</td>
+                    <td><s:date format="yyyy-MM-dd HH:mm:ss" name="prjOrder.investTime"/></td>
                 </tr>
                 <tr>
-                    <td class="title">项目年化利率:</td>
-                    <td>${prj.yearRate}%</td>
-                    <td class="title">项目成立时间：</td>
-                    <td><s:date format="yyyy-MM-dd HH:mm:ss" name="prj.endBidTime"/></td>
+                    <td class="title">投资金额：</td>
+                    <td>${prjOrder.money}</td>
+                    <td class="title">项目还款时间:</td>
+                    <td><s:date format="yyyy-MM-dd HH:mm:ss" name="prj.lastRepayTime"/></td>
                 </tr>
                 <tr>
-                    <td class="title">实际募集金额(元):</td>
-                    <td>${prj.demandAmount-prj.remainingAmount}</td>
-                    <td class="title">已回款金额(元):</td>
-                    <td>${prj.payBackAmount}</td>
+                    <td class="title">还款本金:</td>
+                    <td>${orderRepayPlan.principal}</td>
+                    <td class="title">还款利息(元):</td>
+                    <td>${orderRepayPlan.yield}</td>
                 </tr>
                 <tr>
-                    <td class="title">剩余回款金额(元):</td>
-                    <td>${prj.demandAmount-prj.remainingAmount-prj.payBackAmount}</td>
-                    <td class="title">已回款期数:</td>
-                    <td>Y/M</td>
+                    <td class="title">还款本息:</td>
+                    <td>${orderRepayPlan.priInterest}</td>
+                    <td class="title">还款期数:</td>
+                    <td>${orderRepayPlan.repayPeriods}/M</td>
                 </tr>
                 <tr>
+                    <td style="text-align: left;" colspan="4"><b>客户收款银行信息</b></td>
+                </tr>
+                 <tr>
                     <td class="title">收款账户名:</td>
-                    <td>${prjExt.tenantName}</td>
-                    <td class="title">收款银行:</td>
-                    <td><x:codeItem codeNo="prjExt.tenantBank" codeKey="<%=UtilConstant.CFS_BANK_TYPE %>"/></td>
+                    <td>${cfsCust.realName}</td>
+                    <td class="title">收款银行：</td>
+                    <td><x:codeItem codeNo="prjOrder.payBank" codeKey="<%=UtilConstant.CFS_BANK_TYPE %>"/></td>
                 </tr>
                 <tr>
                     <td class="title">收款支行:</td>
-                    <td >${prjExt.subBank}</td>
-                    <td class="title">收款账号:</td>
-                    <td >${prjExt.accountNo}</td>
-                </tr>
-                <tr>
-                    <td style="text-align: center;" colspan="4"><b>回款信息记录</b></td>
+                    <td>${prjOrder.paySubBank}</td>
+                    <td class="title">付款卡号:</td>
+                    <td>${prjOrder.payAccountNo}</td>
                 </tr>
                </table>
             </form>
    		<div class="func_data_area">
-   			<x:datagrid id="dataTableView" singleSelect="true" url="/prj/payBack_listPayBack.jhtml?payBackLog.prjId=${prj.id}" autoload="true">
+   			<x:datagrid id="dataTableView" singleSelect="true" url="/order/orderUse_listUse.jhtml?id=${orderRepayPlan.id}" autoload="true">
 				<x:columns>
-					<x:column title="回款期数" field="REPAY_PERIODS" align="center" width="140" formatter="formatTimes"/>
-					<x:column title="回款截止时间" field="REPAY_DATE" align="center" width="140" formatter="format2Date"/>
-					<x:column title="实际回款时间" field="PAYBACK_TIME" align="center" width="120" formatter="format2Time"/>
-					<x:column title="回款金额(元)" field="PAYBACK_AMOUNT" align="center" width="80"/>
-					<x:column title="付款账户名" field="PAYBACK_BANK" align="center" width="80" formatter="formateBank"/>
-					<x:column title="付款银行" field="PAYBACK_ACCOUNT_NAME" align="center" width="180"/>
-					<x:column title="付款账号" field="PAYBACK_ACCOUNT_NO" align="center" width="180"/>
-					<x:column title="资金流水号" field="PAYBACK_SERIAL_NUM" align="center" width="180"/>
-					<x:column title="状态" field="STATUS" align="center" width="50" formatter="formattStatus"/>
+					<x:column title="付息时间" field="paybackTime" align="center" width="140" formatter="format2Time"/>
+					<x:column title="付息金额(元)" field="paybackAmount" align="center" width="140"/>
+					<x:column title="付款支行" field="paybackSubBank" align="center" width="120"/>
+					<x:column title="付款银行" field="paybackBank" align="center" width="180" formatter="formateBank"/>
+					<x:column title="付款账号" field="paybackAccountNo" align="center" width="180"/>
+					<x:column title="资金流水编号" field="paybackSerialNum" align="center" width="180"/>
 					<x:column title="操作人" field="sysUserName" align="center" width="90"/>
-					<x:column title="审核备注" field="REMARK" align="center" width="240"/>
+					<x:column title="审核备注" field="remark" align="center" width="240"/>
 				</x:columns>
 			</x:datagrid>
 		</div>
@@ -118,23 +121,6 @@
 	      		return "募集期";
 	      	}
 	      	return "第"+val+"次";
-	      }
-	         
-	      function doLoanAdd() {
-	          if ($("#prjExt_form").form("validate")) {
-	              var url = '<s:url value="/prj/prjLoan_doLoanAdd.jhtml"/>';
-	              var param = formToObject("prjExt_form");
-	              AddRunningDiv("提交处理中，请稍候...");
-	              doPost(url, param, function (result) {
-	                  if (!printError(result)) {
-	                      setTimeout("history.back()", 3000);
-	                      info("提交成功!");
-	                  } else {
-	                      $(".datagrid-mask").remove();
-	                      $(".datagrid-mask-msg").remove();
-	                  }
-	              });
-	          }
 	      }
      </script>
     </tiles:putAttribute>

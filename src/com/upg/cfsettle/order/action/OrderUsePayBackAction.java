@@ -135,7 +135,7 @@ private CfsPrjOrderPaybackLog searchBean;
 		return SUCCESS;
 	}
 	
-	public String listPeriod(){
+	public String listUse(){
 		List<CfsPrjOrderPaybackLog> list = orderPaybackLogService.findByOrderRepayPlanId(getPKId(),getPg());
 		List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
     	trans.add(new PropertyTransVo("csysid", Buser.class, "userId", "userName","sysUserName"));
