@@ -52,4 +52,9 @@ public interface ICfsMyCommInfoService extends IBaseService {
 	 */
 	void deleteById(Long pkId);
 
+	/**
+	 * 佣金计提
+	 */
+	void runCommTask();
+
 }

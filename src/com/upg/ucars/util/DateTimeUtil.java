@@ -459,6 +459,23 @@ public class DateTimeUtil {
       	c.set(Calendar.MILLISECOND, 0);
       	return c.getTime();
       }
+
+	/**
+	 * 获取指定日期的的当月最后一天
+	 * @param theDate
+	 * @return
+	 */
+	public static Date getLastDateOfMonth(Date theDate){
+		Calendar c= new GregorianCalendar();
+		c.setTime(theDate);
+		c.set(Calendar.MONTH,0);
+		c.set(Calendar.DAY_OF_MONTH,1);
+		c.set(Calendar.HOUR_OF_DAY, 23);
+		c.set(Calendar.MINUTE, 59);
+		c.set(Calendar.SECOND, 59);
+		c.set(Calendar.MILLISECOND, 0);
+		return c.getTime();
+	}
      
      
 
@@ -829,5 +846,7 @@ public class DateTimeUtil {
         c.set(Calendar.DATE, day - 1);  
   
         return c.getTime();  
-    }  
+    }
+
 }
+
