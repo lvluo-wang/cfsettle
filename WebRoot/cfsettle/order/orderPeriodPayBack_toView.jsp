@@ -79,9 +79,17 @@
                     <td>${prjOrder.payAccountNo}</td>
                 </tr>
                </table>
-            </form>
+         </form>
+         <form id="form_for_query">
+            <table>
+                <tr>
+                    <td><input name="orderPayLog.prjOrderId" value="${prjOrder.id}" type="hidden"/></td>
+                    <td><input name="orderPayLog.prjOrderRepayPlanId" value="${orderRepayPlan.id}" type="hidden"/></td>
+                </tr>
+            </table>
+         </form>
    		<div class="func_data_area">
-   			<x:datagrid id="dataTableView" singleSelect="true" url="/order/orderPeriod_listPeriod.jhtml?id=${orderRepayPlan.id}" autoload="true">
+   			<x:datagrid id="dataTableView" singleSelect="true" url="/order/orderPeriod_listPeriod.jhtml" autoload="true" form="form_for_query">
 				<x:columns>
 					<x:column title="付息时间" field="paybackTime" align="center" width="140" formatter="format2Time"/>
 					<x:column title="付息金额(元)" field="paybackAmount" align="center" width="140"/>

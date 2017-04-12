@@ -50,6 +50,10 @@ public class CfsPrjOrderPaybackLog implements Serializable {
 	
 	private Byte isPeriod;
 	
+	private Long totalPays;
+	
+	private Date perPayDate;
+	
 	
 
 	// Constructors
@@ -294,5 +298,21 @@ public class CfsPrjOrderPaybackLog implements Serializable {
 
 	public void setIsPeriod(Byte isPeriod) {
 		this.isPeriod = isPeriod;
+	}
+
+	public Long getTotalPays() {
+		return totalPays;
+	}
+
+	public void setTotalPays(Long totalPays) {
+		this.totalPays = totalPays;
+	}
+
+	public Date getPerPayDate() {
+		return perPayDate;
+	}
+
+	public void setPerPayDate(Date perPayDate) {
+		this.perPayDate = perPayDate;
 	}
 }

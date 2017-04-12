@@ -9,7 +9,7 @@ import com.upg.ucars.framework.base.Page;
 
 public interface ICfsPrjOrderPaybackLogService extends IBaseService{
 
-	List<CfsPrjOrderPaybackLog> findByOrderRepayPlanId(Long pkId, Page page);
+	List<CfsPrjOrderPaybackLog> findByOrderRepayPlanId(CfsPrjOrderPaybackLog searchBean, Page page);
 	
 	List<CfsPrjOrderPaybackLog> findByCondition(CfsPrjOrderPaybackLog searchBean,Page page);
 	

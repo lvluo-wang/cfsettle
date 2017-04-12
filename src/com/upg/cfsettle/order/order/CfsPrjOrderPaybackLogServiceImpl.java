@@ -28,9 +28,7 @@ public class CfsPrjOrderPaybackLogServiceImpl implements ICfsPrjOrderPaybackLogS
 	private ICfsPrjOrderRepayPlanService orderPlanService;
 
 	@Override
-	public List<CfsPrjOrderPaybackLog> findByOrderRepayPlanId(Long pkId, Page page) {
-		CfsPrjOrderPaybackLog searchBean  = new CfsPrjOrderPaybackLog();
-		searchBean.setPrjOrderRepayPlanId(pkId);
+	public List<CfsPrjOrderPaybackLog> findByOrderRepayPlanId(CfsPrjOrderPaybackLog searchBean, Page page) {
 		return this.findByCondition(searchBean, page);
 	}
 
@@ -43,10 +41,20 @@ public class CfsPrjOrderPaybackLogServiceImpl implements ICfsPrjOrderPaybackLogS
 			if (prjOrderRepayPlanId != null) {
 				condition.addCondition(new ConditionBean("cfsPrjOrderPaybackLog.prjOrderRepayPlanId", ConditionBean.EQUAL, prjOrderRepayPlanId));
 			}
+			Long prjOrderId = searchBean.getPrjOrderId();
+			if (prjOrderId != null) {
+				condition.addCondition(new ConditionBean("cfsPrjOrderPaybackLog.prjOrderId", ConditionBean.EQUAL, prjOrderId));
+			}
 		}
 		List<OrderBean> orderList = new ArrayList<OrderBean>();
 		orderList.add(new OrderBean("cfsPrjOrderPaybackLog.paybackTimes", false));
-		return orderPaybackLogDao.queryEntity( condition.getConditionList(),orderList, page);
+		List<CfsPrjOrderRepayPlan> orderRepayPlans = orderPlanService.findByOrderId(searchBean.getPrjOrderId());
+		List<CfsPrjOrderPaybackLog> list = orderPaybackLogDao.queryEntity( condition.getConditionList(),orderList, page);
+		for(CfsPrjOrderPaybackLog log :list){
+			log.setTotalPays(Long.valueOf(orderRepayPlans.size()));
+			log.setPerPayDate(orderPlanService.getprjOrderPlanById(log.getPrjOrderRepayPlanId()).getRepayDate());
+		}
+		return list;
 	}
 
 	@Override
@@ -58,8 +66,9 @@ public class CfsPrjOrderPaybackLogServiceImpl implements ICfsPrjOrderPaybackLogS
 		orderPayLog.setPaybackAuditSysid(SessionTool.getUserLogonInfo().getSysUserId());
 		orderPayLog.setPaybackAuditTime(DateTimeUtil.getNowDateTime());
 		orderPayLog.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
-		orderPaybackLogDao.save(orderPayLog);
 		CfsPrjOrderRepayPlan plan = orderPlanService.getprjOrderPlanById(orderPayLog.getPrjOrderRepayPlanId());
+		orderPayLog.setPaybackTimes(plan.getRepayPeriods());
+		orderPaybackLogDao.save(orderPayLog);
 		plan.setStatus(UtilConstant.REPAY_STATUS_2);
 		orderPlanService.updatePrjOrderRepayPlan(plan);
 		

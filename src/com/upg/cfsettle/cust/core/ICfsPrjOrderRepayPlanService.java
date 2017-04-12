@@ -48,4 +48,6 @@ public interface ICfsPrjOrderRepayPlanService extends IBaseService {
 	 * @param plan
 	 */
 	void updatePrjOrderRepayPlan(CfsPrjOrderRepayPlan plan);
+	
+	List<CfsPrjOrderRepayPlan> findByOrderId(Long prjOrderId);
 }

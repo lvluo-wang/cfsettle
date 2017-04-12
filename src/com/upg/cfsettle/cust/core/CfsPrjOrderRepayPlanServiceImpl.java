@@ -70,4 +70,9 @@ public class CfsPrjOrderRepayPlanServiceImpl implements ICfsPrjOrderRepayPlanSer
 		plan.setMtime(DateTimeUtil.getNowDateTime());
 		prjOrderRepayPlanDao.update(plan);
 	}
+
+	@Override
+	public List<CfsPrjOrderRepayPlan> findByOrderId(Long prjOrderId) {
+		return prjOrderRepayPlanDao.findByOrderId(prjOrderId);
+	}
 }

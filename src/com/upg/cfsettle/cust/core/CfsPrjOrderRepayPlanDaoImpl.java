@@ -76,4 +76,10 @@ public class CfsPrjOrderRepayPlanDaoImpl extends SysBaseDao<CfsPrjOrderRepayPlan
         }
         return getMapListByStanderdSQL(sqlCreater.getSql(),sqlCreater.getParameterMap(),page);
 	}
+
+	@Override
+	public List<CfsPrjOrderRepayPlan> findByOrderId(Long prjOrderId) {
+		 String hql = "from CfsPrjOrderRepayPlan plan where plan.prjOrderId=?";
+	     return this.find(hql,prjOrderId);
+	}
 }

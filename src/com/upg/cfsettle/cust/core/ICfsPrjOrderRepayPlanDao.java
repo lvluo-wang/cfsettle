@@ -31,4 +31,6 @@ public interface ICfsPrjOrderRepayPlanDao extends IBaseDAO<CfsPrjOrderRepayPlan,
      */
 	List<Map<String, Object>> findByCondition(CfsPrjOrderPaybackLog searchBean, Page page);
 
+	List<CfsPrjOrderRepayPlan> findByOrderId(Long prjOrderId);
+
 }

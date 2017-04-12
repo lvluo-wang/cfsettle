@@ -127,6 +127,7 @@ public class OrderPeriodPayBackAction extends BaseAction {
 	 */
 	public String toView(){
 		orderRepayPlan = orderPlanService.getprjOrderPlanById(getPKId());
+		orderRepayPlan.setTotalPeriods(orderPlanService.findByOrderId(orderRepayPlan.getPrjOrderId()).size());
 		prj = prjService.getPrjById(orderRepayPlan.getPrjId());
 		prjExt = prjExtService.getPrjExtByPrjId(orderRepayPlan.getPrjId());
 		prjOrder = orderService.getPrjOrderById(orderRepayPlan.getPrjOrderId());
@@ -136,7 +137,7 @@ public class OrderPeriodPayBackAction extends BaseAction {
 	}
 	
 	public String listPeriod(){
-		List<CfsPrjOrderPaybackLog> list = orderPaybackLogService.findByOrderRepayPlanId(getPKId(),getPg());
+		List<CfsPrjOrderPaybackLog> list = orderPaybackLogService.findByOrderRepayPlanId(orderPayLog,getPg());
 		List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
     	trans.add(new PropertyTransVo("csysid", Buser.class, "userId", "userName","sysUserName"));
 		return setDatagridInputStreamData(DynamicPropertyTransfer.transform(list, trans), getPg());

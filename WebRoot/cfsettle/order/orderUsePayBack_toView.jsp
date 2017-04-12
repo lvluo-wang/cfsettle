@@ -62,7 +62,7 @@
                     <td class="title">还款本息:</td>
                     <td>${orderRepayPlan.priInterest}</td>
                     <td class="title">还款期数:</td>
-                    <td>${orderRepayPlan.repayPeriods}/M</td>
+                    <td>${orderRepayPlan.repayPeriods}/${orderRepayPlan.totalPeriods}</td>
                 </tr>
                 <tr>
                     <td style="text-align: left;" colspan="4"><b>客户收款银行信息</b></td>
@@ -81,17 +81,26 @@
                 </tr>
                </table>
             </form>
+            <form id="form_for_query">
+	            <table>
+	                <tr>
+	                    <td><input name="orderPayLog.prjOrderId" value="${prjOrder.id}" type="hidden"/></td>
+	                </tr>
+	            </table>
+	        </form>
    		<div class="func_data_area">
-   			<x:datagrid id="dataTableView" singleSelect="true" url="/order/orderUse_listUse.jhtml?id=${orderRepayPlan.id}" autoload="true">
+   			<x:datagrid id="dataTableView" singleSelect="true" url="/order/orderUse_listUse.jhtml" autoload="true" form="form_for_query">
 				<x:columns>
-					<x:column title="付息时间" field="paybackTime" align="center" width="140" formatter="format2Time"/>
-					<x:column title="付息金额(元)" field="paybackAmount" align="center" width="140"/>
-					<x:column title="付款支行" field="paybackSubBank" align="center" width="120"/>
+					<x:column title="预计还款时间" field="perPayDate" align="center" width="140" formatter="format2Date"/>
+					<x:column title="实际还款时间" field="paybackTime" align="center" width="140" formatter="format2Time"/>
+					<x:column title="还款期数" field="paybackTimes" align="center" width="140" formatter="formatPayTimes"/>
+					<x:column title="还款金额(元)" field="paybackAmount" align="center" width="140"/>
 					<x:column title="付款银行" field="paybackBank" align="center" width="180" formatter="formateBank"/>
+					<x:column title="付款支行" field="paybackSubBank" align="center" width="120"/>
 					<x:column title="付款账号" field="paybackAccountNo" align="center" width="180"/>
 					<x:column title="资金流水编号" field="paybackSerialNum" align="center" width="180"/>
 					<x:column title="操作人" field="sysUserName" align="center" width="90"/>
-					<x:column title="审核备注" field="remark" align="center" width="240"/>
+					<x:column title="操作备注" field="remark" align="center" width="240"/>
 				</x:columns>
 			</x:datagrid>
 		</div>
@@ -116,11 +125,11 @@
 	    	 return code.getValue("<%=UtilConstant.CFS_PRJ_REPAY_PLAN_STATUS%>",val);
 	     }
 	         
-	      function formatTimes(val){
+	      function formatPayTimes(val,field,row){
 	      	if(val==0||val==""){
 	      		return "募集期";
 	      	}
-	      	return "第"+val+"次";
+	      	return val+"/"+row.totalPays;
 	      }
      </script>
     </tiles:putAttribute>
