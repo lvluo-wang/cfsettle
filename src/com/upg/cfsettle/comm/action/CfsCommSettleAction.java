@@ -11,7 +11,9 @@ import com.upg.cfsettle.mapping.prj.CfsMyCommInfo;
 import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.prj.core.IPrjService;
 import com.upg.cfsettle.util.UtilConstant;
+import com.upg.ucars.basesystem.security.core.user.IUserService;
 import com.upg.ucars.framework.base.BaseAction;
+import com.upg.ucars.mapping.basesystem.security.Buser;
 
 @SuppressWarnings("serial")
 public class CfsCommSettleAction extends BaseAction {
@@ -19,6 +21,8 @@ public class CfsCommSettleAction extends BaseAction {
 	private CfsMyCommInfo searchBean;
 	
 	private CfsPrj cfsPrj;
+	
+	private Buser buser;
 	
 	@Autowired
 	private ICfsMyCommInfoService myCommInfoService;
@@ -28,6 +32,8 @@ public class CfsCommSettleAction extends BaseAction {
 	private IPrjService prjService;
 	
 	private List<FiCodeItem> commStatus;
+	@Autowired
+	private IUserService userService;
 	
 	
 	
@@ -82,8 +88,10 @@ public class CfsCommSettleAction extends BaseAction {
 	 * @date 2017年3月31日 下午10:16:52
 	 * @return
 	 */
-	public String toEdit(){
-		return EDIT;
+	public String toView(){
+		commInfo = myCommInfoService.queryCfsMyCommInfoById(getPKId());
+		buser = userService.getUserById(commInfo.getSysid());
+		return SUCCESS;
 	}
 	
 	/**
@@ -130,5 +138,13 @@ public class CfsCommSettleAction extends BaseAction {
 
 	public void setCommStatus(List<FiCodeItem> commStatus) {
 		this.commStatus = commStatus;
+	}
+
+	public Buser getBuser() {
+		return buser;
+	}
+
+	public void setBuser(Buser buser) {
+		this.buser = buser;
 	}
 }

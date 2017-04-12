@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.upg.cfsettle.common.CodeItemUtil;
 import com.upg.cfsettle.util.UtilConstant;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.upg.cfsettle.mapping.organization.CfsOrgArea;
@@ -23,8 +24,10 @@ import com.upg.ucars.basesystem.UcarsHelper;
 import com.upg.ucars.basesystem.security.core.user.IUserService;
 import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.Page;
+import com.upg.ucars.framework.base.QueryCondition;
 import com.upg.ucars.framework.base.SessionTool;
 import com.upg.ucars.mapping.basesystem.security.Buser;
+import com.upg.ucars.model.ConditionBean;
 import com.upg.ucars.model.security.UserLogonInfo;
 import com.upg.ucars.util.DateTimeUtil;
 import com.upg.ucars.util.StringUtil;
@@ -161,5 +164,18 @@ public class CfsPrOrderServiceImpl implements ICfsPrjOrderService {
 	@Override
 	public List<CfsPrjOrder> getPrjOrdersByPrjId(Long prjId) {
 		return prjOrderDao.getPrjOrdersByPrjId(prjId);
+	}
+
+	@Override
+	public List<CfsPrjOrder> findCommByCondition(CfsPrjOrder prjOrder,Page page) {
+		String hql = "from CfsPrjOrder cfsPrjOrder";
+		QueryCondition condition = new QueryCondition(hql);
+		if (prjOrder != null) {
+			Long commId = prjOrder.getCommId();
+			if (commId == null) {
+				condition.addCondition(new ConditionBean("cfsPrjOrder.commId", ConditionBean.EQUAL, commId));
+			}
+		}
+		return prjOrderDao.queryEntity( condition.getConditionList(), page);
 	}
 }

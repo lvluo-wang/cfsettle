@@ -46,6 +46,8 @@ public class CfsPrjOrderAction extends BaseAction {
 	
 	private List<FiCodeItem> orderStatus;
 	
+	private CfsPrjOrder prjOrder;
+	
 	
 	
 	/**
@@ -150,6 +152,16 @@ public class CfsPrjOrderAction extends BaseAction {
 		return SUCCESS;
 	}
 	
+	/**
+	 * 查询结算今年明细
+	 * @author renzl123
+	 * @date 2017年4月12日 下午11:04:12
+	 * @return
+	 */
+	public String listComm(){
+		return setDatagridInputStreamData(prjOrderService.findCommByCondition(prjOrder, getPg()), getPg());
+	}
+	
 	public CustOrderBean getSearchBean() {
 		return searchBean;
 	}
@@ -196,5 +208,13 @@ public class CfsPrjOrderAction extends BaseAction {
 
 	public void setOrderStatus(List<FiCodeItem> orderStatus) {
 		this.orderStatus = orderStatus;
+	}
+
+	public CfsPrjOrder getPrjOrder() {
+		return prjOrder;
+	}
+
+	public void setPrjOrder(CfsPrjOrder prjOrder) {
+		this.prjOrder = prjOrder;
 	}
 }

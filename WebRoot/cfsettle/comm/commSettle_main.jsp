@@ -48,8 +48,7 @@
 
 	<tiles:putAttribute name="window">
 	<!-- 弹出窗口定义开始 -->
-	<div id="project_add_win" style="width:750px;height:auto;display:none;"></div>
-	<div id="project_edit_win" style="width:750px;height:auto;display:none;"></div>
+		<div id="project_view_win" style="width:750px;height:auto;display:none;"></div>
 	</tiles:putAttribute>
 	
 	<tiles:putAttribute name="end">
@@ -92,8 +91,8 @@
 	function doDetail(){
 		if(isSingleSelected(dataTable)){
 			var selectedId=dataTable.getSelectedField("id");
-			var url="<s:url value='/cust/cfscust_toView.jhtml'/>?id="+selectedId;
-			redirectUrl(url);
+			var url="<s:url value='/comm/commSettle_toView.jhtml'/>?id="+selectedId;
+			requestAtWindow(url,'project_view_win','佣金明细');
 		}
 		
 	}

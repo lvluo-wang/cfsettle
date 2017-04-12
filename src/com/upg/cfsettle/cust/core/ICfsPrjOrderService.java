@@ -41,5 +41,15 @@ public interface ICfsPrjOrderService extends IBaseService {
 	 * @return
 	 */
 	List<CfsPrjOrder> getPrjOrdersByPrjId(Long prjId);
+	
+	/**
+	 * 查询结算订单明细
+	 * @author renzl123
+	 * @date 2017年4月12日 下午11:06:11
+	 * @param prjOrder
+	 * @param page
+	 * @return
+	 */
+	List<CfsPrjOrder> findCommByCondition(CfsPrjOrder prjOrder, Page page);
 
 }
