@@ -11,5 +11,8 @@
         <action name="/myComm_*" class="com.upg.cfsettle.comm.action.CfsMyCommInfoAction" method="{1}">
             <result name="success">/cfsettle/comm/myComm_{1}.jsp</result>
         </action>
+        <action name="/commSettle_*" class="com.upg.cfsettle.comm.action.CfsCommSettleAction" method="{1}">
+            <result name="success">/cfsettle/comm/commSettle_{1}.jsp</result>
+        </action>
 	</package>
 </struts>
