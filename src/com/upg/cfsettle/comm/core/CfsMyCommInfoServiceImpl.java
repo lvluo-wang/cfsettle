@@ -1,6 +1,7 @@
 package com.upg.cfsettle.comm.core;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,9 @@ import com.upg.cfsettle.mapping.prj.CfsPrjOrder;
 import com.upg.cfsettle.prj.core.IPrjExtService;
 import com.upg.cfsettle.prj.core.IPrjService;
 import com.upg.cfsettle.util.UtilConstant;
+import com.upg.ucars.basesystem.security.core.user.IUserDAO;
 import com.upg.ucars.framework.base.SessionTool;
+import com.upg.ucars.mapping.basesystem.security.Buser;
 import com.upg.ucars.model.security.UserLogonInfo;
 import com.upg.ucars.util.DateTimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +42,8 @@ public class CfsMyCommInfoServiceImpl implements ICfsMyCommInfoService{
 	ICfsPrjOrderService prjOrderService;
 	@Autowired
 	ICfsCommOrderRelateDao commOrderRelateDao;
+	@Autowired
+	IUserDAO userDAO;
 
 	@Override
 	public List<CfsMyCommInfo> findByCondition(CfsMyCommInfo searchBean, Page page) {
@@ -110,7 +115,7 @@ public class CfsMyCommInfoServiceImpl implements ICfsMyCommInfoService{
 			for(CfsPrj prj : prjList){
 				List<CfsPrjOrder> orderList = prjOrderService.getPrjOrdersByPrjId(prj.getId());
 				for(CfsPrjOrder prjOrder : orderList){
-					getCommAmount(prj,prjOrder);
+					saveCommOrderRelateList(prj,prjOrder);
 				}
 			}
 			List<Map<String, Object>> result = commOrderRelateDao.findTotalAmountGroupBySysId();
@@ -138,44 +143,99 @@ public class CfsMyCommInfoServiceImpl implements ICfsMyCommInfoService{
 	}
 
 
-	private void getCommAmount(CfsPrj prj, CfsPrjOrder prjOrder){
-		BigDecimal areaRate = prj.getAreaRate();
-		BigDecimal deptRate = prj.getDeptRate();
-		BigDecimal teamRate = prj.getTeamRate();
-		BigDecimal sysUserRate = prj.getSysuserRate();
-		BigDecimal amount = prjOrder.getMoney();
+	private void saveCommOrderRelateList(CfsPrj prj, CfsPrjOrder prjOrder){
+		List<CfsCommOrderRelate> cfsCommOrderRelateList = calculateCommOrderRelate(prj,prjOrder);
+		if(!CollectionUtils.isEmpty(cfsCommOrderRelateList)){
+		      commOrderRelateDao.saveOrUpdateAll(cfsCommOrderRelateList);
+		}
+	}
+
+	private List<CfsCommOrderRelate> calculateCommOrderRelate(CfsPrj prj, CfsPrjOrder prjOrder){
+		List<CfsCommOrderRelate> cfsCommOrderRelateList = new ArrayList<>();
+		List<Buser> buserList = new ArrayList<>();
+		BigDecimal areaRate = prj.getAreaRate() == null ? BigDecimal.ZERO :prj.getAreaRate();
+		BigDecimal deptRate = prj.getDeptRate()== null ? BigDecimal.ZERO :prj.getDeptRate();
+		BigDecimal teamRate = prj.getTeamRate()== null ? BigDecimal.ZERO :prj.getTeamRate();
+		BigDecimal sysUserRate = prj.getSysuserRate() == null ? BigDecimal.ZERO :prj.getSysuserRate();
+		BigDecimal amount = prjOrder.getMoney()== null ? BigDecimal.ZERO :prjOrder.getMoney();
 		String posCode = prjOrder.getServiceSysType();
 		BigDecimal commAmount = BigDecimal.ZERO;
 		BigDecimal commRate = BigDecimal.ZERO;
+		Buser sysUser = null;
+		Buser teamUser = null;
+		Buser deptUser = null;
+		Buser areaUser = null;
 		switch (posCode){
 			case UtilConstant.CFS_CUST_MANAGER:
-				commRate = sysUserRate;
-				commAmount = amount.multiply(sysUserRate).setScale(2);
-					break;
+				 sysUser = userDAO.get(prjOrder.getServiceSysid());
+				 teamUser = userDAO.getUserByTeamIdAndPosCode(prjOrder.getOwnedTeam(),UtilConstant.CFS_TEAM_MANAGER);
+				 deptUser = userDAO.getUserByDeptIdAndPosCode(prjOrder.getOwnedDept(),UtilConstant.CFS_DEPT_MANAGER);
+				 areaUser = userDAO.getUserByAreaIdAndPosCode(prjOrder.getOwnedArea(),UtilConstant.CFS_AREA_MANAGER);
+				if(sysUser!=null) buserList.add(sysUser);
+				if(teamUser!=null) buserList.add(teamUser);
+				if(deptUser!=null) buserList.add(deptUser);
+				if(areaUser!=null) buserList.add(areaUser);
+				break;
 			case UtilConstant.CFS_TEAM_MANAGER:
-				commRate = teamRate;
-				commAmount = amount.multiply(teamRate).setScale(2);
+				 sysUser = userDAO.get(prjOrder.getServiceSysid());
+				 deptUser = userDAO.getUserByDeptIdAndPosCode(prjOrder.getOwnedDept(),UtilConstant.CFS_DEPT_MANAGER);
+				 areaUser = userDAO.getUserByAreaIdAndPosCode(prjOrder.getOwnedArea(),UtilConstant.CFS_AREA_MANAGER);
+				if(sysUser!=null) buserList.add(sysUser);
+				buserList.add(new Buser(prjOrder.getServiceSysid(),UtilConstant.CFS_CUST_MANAGER));
+				if(deptUser!=null) buserList.add(deptUser);
+				if(areaUser!=null) buserList.add(areaUser);
 				break;
 			case UtilConstant.CFS_DEPT_MANAGER:
-				commRate = deptRate;
-				commAmount = amount.multiply(deptRate).setScale(2);
+				sysUser = userDAO.get(prjOrder.getServiceSysid());
+				buserList.add(new Buser(prjOrder.getServiceSysid(),UtilConstant.CFS_CUST_MANAGER));
+				areaUser = userDAO.getUserByAreaIdAndPosCode(prjOrder.getOwnedArea(),UtilConstant.CFS_AREA_MANAGER);
+				if(sysUser!=null) buserList.add(sysUser);
+				if(areaUser!=null) buserList.add(areaUser);
 				break;
 			case UtilConstant.CFS_AREA_MANAGER:
-				commRate = areaRate;
-				commAmount = amount.multiply(areaRate).setScale(2);
+				sysUser = userDAO.get(prjOrder.getServiceSysid());
+				buserList.add(new Buser(prjOrder.getServiceSysid(),UtilConstant.CFS_CUST_MANAGER));
+				if(sysUser!=null) buserList.add(sysUser);
 				break;
 			default:
 				break;
 		}
+		CfsCommOrderRelate cfsCommOrderRelate = null;
+		for(Buser buser: buserList){
+			if(!StringUtil.isEmpty(buser.getPosCode())){
+				if(buser.getPosCode().equals(UtilConstant.CFS_CUST_MANAGER)){
+					commRate = sysUserRate;
+					commAmount = amount.multiply(commRate).setScale(2);
+				}
+			if(buser.getPosCode().equals(UtilConstant.CFS_TEAM_MANAGER)){
+				commRate = teamRate;
+				commAmount = amount.multiply(commRate).setScale(2);
+			}
+			if(buser.getPosCode().equals(UtilConstant.CFS_DEPT_MANAGER)){
+				commRate = deptRate;
+				commAmount = amount.multiply(commRate).setScale(2);
+			}
+			if(buser.getPosCode().equals(UtilConstant.CFS_AREA_MANAGER)){
+				commRate = areaRate;
+				commAmount = amount.multiply(commRate).setScale(2);
+			}
+			cfsCommOrderRelate = setValueCommOrderRelate(commAmount,commRate,buser.getUserId(),prj.getId(),prjOrder.getId());
+			cfsCommOrderRelateList.add(cfsCommOrderRelate);
+			}
+		}
+		return cfsCommOrderRelateList;
+	}
+
+	private CfsCommOrderRelate setValueCommOrderRelate(BigDecimal commAmount,BigDecimal commRate,Long sysId,Long prjId,Long prjOrderId){
 		CfsCommOrderRelate cfsCommOrderRelate = new CfsCommOrderRelate();
 		cfsCommOrderRelate.setCommAccount(commAmount);
-		cfsCommOrderRelate.setSysid(prjOrder.getServiceSysid());
+		cfsCommOrderRelate.setSysid(sysId);
 		cfsCommOrderRelate.setCommRate(commRate);
-		cfsCommOrderRelate.setPrjId(prj.getId());
-		cfsCommOrderRelate.setPrjOrderId(prjOrder.getId());
+		cfsCommOrderRelate.setPrjId(prjId);
+		cfsCommOrderRelate.setPrjOrderId(prjOrderId);
 		cfsCommOrderRelate.setStatus(UtilConstant.COMM_STATUS_1);//待付款
 		cfsCommOrderRelate.setCtime(DateTimeUtil.getNowDateTime());
 		cfsCommOrderRelate.setMtime(DateTimeUtil.getNowDateTime());
-		commOrderRelateDao.save(cfsCommOrderRelate);
+		return cfsCommOrderRelate;
 	}
 }

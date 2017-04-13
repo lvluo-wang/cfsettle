@@ -87,8 +87,10 @@ public class CfsPrOrderServiceImpl implements ICfsPrjOrderService {
                     }
                     prjOrder.setStatus(CfsConstant.PRJ_ORDER_STATUS_AUDIT);//待合同审核
                     prjOrder.setCtime(DateTimeUtil.getNowDateTime());
+
                     UserLogonInfo logonInfo = SessionTool.getUserLogonInfo();
                     prjOrder.setCsysid(logonInfo.getSysUserId());
+
                     prjOrder.setOwnedArea(logonInfo.getAreaId());
                     CfsOrgArea orgArea = areaDao.get(logonInfo.getAreaId());
                     prjOrder.setOwnedAreaName(orgArea == null ? null : orgArea.getAreaName());
@@ -98,6 +100,7 @@ public class CfsPrOrderServiceImpl implements ICfsPrjOrderService {
                     prjOrder.setOwnedTeam(logonInfo.getTeamId());
                     CfsOrgTeam orgTeam = teamDao.get(logonInfo.getDeptId());
                     prjOrder.setOwnedTeamName(orgTeam == null ? null : orgTeam.getTeamName());
+
                     List<CfsCustBuserRelate> custBuserRelateList = custBuserRelateDao.findByCustId(prjOrder.getCustId());
                     if(custBuserRelateList != null && custBuserRelateList.size()>0){
                         CfsCustBuserRelate cfsCustBuserRelate = custBuserRelateList.get(0);

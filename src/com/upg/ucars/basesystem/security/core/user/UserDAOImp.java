@@ -18,7 +18,7 @@ import com.upg.ucars.mapping.basesystem.security.ReUserRole;
 import com.upg.ucars.mapping.basesystem.security.Role;
 import com.upg.ucars.mapping.basesystem.security.Sysfunc;
 import com.upg.ucars.util.StringUtil;
-
+import sun.jvm.hotspot.oops.ObjectHeap;
 
 
 public class UserDAOImp extends BaseDAO<Buser,Long> implements IUserDAO {
@@ -348,4 +348,38 @@ public class UserDAOImp extends BaseDAO<Buser,Long> implements IUserDAO {
 
 		return list == null ? new ArrayList<Long>(0) : list;
 	}
+
+	@Override
+	public Buser getUserByTeamIdAndPosCode(Long teamId, String posCode) {
+		String hql = "from Buser where teamId=? and posCode=? and status<>4";
+		List<Buser> ret = null;
+		try{
+			ret = getHibernateTemplate().find(hql,new Object[]{teamId,posCode});
+		}catch(Throwable t){
+			ExceptionManager.throwException(DAOException.class, ErrorCodeConst.DB_OPERATION_ERROR, new String[]{hql.toString()}, t);
+		}
+		return ret == null ? null : ret.get(0);
+	}
+
+	@Override
+	public Buser getUserByDeptIdAndPosCode(Long deptId, String posCode) {
+		String hql = "from Buser where deptId=? and posCode=? and status<>4";
+		List<Buser> ret = null;
+		try{
+			ret = getHibernateTemplate().find(hql,new Object[]{deptId,posCode});
+		}catch(Throwable t){
+			ExceptionManager.throwException(DAOException.class, ErrorCodeConst.DB_OPERATION_ERROR, new String[]{hql.toString()}, t);
+		}
+		return ret == null ? null : ret.get(0);	}
+
+	@Override
+	public Buser getUserByAreaIdAndPosCode(Long areaId, String posCode) {
+		String hql = "from Buser where areaId=? and posCode=? and status<>4";
+		List<Buser> ret = null;
+		try{
+			ret = getHibernateTemplate().find(hql,new Object[]{areaId,posCode});
+		}catch(Throwable t){
+			ExceptionManager.throwException(DAOException.class, ErrorCodeConst.DB_OPERATION_ERROR, new String[]{hql.toString()}, t);
+		}
+		return ret == null ? null : ret.get(0);	}
 }

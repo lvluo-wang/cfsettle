@@ -172,4 +172,28 @@ public interface IUserDAO extends IBaseDAO<Buser,Long> {
 	 */
 	public List<Long> getUserIdByAreaId(Long areaId);
 
+	/**
+	 * 团队长
+	 * @param teamId
+	 * @param posCode
+	 * @return
+	 */
+	Buser getUserByTeamIdAndPosCode(Long teamId,String posCode);
+
+	/**
+	 * 营业部负责人
+	 * @param deptId
+	 * @param posCode
+	 * @return
+	 */
+	Buser getUserByDeptIdAndPosCode(Long deptId,String posCode);
+
+	/**
+	 * 区域经理
+	 * @param areaId
+	 * @param posCode
+	 * @return
+	 */
+	Buser getUserByAreaIdAndPosCode(Long areaId,String posCode);
+
 }

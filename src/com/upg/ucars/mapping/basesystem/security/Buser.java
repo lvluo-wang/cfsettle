@@ -151,11 +151,15 @@ public class  Buser implements java.io.Serializable {
 	
 	public Buser() {
 	}
-	
-	
+
+	public Buser(Long userId, String posCode) {
+		this.userId = userId;
+		this.posCode = posCode;
+	}
+
 	public Buser(Long userId, String userName, String userNo, String password,
-			String userType, Long brchId, String status, Date lastLoginTm,
-			String lastLoginIP, Date pwdChgDt, Long pwdErrNum) {
+				 String userType, Long brchId, String status, Date lastLoginTm,
+				 String lastLoginIP, Date pwdChgDt, Long pwdErrNum) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
