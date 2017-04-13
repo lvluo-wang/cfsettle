@@ -1,89 +1,138 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<%@ taglib prefix="x" uri="/xcars-tags"%>
-<tiles:insertDefinition name="WIN_FORM_BUTTON">
-	<tiles:putAttribute name="form">
-		<form class="busi_form" id="cfscustAddForm">
-			<table>
-				<tr>	
-					<td class="title">客户姓名<font color="red">*</font>:</td>
-					<td ><input name="cfsCust.realName" class="easyui-validatebox" maxLength="50" required="true"></td>
-					<td class="title">客户手机<font color="red">*</font>:</td>
-					<td ><input name="cfsCust.mobile" class="easyui-validatebox" maxLength="11" required="true" validType="mobile"></td>
-				</tr>
-				<tr>
-					<td class="title">身份证号<font color="red">*</font>:</td>
-					<td ><input name="cfsCust.idCard" class="easyui-validatebox" maxLength="21" required="true" validType="idCard"></td>
-					<td class="title">性别<font color="red">*</font>:</td>
-					<td ><x:combobox name="cfsCust.sex" list="sexList" required="true" textField="codeName" valueField="codeNo" cssStyle="width:142px;" pleaseSelect="false"/></td>
-				</tr>
-				<tr>
-					<td class="title">身份证正面: </td>
-					<td>
-						<input name="cfsCust.cardFace" type="hidden" id="cfscust_face_card_id"/>
-						<img id="id_card_face_pic" alt="身份证正面" src="http://" height="100px" width="200px"/>
-					</td>
-					<td colspan="2">
-						<s:include value="/platform/common/uploadFile.jsp">
-							<s:param name="refresh">y</s:param>
-							<s:param name="suffix">1</s:param>
-							<s:param name="imgServer">true</s:param>
-							<s:param name="nowater">1</s:param>
-							<s:param name="callback">idCardFaceCallBack</s:param>
-							<s:param name="opt">{'fileExt':'*.gif;*.jpg;*.png;*.jpeg','fileDesc':'图片文件'}</s:param>
-						</s:include></td>
-				</tr>
-				<tr>
-					<td class="title">身份证反面: </td>
-					<td>
-						<input name="cfsCust.cardBack" type="hidden" id="cfscust_back_card_id"/>
-						<img id="id_card_back_pic" alt="身份证正面" src="http://" height="100px" width="200px"/>
-					</td>
-					<td colspan="2">
-						<s:include value="/platform/common/uploadFile.jsp">
-							<s:param name="refresh">y</s:param>
-							<s:param name="suffix">2</s:param>
-							<s:param name="imgServer">true</s:param>
-							<s:param name="nowater">1</s:param>
-							<s:param name="callback">idCardBackCallBack</s:param>
-							<s:param name="opt">{'fileExt':'*.gif;*.jpg;*.png;*.jpeg','fileDesc':'图片文件'}</s:param>
-						</s:include></td>
-				</tr>
-			</table>
-		</form>
-	</tiles:putAttribute>
-	<tiles:putAttribute name="button">
-		<x:button id="save" iconCls="icon-save" text="save" click="doAddSave" effect="round" />
-		<x:button iconCls="icon-cancel" text="cancel" click="doAddCancel" effect="round" />
-	</tiles:putAttribute>
-	<tiles:putAttribute name="end">
-	<script type="text/javascript">
-	function doAddSave() {
-		var url="<s:url value='/cust/cfscust_doAdd.jhtml'/>";
-		if ($("#cfscustAddForm").form("validate")) {
-			doPost(url, formToObject("cfscustAddForm"),
-				function(result) {
-					if (!printError(result)) {
-						closeWindow("project_add_win");
-						dataTable.refresh();
-					}
-				});
-		}
-	}
-	function doAddCancel() {
-		closeWindow("project_add_win");
-	}
+<%@page import="com.upg.cfsettle.util.UtilConstant"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="x" uri="/xcars-tags" %>
+<tiles:insertDefinition name="FUNC_TOOL_FORM">
+    <tiles:putAttribute name="tool">
+        <x:button iconCls="icon-back" text="back" click="doReturn"/>
+    </tiles:putAttribute>
+    <tiles:putAttribute name="form">
+                <form class="busi_form" id="prj_form">
+                    <table>
+                        <colgroup>
+		                    <col width="15%"/>
+		                    <col width="30%"/>
+		                    <col width="15%"/>
+		                    <col width="30%"/>
+		                </colgroup>
+		                <tr>
+		                    <td style="text-align: left;" colspan="4"><b>客户信息</b></td>
+		                </tr>
+		                <tr>
+		                    <td class="title">员工名:</td>
+		                    <td>${buser.userName}</td>
+		                    <td class="title">员工手机:</td>
+		                    <td>${buser.userNo}</td>
+		                </tr>
+		                <tr>
+		                    <td class="title">所属营业部:</td>
+		                    <td>${orgDept.deptName}</td>
+		                    <td class="title">计提月份:</td>
+		                    <td><s:date format="yyyy-MM" name="commInfo.commSettleDate"/></td>
+		                </tr>
+		                <tr>
+			                <td class="title">佣金计提金额:</td>
+		                    <td>${commInfo.commMoney}</td>
+		                    <td colspan="2"></td>
+		                </tr>
+                    </table>
+                </form>
+                <form class="busi_form" id="payack_form">
+                    <table>
+                        <colgroup>
+		                    <col width="15%"/>
+		                    <col width="30%"/>
+		                    <col width="15%"/>
+		                    <col width="30%"/>
+		                </colgroup>
+		                <tr>
+		                    <td style="text-align: left;" colspan="4"><b>客户收款银行信息</b></td>
+		                </tr>
+		                <tr>
+		                    <td class="title">收款账户名:</td>
+		                    <td>${cfsCust.realName}</td>
+		                    <td class="title">收款银行:</td>
+		                    <td>
+		                    	<x:combobox name="orderPayLog.paybackBank" class="easyui-validatebox" list="bankList" textField="codeName" valueField="codeNo" required="true" pleaseSelect="false" cssStyle="width:142px;"/>
+		                    </td>
+		                </tr>
+		                <tr>
+		                    <td class="title">收款支行:</td>
+		                    <td>${prjOrder.paySubBank}</td>
+		                    <td class="title">收款卡号:</td>
+		                    <td>${prjOrder.payAccountNo}</td>
+		                </tr>
+		                <tr>
+		                    <td style="text-align: left;" colspan="4"><b>公司付款账户信息</b></td>
+		                </tr>
+		                <tr>
+		                    <td class="title">付款时间:</td>
+		                    <td>
+		                    	<input class="Wdate easyui-validatebox" type="text" required="true" name="orderPayLog.paybackTime" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+                      			<input name="orderPayLog.prjId" value="${prj.id}" type="hidden"/>
+                      			<input name="orderPayLog.prjName" value="${prj.prjName}" type="hidden"/>
+                      			<input name="orderPayLog.prjOrderId" value="${prjOrder.id}" type="hidden"/>
+                      			<input name="orderPayLog.prjOrderRepayPlanId" value="${orderRepayPlan.id}" type="hidden"/>
+                      			<input name="orderPayLog.paybackTimes" value="${repayPlan.repayPeriods}" type="hidden"/>
+		                    </td>
+		                    <td class="title">付款金额：</td>
+		                    <td><input name="orderPayLog.paybackAmount" class="easyui-validatebox" required="true" validType="money" value="${orderRepayPlan.priInterest}"/>元</td>
+		                </tr>
+		                <tr>
+		                    <td class="title">付款银行:</td>
+		                    <td>
+								<x:combobox name="orderPayLog.paybackBank" class="easyui-validatebox" list="bankTypes" textField="codeName" valueField="codeNo" required="true" pleaseSelect="false" cssStyle="width:142px;"/>
+							</td>
+		                    <td class="title">付款卡号:</td>
+		                    <td><input name="orderPayLog.paybackAccountNo"  class="easyui-validatebox" required="true"/></td>
+		                </tr>
+		                <tr>
+		                	<td class="title">付款支行:</td>
+		                    <td><input name="orderPayLog.paybackSubBank" class="easyui-validatebox" required="true"/></td>
+		                    <td class="title">资金流水编号:</td>
+		                    <td><input name="orderPayLog.paybackSerialNum" class="easyui-validatebox" required="true"/></td>
+		                </tr>
+		                 <tr>
+		                    <td class="title">备注</td>
+		                    <td colspan="3">
+		                        <textarea name="orderPayLog.remark" class="easyui-validatebox" required="true" cols="30" style="width: 70%"></textarea>
+		                    </td>
+		                </tr>
+		                <tr>
+		                	<td style="text-align: right;" colspan="2">
+                                <x:button iconCls="icon-audit" text="提交" click="doPaybackAdd" effect="round"/>
+                            </td>
+                            <td style="text-align: left;" colspan="2">
+                                <x:button iconCls="icon-cancel" text="取消" click="doReturn" effect="round"/>
+                            </td>
+		                </tr>
+                    </table>
+                </form>
+    </tiles:putAttribute>
+    <tiles:putAttribute name="end">
 
-	function idCardFaceCallBack(value) { 
-		$('#id_card_face_pic').attr('src',fileDownLoadUrl+"?id="+value.id);
-		$('#cfscust_face_card_id').val(value.id);
-	}
-	
-	function idCardBackCallBack(value) { 
-		$('#id_card_back_pic').attr('src',fileDownLoadUrl+"?id="+value.id);
-		$('#cfscust_back_card_id').val(value.id);
-	}
-	</script>
-	</tiles:putAttribute>
+        <script type="text/javascript">
+            function doReturn() {
+                window.history.go(-1);
+            }
+            
+            function doPaybackAdd() {
+                if ($("#payack_form").form("validate")) {
+                    var url = '<s:url value="/order/orderUse_doAdd.jhtml"/>';
+                    var param = formToObject("payack_form");
+                    AddRunningDiv("提交处理中，请稍候...");
+                    doPost(url, param, function (result) {
+                        if (!printError(result)) {
+                            setTimeout("history.back()", 2000);
+                            info("提交成功!");
+                        } else {
+                            $(".datagrid-mask").remove();
+                            $(".datagrid-mask-msg").remove();
+                        }
+                    });
+                }
+            }
+        </script>
+    </tiles:putAttribute>
 </tiles:insertDefinition>

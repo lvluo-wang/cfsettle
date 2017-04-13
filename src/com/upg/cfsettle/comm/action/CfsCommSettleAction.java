@@ -3,15 +3,16 @@ package com.upg.cfsettle.comm.action;
 import java.util.Date;
 import java.util.List;
 
-import com.upg.cfsettle.comm.core.CfsCommOrderRelateService;
-import com.upg.ucars.framework.base.SessionTool;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.upg.cfsettle.comm.core.CfsCommOrderRelateService;
 import com.upg.cfsettle.comm.core.ICfsMyCommInfoService;
 import com.upg.cfsettle.common.CodeItemUtil;
 import com.upg.cfsettle.mapping.ficode.FiCodeItem;
+import com.upg.cfsettle.mapping.organization.CfsOrgDept;
 import com.upg.cfsettle.mapping.prj.CfsMyCommInfo;
 import com.upg.cfsettle.mapping.prj.CfsPrj;
+import com.upg.cfsettle.organization.core.IOrgDeptService;
 import com.upg.cfsettle.prj.core.IPrjService;
 import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.basesystem.security.core.user.IUserService;
@@ -27,6 +28,8 @@ public class CfsCommSettleAction extends BaseAction {
 	
 	private Buser buser;
 	
+	private CfsOrgDept orgDept;
+	
 	@Autowired
 	private ICfsMyCommInfoService myCommInfoService;
 	@Autowired
@@ -39,8 +42,12 @@ public class CfsCommSettleAction extends BaseAction {
 	private IPrjService prjService;
 	
 	private List<FiCodeItem> commStatus;
+	
+	private List<FiCodeItem> bankList;
 	@Autowired
 	private IUserService userService;
+	@Autowired
+	private IOrgDeptService deptService;
 	
 	
 	
@@ -87,7 +94,16 @@ public class CfsCommSettleAction extends BaseAction {
 	 * @return
 	 */
 	public String toAdd(){
-		return ADD;
+		commInfo = myCommInfoService.queryCfsMyCommInfoById(getPKId());
+		buser = userService.getUserById(commInfo.getSysid());
+		if(buser.getDeptId() != null){
+			orgDept = deptService.getOrgDeptById(buser.getDeptId());
+		}else{
+			orgDept = new CfsOrgDept();
+			orgDept.setDeptName("无");
+		}
+		bankList = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_BANK_TYPE);
+		return SUCCESS;
 	}
 
 	/**
@@ -177,5 +193,13 @@ public class CfsCommSettleAction extends BaseAction {
 
 	public void setDateMonth(Date dateMonth) {
 		this.dateMonth = dateMonth;
+	}
+
+	public List<FiCodeItem> getBankList() {
+		return bankList;
+	}
+
+	public void setBankList(List<FiCodeItem> bankList) {
+		this.bankList = bankList;
 	}
 }

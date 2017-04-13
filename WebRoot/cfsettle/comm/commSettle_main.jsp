@@ -78,7 +78,8 @@
     }
 	
 	function toRepay(id){
-		info(id);
+		var url = '<s:url value="/comm/commSettle_toAdd.jhtml"/>?id='+id;
+		redirectUrl(url);
 	}
 	
 	function doQuery(){
