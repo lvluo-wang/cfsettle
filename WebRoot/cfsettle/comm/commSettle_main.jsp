@@ -98,15 +98,18 @@
 	}
 	
 	function queryToPay(){
-		
+		dataTable.params={'searchBean.payStatus':'1'};
+		doQuery();
 	}
 	
 	function queryAll(){
-			
-		}
+		dataTable.params={'searchBean.payStatus':''};
+		doQuery();	
+	}
 		
 	function queryPayed(){
-		
+		dataTable.params={'searchBean.payStatus':'2'};
+		doQuery();	
 	}
 	
 	function doExport(){

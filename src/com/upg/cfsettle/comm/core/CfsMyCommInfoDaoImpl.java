@@ -20,7 +20,14 @@ public class CfsMyCommInfoDaoImpl extends SysBaseDao<CfsMyCommInfo, Long> implem
 				+ "p.team_rate/100 AS teamRate,p.sysuser_rate/100 AS sysuserRate FROM cfs_prj_order o JOIN cfs_prj p ON o.prj_id = p.id JOIN cfs_cust c "
 				+ "ON o.cust_id = c.id where 1=1");
         Map<String,Object> param = new HashMap<String,Object>();
-        List<CfsCommDetail>    reslut = (List<CfsCommDetail>) this.findListByMap(sql.toString(),param,page,CfsCommDetail.class);
+        if(searchBean != null){
+        	Long id = searchBean.getId();
+        	if(id != null){
+        		sql.append(" and o.comm_id=:id");
+        		param.put("id",id);
+        	}
+        }
+        List<CfsCommDetail> reslut = (List<CfsCommDetail>) this.findListByMap(sql.toString(),param,page,CfsCommDetail.class);
         return reslut;
 	}
 	

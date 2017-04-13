@@ -31,8 +31,18 @@
 				</tbody>
 			</table>
 		</form>
+		<form id="commSettleQuery">
+			<table>
+				<tbody>
+					<tr>
+						<td><input name="searchBean.id" value="${commInfo.id}" type="hidden"/></td>
+						<td><input name="searchBean.posCode" value="${commInfo.posCode}" type="hidden"/></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
 		<div class="func_data_area">
-   			<x:datagrid id="dataTableView" singleSelect="true" url="/comm/commSettle_listComm.jhtml?prjOrder.commId=${commInfo.id}" autoload="true">
+   			<x:datagrid id="dataTableView" singleSelect="true" url="/comm/commSettle_listComm.jhtml" autoload="true" form="commSettleQuery">
 				<x:columns>
 					<x:column title="合同编号" field="contractNo" align="center" width="140"/>
 					<x:column title="投资时间" field="investTime" align="center" width="140"/>
