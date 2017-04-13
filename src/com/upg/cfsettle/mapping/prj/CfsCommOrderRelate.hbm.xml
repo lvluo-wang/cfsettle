@@ -30,12 +30,12 @@
                 <comment>计提项目订单</comment>
             </column>
         </property>
-        <property name="commRate" type="java.math.BigDecimal">
+        <property name="commRate" type="cent">
             <column name="comm_rate" precision="20" scale="0">
                 <comment>计提佣金费率</comment>
             </column>
         </property>
-        <property name="commAccount" type="java.math.BigDecimal">
+        <property name="commAccount" type="cent">
             <column name="comm_account" precision="20" scale="0">
                 <comment>计提佣金</comment>
             </column>

@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.upg.cfsettle.util.RateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.upg.cfsettle.cust.core.ICfsPrjOrderRepayPlanService;
@@ -67,12 +68,10 @@ public class PrjServiceImpl implements IPrjService {
     public void savePrjAndPrjExt(CfsPrj prj, CfsPrjExt prjExt) {
         prj.setMtime(DateTimeUtil.getNowDateTime());
         prj.setCsysid(SessionTool.getUserLogonInfo().getSysUserId());
-        prj.setStatus(Byte.valueOf("1"));
+        prj.setStatus(CfsConstant.PRJ_STATUS_AUDIT);
         prj.setRemainingAmount(prj.getDemandAmount());
 		prj.setLoanedAmount(BigDecimal.ZERO);
         dealPrjTimeLimitDay(prj);
-        //prj.setYearRate(RateUtil.rateToPercent(prj.getYearRate()));
-        //prj.setPeriodRate(RateUtil.rateToPercent(prj.getPeriodRate()));
         prjDao.save(prj);
         prjExt.setPrjId(prj.getId());
         prjExt.setCtime(DateTimeUtil.getNowDateTime());
@@ -92,10 +91,8 @@ public class PrjServiceImpl implements IPrjService {
     @Override
     public CfsPrj getPrjById(Long id) {
         CfsPrj prj =  prjDao.get(id);
-        //prj.setYearRate(RateUtil.percentToRate(prj.getYearRate()));
-        //prj.setPeriodRate(RateUtil.percentToRate(prj.getPeriodRate()));
         //回款截止时间
-        getRepayEndDate(prj);
+       // getRepayEndDate(prj);
         return prj;
     }
 
@@ -145,7 +142,7 @@ public class PrjServiceImpl implements IPrjService {
         }
         try {
             BeanUtils.copyNoNullProperties(auditPrj,prj);
-            auditPrj.setStatus(Byte.valueOf("2"));
+            auditPrj.setStatus(CfsConstant.PRJ_STATUS_INVESTING);
             auditPrj.setMtime(DateTimeUtil.getNowDateTime());
             auditPrj.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
             prjDao.update(auditPrj);
@@ -363,8 +360,8 @@ public class PrjServiceImpl implements IPrjService {
 	}
 
 	@Override
-	public List<CfsPrj> findAllSuccedPrjLastMonth(){
-		String hql = "from CfsPrj prj,CfsPrjExt ext where prj.id=ext.prjId and prj.status not in (1,2,8)";
+	public List<CfsPrj> findAllSucceedPrjLastMonth(){
+		String hql = "from CfsPrj prj where prj.status not in (1,2,8) ";
 		QueryCondition condition = new QueryCondition(hql);
 		Date now = DateTimeUtil.getNowDateTime();
 		Date lastDay = DateTimeUtil.getSpecifiedDayBefore(now);

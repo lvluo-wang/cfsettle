@@ -164,7 +164,11 @@ public class CfsPrjOrderDaoImpl extends SysBaseDao<CfsPrjOrder,Long> implements 
 
 	@Override
 	public List<CfsPrjOrder> getPrjOrdersByPrjId(Long prjId) {
-		 String hql = "from CfsPrjOrder where prjId =? and status=4";
-	     return this.find(hql,prjId);
+		 String hql = "from CfsPrjOrder where prjId =?";
+        List<CfsPrjOrder> list  = this.find(hql,prjId);
+        if(list != null && list.size() >0){
+            return list;
+        }
+        return Collections.EMPTY_LIST;
 	}
 }

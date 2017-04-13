@@ -47,7 +47,7 @@
 				<x:column title="客户姓名" field="REAL_NAME" align="center" width="140"/>
 				<x:column title="客户手机" field="MOBILE" align="left" width="90"/>
 				<x:column title="购买项目" field="PRJ_NAME" align="center" width="150" />
-				<x:column title="购买金额(元)" field="MONEY" align="center" width="150"/>
+				<x:column title="购买金额(元)" field="MONEY" align="center" width="150" formatter="formateMoney"/>
 				<x:column title="付款银行" field="PAY_BANK" align="center" width="80" formatter="formateBank"/>
 				<x:column title="付款卡号" field="PAY_ACCOUNT_NO" align="center" width="140"/>
 				<x:column title="服务员工" field="SERVICE_SYS_NAME" align="center" width="90"/>
@@ -74,6 +74,10 @@
 	
 	function formatReapayWay(value){
 		 return code.getValue("<%=UtilConstant.CFS_REPAYMENT_TYPE%>",value);
+	}
+
+	function formateMoney(value) {
+		return value/100;
 	}
 	
 	 function formateBank(value) {

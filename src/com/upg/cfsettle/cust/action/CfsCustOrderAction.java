@@ -8,6 +8,7 @@ import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.mapping.prj.CfsPrjOrder;
 import com.upg.cfsettle.mapping.prj.CfsPrjOrderRepayPlan;
 import com.upg.cfsettle.prj.core.IPrjService;
+import com.upg.cfsettle.util.CfsConstant;
 import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.basesystem.security.core.user.IUserService;
 import com.upg.ucars.factory.DynamicPropertyTransfer;
@@ -82,7 +83,7 @@ public class CfsCustOrderAction extends BaseAction {
         prjOrder = list.get(0);
         cust = custService.queryCfsCustById(prjOrder.getCustId());
         prj = prjService.getPrjById(prjOrder.getPrjId());
-        //募集期利息和募集期利息状态 todo
+        //募集期利息和募集期利息状态
         raisePrjOrderRepayPlan = prjOrderRepayPlanService.getRaiseOrderRepayPlan(prjOrder.getId());
         //总期数
         totalPeriod  = prjRepayPlanService.getTotalPeriodByPrjId(prjOrder.getPrjId());
@@ -93,7 +94,7 @@ public class CfsCustOrderAction extends BaseAction {
     public String toAdd(){
         cust = custService.queryCfsCustById(getPKId());
         //募资中prj
-        prjList = prjService.findPrjByStatus(Byte.valueOf("3"));
+        prjList = prjService.findPrjByStatus(CfsConstant.PRJ_STATUS_INVESTING);
         bankList = codeItemService.getCodeItemByKey(UtilConstant.CFS_BANK_TYPE);
         return ADD;
     }
@@ -113,6 +114,11 @@ public class CfsCustOrderAction extends BaseAction {
         return "orderInfo";
     }
 
+
+    /**
+     * 判断登录人能看到的订单
+     * @return
+     */
     public String orderInfoList(){
         searchBean.setByLogonInfo(true);
         List<Map<String,Object>> list = prjOrderService.findByCondition(searchBean,getPg());

@@ -8,11 +8,7 @@ import java.math.RoundingMode;
  */
 public class RateUtil {
 
-    /**
-     * 利率除100
-     * @param rate
-     * @return
-     */
+
     public static BigDecimal rateToPercent(BigDecimal rate) {
         if (rate == null) {
             return BigDecimal.ZERO;
@@ -21,11 +17,7 @@ public class RateUtil {
         return rate.divide(percent, 5, RoundingMode.HALF_UP);
     }
 
-    /**
-     * 利率乘100
-     * @param rate
-     * @return
-     */
+
     public static BigDecimal percentToRate(BigDecimal rate) {
         if (rate == null) {
             return BigDecimal.ZERO;

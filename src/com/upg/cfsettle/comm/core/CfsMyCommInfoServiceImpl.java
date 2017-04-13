@@ -105,7 +105,7 @@ public class CfsMyCommInfoServiceImpl implements ICfsMyCommInfoService{
 	@Override
 	public synchronized  void runCommTask() {
 		//计算上一个月的佣金
-		List<CfsPrj> prjList = prjService.findAllSuccedPrjLastMonth();
+		List<CfsPrj> prjList = prjService.findAllSucceedPrjLastMonth();
 		if(!CollectionUtils.isEmpty(prjList)){
 			for(CfsPrj prj : prjList){
 				List<CfsPrjOrder> orderList = prjOrderService.getPrjOrdersByPrjId(prj.getId());

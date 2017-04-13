@@ -97,7 +97,7 @@
                         <tr>
                             <td class="title">回款截止时间：</td>
                             <td colspan="3">
-                                <s:date format="yyyy-MM-dd HH:mm:ss" name="prj.repayEndTime"/>
+                                <s:date format="yyyy-MM-dd HH:mm:ss" name="prj.lastRepayTime"/>
                             </td>
                         </tr>
                     </table>

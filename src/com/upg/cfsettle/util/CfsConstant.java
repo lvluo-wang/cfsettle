@@ -9,7 +9,7 @@ public class CfsConstant {
 	
 	public final static Byte PRJ_STATUS_AUDIT = 1; //待审核
 	public final static Byte PRJ_STATUS_REFUSE = 2; //审核驳回
-	public final static Byte PRJ_STATUS_INVESTING = 3; //投资中
+	public final static Byte PRJ_STATUS_INVESTING = 3; //募资中
 	public final static Byte PRJ_STATUS_TO_LOAN = 4; //待放款
 	public final static Byte PRJ_STATUS_TO_PAYBACK = 5; //待回款
 	public final static Byte PRJ_STATUS_PAYBACKING = 6; //回款中

@@ -37,9 +37,9 @@
 					<x:column title="合同编号" field="CONTRACT_NO" align="center" width="140"/>
 					<x:column title="投资时间" field="INVEST_TIME" align="center" width="140" formatter="formatTime"/>
 					<x:column title="客户名" field="REAL_NAME" align="center" width="120"/>
-					<x:column title="购买项目" field="PRJ_NAME" align="center" width="180"/>
-					<x:column title="购买金额" field="MONEY" align="center" width="180"/>
-					<x:column title="佣金计提比例" field="COMM_RATE" align="center" width="180"/>
+					<x:column title="购买项目" field="PRJ_NAME" align="center" width="140"/>
+					<x:column title="购买金额" field="MONEY" align="center" width="140"/>
+					<x:column title="佣金计提比例" field="COMM_RATE" align="center" width="80" formatter="formatCommRate"/>
 					<x:column title="佣金金额" field="COMM_MONEY" align="center" width="90"/>
 				</x:columns>
 			</x:datagrid>
@@ -53,6 +53,10 @@
 					return '';
 				}
 				return DateFormat.format(new Date(value*1000),"yyyy-MM-dd hh:mm:ss");
+			}
+
+			function formatCommRate(value) {
+				return value+"%";
 			}
 		</script>
 	</tiles:putAttribute>

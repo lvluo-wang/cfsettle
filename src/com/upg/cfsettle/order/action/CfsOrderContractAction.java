@@ -68,6 +68,10 @@ public class CfsOrderContractAction extends BaseAction {
         return SUCCESS;
     }
 
+    /**
+     * 待审核合同订单
+     * @return
+     */
     public String list(){
         orderBean.setFromNeedAudit(true);
         return setDatagridInputStreamData(prjOrderService.findByCondition(orderBean,getPg()),getPg());
@@ -83,6 +87,10 @@ public class CfsOrderContractAction extends BaseAction {
         return SUCCESS;
     }
 
+    /**
+     * 合同订单日志
+     * @return
+     */
     public String orderLogList(){
         return setDatagridInputStreamData(prjOrderAuditLogService.findOrderLog(auditLogBean,getPg()),getPg());
     }

@@ -86,11 +86,6 @@
 		dataTable.load();
 	}
 		
-	function toAdd(){
-		var url="<s:url value='/prj/prjManage_toAdd.jhtml'/>";
-		redirectUrl(url);
-	}
-
 	function toReview(){
 		if(isSingleSelected(dataTable)) {
 			var selectedId = dataTable.getSelectedField("ID");

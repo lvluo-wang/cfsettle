@@ -40,8 +40,8 @@ public class CfsCommOrderRelateDaoImpl extends SysBaseDao<CfsCommOrderRelate,Lon
 
     @Override
     public List<Map<String, Object>> findCommDetailByCommId(Long commId, Page page) {
-        String sql = "select order.contract_no,order.invest_time,cust.real_name,prj.prj_name,order.money," +
-                " comm.comm_rate,comm.comm_account from cfs_comm_order_relate comm,cfs_prj_order order,cfs_prj prj" +
+        String sql = "select order.contract_no,order.invest_time,cust.real_name,prj.prj_name,order.money/100," +
+                " comm.comm_rate/100,comm.comm_account/100 from cfs_comm_order_relate comm,cfs_prj_order order,cfs_prj prj" +
                 " cfs_cust cust where comm.prj_order_id=order.id and order.prj_id=prj.id" +
                 " and order.cust_id=cust.id ";
         SQLCreater sqlCreater = new SQLCreater(sql,true);

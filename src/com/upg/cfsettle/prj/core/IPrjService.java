@@ -61,6 +61,6 @@ public interface IPrjService extends IBaseService {
 	void genRepayPlanAutoTask();
 
 
-    public List<CfsPrj> findAllSuccedPrjLastMonth();
+     List<CfsPrj> findAllSucceedPrjLastMonth();
 
     }
