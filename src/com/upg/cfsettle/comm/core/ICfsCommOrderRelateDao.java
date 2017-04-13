@@ -27,5 +27,5 @@ public interface ICfsCommOrderRelateDao extends IBaseDAO<CfsCommOrderRelate,Long
      * 佣金明细
      */
 
-    public List<Map<String, Object>> findCommDetailBySysid(Long sysUserId, Date date, Page page);
+    public List<Map<String, Object>> findCommDetailByCommId(Long commId, Page page);
 }

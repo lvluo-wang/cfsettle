@@ -5,7 +5,7 @@
 
 <struts>
 	<package name="comm" namespace="/comm" extends="pkg-base">
-		<action name="/prjComm_*" class="com.upg.cfsettle.comm.action.CfsMyCommInfoAction" method="{1}">
+		<action name="/prjComm_*" class="com.upg.cfsettle.comm.action.CfsCommSettleAction" method="{1}">
             <result name="prjComm">/cfsettle/comm/prjComm_main.jsp</result>
         </action>
         <action name="/myComm_*" class="com.upg.cfsettle.comm.action.CfsMyCommInfoAction" method="{1}">

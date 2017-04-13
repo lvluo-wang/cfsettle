@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.upg.cfsettle.comm.core.CfsCommOrderRelateService;
+import com.upg.ucars.framework.base.SessionTool;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.upg.cfsettle.comm.core.ICfsMyCommInfoService;
@@ -78,21 +79,7 @@ public class CfsCommSettleAction extends BaseAction {
 		return setDatagridInputStreamData(myCommInfoService.findByCondition(searchBean, getPg()), getPg());
 	}
 
-	/**
-	 * 佣金明细
-	 */
-	public String toCommDetail(){
 
-		return "commDetail";
-	}
-
-	/**
-	 * 佣金明细list
-	 */
-	public String commDetailList(){
-		return setDatagridInputStreamData(cfsCommOrderRelateService.findCommDetailBySysid(sysUserId,dateMonth,getPg()),getPg());
-	}
-	
 	/**
 	 * 跳转新增页面
 	 * @author renzhuolun
@@ -102,19 +89,17 @@ public class CfsCommSettleAction extends BaseAction {
 	public String toAdd(){
 		return ADD;
 	}
-	
+
 	/**
-	 * 跳转编辑页面
-	 * @author renzhuolun
-	 * @date 2017年3月31日 下午10:16:52
+	 * 佣金明细
 	 * @return
-	 */
+     */
 	public String toView(){
 		commInfo = myCommInfoService.queryCfsMyCommInfoById(getPKId());
 		buser = userService.getUserById(commInfo.getSysid());
 		return SUCCESS;
 	}
-	
+
 	/**
 	 * 修改cfsCust信息
 	 */

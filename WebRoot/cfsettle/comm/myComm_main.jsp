@@ -1,6 +1,7 @@
 <%@page import="com.upg.cfsettle.util.CfsConstant"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@page import="net.easytodo.keel.util.SecurityUtils"%>
+<%@ page import="com.upg.cfsettle.util.UtilConstant" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="x" uri="/xcars-tags"%>
@@ -15,7 +16,7 @@
 					<td class="title">佣金计提月份: </td>
 					<td><input class="Wdate easyui-validatebox" type="text" name="searchBean.commSettleDate" onClick="WdatePicker({dateFmt:'yyyy-MM'})"/></td>
 					<td class="title">状态:</td>
-					<td><x:combobox name="searchBean.repayStatus" list="commStatus" textField="codeName" valueField="codeNo"/></td>
+					<td><x:combobox name="searchBean.payStatus" list="commStatus" textField="codeName" valueField="codeNo"/></td>
 					<td><x:button iconCls="icon-search" text="query" click="doQuery"/></td>
 				</tr>
 			</table>
@@ -27,8 +28,8 @@
 				<x:column title="" checkbox="true" field="id" />
 				<x:column title="佣金计提月份" field="commSettleDate" align="center" width="140" formatter="format2Month"/>
 				<x:column title="佣金总额" field="commMoney" align="center" width="70"/>
-				<x:column title="付款时间" field="payTime" align="left" width="120" formatter="format2Time"/>
-				<x:column title="状态" field="payStatus" align="center" width="150" />
+				<x:column title="付款时间" field="payTime" align="left" width="120" />
+				<x:column title="状态" field="payStatus" align="center" width="150" formatter="formatterStatus"/>
 			</x:columns>
 		</x:datagrid>
 	</tiles:putAttribute>
@@ -41,30 +42,25 @@
 	
 	<tiles:putAttribute name="end">
 	<script type="text/javascript">
-	var keys=["<%=CfsConstant.CFS_COMM_YSE_NO%>","<%=CfsConstant.CFS_COMM_SEX%>"];
+	var keys=["<%=UtilConstant.CFS_COMM_PAY_STATUS%>"];
 	var code=new XhhCodeUtil(keys);
 	code.loadData();
-	
-	function formatSex(value){
-		 return code.getValue("<%=CfsConstant.CFS_COMM_SEX%>",value);
-	}
-	
-	function formatYesNo(value){
-		 return code.getValue("<%=CfsConstant.CFS_COMM_YSE_NO%>",value);
+
+	function formatterStatus(value) {
+		return code.getValue("<%=UtilConstant.CFS_COMM_PAY_STATUS%>",value);
 	}
 	
 	function doQuery(){
 		dataTable.load();
 	}
 		
-	
 	function doDetail(){
 		if(isSingleSelected(dataTable)){
-			var selectedId=dataTable.getSelectedField("id");
-			var url="<s:url value='/cust/cfscust_toView.jhtml'/>?id="+selectedId;
-			redirectUrl(url);
+			var id = dataTable.getSelectedField("id");
+			var dateMonth = dataTable.getSelectedField("commSettleDate");
+			var url="<s:url value='/comm/myComm_view.jhtml'/>?id="+id+"&dateMonth="+dateMonth;
+			requestAtWindow(url,"project_add_win","佣金明细");
 		}
-		
 	}
 	</script>
 	</tiles:putAttribute>

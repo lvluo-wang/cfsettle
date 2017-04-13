@@ -67,6 +67,13 @@
                                             list="bankList" textField="codeName" valueField="codeNo"
                                              pleaseSelect="false"/>
                             </td>
+                            <td class="title">付款支行:</td>
+                            <td>
+                                <input name="prjOrder.paySubBank"
+                                       class="easyui-validatebox" required="true"/>
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="title">付款卡号:</td>
                             <td>
                                 <input name="prjOrder.payAccountNo"

@@ -12,6 +12,8 @@ import com.upg.cfsettle.mapping.prj.CfsPrjOrder;
 import com.upg.cfsettle.prj.core.IPrjExtService;
 import com.upg.cfsettle.prj.core.IPrjService;
 import com.upg.cfsettle.util.UtilConstant;
+import com.upg.ucars.framework.base.SessionTool;
+import com.upg.ucars.model.security.UserLogonInfo;
 import com.upg.ucars.util.DateTimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -45,7 +47,10 @@ public class CfsMyCommInfoServiceImpl implements ICfsMyCommInfoService{
 		if (searchBean != null) {
 			Date commSettleDate = searchBean.getCommSettleDate();
 			if (commSettleDate != null) {
-				condition.addCondition(new ConditionBean("cfsMyCommInfo.commSettleDate", ConditionBean.EQUAL, commSettleDate));
+				Date firstDay = DateTimeUtil.getFirstDateOfMonth(commSettleDate);
+				condition.addCondition(new ConditionBean("cfsMyCommInfo.commSettleDate", ConditionBean.MORE_AND_EQUAL, firstDay.getTime()/1000));
+				Date lastDay = DateTimeUtil.getLastDateOfMonth(commSettleDate);
+				condition.addCondition(new ConditionBean("cfsMyCommInfo.commSettleDate", ConditionBean.LESS_AND_EQUAL, lastDay.getTime()/1000));
 			}
 			Byte payStatus = searchBean.getPayStatus();
 			if (payStatus != null) {
@@ -63,9 +68,10 @@ public class CfsMyCommInfoServiceImpl implements ICfsMyCommInfoService{
 			if (StringUtil.isEmpty(mobile)) {
 				condition.addCondition(new ConditionBean("cfsMyCommInfo.mobile", ConditionBean.LIKE, mobile));
 			}
-			Long sysid = searchBean.getSysid();
-			if (sysid != null) {
-				condition.addCondition(new ConditionBean("cfsMyCommInfo.sysid", ConditionBean.EQUAL, sysid));
+			//Long sysid = searchBean.getSysid();
+			UserLogonInfo logonInfo = SessionTool.getUserLogonInfo();
+			if (logonInfo != null) {
+				condition.addCondition(new ConditionBean("cfsMyCommInfo.sysid", ConditionBean.EQUAL, logonInfo.getSysUserId()));
 			}
 		}
 		return cfsMyCommInfoDao.queryEntity( condition.getConditionList(), page);
@@ -111,8 +117,8 @@ public class CfsMyCommInfoServiceImpl implements ICfsMyCommInfoService{
 			Date now = DateTimeUtil.getNowDateTime();
 			Date date = DateTimeUtil.getSpecifiedDayBefore(now);
 			for(Map<String,Object> map :result){
-				Long sysId = Long.valueOf(map.get("sys_id").toString());
-				BigDecimal sumCommAmount = (BigDecimal) map.get("sumCommAmount");
+				Long sysId = Long.valueOf(map.get("SYS_ID").toString());
+				BigDecimal sumCommAmount = (BigDecimal) map.get("SUM_COMM_AMOUNT");
 				CfsMyCommInfo myCommInfo = new CfsMyCommInfo();
 				myCommInfo.setSysid(sysId);
 				myCommInfo.setCommMoney(sumCommAmount);

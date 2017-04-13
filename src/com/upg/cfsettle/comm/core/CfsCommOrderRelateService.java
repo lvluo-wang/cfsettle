@@ -14,10 +14,9 @@ public interface CfsCommOrderRelateService extends IBaseService {
 
     /**
      * 佣金明细
-     * @param sysUserId
-     * @param date
+     * @param commId
      * @param page
      * @return
      */
-    List<Map<String,Object>> findCommDetailBySysid(Long sysUserId, Date date,Page page);
+    List<Map<String,Object>> findCommDetailByCommId(Long commId,Page page);
 }

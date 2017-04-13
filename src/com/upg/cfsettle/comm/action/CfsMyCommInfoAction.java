@@ -1,7 +1,12 @@
 package com.upg.cfsettle.comm.action;
 
+import java.util.Date;
 import java.util.List;
 
+import com.upg.cfsettle.comm.core.CfsCommOrderRelateService;
+import com.upg.ucars.basesystem.security.core.user.IUserService;
+import com.upg.ucars.framework.base.SessionTool;
+import com.upg.ucars.mapping.basesystem.security.Buser;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.upg.cfsettle.comm.core.ICfsMyCommInfoService;
@@ -28,9 +33,14 @@ public class CfsMyCommInfoAction extends BaseAction {
 	private IPrjService prjService;
 	
 	private List<FiCodeItem> commStatus;
-	
-	
-	
+
+	private Buser buser;
+	@Autowired
+	private CfsCommOrderRelateService cfsCommOrderRelateService;
+	@Autowired
+	private IUserService userService;
+
+
 	/**
 	 * 跳转主页面
 	 * @return
@@ -49,7 +59,24 @@ public class CfsMyCommInfoAction extends BaseAction {
 	public String list(){
 		return setDatagridInputStreamData(myCommInfoService.findByCondition(searchBean, getPg()), getPg());
 	}
-	
+
+	/**
+	 * 我的佣金明细
+	 * @return
+	 */
+	public String view(){
+		commInfo = myCommInfoService.queryCfsMyCommInfoById(getPKId());
+		buser = userService.getUserById(commInfo.getSysid());
+		return SUCCESS;
+	}
+
+	/**
+	 * 我的佣金明细list
+	 */
+	public String commDetailList(){
+		return setDatagridInputStreamData(cfsCommOrderRelateService.findCommDetailByCommId(getPKId(),getPg()),getPg());
+	}
+
 	/**
 	 * 跳转新增页面
 	 * @author renzhuolun
@@ -114,5 +141,14 @@ public class CfsMyCommInfoAction extends BaseAction {
 
 	public void setCommStatus(List<FiCodeItem> commStatus) {
 		this.commStatus = commStatus;
+	}
+
+	public Buser getBuser() {
+		return buser;
+	}
+
+	public CfsMyCommInfoAction setBuser(Buser buser) {
+		this.buser = buser;
+		return this;
 	}
 }

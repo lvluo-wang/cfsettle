@@ -373,8 +373,8 @@ public class PrjServiceImpl implements IPrjService {
 		Date fromDate = DateTimeUtil.getFirstDateOfMonth(lastDay);
 		Date toDate = DateTimeUtil.getLastDateOfMonth(lastDay);
 		//项目成立时间
-		condition.addCondition(new ConditionBean("prj.endBidTime", ConditionBean.MORE_AND_EQUAL, fromDate));
-		condition.addCondition(new ConditionBean("prj.endBidTime", ConditionBean.LESS_AND_EQUAL, toDate));
+		condition.addCondition(new ConditionBean("prj.buildTime", ConditionBean.MORE_AND_EQUAL, fromDate));
+		condition.addCondition(new ConditionBean("prj.buildTime", ConditionBean.LESS_AND_EQUAL, toDate));
 		return prjDao.queryEntity( condition.getConditionList(), null);
 
 	}

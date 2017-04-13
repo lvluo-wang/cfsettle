@@ -55,8 +55,7 @@
                         </tr>
                         <tr>
                             <td class="title">项目成立时间</td>
-                            <%--todo 加字段--%>
-                            <td><s:date name="prj.endBidTime" format="yyyy-MM-dd HH:mm:ss"/></td>
+                            <td><s:date name="prj.buildTime" format="yyyy-MM-dd HH:mm:ss"/></td>
                             <td class="title">还款期数</td>
                             <td>
                                 <c:if test="totalPeriod !=0">
@@ -90,7 +89,9 @@
                             <td class="title">归属团队</td>
                             <td>${prjOrder.ownedTeamName}</td>
                             <td class="title">服务员工职位</td>
-                            <td>${prjOrder.serviceSysType}</td>
+                            <td>
+                                <x:codeItem codeKey="<%=UtilConstant.CFS_BUSER_POS_CODE%>" codeNo="prjOrder.serviceSysType"/>
+                            </td>
                         </tr>
                         <tr>
                             <td class="title">归属区域</td>

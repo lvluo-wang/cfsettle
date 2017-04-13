@@ -155,6 +155,12 @@
                                 ${prjExt.accountNo}
                             </td>
                         </tr>
+                        <tr>
+                            <td class="title">项目成立时间:</td>
+                            <td>
+                                <s:date format="yyyy-MM-dd HH:mm:ss" name="prj.buildTime"/>
+                            </td>
+                        </tr>
                     </table>
                 </form>
 

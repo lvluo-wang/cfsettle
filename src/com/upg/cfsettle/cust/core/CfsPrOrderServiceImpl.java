@@ -106,7 +106,7 @@ public class CfsPrOrderServiceImpl implements ICfsPrjOrderService {
                         Buser user = userService.getUserById(cfsCustBuserRelate.getSysId());
                         if(user != null){
                             prjOrder.setServiceSysName(user.getUserName());
-                            prjOrder.setServiceSysType(CodeItemUtil.getCodeNameByKey(UtilConstant.CFS_BUSER_POS_CODE,user.getPosCode()));
+                            prjOrder.setServiceSysType(user.getPosCode());
                         }
                     }
                     prjOrderDao.save(prjOrder);
