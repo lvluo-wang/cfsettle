@@ -2,6 +2,7 @@ package com.upg.cfsettle.comm.core;
 
 import java.util.List;
 
+import com.upg.cfsettle.mapping.prj.CfsCommDetail;
 import com.upg.cfsettle.mapping.prj.CfsMyCommInfo;
 import com.upg.ucars.framework.base.IBaseService;
 import com.upg.ucars.framework.base.Page;
@@ -51,5 +52,15 @@ public interface ICfsMyCommInfoService extends IBaseService {
 	 * @param pkId
 	 */
 	void deleteById(Long pkId);
+	
+	/**
+	 * 查询结算明细
+	 * @author renzhuolun
+	 * @date 2017年4月13日 下午1:54:18
+	 * @param searchBean
+	 * @param page
+	 * @return
+	 */
+	List<CfsCommDetail> findByCommDetail(CfsMyCommInfo searchBean, Page page);
 
 }

@@ -32,14 +32,14 @@
 			</table>
 		</form>
 		<div class="func_data_area">
-   			<x:datagrid id="dataTableView" singleSelect="true" url="/order/orderAudit_listComm.jhtml?prjOrder.commId=${commInfo.id}" autoload="true">
+   			<x:datagrid id="dataTableView" singleSelect="true" url="/comm/commSettle_listComm.jhtml?prjOrder.commId=${commInfo.id}" autoload="true">
 				<x:columns>
 					<x:column title="合同编号" field="contractNo" align="center" width="140"/>
 					<x:column title="投资时间" field="investTime" align="center" width="140"/>
-					<x:column title="客户名" field="realName" align="center" width="120"/>
+					<x:column title="客户名" field="realName" align="center" width="80"/>
 					<x:column title="购买项目" field="prjName" align="center" width="180"/>
-					<x:column title="购买金额" field="money" align="center" width="180"/>
-					<x:column title="佣金计提比例" field="commRate" align="center" width="180"/>
+					<x:column title="购买金额" field="money" align="center" width="120"/>
+					<x:column title="佣金计提比例" field="commRate" align="center" width="90"/>
 					<x:column title="佣金金额" field="commMoney" align="center" width="90"/>
 				</x:columns>
 			</x:datagrid>

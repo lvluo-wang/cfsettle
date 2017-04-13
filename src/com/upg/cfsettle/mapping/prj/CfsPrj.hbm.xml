@@ -101,23 +101,23 @@
             <column name="pay_back_times">
             </column>
         </property>
-        <property name="totalRate" type="big_decimal">
+        <property name="totalRate" type="cent">
             <column name="total_rate" precision="20" scale="0">
             </column>
         </property>
-        <property name="areaRate" type="big_decimal">
+        <property name="areaRate" type="cent">
             <column name="area_rate" precision="20" scale="0">
             </column>
         </property>
-        <property name="deptRate" type="big_decimal">
+        <property name="deptRate" type="cent">
             <column name="dept_rate" precision="20" scale="0">
             </column>
         </property>
-        <property name="teamRate" type="big_decimal">
+        <property name="teamRate" type="cent">
             <column name="team_rate" precision="20" scale="0">
             </column>
         </property>
-        <property name="sysuserRate" type="big_decimal">
+        <property name="sysuserRate" type="cent">
             <column name="sysuser_rate" precision="20" scale="0">
             </column>
         </property>

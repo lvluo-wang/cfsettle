@@ -107,6 +107,16 @@ public class CfsCommSettleAction extends BaseAction {
 	public void doAdd(){
 		myCommInfoService.addCfsMyCommInfo(commInfo);
 	}
+	
+	/**
+	 * 查询结算今年明细
+	 * @author renzl123
+	 * @date 2017年4月12日 下午11:04:12
+	 * @return
+	 */
+	public String listComm(){
+		return setDatagridInputStreamData(myCommInfoService.findByCommDetail(searchBean,getPg()),getPg());
+	}
 
 	public CfsMyCommInfo getSearchBean() {
 		return searchBean;

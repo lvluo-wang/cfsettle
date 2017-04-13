@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.upg.cfsettle.mapping.prj.CfsCommDetail;
 import com.upg.cfsettle.mapping.prj.CfsMyCommInfo;
 import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.Page;
@@ -69,5 +70,10 @@ public class CfsMyCommInfoServiceImpl implements ICfsMyCommInfoService{
 	@Override
 	public void deleteById(Long pkId) {
 		cfsMyCommInfoDao.delete(pkId);
+	}
+
+	@Override
+	public List<CfsCommDetail> findByCommDetail(CfsMyCommInfo searchBean, Page page) {
+		return cfsMyCommInfoDao.findByCommDetail(searchBean,page);
 	}
 }
