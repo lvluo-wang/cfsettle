@@ -1,7 +1,9 @@
 package com.upg.cfsettle.comm.action;
 
+import java.util.Date;
 import java.util.List;
 
+import com.upg.cfsettle.comm.core.CfsCommOrderRelateService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.upg.cfsettle.comm.core.ICfsMyCommInfoService;
@@ -26,6 +28,10 @@ public class CfsCommSettleAction extends BaseAction {
 	
 	@Autowired
 	private ICfsMyCommInfoService myCommInfoService;
+	@Autowired
+	private CfsCommOrderRelateService cfsCommOrderRelateService;
+	private Long sysUserId;
+	private Date dateMonth;
 	
 	private CfsMyCommInfo commInfo;
 	@Autowired
@@ -70,6 +76,21 @@ public class CfsCommSettleAction extends BaseAction {
 	 */
 	public String list(){
 		return setDatagridInputStreamData(myCommInfoService.findByCondition(searchBean, getPg()), getPg());
+	}
+
+	/**
+	 * 佣金明细
+	 */
+	public String toCommDetail(){
+
+		return "commDetail";
+	}
+
+	/**
+	 * 佣金明细list
+	 */
+	public String commDetailList(){
+		return setDatagridInputStreamData(cfsCommOrderRelateService.findCommDetailBySysid(sysUserId,dateMonth,getPg()),getPg());
 	}
 	
 	/**
@@ -156,5 +177,20 @@ public class CfsCommSettleAction extends BaseAction {
 
 	public void setBuser(Buser buser) {
 		this.buser = buser;
+	}
+	public Long getSysUserId() {
+		return sysUserId;
+	}
+
+	public void setSysUserId(Long sysUserId) {
+		this.sysUserId = sysUserId;
+	}
+
+	public Date getDateMonth() {
+		return dateMonth;
+	}
+
+	public void setDateMonth(Date dateMonth) {
+		this.dateMonth = dateMonth;
 	}
 }

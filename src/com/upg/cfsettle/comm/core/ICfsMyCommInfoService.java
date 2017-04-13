@@ -63,4 +63,9 @@ public interface ICfsMyCommInfoService extends IBaseService {
 	 */
 	List<CfsCommDetail> findByCommDetail(CfsMyCommInfo searchBean, Page page);
 
+	/**
+	 * 佣金计提
+	 */
+	void runCommTask();
+
 }

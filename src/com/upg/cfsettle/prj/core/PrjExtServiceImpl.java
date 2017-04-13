@@ -1,11 +1,18 @@
 package com.upg.cfsettle.prj.core;
 
+import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.mapping.prj.CfsPrjExt;
 import com.upg.ucars.basesystem.component.core.IAttachmentDao;
 import com.upg.ucars.basesystem.component.core.IAttachmentService;
 import com.upg.ucars.framework.annotation.Service;
+import com.upg.ucars.framework.base.QueryCondition;
 import com.upg.ucars.mapping.basesystem.other.Attachment;
+import com.upg.ucars.model.ConditionBean;
+import com.upg.ucars.util.DateTimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by zuo on 2017/4/1.
@@ -56,4 +63,6 @@ public class PrjExtServiceImpl implements IPrjExtService {
         }
         return prjExt;
     }
+
+
 }
