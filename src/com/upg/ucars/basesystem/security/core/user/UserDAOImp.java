@@ -18,7 +18,6 @@ import com.upg.ucars.mapping.basesystem.security.ReUserRole;
 import com.upg.ucars.mapping.basesystem.security.Role;
 import com.upg.ucars.mapping.basesystem.security.Sysfunc;
 import com.upg.ucars.util.StringUtil;
-import sun.jvm.hotspot.oops.ObjectHeap;
 
 
 public class UserDAOImp extends BaseDAO<Buser,Long> implements IUserDAO {
