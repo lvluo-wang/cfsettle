@@ -468,8 +468,7 @@ public class DateTimeUtil {
 	public static Date getLastDateOfMonth(Date theDate){
 		Calendar c= new GregorianCalendar();
 		c.setTime(theDate);
-		c.set(Calendar.MONTH,0);
-		c.set(Calendar.DAY_OF_MONTH,1);
+		c.set(Calendar.DAY_OF_MONTH, c.getActualMaximum(Calendar.DAY_OF_MONTH));
 		c.set(Calendar.HOUR_OF_DAY, 23);
 		c.set(Calendar.MINUTE, 59);
 		c.set(Calendar.SECOND, 59);

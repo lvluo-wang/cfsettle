@@ -118,11 +118,11 @@ public class CfsPrjOrderDaoImpl extends SysBaseDao<CfsPrjOrder,Long> implements 
                 sqlCreater.and("prjOrder.service_sys_type  =:serviceSysType","serviceSysType",serviceSysType,true);
             }
             //待审核合同,待审核,待打款,审核驳回
-            boolean isFromNeedAudit = searchBean.isFromNeedAudit();
-            if(isFromNeedAudit){
-                List<Byte> orderStatus = Arrays.asList(new Byte[]{CfsConstant.PRJ_ORDER_STATUS_AUDIT,CfsConstant.PRJ_ORDER_STATUS_PAY,CfsConstant.PRJ_ORDER_STATUS_REJECT});
-                sqlCreater.and("prj_order.status in (:orderStatus)","orderStatus",orderStatus,true);
-            }
+//            boolean isFromNeedAudit = searchBean.isFromNeedAudit();
+//            if(isFromNeedAudit){
+//                List<Byte> orderStatus = Arrays.asList(new Byte[]{CfsConstant.PRJ_ORDER_STATUS_AUDIT,CfsConstant.PRJ_ORDER_STATUS_PAY,CfsConstant.PRJ_ORDER_STATUS_REJECT});
+//                sqlCreater.and("prj_order.status in (:orderStatus)","orderStatus",orderStatus,true);
+//            }
             boolean isByLogonInfo = searchBean.isByLogonInfo();
             if(isByLogonInfo && buserIds.size() > 0){
                 sqlCreater.and(" relate.sys_id in (:buserIds)","buserIds",buserIds,true);

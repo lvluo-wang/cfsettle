@@ -12,16 +12,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class CfsCommAutoTask extends AbstractMemberAutoTask {
 
 
-    private ICfsMyCommInfoService myCommInfoService = new CfsMyCommInfoServiceImpl();
+    private ICfsMyCommInfoService cfsMyCommInfoService;
 
     @Override
     public BooleanResult runByMember(String memberNo) throws Exception {
         BooleanResult booleanResult = new BooleanResult(true);
-        myCommInfoService.runCommTask();
+        cfsMyCommInfoService.runCommTask();
         return booleanResult;
     }
 
-    public void setMyCommInfoService(ICfsMyCommInfoService myCommInfoService) {
-        this.myCommInfoService = myCommInfoService;
+    public ICfsMyCommInfoService getCfsMyCommInfoService() {
+        return cfsMyCommInfoService;
+    }
+
+    public void setCfsMyCommInfoService(ICfsMyCommInfoService cfsMyCommInfoService) {
+        this.cfsMyCommInfoService = cfsMyCommInfoService;
     }
 }

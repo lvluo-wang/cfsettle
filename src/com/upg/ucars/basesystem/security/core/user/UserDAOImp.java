@@ -357,21 +357,22 @@ public class UserDAOImp extends BaseDAO<Buser,Long> implements IUserDAO {
 		}catch(Throwable t){
 			ExceptionManager.throwException(DAOException.class, ErrorCodeConst.DB_OPERATION_ERROR, new String[]{hql.toString()}, t);
 		}
-		return ret == null ? null : ret.get(0);
+		return ret.size() >0 ? ret.get(0) : null;
 	}
 
 	@Override
 	public Buser getUserByDeptIdAndPosCode(Long deptId, String posCode) {
 		String hql = "from Buser where deptId=? and posCode=? and status<>4";
 		List<Buser> ret = null;
-		try{
-			ret = getHibernateTemplate().find(hql,new Object[]{deptId,posCode});
-		}catch(Throwable t){
+		try {
+			ret = getHibernateTemplate().find(hql, new Object[]{deptId, posCode});
+		} catch (Throwable t) {
 			ExceptionManager.throwException(DAOException.class, ErrorCodeConst.DB_OPERATION_ERROR, new String[]{hql.toString()}, t);
 		}
-		return ret == null ? null : ret.get(0);	}
+		return ret.size() > 0 ? ret.get(0) : null;
+	}
 
-	@Override
+		@Override
 	public Buser getUserByAreaIdAndPosCode(Long areaId, String posCode) {
 		String hql = "from Buser where areaId=? and posCode=? and status<>4";
 		List<Buser> ret = null;
@@ -380,5 +381,6 @@ public class UserDAOImp extends BaseDAO<Buser,Long> implements IUserDAO {
 		}catch(Throwable t){
 			ExceptionManager.throwException(DAOException.class, ErrorCodeConst.DB_OPERATION_ERROR, new String[]{hql.toString()}, t);
 		}
-		return ret == null ? null : ret.get(0);	}
+		return ret.size() >0 ? ret.get(0) : null;
+	}
 }

@@ -21,7 +21,7 @@
 				<x:column title="购买金额" field="MONEY" align="center" width="80" formatter="formateMoney"/>
 				<x:column title="付款银行" field="PAY_BANK" align="center" width="80" formatter="formateBank"/>
 				<x:column title="付款卡号" field="PAY_ACCOUNT_NO" align="center" width="140"/>
-				<x:column title="服务员工名" field="SERVICE_SYSY_NAME" align="center" width="100"/>
+				<x:column title="服务员工名" field="SERVICE_SYS_NAME" align="center" width="100"/>
 				<x:column title="审核结果" field="LOG_STATUS" align="center" width="80" formatter="formateLogStatus"/>
 				<x:column title="审核时间" field="AUDIT_TIME" align="center" width="100" formatter="formatTime"/>
 				<x:column title="审核人" field="AUDIT_NAME" align="center" width="100"/>

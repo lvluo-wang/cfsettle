@@ -7,7 +7,9 @@ import java.util.Map;
 import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.ucars.framework.annotation.Dao;
 import com.upg.ucars.framework.base.Page;
+import com.upg.ucars.framework.base.QueryCondition;
 import com.upg.ucars.framework.base.SysBaseDao;
+import com.upg.ucars.model.ConditionBean;
 import com.upg.ucars.util.DateTimeUtil;
 import com.upg.ucars.util.SQLCreater;
 import com.upg.ucars.util.StringUtil;
@@ -75,4 +77,19 @@ public class PrjDaoImpl extends SysBaseDao<CfsPrj,Long> implements IPrjDao {
 		String hql = "from CfsPrj prj where prj.status=4 and prj.endBidTime <= "+nowSec+"order by ctime desc";
         return this.find(hql);
 	}
+
+    @Override
+    public List<CfsPrj> findAllSucceedPrjLastMonth() {
+        String hql = "from CfsPrj cfsPrj where cfsPrj.status not in (1,2,8) and" +
+                " cfsPrj.buildTime>=? and cfsPrj.buildTime<=?";
+        QueryCondition condition = new QueryCondition(hql);
+        Date now = DateTimeUtil.getNowDateTime();
+        Date lastDay = DateTimeUtil.getSpecifiedDayBefore(now);
+
+        //lastDay 的这个月的第一天和最后一天
+        Date fromDate = DateTimeUtil.getFirstDateOfMonth(lastDay);
+        Date toDate = DateTimeUtil.getLastDateOfMonth(lastDay);
+        //项目成立时间
+        return this.find(hql, new Object[]{fromDate, toDate});
+    }
 }

@@ -367,19 +367,7 @@ public class PrjServiceImpl implements IPrjService {
 
 	@Override
 	public List<CfsPrj> findAllSucceedPrjLastMonth(){
-		String hql = "from CfsPrj prj where prj.status not in (1,2,8) ";
-		QueryCondition condition = new QueryCondition(hql);
-		Date now = DateTimeUtil.getNowDateTime();
-		Date lastDay = DateTimeUtil.getSpecifiedDayBefore(now);
-
-		//lastDay 的这个月的第一天和最后一天
-		Date fromDate = DateTimeUtil.getFirstDateOfMonth(lastDay);
-		Date toDate = DateTimeUtil.getLastDateOfMonth(lastDay);
-		//项目成立时间
-		condition.addCondition(new ConditionBean("prj.buildTime", ConditionBean.MORE_AND_EQUAL, fromDate));
-		condition.addCondition(new ConditionBean("prj.buildTime", ConditionBean.LESS_AND_EQUAL, toDate));
-		return prjDao.queryEntity( condition.getConditionList(), null);
-
+		return prjDao.findAllSucceedPrjLastMonth();
 	}
 
 	@Override

@@ -4,8 +4,8 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="x" uri="/xcars-tags"%>
-<tiles:insertDefinition name="WIN_TOOL_DATA">
-	<tiles:putAttribute name="form">
+<tiles:insertDefinition name="WIN_QUERY_DATA">
+	<tiles:putAttribute name="query">
 		<form class="busi_form" id="commSettleView">
 			<table>
 				<colgroup>
@@ -31,19 +31,19 @@
 				</tbody>
 			</table>
 		</form>
-		<div class="func_data_area">
-			<x:datagrid id="dataTableView" singleSelect="true" url="/comm/myComm_commDetailList.jhtml?id=${commInfo.id}" autoload="true">
+	</tiles:putAttribute>
+	<tiles:putAttribute name="data">
+			<x:datagrid id="dataTableView"  url="/comm/myComm_commDetailList.jhtml?id=${commInfo.id}" autoload="true">
 				<x:columns>
 					<x:column title="合同编号" field="CONTRACT_NO" align="center" width="140"/>
 					<x:column title="投资时间" field="INVEST_TIME" align="center" width="140" formatter="formatTime"/>
-					<x:column title="客户名" field="REAL_NAME" align="center" width="120"/>
-					<x:column title="购买项目" field="PRJ_NAME" align="center" width="140"/>
-					<x:column title="购买金额" field="MONEY" align="center" width="140"/>
-					<x:column title="佣金计提比例" field="COMM_RATE" align="center" width="80" formatter="formatCommRate"/>
-					<x:column title="佣金金额" field="COMM_MONEY" align="center" width="90"/>
+					<x:column title="客户名" field="REAL_NAME" align="center" width="100"/>
+					<x:column title="购买项目" field="PRJ_NAME" align="center" width="100"/>
+					<x:column title="购买金额" field="MONEY" align="center" width="100"/>
+					<x:column title="佣金计提比例" field="COMM_RATE" align="center" width="90" formatter="formatCommRate"/>
+					<x:column title="佣金金额" field="COMM_ACCOUNT" align="center" width="90"/>
 				</x:columns>
 			</x:datagrid>
-		</div>
 	</tiles:putAttribute>
 
 	<tiles:putAttribute name="end">

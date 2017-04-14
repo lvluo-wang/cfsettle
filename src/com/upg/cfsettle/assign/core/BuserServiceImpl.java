@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -55,11 +56,13 @@ public class BuserServiceImpl implements IBuserService {
             conditionList.add(new ConditionBean("user.deptId", ConditionBean.EQUAL, logonInfo.getDeptId()));
         }
         //管理员
-        if(logonInfo.getUserType() != null && logonInfo.getUserType().equals(Buser.TYPE_BRCH_GLOBAL_MANAGER)){
+        else if(logonInfo.getUserType() != null && logonInfo.getUserType().equals(Buser.TYPE_BRCH_GLOBAL_MANAGER)){
             String[] posCodes = new String[]
                     {UtilConstant.CFS_DEPT_MANAGER,UtilConstant.CFS_AREA_MANAGER,UtilConstant.CFS_CUST_MANAGER,
                     UtilConstant.CFS_TEAM_MANAGER};
             conditionList.add(new ConditionBean("user.posCode", ConditionBean.IN, posCodes));
+        }else{
+            return Collections.EMPTY_LIST;
         }
         QueryCondition qc = new QueryCondition(hql);
         qc.addConditionList(conditionList);

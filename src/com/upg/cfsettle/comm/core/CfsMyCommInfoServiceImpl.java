@@ -1,10 +1,7 @@
 package com.upg.cfsettle.comm.core;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.upg.cfsettle.cust.core.ICfsPrjOrderService;
 import com.upg.cfsettle.mapping.prj.CfsCommOrderRelate;
@@ -50,12 +47,13 @@ public class CfsMyCommInfoServiceImpl implements ICfsMyCommInfoService{
 		String hql = "from CfsMyCommInfo cfsMyCommInfo";
 		QueryCondition condition = new QueryCondition(hql);
 		if (searchBean != null) {
-			Date commSettleDate = searchBean.getCommSettleDate();
-			if (commSettleDate != null) {
-				Date firstDay = DateTimeUtil.getFirstDateOfMonth(commSettleDate);
-				condition.addCondition(new ConditionBean("cfsMyCommInfo.commSettleDate", ConditionBean.MORE_AND_EQUAL, firstDay.getTime()/1000));
-				Date lastDay = DateTimeUtil.getLastDateOfMonth(commSettleDate);
-				condition.addCondition(new ConditionBean("cfsMyCommInfo.commSettleDate", ConditionBean.LESS_AND_EQUAL, lastDay.getTime()/1000));
+			String commSettleDateStr = searchBean.getCommSettleDateStr();
+			if (!StringUtil.isEmpty(commSettleDateStr)) {
+				String fromDateStr = commSettleDateStr+"-1 00:00:00";
+				Date fromDate = DateTimeUtil.getStringToDate(fromDateStr);
+				condition.addCondition(new ConditionBean("cfsMyCommInfo.commSettleDate", ConditionBean.MORE_AND_EQUAL, fromDate));
+				Date toDate = DateTimeUtil.getLastDateOfMonth(fromDate);
+				condition.addCondition(new ConditionBean("cfsMyCommInfo.commSettleDate", ConditionBean.LESS_AND_EQUAL, toDate));
 			}
 			Byte payStatus = searchBean.getPayStatus();
 			if (payStatus != null) {
@@ -122,10 +120,13 @@ public class CfsMyCommInfoServiceImpl implements ICfsMyCommInfoService{
 			Date now = DateTimeUtil.getNowDateTime();
 			Date date = DateTimeUtil.getSpecifiedDayBefore(now);
 			for(Map<String,Object> map :result){
-				Long sysId = Long.valueOf(map.get("SYS_ID").toString());
+				Long sysId = Long.valueOf(map.get("SYSID").toString());
 				BigDecimal sumCommAmount = (BigDecimal) map.get("SUM_COMM_AMOUNT");
 				CfsMyCommInfo myCommInfo = new CfsMyCommInfo();
 				myCommInfo.setSysid(sysId);
+				Buser buser = userDAO.get(sysId);
+				myCommInfo.setSysUserName(buser.getUserName());
+				myCommInfo.setPosCode(buser.getPosCode());
 				myCommInfo.setCommMoney(sumCommAmount);
 				myCommInfo.setCommSettleDate(date);//页面上显示到月
 				myCommInfo.setCtime(now);

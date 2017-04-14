@@ -38,6 +38,9 @@ public class CfsMyCommInfo implements Serializable {
 	private Long msysid;
 	private Date mtime;
 
+	private String commSettleDateStr;
+
+
 	// Constructors
 
 	/** default constructor */
@@ -238,5 +241,13 @@ public class CfsMyCommInfo implements Serializable {
 
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+
+	public String getCommSettleDateStr() {
+		return commSettleDateStr;
+	}
+
+	public void setCommSettleDateStr(String commSettleDateStr) {
+		this.commSettleDateStr = commSettleDateStr;
 	}
 }

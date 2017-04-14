@@ -60,8 +60,8 @@
 
 	<tiles:putAttribute name="window">
 		<!-- 弹出窗口定义开始 -->
-		<div id="project_add_win" style="width:750px;height:330px;display:none;"></div>
-		<div id="project_log_win" style="width:1200px;height:440px;display:none;"></div>
+		<div id="project_add_win" style="width:700px;height:330px;display:none;"></div>
+		<div id="project_log_win" style="width:700px;height:440px;display:none;"></div>
 	</tiles:putAttribute>
 
 	<tiles:putAttribute name="end">

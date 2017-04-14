@@ -14,7 +14,7 @@
 			<table>
 				<tr>
 					<td class="title">佣金计提月份: </td>
-					<td><input class="Wdate easyui-validatebox" type="text" name="searchBean.commSettleDate" onClick="WdatePicker({dateFmt:'yyyy-MM'})"/></td>
+					<td><input class="Wdate"  name="searchBean.commSettleDateStr" onClick="WdatePicker({dateFmt:'yyyy-MM'})"/></td>
 					<td class="title">状态:</td>
 					<td><x:combobox name="searchBean.payStatus" list="commStatus" textField="codeName" valueField="codeNo"/></td>
 					<td><x:button iconCls="icon-search" text="query" click="doQuery"/></td>
@@ -36,7 +36,7 @@
 
 	<tiles:putAttribute name="window">
 	<!-- 弹出窗口定义开始 -->
-	<div id="project_add_win" style="width:750px;height:auto;display:none;"></div>
+	<div id="project_add_win" style="width:850px;height:500px;display:none;"></div>
 	<div id="project_edit_win" style="width:750px;height:auto;display:none;"></div>
 	</tiles:putAttribute>
 	

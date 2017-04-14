@@ -19,4 +19,6 @@ public interface IPrjDao extends IBaseDAO<CfsPrj,Long> {
 	List<Map<String, Object>> findLoanPrjByCondition(CfsPrj searchBean, Page pg);
 
 	List<CfsPrj> findRepayPlanPrj();
+
+    List<CfsPrj> findAllSucceedPrjLastMonth();
 }

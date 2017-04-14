@@ -32,21 +32,21 @@ public class CfsCommOrderRelateDaoImpl extends SysBaseDao<CfsCommOrderRelate,Lon
 
     @Override
     public List<Map<String, Object>> findTotalAmountGroupBySysId() {
-        String sql = "select sys_id,sum(comm_account)/100 as sum_comm_amount from cfs_comm_order_relate where status=1 and comm_id is null" +
-                " group by sys_id";
-        List<Map<String, Object>> result = (List<Map<String, Object>>) this.findListByMap(sql,new HashedMap(),null,Map.class);
+        String sql = "select sysid,sum(comm_account)/100 as sum_comm_amount from cfs_comm_order_relate where status=1 and comm_id is null" +
+                " group by sysid";
+        List<Map<String, Object>> result = this.getMapListByStanderdSQL(sql,new HashedMap(),null);
         return result;
     }
 
     @Override
     public List<Map<String, Object>> findCommDetailByCommId(Long commId, Page page) {
-        String sql = "select order.contract_no,order.invest_time,cust.real_name,prj.prj_name,order.money/100," +
-                " comm.comm_rate/100,comm.comm_account/100 from cfs_comm_order_relate comm,cfs_prj_order order,cfs_prj prj" +
-                " cfs_cust cust where comm.prj_order_id=order.id and order.prj_id=prj.id" +
-                " and order.cust_id=cust.id ";
+        String sql = "select prjOrder.contract_no,prjOrder.invest_time,cust.real_name,prj.prj_name,prjOrder.money/100 as money," +
+                " comm.comm_rate/100 as comm_rate,comm.comm_account/100 as comm_account from cfs_comm_order_relate comm,cfs_prj_order prjOrder,cfs_prj prj," +
+                " cfs_cust cust where comm.prj_order_id=prjOrder.id and prjOrder.prj_id=prj.id" +
+                " and prjOrder.cust_id=cust.id ";
         SQLCreater sqlCreater = new SQLCreater(sql,true);
-        sqlCreater.and("comm.comm_id=:commId","commId",commId,true);
-        sqlCreater.orderBy("order.ctime",true);
+        sqlCreater.and("and comm.comm_id=:commId","commId",commId,true);
+        sqlCreater.orderBy("prjOrder.ctime",true);
         return this.getMapListByStanderdSQL(sqlCreater.getSql(),sqlCreater.getParameterMap(),page);
     }
 }

@@ -73,7 +73,7 @@ public class CfsOrderContractAction extends BaseAction {
      * @return
      */
     public String list(){
-        orderBean.setFromNeedAudit(true);
+        //orderBean.setFromNeedAudit(true);
         return setDatagridInputStreamData(prjOrderService.findByCondition(orderBean,getPg()),getPg());
     }
 
