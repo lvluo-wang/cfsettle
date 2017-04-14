@@ -19,7 +19,7 @@
 						 <tr>
 							<td class="title">岗位:</td>
 							<td>
-								<x:combobox name="user.posCode" id="pos_code_add" valueField="codeNo" textField="codeName" list="posCodeList" pleaseSelect="false" cssStyle="width:142px;" onchange="posCodeChange"/>
+								<x:combobox name="user.posCode" id="pos_code_add" valueField="codeNo" textField="codeName" list="posCodeList" pleaseSelect="true" cssStyle="width:142px;" onchange="posCodeChange"/>
 							</td>
 						</tr>
 						<tr>
@@ -74,19 +74,19 @@
 							<tr>
 								<td class="title">归属/负责区域:</td>
 								<td>
-									<x:combobox id="user_area_id" name="user.areaId"  value="${user.areaId}" valueField="id" textField="areaName" list="userAreaList" pleaseSelect="false" onchange="loadDeptList" required="true" cssStyle="width:142px;"/>
+									<x:combobox id="user_area_id" name="user.areaId"  value="${user.areaId}" valueField="id" textField="areaName" list="userAreaList" pleaseSelect="true" onchange="loadDeptList" required="" cssStyle="width:142px;"/>
 								</td>
 							</tr>
 							<tr id="user_dept_tr">
 								<td class="title">归属/负责营业部:</td>
 								<td>
-									<x:combobox id="user_dept_id" name="user.deptId"  value="${user.deptId}" valueField="id" textField="deptName" list="userDeptList" pleaseSelect="false" onchange="loadTeamList" cssStyle="width:142px;"/>
+									<x:combobox id="user_dept_id" name="user.deptId"  value="${user.deptId}" valueField="id" textField="deptName" list="userDeptList" pleaseSelect="true" onchange="loadTeamList" cssStyle="width:142px;"/>
 								</td>
 							</tr>
 							<tr id="user_team_tr">
 								<td class="title">归属/负责团队:</td>
 								<td>
-									<x:combobox id="user_team_id" name="user.teamId"  value="${user.teamId}" valueField="id" textField="teamName" list="userTeamList" pleaseSelect="false" cssStyle="width:142px;"/>
+									<x:combobox id="user_team_id" name="user.teamId"  value="${user.teamId}" valueField="id" textField="teamName" list="userTeamList" pleaseSelect="true" cssStyle="width:142px;"/>
 								</td>
 							</tr>
 						</tbody>

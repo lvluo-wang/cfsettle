@@ -111,11 +111,11 @@ public class CfsPrjOrderDaoImpl extends SysBaseDao<CfsPrjOrder,Long> implements 
             }
             String serviceSysName = searchBean.getServiceSysName();
             if(!StringUtil.isEmpty(serviceSysName)){
-                sqlCreater.and("prjOrder.service_sys_name  =:serviceSysName","serviceSysName",serviceSysName,true);
+                sqlCreater.and("prj_order.service_sys_name  =:serviceSysName","serviceSysName",serviceSysName,true);
             }
             String serviceSysType = searchBean.getServiceSysType();
             if(!StringUtil.isEmpty(serviceSysType)){
-                sqlCreater.and("prjOrder.service_sys_type  =:serviceSysType","serviceSysType",serviceSysType,true);
+                sqlCreater.and("prj_order.service_sys_type  =:serviceSysType","serviceSysType",serviceSysType,true);
             }
             //待审核合同,待审核,待打款,审核驳回
 //            boolean isFromNeedAudit = searchBean.isFromNeedAudit();
