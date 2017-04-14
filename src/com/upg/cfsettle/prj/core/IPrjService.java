@@ -63,4 +63,10 @@ public interface IPrjService extends IBaseService {
 
      List<CfsPrj> findAllSucceedPrjLastMonth();
 
+    /**
+     * 成立项目
+     * @param prj
+     */
+    void buildPrj(CfsPrj prj);
+
     }

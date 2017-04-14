@@ -14,7 +14,7 @@ public class CfsPrjExt implements java.io.Serializable {
 	private String tenantBank;
 	private Integer provinceId;
 	private Integer cityId;
-	private Integer subBank;
+	private String subBank;
 	private String accountNo;
 	private Long contractAttid;
 	private Long periodAttid;
@@ -105,11 +105,11 @@ public class CfsPrjExt implements java.io.Serializable {
 		this.cityId = cityId;
 	}
 
-	public Integer getSubBank() {
+	public String getSubBank() {
 		return subBank;
 	}
 
-	public void setSubBank(Integer subBank) {
+	public void setSubBank(String subBank) {
 		this.subBank = subBank;
 	}
 

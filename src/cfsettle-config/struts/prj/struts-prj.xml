@@ -14,6 +14,7 @@
         <action name="/prjAudit_*" class="com.upg.cfsettle.prj.action.PrjAction" method="{1}">
             <result name="auditMain">/cfsettle/prj/prjAuditMain.jsp</result>
             <result name="toReview">/cfsettle/prj/prjAudit_toReview.jsp</result>
+            <result name="toBuild">/cfsettle/prj/prjAudit_toBuild.jsp</result>
         </action>
         <action name="/prjLoan_*" class="com.upg.cfsettle.prj.action.PrjLoanAction" method="{1}">
             <result name="success">/cfsettle/loan/prjLoan_{1}.jsp</result>

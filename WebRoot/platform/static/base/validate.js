@@ -284,12 +284,28 @@ $.extend($.fn.validatebox.defaults.rules, {
 	compareNum: {
 		validator: function (value, param) {
 			if(value&&param) {
-				return  value < $('#' + param[0]).val();
+				var amount = $('#' + param[0]).val();
+				return  parseInt(amount) >=parseInt(value);
 			}else{
 				return true;
 			}
 		}, 
 		message: '项目成立金额不能大于募集金额'
+	},
+    compareSum:{
+        validator: function (value,param) {
+			if(value&&param){
+				var sum=0;
+				for(var i=0;i<param.length;i++){
+					var val = parseFloat($('#' + param[i]).val()).toFixed(2);
+					sum += parseFloat(val);
+				}
+                return  parseFloat(sum).toFixed(2) == parseFloat(value);
+            }else{
+				return true;
+			}
+        },
+		message: '请调整各佣金计提满足总比例'
 	},
 
 	orgCode:{

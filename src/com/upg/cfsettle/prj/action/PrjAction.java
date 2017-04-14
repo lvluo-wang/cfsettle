@@ -1,6 +1,7 @@
 package com.upg.cfsettle.prj.action;
 
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,12 +103,28 @@ public class PrjAction extends BaseAction {
         return "toReview";
     }
 
+    public String toBuild(){
+        prj = prjService.getPrjById(getPKId());
+        return "toBuild";
+    }
+
+    public void doBuild(){
+        prjService.buildPrj(prj);
+    }
+
+
     /**
      * 放款记录
      * @return
      */
     public String loanIssue(){
         List<CfsPrjLoanLog> list = loanLogService.findByCondition(prjLoanLog,getPg());
+        CfsPrj prj = prjService.getPrjById(prjLoanLog.getPrjId());
+        BigDecimal remainingLoanedAmount = prj.getLoanedAmount().subtract(prj.getRemainingAmount()).subtract(prj.getLoanedAmount());
+        for(CfsPrjLoanLog prjLoanLog : list){
+            prjLoanLog.setLoanedAmount(prj.getLoanedAmount());
+            prjLoanLog.setRemainingLoanedAmount(remainingLoanedAmount);
+        }
         List<PropertyTransVo> trans = new ArrayList<PropertyTransVo>();
         trans.add(new PropertyTransVo("csysid", Buser.class, "userId", "userName","sysUserName"));
         list = DynamicPropertyTransfer.transform(list, trans);

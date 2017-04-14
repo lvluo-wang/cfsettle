@@ -37,7 +37,7 @@ public class PrjLoanLogServiceImpl implements IPrjLoanLogService {
 		List<CfsPrjLoanLog> list = prjLoanLogDao.getByPrjId(loanLog.getPrjId());
 		if(CollectionUtils.isEmpty(list)){
 			loanLog.setLoanTimes(1L);
-			if(loanLog.getLoanTime().getTime() < prj.getEndBidTime().getTime()){
+			if(loanLog.getLoanTime().getTime() < prj.getBuildTime().getTime()){
 				UcarsHelper.throwServiceException("放款时间必须大于项目的成立时间");
 			}
 		}else{

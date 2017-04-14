@@ -23,7 +23,7 @@
             <column name="city_id">
             </column>
         </property>
-        <property name="subBank" type="java.lang.Integer">
+        <property name="subBank" type="string">
             <column name="sub_bank">
             </column>
         </property>

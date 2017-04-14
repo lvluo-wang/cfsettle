@@ -59,8 +59,8 @@ public class CfsOrderContractAction extends BaseAction {
 
     public String toReview(){
         prjOrder = prjOrderService.getPrjOrderById(getPKId());
-        if(!prjOrder.getStatus().equals(CfsConstant.PRJ_ORDER_STATUS_AUDIT)
-                || !prjOrder.getServiceSysid().equals(CfsConstant.PRJ_ORDER_STATUS_REJECT)){
+        if(!(prjOrder.getStatus().equals(CfsConstant.PRJ_ORDER_STATUS_AUDIT)
+                || prjOrder.getServiceSysid().equals(CfsConstant.PRJ_ORDER_STATUS_REJECT))){
             UcarsHelper.throwActionException("该订单状态不能审核");
         }
         cust = custService.queryCfsCustById(prjOrder.getCustId());

@@ -211,31 +211,33 @@
                         <tr>
                             <td class="title">佣金总比例:</td>
                             <td colspan="3">
-                                <input name="prj.totalRate" id="totalRate" value="${prj.totalRate}" class="easyui-validatebox" required="true" validType="positive_int" />
+                                <input name="prj.totalRate" id="totalRate" value="${prj.totalRate}" class="easyui-validatebox" required="true"
+                                       validType="compareSum(['areaRate','deptRate','teamRate','sysuserRate'])"
+                                        />
                                 <span>%</span>
                             </td>
                         </tr>
                         <tr>
                             <td class="title">区域经理佣金计提:</td>
                             <td>
-                                <input name="prj.areaRate" id="areaRate" value="${prj.areaRate}" class="easyui-validatebox" validType="positive_int" required="true"/>
+                                <input name="prj.areaRate" id="areaRate" value="${prj.areaRate}" class="easyui-validatebox" validType="positive_percent" required="true"/>
                                 <span>%</span>
                             </td>
                             <td class="title">营业部佣金计提:</td>
                             <td>
-                                <input name="prj.deptRate" id="deptRate" value="${prj.deptRate}" class="easyui-validatebox" validType="positive_int" required="true"/>
+                                <input name="prj.deptRate" id="deptRate" value="${prj.deptRate}" class="easyui-validatebox" validType="positive_percent" required="true"/>
                                 <span>%</span>
                             </td>
                         </tr>
                         <tr>
                             <td class="title">团队佣金计提:</td>
                             <td>
-                                <input name="prj.teamRate" id="teamRate" value="${prj.teamRate}" class="easyui-validatebox" validType="positive_int" required="true"/>
+                                <input name="prj.teamRate" id="teamRate" value="${prj.teamRate}" class="easyui-validatebox" validType="positive_percent" required="true"/>
                                 <span>%</span>
                             </td>
                             <td class="title">客户经理佣金计提:</td>
                             <td>
-                                <input name="prj.sysuserRate" id="sysuserRate" value="${prj.sysuserRate}" class="easyui-validatebox" validType="positive_int" required="true"/>
+                                <input name="prj.sysuserRate" id="sysuserRate" value="${prj.sysuserRate}" class="easyui-validatebox" validType="positive_percent" required="true"/>
                                 <span>%</span>
                             </td>
                         </tr>
@@ -343,17 +345,6 @@
 
             function doApplyReview() {
                 if ($("#prj_form").form("validate") && $("#prjExt_form").form("validate")) {
-                    var totalRate = isNaN($('#totalRate').val()) ? 0 :$('#totalRate').val();
-                    var areaRate = isNaN($('#areaRate').val()) ? 0 :$('#areaRate').val();
-                    var deptRate = isNaN($('#deptRate').val()) ? 0 :$('#deptRate').val();
-                    var teamRate = isNaN($('#teamRate').val()) ? 0 :$('#teamRate').val();
-                    var sysuserRate = isNaN($('#sysuserRate').val()) ? 0 :$('#sysuserRate').val();
-                    var sum = parseInt(areaRate)+parseInt(deptRate)+parseInt(teamRate)+parseInt(sysuserRate);
-                   if(parseInt(totalRate)!=sum){
-                       warning("佣金总比例不正确");
-                       return;
-                   }
-
                     var url = '<s:url value="/prj/prjAudit_doReview.jhtml"/>';
                     var param1 = formToObject("prj_form");
                     var param2 = formToObject("prjExt_form");

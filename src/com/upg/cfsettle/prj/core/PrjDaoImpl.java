@@ -1,5 +1,6 @@
 package com.upg.cfsettle.prj.core;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +22,7 @@ public class PrjDaoImpl extends SysBaseDao<CfsPrj,Long> implements IPrjDao {
     @Override
     public List<Map<String, Object>> findByCondition(CfsPrj searchBean, Page page) {
         String sql = "select prj.id,prj.prj_name,prj.demand_amount/100 as demand_amount,prj.remaining_amount/100 as remaining_amount,prj.time_limit,prj.time_limit_unit," +
-                " prj.status,prj.last_repay_time,prj.year_rate/100,prj.repay_way,prj.start_bid_time,end_bid_time," +
+                " prj.status,prj.last_repay_time,prj.year_rate/100 as year_rate,prj.repay_way,prj.start_bid_time,end_bid_time," +
                 " ext.tenant_name,ext.tenant_bank,ext.account_no,ext.sub_bank from cfs_prj prj left join cfs_prj_ext ext" +
                 " on prj.id=ext.prj_id";
         SQLCreater sqlCreater = new SQLCreater(sql,false);
@@ -41,8 +42,9 @@ public class PrjDaoImpl extends SysBaseDao<CfsPrj,Long> implements IPrjDao {
 
     @Override
     public List<CfsPrj> findPrjByStatus(Byte status) {
-        String hql = "from CfsPrj prj where prj.status=? and prj.startBidTime<=SYSDATE and prj.endBidTime>=SYSDATE order by ctime desc";
-        return this.find(hql,status);
+        String hql = "from CfsPrj prj where prj.status=? and prj.startBidTime<=? and prj.endBidTime>=? order by ctime desc";
+        Date now = DateTimeUtil.getNowDateTime();
+        return this.find(hql,new Object[]{status,now,now});
     }
 
 	@Override

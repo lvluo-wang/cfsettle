@@ -1,29 +1,27 @@
 package com.upg.cfsettle.comm.action;
 
+import com.upg.cfsettle.comm.core.CfsMyCommInfoServiceImpl;
 import com.upg.cfsettle.comm.core.ICfsMyCommInfoService;
 import com.upg.ucars.basesystem.autotask.core.AbstractMemberAutoTask;
 import com.upg.ucars.model.BooleanResult;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created by zuobaoshi on 2017/4/12.
  */
 public class CfsCommAutoTask extends AbstractMemberAutoTask {
 
-    private ICfsMyCommInfoService commInfoService;
+
+    private ICfsMyCommInfoService myCommInfoService = new CfsMyCommInfoServiceImpl();
 
     @Override
     public BooleanResult runByMember(String memberNo) throws Exception {
         BooleanResult booleanResult = new BooleanResult(true);
-        commInfoService.runCommTask();
-        return null;
+        myCommInfoService.runCommTask();
+        return booleanResult;
     }
 
-
-    public ICfsMyCommInfoService getCommInfoService() {
-        return commInfoService;
-    }
-
-    public void setCommInfoService(ICfsMyCommInfoService commInfoService) {
-        this.commInfoService = commInfoService;
+    public void setMyCommInfoService(ICfsMyCommInfoService myCommInfoService) {
+        this.myCommInfoService = myCommInfoService;
     }
 }

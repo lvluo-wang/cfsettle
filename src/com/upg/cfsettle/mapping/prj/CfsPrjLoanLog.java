@@ -32,6 +32,10 @@ public class CfsPrjLoanLog implements Serializable {
 	private Long msysid;
 	private Date mtime;
 
+	//已放款总额
+	private BigDecimal loanedAmount;
+	//剩余放款总额
+	private BigDecimal remainingLoanedAmount;
 	// Constructors
 
 	/** default constructor */
@@ -178,5 +182,21 @@ public class CfsPrjLoanLog implements Serializable {
 
 	public void setLoanAccountName(String loanAccountName) {
 		this.loanAccountName = loanAccountName;
+	}
+
+	public BigDecimal getLoanedAmount() {
+		return loanedAmount;
+	}
+
+	public void setLoanedAmount(BigDecimal loanedAmount) {
+		this.loanedAmount = loanedAmount;
+	}
+
+	public BigDecimal getRemainingLoanedAmount() {
+		return remainingLoanedAmount;
+	}
+
+	public void setRemainingLoanedAmount(BigDecimal remainingLoanedAmount) {
+		this.remainingLoanedAmount = remainingLoanedAmount;
 	}
 }

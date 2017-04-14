@@ -32,6 +32,7 @@ import com.upg.ucars.model.ConditionBean;
 import com.upg.ucars.util.BeanUtils;
 import com.upg.ucars.util.DateTimeUtil;
 import com.upg.ucars.util.StringUtil;
+import sun.font.CFont;
 
 /**
  * Created by zuo on 2017/3/30.
@@ -71,6 +72,9 @@ public class PrjServiceImpl implements IPrjService {
         prj.setStatus(CfsConstant.PRJ_STATUS_AUDIT);
         prj.setRemainingAmount(prj.getDemandAmount());
 		prj.setLoanedAmount(BigDecimal.ZERO);
+		prj.setLoanTimes((long)0);
+		prj.setPayBackAmount(BigDecimal.ZERO);
+		prj.setPayBackTimes((long)0);
         dealPrjTimeLimitDay(prj);
         prjDao.save(prj);
         prjExt.setPrjId(prj.getId());
@@ -80,10 +84,10 @@ public class PrjServiceImpl implements IPrjService {
     }
 
     private void dealPrjTimeLimitDay(CfsPrj prj) {
-        if(prj.getTimeLimitUnit() == "Y"){
+        if(prj.getTimeLimitUnit().equals("Y")){
             prj.setTimeLimitDay(prj.getTimeLimit() * 365);
         }
-        if(prj.getTimeLimitUnit() == "M"){
+        if(prj.getTimeLimitUnit().equals("M")){
             prj.setTimeLimitDay(prj.getTimeLimit() * 30);
         }
     }
@@ -136,8 +140,8 @@ public class PrjServiceImpl implements IPrjService {
     @Override
     public void auditPrjAndPrjExt(CfsPrj prj, CfsPrjExt prjExt) {
         CfsPrj auditPrj = prjDao.get(prj.getId());
-        if(!(auditPrj.getStatus() == Byte.valueOf("1")
-                || auditPrj.getStatus() == Byte.valueOf("2"))){
+        if(!(auditPrj.getStatus().equals(CfsConstant.PRJ_STATUS_AUDIT)
+                || auditPrj.getStatus().equals(CfsConstant.PRJ_STATUS_REFUSE))){
             UcarsHelper.throwServiceException("项目已审核通过，不能再次审核");
         }
         try {
@@ -146,9 +150,11 @@ public class PrjServiceImpl implements IPrjService {
             auditPrj.setMtime(DateTimeUtil.getNowDateTime());
             auditPrj.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
             prjDao.update(auditPrj);
-            prjExt.setCtime(DateTimeUtil.getNowDateTime());
-            prjExt.setCsysid(SessionTool.getUserLogonInfo().getSysUserId());
-            prjExtDao.update(prjExt);
+            CfsPrjExt updateExt = prjExtDao.get(prj.getId());
+			BeanUtils.copyNoNullProperties(updateExt,prjExt);
+			updateExt.setCtime(DateTimeUtil.getNowDateTime());
+			updateExt.setCsysid(SessionTool.getUserLogonInfo().getSysUserId());
+            prjExtDao.update(updateExt);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
@@ -376,4 +382,20 @@ public class PrjServiceImpl implements IPrjService {
 
 	}
 
+	@Override
+	public void buildPrj(CfsPrj prj) {
+		CfsPrj updatePrj = prjDao.get(prj.getId());
+		if(!updatePrj.getStatus().equals(CfsConstant.PRJ_STATUS_INVESTING)){
+			UcarsHelper.throwServiceException("该状态不允许成立项目");
+		}
+		BigDecimal raiseAmount = updatePrj.getDemandAmount().subtract(updatePrj.getRemainingAmount());
+		if(raiseAmount.compareTo(updatePrj.getMinLoanAmount()) < 0){
+			UcarsHelper.throwServiceException("该项目实际募集金额小于项目成立金额");
+		}
+		updatePrj.setBuildTime(prj.getBuildTime());
+		updatePrj.setMtime(DateTimeUtil.getNowDateTime());
+		updatePrj.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
+		updatePrj.setStatus(CfsConstant.PRJ_STATUS_TO_LOAN);
+		prjDao.update(updatePrj);
+	}
 }

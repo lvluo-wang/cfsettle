@@ -171,9 +171,9 @@
                             <x:column title="放款次数" field="loanTimes" align="center" width="150" />
                             <x:column title="放款时间" field="loanTime" align="center" width="150"/>
                             <x:column title="放款金额" field="loanAmount" align="center" width="200" />
-                            <x:column title="已放款总额" field="loanAmount" align="center" width="200" formatter="formateIssueAmount"/>
-                            <x:column title="剩余待放款" field="loanAmount" align="center" width="200" formatter="formateRemainIssueAmount" />
-                            <x:column title="放款录入人" field="userName" align="center" width="200" />
+                            <x:column title="已放款总额" field="loanedAmount" align="center" width="200" />
+                            <x:column title="剩余待放款" field="remainingLoanedAmount" align="center" width="200" />
+                            <x:column title="放款录入人" field="sysUserName" align="center" width="200" />
                         </x:columns>
                     </x:datagrid>
                 </div>
@@ -216,7 +216,8 @@
             }
 
             function formateIssueAmount() {
-                var allLoanAmount = dataTableIssue.getAllFields("loanAmount")
+                var allLoanAmount = dataTableIssue.getAllFields("loanAmount");
+                alert(allLoanAmount);
                 var result;
                 if(allLoanAmount) {
                     var arr = [];

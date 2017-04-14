@@ -6,7 +6,7 @@
 <tiles:insertDefinition name="FUNC_TOOL_QUERY_DATA">
 	<tiles:putAttribute name="tool">
 		<x:button iconCls="icon-add" text="项目审核" click="toReview" />
-
+        <x:button iconCls="icon-view" text="项目成立" click="toBuild" />
 	</tiles:putAttribute>
 	<tiles:putAttribute name="query">
 			<form id="mainQueryForm" class="query_form">
@@ -43,6 +43,7 @@
 
 	<tiles:putAttribute name="window">
 	<!-- 弹出窗口定义开始 -->
+        <div id="project_build_win" style="width:400px;height:200px;display:none;"></div>
 
 	</tiles:putAttribute>
 	
@@ -100,6 +101,15 @@
 
 		}
 	}
+
+    function toBuild(value) {
+        if(isSingleSelected(dataTable)) {
+            var selectedId = dataTable.getSelectedField("ID");
+            var status = dataTable.getSelectedField("STATUS");
+                var url = "<s:url value='/prj/prjAudit_toBuild.jhtml'/>?id="+selectedId;
+                requestAtWindow(url,"project_build_win","成立项目");
+        }
+    }
 
 	</script>
 	</tiles:putAttribute>
