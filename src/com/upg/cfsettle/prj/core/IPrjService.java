@@ -68,5 +68,13 @@ public interface IPrjService extends IBaseService {
      * @param prj
      */
     void buildPrj(CfsPrj prj);
+    
+    /**
+     * 生成单个项目的还款计划
+     * @author renzhuolun
+     * @date 2017年4月15日 下午2:49:26
+     * @param cfsPrj
+     */
+    public void genPrjRepayPlan(CfsPrj cfsPrj);
 
     }

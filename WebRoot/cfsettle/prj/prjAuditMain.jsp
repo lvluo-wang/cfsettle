@@ -43,10 +43,8 @@
 
 	<tiles:putAttribute name="window">
 	<!-- 弹出窗口定义开始 -->
-        <div id="project_build_win" style="width:400px;height:200px;display:none;"></div>
-
+        <div id="project_build_win" style="width:400px;height:auto;display:none;"></div>
 	</tiles:putAttribute>
-	
 	<tiles:putAttribute name="end">
 	<script type="text/javascript">
 	var keys=["<%=UtilConstant.CFS_TIMELIMIT_UNIT%>","<%=UtilConstant.CFS_BANK_TYPE%>","<%=UtilConstant.CFS_REPAYMENT_TYPE%>"

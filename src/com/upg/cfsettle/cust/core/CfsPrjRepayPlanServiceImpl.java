@@ -35,7 +35,7 @@ public class CfsPrjRepayPlanServiceImpl implements ICfsPrjRepayPlanService {
 
 	@Override
 	public void updatePrjRepayPlan(CfsPrjRepayPlan plan) {
-		prjRepayPlanDao.saveOrUpdate(plan);
+		prjRepayPlanDao.update(plan);
 	}
 
 	@Override

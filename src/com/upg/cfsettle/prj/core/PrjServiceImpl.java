@@ -201,35 +201,7 @@ public class PrjServiceImpl implements IPrjService {
 	public void genRepayPlanAutoTask() {
 		List<CfsPrj> list = prjDao.findRepayPlanPrj();
 		for(final CfsPrj prj :list){
-			if(CfsConstant.PRJ_REPAY_WAY_A.equals(prj.getRepayWay())){
-				UcarsHelper.asyncExecute(new Runnable() {
-					@Override
-					public void run() {
-						genRepayWayA(prj);
-					}
-				});
-			}else if(CfsConstant.PRJ_REPAY_WAY_B.equals(prj.getRepayWay())){
-				UcarsHelper.asyncExecute(new Runnable() {
-					@Override
-					public void run() {
-						genRepayWayB(prj);
-					}
-				});
-			}else if(CfsConstant.PRJ_REPAY_WAY_C.equals(prj.getRepayWay())){
-				UcarsHelper.asyncExecute(new Runnable() {
-					@Override
-					public void run() {
-						genRepayWayC(prj);
-					}
-				});
-			}else if(CfsConstant.PRJ_REPAY_WAY_D.equals(prj.getRepayWay())){
-				UcarsHelper.asyncExecute(new Runnable() {
-					@Override
-					public void run() {
-						genRepayWayD(prj);
-					}
-				});
-			}
+			genPrjRepayPlan(prj);
 		}
 	}
 	
@@ -242,8 +214,8 @@ public class PrjServiceImpl implements IPrjService {
 	private void genRepayWayA(CfsPrj prj) {
 		List<CfsPrjOrder> orders = prjOrderService.getPrjOrdersByPrjId(prj.getId());
 		List<RepayPlanInfo> planInfos = new ArrayList<RepayPlanInfo>();
-	    planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_PERIODS, prj.getEndBidTime(),0L));
-		planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL, DateTimeUtil.addDay(prj.getEndBidTime(), prj.getTimeLimitDay()),1L));
+	    planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_PERIODS,prj.getStartBidTime(), prj.getBuildTime(),0L));
+		planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL, prj.getBuildTime(),DateTimeUtil.addDay(prj.getBuildTime(), prj.getTimeLimitDay()),1L));
 		List<CfsPrjOrderRepayPlan> orderPlans = genPrjOrderPlan(planInfos,prj,orders);
 		genPrjPlan(planInfos,orderPlans,prj);
 	}
@@ -255,20 +227,36 @@ public class PrjServiceImpl implements IPrjService {
 	 * @param prj
 	 */
 	private void genRepayWayB(CfsPrj prj) {
-		//TODO  还没有实现
-		Integer count = 0;
+		Integer countMonth = 0;
 		if(UtilConstant.TIME_LIMIT_YEAR.equals(prj.getTimeLimitUnit())){
-			count = prj.getTimeLimit()*12;
+			countMonth = prj.getTimeLimit()*12;
 		}else{
-			count = prj.getTimeLimit();
+			countMonth = prj.getTimeLimit();
 		}
 		List<CfsPrjOrder> orders = prjOrderService.getPrjOrdersByPrjId(prj.getId());
 		List<RepayPlanInfo> planInfos = new ArrayList<RepayPlanInfo>();
-		planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_PERIODS, prj.getEndBidTime(),0L));
-		if(prj.getEndBidTime().getTime()< DateTimeUtil.getMonth(new Date())){
-			
+		planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_PERIODS, prj.getStartBidTime(),prj.getBuildTime(),0L));
+		Date firstRepayDate = null;
+		if(prj.getBuildTime().getTime() < DateTimeUtil.getMixedDate(DateTimeUtil.getYear(prj.getBuildTime()), DateTimeUtil.getMonth(prj.getBuildTime()), 20).getTime()){
+			firstRepayDate = DateTimeUtil.getMixedDate(DateTimeUtil.getYear(prj.getBuildTime()), DateTimeUtil.getMonth(prj.getBuildTime()), 20);
+		}else{
+			firstRepayDate = DateTimeUtil.getMixedDate(DateTimeUtil.getYear(prj.getBuildTime()), DateTimeUtil.getMonth(prj.getBuildTime())+1, 20);
 		}
-		planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL, DateTimeUtil.addDay(prj.getEndBidTime(), prj.getTimeLimitDay()),1L));
+		Long  isFirst = 1L;//是否第一条正常还款
+		while(firstRepayDate.getTime() <=DateTimeUtil.addMonth(prj.getBuildTime(), countMonth).getTime()){
+			if(isFirst==1){
+				planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL, prj.getBuildTime(),firstRepayDate,isFirst));
+				isFirst ++;
+				continue;
+			}
+			if(DateTimeUtil.addMonth(firstRepayDate, 1).getTime() > DateTimeUtil.addMonth(prj.getBuildTime(), countMonth).getTime()){
+				planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL,firstRepayDate,DateTimeUtil.addMonth(prj.getBuildTime(), countMonth),isFirst));
+			}else{
+				planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL, firstRepayDate,DateTimeUtil.addMonth(firstRepayDate, 1),isFirst));
+			}
+			isFirst++;
+			firstRepayDate = DateTimeUtil.addMonth(firstRepayDate, 1);
+		}
 		List<CfsPrjOrderRepayPlan> orderPlans = genPrjOrderPlan(planInfos,prj,orders);
 		genPrjPlan(planInfos,orderPlans,prj);
 	}
@@ -280,11 +268,45 @@ public class PrjServiceImpl implements IPrjService {
 	 * @param prj
 	 */
 	private void genRepayWayC(CfsPrj prj) {
-		//TODO  还没有实现
 		List<CfsPrjOrder> orders = prjOrderService.getPrjOrdersByPrjId(prj.getId());
 		List<RepayPlanInfo> planInfos = new ArrayList<RepayPlanInfo>();
-		planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_PERIODS, prj.getEndBidTime(),0L));
-		planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL, DateTimeUtil.addDay(prj.getEndBidTime(), prj.getTimeLimitDay()),1L));
+		Integer countMonth = null;
+		if(UtilConstant.TIME_LIMIT_YEAR.equals(prj.getTimeLimitUnit())){
+			countMonth = prj.getTimeLimit()*12;
+		}else{
+			countMonth = prj.getTimeLimit();
+		}
+		planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_PERIODS, prj.getStartBidTime(),prj.getBuildTime(),0L));
+		Date firstRepayDate = null;
+		if(prj.getBuildTime().getTime() < DateTimeUtil.getMixedDate(DateTimeUtil.getYear(prj.getBuildTime()), 2, 20).getTime()){
+			firstRepayDate = DateTimeUtil.getMixedDate(DateTimeUtil.getYear(prj.getBuildTime()), 2, 20);
+		}else if(prj.getBuildTime().getTime() < DateTimeUtil.getMixedDate(DateTimeUtil.getYear(prj.getBuildTime()), 5, 20).getTime()){
+			firstRepayDate = DateTimeUtil.getMixedDate(DateTimeUtil.getYear(prj.getBuildTime()), 5, 20);
+		}else if(prj.getBuildTime().getTime() < DateTimeUtil.getMixedDate(DateTimeUtil.getYear(prj.getBuildTime()), 8, 20).getTime()){
+			firstRepayDate = DateTimeUtil.getMixedDate(DateTimeUtil.getYear(prj.getBuildTime()), 8, 20);
+		}else if(prj.getBuildTime().getTime() < DateTimeUtil.getMixedDate(DateTimeUtil.getYear(prj.getBuildTime()), 11, 20).getTime()){
+			firstRepayDate = DateTimeUtil.getMixedDate(DateTimeUtil.getYear(prj.getBuildTime()), 11, 20);
+		}else{
+			firstRepayDate = DateTimeUtil.getMixedDate(DateTimeUtil.getYear(prj.getBuildTime())+1, 2, 20);
+		}
+		Long  isFirst = 1L;//是否第一条正常还款
+		if(firstRepayDate.getTime() > DateTimeUtil.addMonth(prj.getBuildTime(), countMonth).getTime()){
+			planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL,prj.getBuildTime(),DateTimeUtil.addMonth(prj.getBuildTime(), countMonth),isFirst));
+		}
+		while(firstRepayDate.getTime() <=DateTimeUtil.addMonth(prj.getBuildTime(), countMonth).getTime()){
+			if(isFirst==1){
+				planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL, prj.getBuildTime(),firstRepayDate,isFirst));
+				isFirst ++;
+				continue;
+			}
+			if(DateTimeUtil.addMonth(firstRepayDate, 3).getTime() > DateTimeUtil.addMonth(prj.getBuildTime(), countMonth).getTime()){
+				planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL,firstRepayDate,DateTimeUtil.addMonth(prj.getBuildTime(), countMonth),isFirst));
+			}else{
+				planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL, firstRepayDate,DateTimeUtil.addMonth(firstRepayDate, 3),isFirst));
+			}
+			isFirst++;
+			firstRepayDate = DateTimeUtil.addMonth(firstRepayDate, 3);
+		}
 		List<CfsPrjOrderRepayPlan> orderPlans = genPrjOrderPlan(planInfos,prj,orders);
 		genPrjPlan(planInfos,orderPlans,prj);
 	}
@@ -296,11 +318,41 @@ public class PrjServiceImpl implements IPrjService {
 	 * @param prj
 	 */
 	private void genRepayWayD(CfsPrj prj) {
-		//TODO  还没有实现
 		List<CfsPrjOrder> orders = prjOrderService.getPrjOrdersByPrjId(prj.getId());
 		List<RepayPlanInfo> planInfos = new ArrayList<RepayPlanInfo>();
-		planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_PERIODS, prj.getEndBidTime(),0L));
-		planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL, DateTimeUtil.addDay(prj.getEndBidTime(), prj.getTimeLimitDay()),1L));
+		Integer countMonth = null;
+		if(UtilConstant.TIME_LIMIT_YEAR.equals(prj.getTimeLimitUnit())){
+			countMonth = prj.getTimeLimit()*12;
+		}else{
+			countMonth = prj.getTimeLimit();
+		}
+		planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_PERIODS, prj.getStartBidTime(),prj.getBuildTime(),0L));
+		Date firstRepayDate = null;
+		if(prj.getBuildTime().getTime() < DateTimeUtil.getMixedDate(DateTimeUtil.getYear(prj.getBuildTime()), 5, 20).getTime()){
+			firstRepayDate = DateTimeUtil.getMixedDate(DateTimeUtil.getYear(prj.getBuildTime()), 5, 20);
+		}else if(prj.getBuildTime().getTime() < DateTimeUtil.getMixedDate(DateTimeUtil.getYear(prj.getBuildTime()), 11, 20).getTime()){
+			firstRepayDate = DateTimeUtil.getMixedDate(DateTimeUtil.getYear(prj.getBuildTime()), 11, 20);
+		}else{
+			firstRepayDate = DateTimeUtil.getMixedDate(DateTimeUtil.getYear(prj.getBuildTime())+1, 5, 20);
+		}
+		Long  isFirst = 1L;//是否第一条正常还款
+		if(firstRepayDate.getTime() > DateTimeUtil.addMonth(prj.getBuildTime(), countMonth).getTime()){
+			planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL,prj.getBuildTime(),DateTimeUtil.addMonth(prj.getBuildTime(), countMonth),isFirst));
+		}
+		while(firstRepayDate.getTime() <=DateTimeUtil.addMonth(prj.getBuildTime(), countMonth).getTime()){
+			if(isFirst==1){
+				planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL, prj.getBuildTime(),firstRepayDate,isFirst));
+				isFirst ++;
+				continue;
+			}
+			if(DateTimeUtil.addMonth(firstRepayDate, 6).getTime() > DateTimeUtil.addMonth(prj.getBuildTime(), countMonth).getTime()){
+				planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL,firstRepayDate,DateTimeUtil.addMonth(prj.getBuildTime(), countMonth),isFirst));
+			}else{
+				planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL, firstRepayDate,DateTimeUtil.addMonth(firstRepayDate, 6),isFirst));
+			}
+			isFirst++;
+			firstRepayDate = DateTimeUtil.addMonth(firstRepayDate, 6);
+		}
 		List<CfsPrjOrderRepayPlan> orderPlans = genPrjOrderPlan(planInfos,prj,orders);
 		genPrjPlan(planInfos,orderPlans,prj);
 	}
@@ -315,18 +367,25 @@ public class PrjServiceImpl implements IPrjService {
 	 */
 	private List<CfsPrjOrderRepayPlan> genPrjOrderPlan(List<RepayPlanInfo> planInfos,CfsPrj prj, List<CfsPrjOrder> orders) {
 		List<CfsPrjOrderRepayPlan> plans = new ArrayList<CfsPrjOrderRepayPlan>();
+		int countPeriod = 0;
 		for(RepayPlanInfo info :planInfos){
+			countPeriod++;
 			for(CfsPrjOrder order :orders){
 				BigDecimal yield = new BigDecimal(0);
 				CfsPrjOrderRepayPlan orderPlan = new CfsPrjOrderRepayPlan();
 				if(UtilConstant.PTYPE_PERIODS.equals(info.getPtype())){
-					orderPlan.setCountDay(Long.valueOf(DateTimeUtil.getDaysBetween(order.getInvestTime(), info.getRepayDate())));
-					yield = CfsUtils.calcSumRealAmount(order.getMoney(), new BigDecimal(DateTimeUtil.getDaysBetween(order.getInvestTime(), info.getRepayDate())), prj.getPeriodRate());
+					orderPlan.setCountDay(Long.valueOf(DateTimeUtil.getDaysBetween(DateTimeUtil.getSpecifiedDayAfter(order.getInvestTime()), info.getRepayDate())));
+					yield = CfsUtils.calcSumRealAmount(order.getMoney(), new BigDecimal(DateTimeUtil.getDaysBetween(DateTimeUtil.getSpecifiedDayAfter(order.getInvestTime()), info.getRepayDate())), prj.getPeriodRate());
 					orderPlan.setPrincipal(new BigDecimal(0));
 				}else{
-					yield = CfsUtils.calcSumRealAmount(order.getMoney(), new BigDecimal(prj.getTimeLimitDay()), prj.getYearRate());
-					orderPlan.setRepayDate(DateTimeUtil.addDay(prj.getEndBidTime(),prj.getTimeLimitDay()));
-					orderPlan.setPrincipal(order.getMoney());
+					orderPlan.setCountDay(Long.valueOf(DateTimeUtil.getDaysBetween(info.getLastRepayDate(),info.getRepayDate())));
+					yield = CfsUtils.calcSumRealAmount(order.getMoney(), new BigDecimal(DateTimeUtil.getDaysBetween(info.getLastRepayDate(),info.getRepayDate())), prj.getYearRate());
+					orderPlan.setRepayDate(DateTimeUtil.addDay(prj.getBuildTime(),prj.getTimeLimitDay()));
+					if(countPeriod ==planInfos.size() ){
+						orderPlan.setPrincipal(order.getMoney());
+					}else{
+						orderPlan.setPrincipal(new BigDecimal(0));
+					}
 				}
 				orderPlan.setRepayDate(info.getRepayDate());
 				orderPlan.setPtype(info.getPtype());
@@ -352,13 +411,18 @@ public class PrjServiceImpl implements IPrjService {
 				DateTimeUtil.getNowDateTime(),DateTimeUtil.getNowDateTime());
 			prjRepayPlan.addPrjRepayPlan(plan);
 			for(CfsPrjOrderRepayPlan orderPlan:orderPlans){
-				plan.setPriInterest(plan.getPriInterest().add(orderPlan.getPriInterest()));
-				plan.setPrincipal(plan.getPrincipal().add(orderPlan.getPrincipal()));
-				plan.setYield(plan.getYield().add(orderPlan.getYield()));
-				plan.setRestPrincipal(plan.getRestPrincipal().add(orderPlan.getRestPrincipal()));
-				orderPlan.setPrjRepayPlanId(plan.getId());
-				prjOrderRepayPlan.addPrjOrderRepayPlan(orderPlan);
+				if(info.getRepayDate().equals(orderPlan.getRepayDate())){
+					plan.setPriInterest(plan.getPriInterest().add(orderPlan.getPriInterest()));
+					plan.setPrincipal(plan.getPrincipal().add(orderPlan.getPrincipal()));
+					plan.setYield(plan.getYield().add(orderPlan.getYield()));
+					plan.setRestPrincipal(plan.getRestPrincipal().add(orderPlan.getRestPrincipal()));
+					orderPlan.setPrjRepayPlanId(plan.getId());
+//					plan.setCsysid(SessionTool.getUserLogonInfo().getSysUserId());
+					prjOrderRepayPlan.addPrjOrderRepayPlan(orderPlan);
+				}
 			}
+//			plan.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
+			plan.setMtime(DateTimeUtil.getNowDateTime());
 			prjRepayPlan.updatePrjRepayPlan(plan);
 		}
 	}
@@ -383,5 +447,39 @@ public class PrjServiceImpl implements IPrjService {
 		updatePrj.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
 		updatePrj.setStatus(CfsConstant.PRJ_STATUS_TO_LOAN);
 		prjDao.update(updatePrj);
+		genPrjRepayPlan(updatePrj);
+	}
+
+	@Override
+	public void genPrjRepayPlan(final CfsPrj prj) {
+		if(CfsConstant.PRJ_REPAY_WAY_A.equals(prj.getRepayWay())){
+			UcarsHelper.asyncExecute(new Runnable() {
+				@Override
+				public void run() {
+					genRepayWayA(prj);
+				}
+			});
+		}else if(CfsConstant.PRJ_REPAY_WAY_B.equals(prj.getRepayWay())){
+			UcarsHelper.asyncExecute(new Runnable() {
+				@Override
+				public void run() {
+					genRepayWayB(prj);
+				}
+			});
+		}else if(CfsConstant.PRJ_REPAY_WAY_C.equals(prj.getRepayWay())){
+			UcarsHelper.asyncExecute(new Runnable() {
+				@Override
+				public void run() {
+					genRepayWayC(prj);
+				}
+			});
+		}else if(CfsConstant.PRJ_REPAY_WAY_D.equals(prj.getRepayWay())){
+			UcarsHelper.asyncExecute(new Runnable() {
+				@Override
+				public void run() {
+					genRepayWayD(prj);
+				}
+			});
+		}
 	}
 }

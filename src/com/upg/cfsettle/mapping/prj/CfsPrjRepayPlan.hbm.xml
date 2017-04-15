@@ -25,22 +25,22 @@
                 <comment>还款日期</comment>
             </column>
         </property>
-        <property name="priInterest" type="java.math.BigDecimal">
+        <property name="priInterest" type="cent">
             <column name="pri_interest" precision="20" scale="0">
                 <comment>应收本息</comment>
             </column>
         </property>
-        <property name="principal" type="java.math.BigDecimal">
+        <property name="principal" type="cent">
             <column name="principal" precision="20" scale="0">
                 <comment>应收本金</comment>
             </column>
         </property>
-        <property name="yield" type="java.math.BigDecimal">
+        <property name="yield" type="cent">
             <column name="yield" precision="20" scale="0">
                 <comment>应收利息</comment>
             </column>
         </property>
-        <property name="restPrincipal" type="java.math.BigDecimal">
+        <property name="restPrincipal" type="cent">
             <column name="rest_principal" precision="20" scale="0">
                 <comment>剩余本金</comment>
             </column>

@@ -70,8 +70,8 @@ public class CfsUtils {
 	
 	public static BigDecimal calcSumRealAmount(BigDecimal actualAmount,BigDecimal timeLimitDay,BigDecimal rate){
 		BigDecimal fee = BigDecimal.ZERO;
-		fee=actualAmount.subtract(actualAmount.multiply(rate.divide(new BigDecimal("100"),4,BigDecimal.ROUND_FLOOR)).
-                multiply(timeLimitDay).divide(BigDecimal.valueOf(365), 2, BigDecimal.ROUND_FLOOR));
+		fee=actualAmount.multiply(rate.divide(new BigDecimal("100"),4,BigDecimal.ROUND_FLOOR)).
+                multiply(timeLimitDay).divide(BigDecimal.valueOf(365), 2, BigDecimal.ROUND_FLOOR);
 		return fee;
 	}
 

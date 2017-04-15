@@ -846,6 +846,15 @@ public class DateTimeUtil {
   
         return c.getTime();  
     }
-
+    
+    //获取组合日期
+    public static Date getMixedDate(Integer year,Integer month,Integer day){
+		Calendar cal = Calendar.getInstance();
+		// 不加下面2行，就是取当前时间前一个月的第一天及最后一天
+		cal.set(Calendar.YEAR,year);
+		cal.set(Calendar.MONTH, month);
+		cal.set(Calendar.DAY_OF_MONTH, day);
+		return  cal.getTime();//当前月第一天
+	}
 }
 
