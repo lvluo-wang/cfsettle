@@ -25,7 +25,7 @@
 						<tr>
 							<td class="title">手机号码:</td>
 							<!-- validType="serialNumbertextLength[3,18]" invalidMessage="请输入3至18位字符" -->
-							<td><input name="user.userNo" value="${user.userNo}" class="easyui-validatebox" required="true" maxlength="20"/><font color="red">*</font></td>
+							<td><input name="user.userNo" value="${user.userNo}" class="easyui-validatebox" required="true" maxlength="20" validType="mobile"/><font color="red">*</font></td>
 						</tr>
 						
 						<tr>

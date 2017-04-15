@@ -22,7 +22,7 @@
 				</tr>
 				<tr>
 					<td class="title">手机号码:</td>
-					<td><input name="user.userNo" value="${user.userNo}" class="easyui-validatebox" maxlength="30" required="true" /><font color="red">*</font></td>
+					<td><input name="user.userNo" value="${user.userNo}" class="easyui-validatebox" maxlength="30" required="true" validType="mobile" /><font color="red">*</font></td>
 				</tr>
 				<tr>
 					<td class="title"><s:text name="user" /><s:text name="name" />:</td>
