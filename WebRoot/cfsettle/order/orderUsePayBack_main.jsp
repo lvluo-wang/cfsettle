@@ -46,11 +46,15 @@
 				<x:column title="客户名" field="REAL_NAME" align="center" width="90"/>
 				<x:column title="购买项目" field="PRJ_NAME" align="center" width="120"/>
 				<x:column title="投资时间" field="INVEST_TIME" align="center" width="140" formatter="format2Time"/>
-				<x:column title="项目启动时间" field="END_BID_TIME" align="center" width="140" formatter="format2Time"/>
-				<x:column title="计息天数" field="COUNT_DAY" align="center" width="70"/>
-				<x:column title="募集期利率" field="PERIOD_RATE" align="center" width="70" formatter="formateRate"/>
-				<x:column title="代付利息" field="PRI_INTEREST" align="center" width="100"/>
-				<x:column title="购买金额" field="MONEY" align="center" width="90"/>
+				<x:column title="项目启动时间" field="BUILD_TIME" align="center" width="90" formatter="format2Date"/>
+				<x:column title="还款时间" field="REPAY_DATE" align="center" width="90" formatter="format2Date"/>
+				<x:column title="计息天数" field="COUNT_DAY" align="center" width="60"/>
+				<x:column title="用款期利率" field="YEAR_RATE" align="center" width="70" formatter="formateRate"/>
+				<x:column title="待付本息(元)" field="PRI_INTEREST" align="center" width="80"/>
+				<x:column title="待付本金(元)" field="PRINCIPAL" align="center" width="80"/>
+				<x:column title="待付利息(元)" field="YIELD" align="center" width="80"/>
+				<x:column title="剩余本金(元)" field="REST_PRINCIPAL" align="center" width="80"/>
+				<x:column title="购买金额(元)" field="MONEY" align="center" width="80"/>
 				<x:column title="项目状态" field="PRJSTATUS" align="center" width="140" formatter="formatPrjStatus"/>
 				<x:column title="状态" field="PLANSTATUS" align="center" width="80" formatter="formatPlanStatus"/>
 			</x:columns>
