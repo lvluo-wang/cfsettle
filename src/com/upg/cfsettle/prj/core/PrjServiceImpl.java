@@ -425,6 +425,8 @@ public class PrjServiceImpl implements IPrjService {
 			plan.setMtime(DateTimeUtil.getNowDateTime());
 			prjRepayPlan.updatePrjRepayPlan(plan);
 		}
+		prj.setLastRepayTime(planInfos.get(0).getRepayDate());
+		this.updateCfsPrj(prj);
 	}
 
 	@Override

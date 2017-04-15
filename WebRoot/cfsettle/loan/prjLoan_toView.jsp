@@ -90,7 +90,7 @@
 					<x:column title="放款次数" field="loanTimes" align="center" width="140" formatter="formatTimes"/>
 					<x:column title="项目名" field="prjName" align="center" width="140"/>
 					<x:column title="放款时间" field="loanTime" align="center" width="120" formatter="format2Time"/>
-					<x:column title="放款金额(万)" field="loanAmount" align="left" width="80"/>
+					<x:column title="放款金额(元)" field="loanAmount" align="left" width="80"/>
 					<x:column title="放款银行" field="loanBankName" align="left" width="80" formatter="formateBank"/>
 					<x:column title="放款卡号" field="loanAccountNo" align="left" width="180"/>
 					<x:column title="资金流水" field="loanSerialNum" align="left" width="240"/>

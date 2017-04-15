@@ -1,18 +1,19 @@
 package com.upg.cfsettle.cust.core;
 
-import com.upg.cfsettle.mapping.prj.CfsPrjRepayPlan;
-import com.upg.ucars.framework.annotation.Dao;
-import com.upg.ucars.framework.base.Page;
-import com.upg.ucars.framework.base.SysBaseDao;
-import com.upg.ucars.util.SQLCreater;
-import com.upg.ucars.util.StringUtil;
-
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.time.DateUtils;
+import org.springframework.util.CollectionUtils;
+
+import com.upg.cfsettle.mapping.prj.CfsPrjRepayPlan;
+import com.upg.ucars.framework.annotation.Dao;
+import com.upg.ucars.framework.base.Page;
+import com.upg.ucars.framework.base.SysBaseDao;
+import com.upg.ucars.util.SQLCreater;
+import com.upg.ucars.util.StringUtil;
 
 /**
  * Created by zuobaoshi on 2017/4/2.
@@ -72,5 +73,17 @@ public class CfsPrjRepayPlanDaoImpl extends SysBaseDao<CfsPrjRepayPlan,Long> imp
         sqlCreater.orderBy("plan.repay_date",true);
         List<Map<String, Object>> result = getMapListByStanderdSQL(sqlCreater.getSql(),sqlCreater.getParameterMap(),page);
         return result;
+	}
+
+	@Override
+	public CfsPrjRepayPlan getPrjPlanByPrjIdAndPeriod(Long prjId, Long repayPeriod) {
+		String hql = "from CfsPrjRepayPlan plan where " +
+                "plan.prjId =? and plan.repayPeriods= ?";
+        List<CfsPrjRepayPlan> prjRepayPlanList = this.find(hql,new Object[]{prjId,repayPeriod});
+        if(CollectionUtils.isEmpty(prjRepayPlanList)){
+        	return null;
+        }else{
+        	return prjRepayPlanList.get(0);
+        }
 	}
 }

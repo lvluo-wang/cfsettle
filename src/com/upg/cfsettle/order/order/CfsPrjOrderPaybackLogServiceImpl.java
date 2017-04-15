@@ -6,8 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.upg.cfsettle.cust.core.ICfsPrjOrderRepayPlanService;
+import com.upg.cfsettle.cust.core.ICfsPrjRepayPlanService;
+import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.mapping.prj.CfsPrjOrderPaybackLog;
 import com.upg.cfsettle.mapping.prj.CfsPrjOrderRepayPlan;
+import com.upg.cfsettle.mapping.prj.CfsPrjRepayPlan;
+import com.upg.cfsettle.prj.core.IPrjService;
 import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.Page;
@@ -26,7 +30,10 @@ public class CfsPrjOrderPaybackLogServiceImpl implements ICfsPrjOrderPaybackLogS
 	
 	@Autowired
 	private ICfsPrjOrderRepayPlanService orderPlanService;
-
+	@Autowired
+	private ICfsPrjRepayPlanService prjPlanService;
+	@Autowired
+	private IPrjService prjService;
 	@Override
 	public List<CfsPrjOrderPaybackLog> findByOrderRepayPlanId(CfsPrjOrderPaybackLog searchBean, Page page) {
 		return this.findByCondition(searchBean, page);
@@ -70,7 +77,10 @@ public class CfsPrjOrderPaybackLogServiceImpl implements ICfsPrjOrderPaybackLogS
 		orderPayLog.setPaybackTimes(plan.getRepayPeriods());
 		orderPaybackLogDao.save(orderPayLog);
 		plan.setStatus(UtilConstant.REPAY_STATUS_2);
+		CfsPrjRepayPlan nextPrjPlan =  prjPlanService.getPrjPlanByPrjIdAndPeriod(plan.getPrjId(),plan.getRepayPeriods()+1);
+		CfsPrj prj = prjService.getPrjById(nextPrjPlan.getPrjId());
+		prj.setLastRepayTime(nextPrjPlan.getRepayDate());
+		prjService.updateCfsPrj(prj);
 		orderPlanService.updatePrjOrderRepayPlan(plan);
-		
 	}
 }

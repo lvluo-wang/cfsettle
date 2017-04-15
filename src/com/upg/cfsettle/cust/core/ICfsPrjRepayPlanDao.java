@@ -1,5 +1,6 @@
 package com.upg.cfsettle.cust.core;
 
+import com.upg.cfsettle.mapping.prj.CfsPrjOrderRepayPlan;
 import com.upg.cfsettle.mapping.prj.CfsPrjRepayPlan;
 import com.upg.ucars.framework.base.IBaseDAO;
 import com.upg.ucars.framework.base.Page;
@@ -35,4 +36,14 @@ public interface ICfsPrjRepayPlanDao extends IBaseDAO<CfsPrjRepayPlan,Long> {
      * @return
      */
 	List<Map<String, Object>> findByCondition(CfsPrjRepayPlan searchBean,Page page);
+	
+	/**
+	 * 查询某一期的项目还款计划
+	 * @author renzhuolun
+	 * @date 2017年4月15日 下午7:24:03
+	 * @param prjId
+	 * @param repayPeriod
+	 * @return
+	 */
+	CfsPrjRepayPlan getPrjPlanByPrjIdAndPeriod(Long prjId, Long repayPeriod);
 }

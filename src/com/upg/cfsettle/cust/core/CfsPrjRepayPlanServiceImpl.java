@@ -1,17 +1,17 @@
 package com.upg.cfsettle.cust.core;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.upg.cfsettle.mapping.prj.CfsPrjRepayPlan;
 import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.util.DateTimeUtil;
 import com.upg.ucars.util.StringUtil;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by zuobaoshi on 2017/4/4.
@@ -54,5 +54,10 @@ public class CfsPrjRepayPlanServiceImpl implements ICfsPrjRepayPlanService {
 	@Override
 	public CfsPrjRepayPlan getPrjRepayPlanById(Long id) {
 		return prjRepayPlanDao.get(id);
+	}
+
+	@Override
+	public CfsPrjRepayPlan getPrjPlanByPrjIdAndPeriod(Long prjId, Long repayPeriod) {
+        return prjRepayPlanDao.getPrjPlanByPrjIdAndPeriod(prjId,repayPeriod);
 	}
 }
