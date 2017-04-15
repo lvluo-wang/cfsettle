@@ -1,15 +1,19 @@
 package com.upg.cfsettle.prj.core;
 
+import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.upg.cfsettle.common.CodeItemUtil;
 import com.upg.cfsettle.cust.core.ICfsPrjOrderRepayPlanService;
 import com.upg.cfsettle.cust.core.ICfsPrjOrderService;
 import com.upg.cfsettle.cust.core.ICfsPrjRepayPlanService;
@@ -28,6 +32,7 @@ import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.QueryCondition;
 import com.upg.ucars.framework.base.SessionTool;
 import com.upg.ucars.model.ConditionBean;
+import com.upg.ucars.tools.imp.excel.ExcelUtil;
 import com.upg.ucars.util.BeanUtils;
 import com.upg.ucars.util.DateTimeUtil;
 import com.upg.ucars.util.StringUtil;
@@ -483,5 +488,30 @@ public class PrjServiceImpl implements IPrjService {
 				}
 			});
 		}
+	}
+
+	@Override
+	public HSSFWorkbook generatLoanData(OutputStream os, CfsPrj searchBean, String[] headers, String title, Page page) {
+		List<List<Object>> dataRows = new ArrayList<List<Object>>();
+		List<Map<String, Object>> dataList = this.findLoanPrjByCondition(searchBean, null);
+		Iterator<Map<String, Object>> it = dataList.iterator();
+		while(it.hasNext()){
+			List<Object> row = new ArrayList<Object>();
+			Map<String, Object> exportData = it.next();
+			row.add(exportData.get("PRJ_NAME"));
+			row.add(exportData.get("DEMAND_AMOUNT"));
+			row.add(new BigDecimal(exportData.get("DEMAND_AMOUNT").toString()).subtract(new BigDecimal(exportData.get("REMAINING_AMOUNT").toString())));
+			row.add(exportData.get("TIME_LIMIT")+CodeItemUtil.getCodeNameByKey(UtilConstant.CFS_TIMELIMIT_UNIT,exportData.get("TIME_LIMIT_UNIT").toString()));
+			row.add(exportData.get("YEAR_RATE")+"%");
+			row.add(exportData.get("LAST_REPAY_TIME")==null?"":DateTimeUtil.getFormatDate(DateTimeUtil.getSecondToDate(Integer.valueOf(exportData.get("LAST_REPAY_TIME").toString())), "yyyy-MM-dd"));
+			row.add(CodeItemUtil.getCodeNameByKey(UtilConstant.CFS_BANK_TYPE,exportData.get("TENANT_BANK").toString()));
+			row.add(exportData.get("SUB_BANK"));
+			row.add(exportData.get("ACCOUNT_NO"));
+			row.add(exportData.get("LOANED_AMOUNT"));
+			row.add(exportData.get("LOANING_AMOUNT"));
+			row.add(CodeItemUtil.getCodeNameByKey(UtilConstant.CFS_PRJ_STATUS,exportData.get("STATUS").toString()));
+			dataRows.add(row);
+		}
+ 		return ExcelUtil.createHSSFWorkbook(title, headers, dataRows);
 	}
 }

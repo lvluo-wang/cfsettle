@@ -37,7 +37,7 @@
 				<x:column title="实际募集金额(元)" field="REMAINING_AMOUNT" align="left" width="140" formatter="formateRaiseAmount" />
 				<x:column title="项目期限" field="TIME_LIMIT" align="left" width="80" formatter="formateTimelimit"/>
 				<x:column title="年利率" field="YEAR_RATE" align="left" width="80" formatter="formateRate"/>
-				<x:column title="还款时间" field="LAST_REPAY_TIME" align="left" width="140" formatter="formatTime"/>
+				<x:column title="下期还款时间" field="LAST_REPAY_TIME" align="left" width="140" formatter="formatTime"/>
 				<x:column title="项目收款银行" field="TENANT_BANK" align="left" width="140" formatter="formateBank"/>
 				<x:column title="项目收款支行" field="SUB_BANK" align="left" width="140" />
 				<x:column title="项目收款账号" field="ACCOUNT_NO" align="left" width="140" />
@@ -113,6 +113,16 @@
             var url = "<s:url value='/prj/prjLoan_toView.jhtml'/>?id="+selectedId;
             redirectUrl(url);
 		}
+	}
+	
+	function doExport(){
+		$.messager.confirm(global.alert,"确认要导出记录么?", function(r){
+			if(r){
+				var param = formToObject("mainQueryForm");
+				var url = '<s:url value="/prj/prjLoan_doExport.jhtml"/>';
+				redirectUrl(url,param);
+			}
+		});
 	}
 
 	</script>

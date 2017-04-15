@@ -44,7 +44,6 @@ public class CfsPrjOrder implements Serializable {
 	private String ownedDeptName;
 	private Long ownedArea;
 	private String ownedAreaName;
-	private Long commId;
 	private Long csysid;
 	private Date ctime;
 	private Long msysid;
@@ -357,13 +356,5 @@ public class CfsPrjOrder implements Serializable {
 
 	public void setPaySubBank(String paySubBank) {
 		this.paySubBank = paySubBank;
-	}
-
-	public Long getCommId() {
-		return commId;
-	}
-
-	public void setCommId(Long commId) {
-		this.commId = commId;
 	}
 }

@@ -1,8 +1,13 @@
 package com.upg.cfsettle.prj.action;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.upg.cfsettle.common.CodeItemUtil;
@@ -17,6 +22,7 @@ import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.factory.DynamicPropertyTransfer;
 import com.upg.ucars.framework.base.BaseAction;
 import com.upg.ucars.mapping.basesystem.security.Buser;
+import com.upg.ucars.util.DateTimeUtil;
 import com.upg.ucars.util.PropertyTransVo;
 
 @SuppressWarnings("serial")
@@ -78,7 +84,29 @@ public class PrjLoanAction extends BaseAction {
     	list = DynamicPropertyTransfer.transform(list, trans);
         return setDatagridInputStreamData(list,getPg());
     }
-
+    
+    
+    public void doExport() throws Exception{
+    	HttpServletResponse response = getHttpResponse();
+		HSSFWorkbook workbook = null;
+		OutputStream os = null;
+		/*searchBean.setStatus(LcsConstant.FUND_ORDER_BOOK_AUDIT);*/
+		try {
+			os = response.getOutputStream(); // 取得输出流
+			response.reset();// 清空输出流
+			String fileName = "放款录入" + DateTimeUtil.getCurDate() + ".xls";
+			response.setHeader("Content-disposition","attachment; filename=" + java.net.URLEncoder.encode(fileName, "UTF-8"));// 设定输出文件头
+			response.setContentType("application/msexcel");// 定义输出类型
+			String title = "放款录入";
+			String[] headers = new String[] {"项目名称", "计划募集金额(元)", "实际募集金额(元)","项目期限","年利率","下期还款时间", "项目收款银行","项目收款支行","项目收款账号","已放款金额(元)","待放款金额(元)", "状态"};
+			workbook = prjService.generatLoanData(os, searchBean,headers,title,getPg());
+			workbook.write(os);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			os.flush();
+		}
+    }
     public List<FiCodeItem> getPrjStatusList() {
         return prjStatusList;
     }

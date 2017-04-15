@@ -114,7 +114,13 @@
 	}
 	
 	function doExport(){
-		
+		$.messager.confirm(global.alert,"确认要导出记录么?", function(r){
+			if(r){
+				var param = formToObject("mainQueryForm");
+				var url = '<s:url value="/comm/commSettle_doExport.jhtml"/>';
+				redirectUrl(url,param);
+			}
+		});
 	}
 	</script>
 	</tiles:putAttribute>

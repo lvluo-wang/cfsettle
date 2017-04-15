@@ -1,5 +1,6 @@
 package com.upg.cfsettle.comm.core;
 
+import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -7,9 +8,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
+import com.upg.cfsettle.common.CodeItemUtil;
 import com.upg.cfsettle.cust.core.ICfsPrjOrderService;
 import com.upg.cfsettle.mapping.prj.CfsCommDetail;
 import com.upg.cfsettle.mapping.prj.CfsCommOrderRelate;
@@ -27,6 +30,7 @@ import com.upg.ucars.framework.base.SessionTool;
 import com.upg.ucars.mapping.basesystem.security.Buser;
 import com.upg.ucars.model.ConditionBean;
 import com.upg.ucars.model.security.UserLogonInfo;
+import com.upg.ucars.tools.imp.excel.ExcelUtil;
 import com.upg.ucars.util.BeanUtils;
 import com.upg.ucars.util.DateTimeUtil;
 import com.upg.ucars.util.StringUtil;
@@ -262,5 +266,23 @@ public class CfsMyCommInfoServiceImpl implements ICfsMyCommInfoService{
 		info.setPaySysid(SessionTool.getUserLogonInfo().getSysUserId());
 		info.setPayStatus(UtilConstant.COMM_STATUS_2);
 		cfsMyCommInfoDao.update(info);
+	}
+
+	@Override
+	public HSSFWorkbook generatSettleData(OutputStream os, CfsMyCommInfo searchBean, String[] headers, String title, Page pg) {
+		List<List<Object>> dataRows = new ArrayList<List<Object>>();
+		List<CfsMyCommInfo> dataList = this.findByCondition(searchBean, null);
+		for(CfsMyCommInfo commInfo :dataList){
+			List<Object> row = new ArrayList<Object>();
+			row.add(CodeItemUtil.getCodeNameByKey(UtilConstant.CFS_BUSER_POS_CODE,commInfo.getPosCode()));
+			row.add(commInfo.getSysUserName());
+			row.add(commInfo.getMobile());
+			row.add(DateTimeUtil.getFormatDate(commInfo.getCommSettleDate(), "yyyy-MM"));
+			row.add(commInfo.getCommMoney());
+			row.add(commInfo.getPayTime() ==null? "":DateTimeUtil.toDateTimeString(commInfo.getPayTime()));
+			row.add(CodeItemUtil.getCodeNameByKey(UtilConstant.CFS_COMM_PAY_STATUS,commInfo.getPayStatus().toString()));
+			dataRows.add(row);
+		}
+ 		return ExcelUtil.createHSSFWorkbook(title, headers, dataRows);
 	}
 }

@@ -3,30 +3,29 @@ package com.upg.cfsettle.cust.action;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.upg.cfsettle.common.CodeItemUtil;
 import com.upg.cfsettle.cust.core.CfsCustInfo;
 import com.upg.cfsettle.cust.core.CustSearchBean;
+import com.upg.cfsettle.cust.core.ICfsCustService;
+import com.upg.cfsettle.mapping.ficode.FiCodeItem;
 import com.upg.cfsettle.mapping.organization.CfsOrgArea;
 import com.upg.cfsettle.mapping.organization.CfsOrgDept;
 import com.upg.cfsettle.mapping.organization.CfsOrgTeam;
+import com.upg.cfsettle.mapping.prj.CfsCust;
 import com.upg.cfsettle.organization.core.IOrgAreaService;
 import com.upg.cfsettle.organization.core.IOrgDeptService;
 import com.upg.cfsettle.organization.core.IOrgTeamService;
 import com.upg.cfsettle.organization.core.OrgTeamBean;
+import com.upg.cfsettle.util.CfsConstant;
 import com.upg.cfsettle.util.UtilConstant;
-import com.upg.demo.template.obj.CustInfo;
 import com.upg.ucars.factory.DynamicPropertyTransfer;
+import com.upg.ucars.framework.base.BaseAction;
 import com.upg.ucars.framework.base.SessionTool;
 import com.upg.ucars.mapping.basesystem.security.Buser;
 import com.upg.ucars.model.security.UserLogonInfo;
 import com.upg.ucars.util.PropertyTransVo;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.upg.cfsettle.common.CodeItemUtil;
-import com.upg.cfsettle.cust.core.ICfsCustService;
-import com.upg.cfsettle.mapping.ficode.FiCodeItem;
-import com.upg.cfsettle.mapping.prj.CfsCust;
-import com.upg.cfsettle.util.CfsConstant;
-import com.upg.ucars.framework.base.BaseAction;
 
 @SuppressWarnings("serial")
 public class CfsCustAction extends BaseAction {

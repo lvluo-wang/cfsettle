@@ -1,8 +1,11 @@
 package com.upg.cfsettle.prj.core;
 
+import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.mapping.prj.CfsPrjExt;
@@ -76,5 +79,18 @@ public interface IPrjService extends IBaseService {
      * @param cfsPrj
      */
     public void genPrjRepayPlan(CfsPrj cfsPrj);
+    
+    /**
+     * 导出放款信息
+     * @author renzhuolun
+     * @date 2017年4月15日 下午8:16:31
+     * @param os
+     * @param searchBean
+     * @param headers
+     * @param title
+     * @param page
+     * @return
+     */
+	HSSFWorkbook generatLoanData(OutputStream os, CfsPrj searchBean, String[] headers, String title, Page page);
 
-    }
+}

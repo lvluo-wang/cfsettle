@@ -146,11 +146,6 @@
                 <comment>归属区域name</comment>
             </column>
         </property>
-        <property name="commId" type="java.lang.Long">
-            <column name="comm_id">
-            	<comment>财务结算id</comment>
-            </column>
-        </property>
         <property name="csysid" type="java.lang.Long" update="false">
             <column name="csysid" />
         </property>

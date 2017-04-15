@@ -1,6 +1,9 @@
 package com.upg.cfsettle.comm.core;
 
+import java.io.OutputStream;
 import java.util.List;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.upg.cfsettle.mapping.prj.CfsCommDetail;
 import com.upg.cfsettle.mapping.prj.CfsMyCommInfo;
@@ -74,5 +77,18 @@ public interface ICfsMyCommInfoService extends IBaseService {
 	 * @param commInfo
 	 */
 	void doPayCfsMyCommInfo(CfsMyCommInfo commInfo);
+	
+	/**
+	 * 导出佣金信息
+	 * @author renzhuolun
+	 * @date 2017年4月15日 下午8:46:27
+	 * @param os
+	 * @param searchBean
+	 * @param headers
+	 * @param title
+	 * @param pg
+	 * @return
+	 */
+	HSSFWorkbook generatSettleData(OutputStream os, CfsMyCommInfo searchBean, String[] headers, String title, Page pg);
 
 }

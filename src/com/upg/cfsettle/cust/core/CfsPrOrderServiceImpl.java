@@ -4,9 +4,6 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
-import com.upg.cfsettle.common.CodeItemUtil;
-import com.upg.cfsettle.util.UtilConstant;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.upg.cfsettle.mapping.organization.CfsOrgArea;
@@ -174,9 +171,9 @@ public class CfsPrOrderServiceImpl implements ICfsPrjOrderService {
 		String hql = "from CfsPrjOrder cfsPrjOrder";
 		QueryCondition condition = new QueryCondition(hql);
 		if (prjOrder != null) {
-			Long commId = prjOrder.getCommId();
-			if (commId == null) {
-				condition.addCondition(new ConditionBean("cfsPrjOrder.commId", ConditionBean.EQUAL, commId));
+			Long prjId = prjOrder.getPrjId();
+			if (prjId == null) {
+				condition.addCondition(new ConditionBean("cfsPrjOrder.prjId", ConditionBean.EQUAL, prjId));
 			}
 		}
 		return prjOrderDao.queryEntity( condition.getConditionList(), page);
