@@ -1,30 +1,35 @@
 package com.upg.cfsettle.comm.core;
 
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 
 import com.upg.cfsettle.cust.core.ICfsPrjOrderService;
+import com.upg.cfsettle.mapping.prj.CfsCommDetail;
 import com.upg.cfsettle.mapping.prj.CfsCommOrderRelate;
+import com.upg.cfsettle.mapping.prj.CfsMyCommInfo;
 import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.mapping.prj.CfsPrjOrder;
 import com.upg.cfsettle.prj.core.IPrjExtService;
 import com.upg.cfsettle.prj.core.IPrjService;
 import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.basesystem.security.core.user.IUserDAO;
-import com.upg.ucars.framework.base.SessionTool;
-import com.upg.ucars.mapping.basesystem.security.Buser;
-import com.upg.ucars.model.security.UserLogonInfo;
-import com.upg.ucars.util.DateTimeUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.upg.cfsettle.mapping.prj.CfsCommDetail;
-import com.upg.cfsettle.mapping.prj.CfsMyCommInfo;
 import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.QueryCondition;
+import com.upg.ucars.framework.base.SessionTool;
+import com.upg.ucars.mapping.basesystem.security.Buser;
 import com.upg.ucars.model.ConditionBean;
+import com.upg.ucars.model.security.UserLogonInfo;
+import com.upg.ucars.util.BeanUtils;
+import com.upg.ucars.util.DateTimeUtil;
 import com.upg.ucars.util.StringUtil;
-import org.springframework.util.CollectionUtils;
 
 @Service
 public class CfsMyCommInfoServiceImpl implements ICfsMyCommInfoService{
@@ -238,5 +243,24 @@ public class CfsMyCommInfoServiceImpl implements ICfsMyCommInfoService{
 		cfsCommOrderRelate.setCtime(DateTimeUtil.getNowDateTime());
 		cfsCommOrderRelate.setMtime(DateTimeUtil.getNowDateTime());
 		return cfsCommOrderRelate;
+	}
+
+	@Override
+	public void doPayCfsMyCommInfo(CfsMyCommInfo commInfo) {
+		CfsMyCommInfo info = cfsMyCommInfoDao.get(commInfo.getId());
+		try {
+			BeanUtils.copyNoNullProperties(info, commInfo);
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		info.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
+		info.setMtime(DateTimeUtil.getNowDateTime());
+		info.setPaySysid(SessionTool.getUserLogonInfo().getSysUserId());
+		info.setPayStatus(UtilConstant.COMM_STATUS_2);
+		cfsMyCommInfoDao.update(info);
 	}
 }

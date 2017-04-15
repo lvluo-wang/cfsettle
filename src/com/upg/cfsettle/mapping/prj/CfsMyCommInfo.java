@@ -32,6 +32,7 @@ public class CfsMyCommInfo implements Serializable {
 	private String collectSubBank;
 	private BigDecimal payMoney;
 	private String payBank;
+	private String paySubBank;
 	private String payBankNo;
 	private Long csysid;
 	private Date ctime;
@@ -249,5 +250,13 @@ public class CfsMyCommInfo implements Serializable {
 
 	public void setCommSettleDateStr(String commSettleDateStr) {
 		this.commSettleDateStr = commSettleDateStr;
+	}
+
+	public String getPaySubBank() {
+		return paySubBank;
+	}
+
+	public void setPaySubBank(String paySubBank) {
+		this.paySubBank = paySubBank;
 	}
 }

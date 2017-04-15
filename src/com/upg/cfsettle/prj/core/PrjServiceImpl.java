@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import com.upg.cfsettle.util.RateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.upg.cfsettle.cust.core.ICfsPrjOrderRepayPlanService;
@@ -32,7 +31,6 @@ import com.upg.ucars.model.ConditionBean;
 import com.upg.ucars.util.BeanUtils;
 import com.upg.ucars.util.DateTimeUtil;
 import com.upg.ucars.util.StringUtil;
-import sun.font.CFont;
 
 /**
  * Created by zuo on 2017/3/30.

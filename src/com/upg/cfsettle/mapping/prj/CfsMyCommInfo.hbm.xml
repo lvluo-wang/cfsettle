@@ -85,6 +85,11 @@
                 <comment>支付银行</comment>
             </column>
         </property>
+           <property name="paySubBank" type="java.lang.String">
+            <column name="pay_sub_bank" length="200">
+                <comment>支付支行</comment>
+            </column>
+        </property>
         <property name="payBankNo" type="java.lang.String">
             <column name="pay_bank_no" length="50">
                 <comment>支付账号</comment>

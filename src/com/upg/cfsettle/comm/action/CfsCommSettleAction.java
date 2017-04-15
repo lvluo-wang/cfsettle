@@ -117,10 +117,10 @@ public class CfsCommSettleAction extends BaseAction {
 	}
 
 	/**
-	 * 修改cfsCust信息
+	 * 支付佣金信息
 	 */
-	public void doEdit(){
-		myCommInfoService.updateCfsMyCommInfo(commInfo);
+	public void doPay(){
+		myCommInfoService.doPayCfsMyCommInfo(commInfo);
 	}
 	
 	/**
@@ -201,5 +201,13 @@ public class CfsCommSettleAction extends BaseAction {
 
 	public void setBankList(List<FiCodeItem> bankList) {
 		this.bankList = bankList;
+	}
+
+	public CfsOrgDept getOrgDept() {
+		return orgDept;
+	}
+
+	public void setOrgDept(CfsOrgDept orgDept) {
+		this.orgDept = orgDept;
 	}
 }

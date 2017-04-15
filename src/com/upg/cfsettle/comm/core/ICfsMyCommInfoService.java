@@ -67,5 +67,12 @@ public interface ICfsMyCommInfoService extends IBaseService {
 	 * 佣金计提
 	 */
 	void runCommTask();
+	/**
+	 * 支付佣金信息
+	 * @author renzhuolun
+	 * @date 2017年4月15日 上午9:36:34
+	 * @param commInfo
+	 */
+	void doPayCfsMyCommInfo(CfsMyCommInfo commInfo);
 
 }
