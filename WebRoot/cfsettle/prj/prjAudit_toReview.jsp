@@ -111,30 +111,30 @@
                                 <x:codeItem codeKey="<%=UtilConstant.CFS_BANK_TYPE%>" codeNo="prjExt.tenantBank"/>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="title" >选择-省份:</td>
-                            <td >
-                                <x:combobox id="edit_province_id" readOnly="true" name="prjExt.provinceId" onchange="changeProvince" value="${prjExt.provinceId}"  required="true" valueField="id" textField="nameCn"/>
-                            </td>
-                            <td class="title" >选择-城市:</td>
-                            <td >
-                                <x:combobox id="edit_city_id" readOnly="true" name="prjExt.cityId" onchange="changeCity" value="${prjExt.cityId}" required="true" valueField="id" textField="nameCn"/>
-                            </td>
-                            </td>
-                        </tr>
-                        <script type="text/javascript">
+                        <%--<tr>--%>
+                            <%--<td class="title" >选择-省份:</td>--%>
+                            <%--<td >--%>
+                                <%--<x:combobox id="edit_province_id" readOnly="true" name="prjExt.provinceId" onchange="changeProvince" value="${prjExt.provinceId}"  required="true" valueField="id" textField="nameCn"/>--%>
+                            <%--</td>--%>
+                            <%--<td class="title" >选择-城市:</td>--%>
+                            <%--<td >--%>
+                                <%--<x:combobox id="edit_city_id" readOnly="true" name="prjExt.cityId" onchange="changeCity" value="${prjExt.cityId}" required="true" valueField="id" textField="nameCn"/>--%>
+                            <%--</td>--%>
+                            <%--</td>--%>
+                        <%--</tr>--%>
+                        <%--<script type="text/javascript">--%>
 
-                            $("#edit_province_id").xcombobox("reload",{'url':'<s:url value="/dictionary/dictionary_getProvinces.jhtml"/>'});
-                            //编辑的时候加下面两条语句
-                            $("#edit_city_id").xcombobox("reload",{'url':'<s:url value="/dictionary/dictionary_getAreaListByPid.jhtml"/>?areaPid=${prjExt.provinceId}'});
+                            <%--$("#edit_province_id").xcombobox("reload",{'url':'<s:url value="/dictionary/dictionary_getProvinces.jhtml"/>'});--%>
+                            <%--//编辑的时候加下面两条语句--%>
+                            <%--$("#edit_city_id").xcombobox("reload",{'url':'<s:url value="/dictionary/dictionary_getAreaListByPid.jhtml"/>?areaPid=${prjExt.provinceId}'});--%>
 
-                            function changeProvince(provinceId){
-                                if(provinceId){
-                                    $("#edit_city_id").xcombobox("reload",{'url':'<s:url value="/dictionary/dictionary_getAreaListByPid.jhtml"/>?areaPid='+provinceId});
-                                }
+                            <%--function changeProvince(provinceId){--%>
+                                <%--if(provinceId){--%>
+                                    <%--$("#edit_city_id").xcombobox("reload",{'url':'<s:url value="/dictionary/dictionary_getAreaListByPid.jhtml"/>?areaPid='+provinceId});--%>
+                                <%--}--%>
 
-                            }
-                        </script>
+                            <%--}--%>
+                        <%--</script>--%>
                         <tr>
                             <td class="title">收款支行:</td>
                             <td>
@@ -152,11 +152,11 @@
                         <tr>
                             <td class="title">电子合同:</td>
                             <td><div id="uploadName_1">
-                                <c:if test="prjExt.contractAttid !=null">
+                                <s:if test="prjExt.contractAttid !=null">
                                 <a href='#' class='_attach_info'
                                    onclick='_downloadFile("${prjExt.contractAttid}")'>${prjExt.contractName}</a>
                                 </a>
-                                </c:if>
+                                </s:if>
                             </div></td>
                             <td colspan="3">
                                 <input type="hidden" id="uploadFile_1" value="${prjExt.contractAttid}" name="prjExt.contractAttid" required="true"/>
@@ -167,10 +167,10 @@
                         <tr>
                             <td class="title">募资说明:</td>
                             <td><div id="uploadName_2">
-                                <c:if test="prjExt.periodAttid != null">
+                                <s:if test="prjExt.periodAttid != null">
                             <a href='#' class='_attach_info'
                                onclick='_downloadFile("${prjExt.periodAttid}")'>${prjExt.periodName}</a>
-                                </c:if>
+                                </s:if>
                             </div>
                             </td>
                             <td colspan="2">
@@ -182,10 +182,10 @@
                         <tr>
                             <td class="title">担保手续费:</td>
                             <td><div id="uploadName_3">
-                                 <c:if test="prjExt.guaranteAttid != null">
+                                 <s:if test="prjExt.guaranteAttid != null">
                                 <a href='#' class='_attach_info'
                                    onclick='_downloadFile("${prjExt.guaranteAttid}")'>${prjExt.guaranteName}</a>
-                                 </c:if>
+                                 </s:if>
                             </div></td>
                             <td colspan="2">
                                 <input type="hidden" id="uploadFile_3" value="${prjExt.guaranteAttid}" name="prjExt.guaranteAttid" required="true"/>
@@ -196,10 +196,10 @@
                         <tr>
                             <td class="title">推广资料:</td>
                             <td><div id="uploadName_4">
-                                  <c:if test="prjExt.spreadAttid != null">
+                                  <s:if test="prjExt.spreadAttid != null">
                                  <a href='#' class='_attach_info'
                                     onclick='_downloadFile("${prjExt.spreadAttid}")'>${prjExt.spreadName}</a>
-                                  </c:if>
+                                  </s:if>
                             </div></td>
                             <td colspan="2">
                                 <input type="hidden" id="uploadFile_4" value="${prjExt.spreadAttid}" name="prjExt.spreadAttid" required="true"/>

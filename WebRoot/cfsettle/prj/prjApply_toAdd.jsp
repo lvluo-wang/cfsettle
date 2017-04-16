@@ -129,41 +129,41 @@
                                              required="true" pleaseSelect="false"/>
                             </td>
                         </tr>
-                            <tr>
-                                <td class="title" >选择-省份:</td>
-                                <td >
-                                    <x:combobox id="province_id" name="prjExt.provinceId" onchange="changeProvince"  required="true" valueField="id" textField="nameCn"/>
-                                </td>
-                                <td class="title" >选择-城市:</td>
-                                <td >
-                                    <x:combobox id="city_id" name="prjExt.cityId" onchange="changeCity"  required="true" valueField="id" textField="nameCn"/>
-                                </td>
-                                </td>
+                            <%--<tr>--%>
+                                <%--<td class="title" >选择-省份:</td>--%>
+                                <%--<td >--%>
+                                    <%--<x:combobox id="province_id" name="prjExt.provinceId" onchange="changeProvince"  required="true" valueField="id" textField="nameCn"/>--%>
+                                <%--</td>--%>
+                                <%--<td class="title" >选择-城市:</td>--%>
+                                <%--<td >--%>
+                                    <%--<x:combobox id="city_id" name="prjExt.cityId" onchange="changeCity"  required="true" valueField="id" textField="nameCn"/>--%>
+                                <%--</td>--%>
+                                <%--</td>--%>
 
-                            </tr>
-                            <script type="text/javascript">
+                            <%--</tr>--%>
+                            <%--<script type="text/javascript">--%>
 
-                                $("#province_id").xcombobox("reload",{'url':'<s:url value="/dictionary/dictionary_getProvinces.jhtml"/>'});
-                                //编辑的时候加下面两条语句
-                                //$("#city_id").xcombobox("reload",{'url':'<s:url value="/dictionary/dictionary_getAreaListByPid.jhtml"/>?areaPid=${provinceId}'});
-                                //$("#area_id").xcombobox("reload",{'url':'<s:url value="/dictionary/dictionary_getAreaListByPid.jhtml"/>?areaPid=${cityId}'});
+                                <%--$("#province_id").xcombobox("reload",{'url':'<s:url value="/dictionary/dictionary_getProvinces.jhtml"/>'});--%>
+                                <%--//编辑的时候加下面两条语句--%>
+                                <%--//$("#city_id").xcombobox("reload",{'url':'<s:url value="/dictionary/dictionary_getAreaListByPid.jhtml"/>?areaPid=${provinceId}'});--%>
+                                <%--//$("#area_id").xcombobox("reload",{'url':'<s:url value="/dictionary/dictionary_getAreaListByPid.jhtml"/>?areaPid=${cityId}'});--%>
 
-                                function changeProvince(provinceId){
-                                    if(provinceId){
-                                        $("#city_id").xcombobox("reload",{'url':'<s:url value="/dictionary/dictionary_getAreaListByPid.jhtml"/>?areaPid='+provinceId});
-                                        var cityId = $("#area_id").xcombobox("getValue");
+                                <%--function changeProvince(provinceId){--%>
+                                    <%--if(provinceId){--%>
+                                        <%--$("#city_id").xcombobox("reload",{'url':'<s:url value="/dictionary/dictionary_getAreaListByPid.jhtml"/>?areaPid='+provinceId});--%>
+                                        <%--var cityId = $("#area_id").xcombobox("getValue");--%>
 
-                                        if(!cityId)  cityId =-1;
-                                        $("#area_id").xcombobox("reload",{'url':'<s:url value="/dictionary/dictionary_getAreaListByPid.jhtml"/>?areaPid='+cityId});
-                                    }
+                                        <%--if(!cityId)  cityId =-1;--%>
+                                        <%--$("#area_id").xcombobox("reload",{'url':'<s:url value="/dictionary/dictionary_getAreaListByPid.jhtml"/>?areaPid='+cityId});--%>
+                                    <%--}--%>
 
-                                }
-                                function changeCity(cityId){
-                                    if(cityId){
-                                        $("#area_id").xcombobox("reload",{'url':'<s:url value="/dictionary/dictionary_getAreaListByPid.jhtml"/>?areaPid='+cityId});
-                                    }
-                                }
-                            </script>
+                                <%--}--%>
+                                <%--function changeCity(cityId){--%>
+                                    <%--if(cityId){--%>
+                                        <%--$("#area_id").xcombobox("reload",{'url':'<s:url value="/dictionary/dictionary_getAreaListByPid.jhtml"/>?areaPid='+cityId});--%>
+                                    <%--}--%>
+                                <%--}--%>
+                            <%--</script>--%>
                         <tr>
                             <td class="title">收款支行:</td>
                             <td >
