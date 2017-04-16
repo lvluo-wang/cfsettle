@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.upg.cfsettle.mapping.prj.CfsCust;
+import com.upg.cfsettle.mapping.prj.CfsCustBuserRelate;
 import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.QueryCondition;
@@ -18,6 +19,8 @@ public class CfsCustServiceImpl implements ICfsCustService{
 	
 	@Autowired
 	private ICfsCustDao cfsCustDao;
+	@Autowired
+	private ICfsCustBuserRelateDao custBuserRelateDao;
 
 	@Override
 	public List<CfsCust> findByCondition(CfsCust searchBean, Page page) {
@@ -64,6 +67,10 @@ public class CfsCustServiceImpl implements ICfsCustService{
 		cust.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
 		cust.setIsValid(Byte.valueOf("0"));//默认未验证
 		cfsCustDao.save(cust);
+		CfsCustBuserRelate relate = new CfsCustBuserRelate(cust.getId(), SessionTool.getUserLogonInfo().getSysUserId(), 
+				SessionTool.getUserLogonInfo().getSysUserId(), DateTimeUtil.getNowDateTime());
+		custBuserRelateDao.save(relate);
+		
 	}
 
 	@Override
