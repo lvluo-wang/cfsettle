@@ -3,6 +3,8 @@ package com.upg.cfsettle.order.order;
 import java.util.List;
 import java.util.Map;
 
+import com.upg.cfsettle.cust.core.ICfsCustDao;
+import com.upg.cfsettle.mapping.prj.CfsCust;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.upg.cfsettle.cust.core.ICfsPrjOrderService;
@@ -29,6 +31,8 @@ public class CfsPrjOrderAuditLogServiceImpl implements ICfsPrjOrderAuditLogServi
     private ICfsPrjOrderService prjOrderService;
     @Autowired
     private IPrjService prjService;
+    @Autowired
+    private ICfsCustDao cfsCustDao;
 
     @Override
     public void prjOrderAudit(CfsPrjOrder prjOrder, CfsPrjOrderAuditLog prjOrderAuditLog) {
@@ -67,6 +71,11 @@ public class CfsPrjOrderAuditLogServiceImpl implements ICfsPrjOrderAuditLogServi
         cfsPrjOrder.setContractAuidtSysid(SessionTool.getUserLogonInfo().getSysUserId());
         cfsPrjOrder.setMtime(DateTimeUtil.getNowDateTime());
         prjOrderService.updatePrjOrder(cfsPrjOrder);
+        CfsCust cfsCust = cfsCustDao.get(cfsPrjOrder.getCustId());
+        if(cfsCust.getIsValid().equals(Byte.valueOf("0"))){
+            cfsCust.setIsValid(Byte.valueOf("1"));
+            cfsCustDao.update(cfsCust);
+        }
     }
 
     @Override

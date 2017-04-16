@@ -31,7 +31,7 @@ public class CfsPrjOrderRepayPlanServiceImpl implements ICfsPrjOrderRepayPlanSer
         //还款审核人姓名
         for(CfsPrjOrderRepayPlan prjOrderRepayPlan : prjOrderRepayPlanList){
             if(prjOrderRepayPlan.getPaybackAuditSysid() != null){
-                Buser buser = userService.getUserById(prjOrderRepayPlan.getPaybackAuditSysid());
+                Buser buser = userService.getUserById(Long.valueOf(prjOrderRepayPlan.getPaybackAuditSysid().toString()));
                 if(buser != null){
                     prjOrderRepayPlan.setPaybackAuditName(buser.getUserName());
                 }

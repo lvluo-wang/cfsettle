@@ -24,7 +24,10 @@ public class CfsPrjOrderRepayPlanDaoImpl extends SysBaseDao<CfsPrjOrderRepayPlan
 
     @Override
     public List<CfsPrjOrderRepayPlan> findByOrderIdAndType(Long prjOrderId,Byte ptype) {
-        String sql = "select orderPlan.*,log.payback_audit_sysid,log.payback_time" +
+        String sql = "select from_unixtime(orderPlan.repay_date) as repayDate,orderPlan.principal/100 as principal,orderPlan.yield/100 as yield,orderPlan.pri_interest/100 as priInterest," +
+                " orderPlan.status,orderPlan.repay_periods as repayPeriod," +
+                " log.payback_audit_sysid as paybackAuditSysid," +
+                " from_unixtime(log.payback_time) as paybackTime" +
                 " from cfs_prj_order_repay_plan orderPlan left join cfs_prj_order_payback_log log" +
                 " on orderPlan.id=log.prj_order_repay_plan_id where orderPlan.prj_order_id=:prjOrderId and orderPlan.ptype=:ptype " +
                 " order by orderPlan.repay_periods asc";
@@ -35,7 +38,7 @@ public class CfsPrjOrderRepayPlanDaoImpl extends SysBaseDao<CfsPrjOrderRepayPlan
         if(prjOrderRepayPlanList != null && prjOrderRepayPlanList.size() >0){
             return prjOrderRepayPlanList;
         }
-        return Collections.emptyList();
+        return Collections.EMPTY_LIST;
     }
 
 	@Override
