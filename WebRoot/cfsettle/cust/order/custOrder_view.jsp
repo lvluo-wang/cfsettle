@@ -114,7 +114,7 @@
                         <tr>
                             <td class="title">打印凭证</td>
                             <td colspan="3">
-                                <img id="payNotes" src="" alt="打印凭证" height="300px;" width="330px;">
+                                <img id="payNotes" src="" alt="打印凭证" height="100px;" width="200px;">
                             </td>
                         </tr>
 
