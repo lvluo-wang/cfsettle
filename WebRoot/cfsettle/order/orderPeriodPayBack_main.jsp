@@ -1,3 +1,4 @@
+<%@page import="com.upg.ucars.util.DateTimeUtil"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@page import="com.upg.cfsettle.util.UtilConstant"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
@@ -78,7 +79,8 @@
 
     function formatPlanStatus(val,field,row) {
    		var value = code.getValue("<%=UtilConstant.CFS_PRJ_REPAY_PLAN_STATUS%>",val);
-    	if(val==1){
+   		var nowTime = parseInt("<%=DateTimeUtil.getNowSeconds()%>");
+    	if(val==1&&Date.parse(new Date(row.REPAY_DATE))/1000 <= nowTime){
     		return"<a href='javascript:toRepay("+row.ID+")'>"+value+"</a>";
     	}else{
     		return value;
