@@ -404,7 +404,11 @@ public class PrjServiceImpl implements IPrjService {
 				orderPlan.setPriInterest(yield.add(orderPlan.getPrincipal()));
 				orderPlan.setYield(yield);
 				orderPlan.setRestPrincipal(order.getMoney().subtract(orderPlan.getPrincipal()));
-				orderPlan.setStatus(UtilConstant.REPAY_STATUS_1);
+				if(orderPlan.getPriInterest().intValue()==0l){
+					orderPlan.setStatus(UtilConstant.REPAY_STATUS_2);
+				}else{
+					orderPlan.setStatus(UtilConstant.REPAY_STATUS_1);
+				}
 				orderPlan.setCtime(DateTimeUtil.getNowDateTime());
 				orderPlan.setMtime(DateTimeUtil.getNowDateTime());
 				plans.add(orderPlan);
@@ -431,6 +435,9 @@ public class PrjServiceImpl implements IPrjService {
 				}
 			}
 //			plan.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
+			if(plan.getPriInterest().longValue() ==0l){
+				plan.setStatus(UtilConstant.REPAY_STATUS_2);
+			}
 			plan.setMtime(DateTimeUtil.getNowDateTime());
 			prjRepayPlan.updatePrjRepayPlan(plan);
 		}

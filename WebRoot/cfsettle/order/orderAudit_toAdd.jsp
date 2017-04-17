@@ -44,19 +44,10 @@
                 </tr>
 				<tr>
 					<td class="title">打款凭证</td>
-                    <td><input name="cfsPrjOrder.payNotesAttid" type="hidden" id="order_pay_notes_id"/>
+                    <td><input name="cfsPrjOrder.payNotesAttid" type="hidden" id="order_pay_notes_id" value="${cfsPrjOrder.payNotesAttid}"/>
 						<img id="order_pay_notes_pic" alt="打款凭证" src="http://" height="100px" width="200px"/>
 					</td>
-					<td colspan="2">
-						<s:include value="/platform/common/uploadFile.jsp">
-							<s:param name="refresh">y</s:param>
-							<s:param name="suffix">1</s:param>
-							<s:param name="imgServer">true</s:param>
-							<s:param name="nowater">1</s:param>
-							<s:param name="callback">idCardPayNotesCallBack</s:param>
-							<s:param name="opt">{'fileExt':'*.gif;*.jpg;*.png;*.jpeg','fileDesc':'图片文件'}</s:param>
-						</s:include>
-					</td>
+					<td colspan="2"></td>
                 </tr>
                 <tr>
                     <td class="title">审核备注：</td>
@@ -71,6 +62,9 @@
 	</tiles:putAttribute>
 	<tiles:putAttribute name="end">
 	<script type="text/javascript">
+	$(function(){
+		$('#order_pay_notes_pic').attr('src',fileDownLoadUrl+"?id="+'${cfsPrjOrder.payNotesAttid}');
+	});
 	function doAddSave(status) {
 		var url="<s:url value='/order/orderAudit_doAudit.jhtml'/>";
 		if ($("#cfsOrderAuditForm").form("validate")) {
