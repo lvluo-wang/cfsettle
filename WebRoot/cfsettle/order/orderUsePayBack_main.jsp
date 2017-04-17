@@ -53,6 +53,7 @@
 				<x:column title="待付本息(元)" field="PRI_INTEREST" align="center" width="80"/>
 				<x:column title="待付本金(元)" field="PRINCIPAL" align="center" width="80"/>
 				<x:column title="待付利息(元)" field="YIELD" align="center" width="80"/>
+				<x:column title="回款期数" field="REPAY_PERIODS" align="center" width="70" formatter="formatPeriods"/>
 				<x:column title="剩余本金(元)" field="REST_PRINCIPAL" align="center" width="80"/>
 				<x:column title="购买金额(元)" field="MONEY" align="center" width="80"/>
 				<x:column title="项目状态" field="PRJSTATUS" align="center" width="140" formatter="formatPrjStatus"/>

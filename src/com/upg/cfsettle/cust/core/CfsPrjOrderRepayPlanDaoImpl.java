@@ -40,7 +40,7 @@ public class CfsPrjOrderRepayPlanDaoImpl extends SysBaseDao<CfsPrjOrderRepayPlan
 
 	@Override
 	public List<Map<String, Object>> findByCondition(CfsPrjOrderPaybackLog searchBean, Page page) {
-		String sql = "select p.id,o.contract_no,c.real_name,prj.prj_name,from_unixtime(o.invest_time) as invest_time,from_unixtime(prj.build_time) as build_time,(p.rest_principal/100) as rest_principal,"
+		String sql = "select p.id,p.repay_periods,o.contract_no,c.real_name,prj.prj_name,from_unixtime(o.invest_time) as invest_time,from_unixtime(prj.build_time) as build_time,(p.rest_principal/100) as rest_principal,"
 				+ "from_unixtime(p.repay_date) as repay_date,p.count_day,prj.period_rate,prj.year_rate,(p.pri_interest/100) as pri_interest ,(p.principal/100) as principal,(p.yield/100) as yield,(o.money/100) as money,"
 				+ "prj.status as prjstatus,p.status as planstatus from cfs_prj_order o join cfs_prj_order_repay_plan p on o.id = p.prj_order_id join cfs_cust c on o.cust_id = c.id "
 				+ "join cfs_prj prj on o.prj_id = prj.id ";
@@ -73,6 +73,7 @@ public class CfsPrjOrderRepayPlanDaoImpl extends SysBaseDao<CfsPrjOrderRepayPlan
             	sqlCreater.and("p.ptype =:isPeriod","isPeriod",1,true);
             }
         }
+        sqlCreater.orderBy("p.repay_date",false);
         return getMapListByStanderdSQL(sqlCreater.getSql(),sqlCreater.getParameterMap(),page);
 	}
 

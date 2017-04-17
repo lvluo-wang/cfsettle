@@ -70,7 +70,7 @@ public class CfsPrjRepayPlanDaoImpl extends SysBaseDao<CfsPrjRepayPlan,Long> imp
                 sqlCreater.and(" plan.repay_date < :ctimeEndLong", "ctimeEndLong", ctimeEndLong , true);
             }
         }
-        sqlCreater.orderBy("plan.repay_date",true);
+        sqlCreater.orderBy("plan.repay_date",false);
         List<Map<String, Object>> result = getMapListByStanderdSQL(sqlCreater.getSql(),sqlCreater.getParameterMap(),page);
         return result;
 	}
