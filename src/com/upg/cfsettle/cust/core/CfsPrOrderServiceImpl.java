@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.upg.cfsettle.mapping.organization.CfsOrgArea;
 import com.upg.cfsettle.mapping.organization.CfsOrgDept;
 import com.upg.cfsettle.mapping.organization.CfsOrgTeam;
+import com.upg.cfsettle.mapping.prj.CfsCust;
 import com.upg.cfsettle.mapping.prj.CfsCustBuserRelate;
 import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.mapping.prj.CfsPrjOrder;
@@ -50,6 +51,8 @@ public class CfsPrOrderServiceImpl implements ICfsPrjOrderService {
     private ICfsCustBuserRelateDao custBuserRelateDao;
     @Autowired
     private IUserService userService;
+    @Autowired
+    private ICfsCustService custService;
 
 
     @Override
@@ -161,6 +164,19 @@ public class CfsPrOrderServiceImpl implements ICfsPrjOrderService {
 		order.setCollectAuditTime(DateTimeUtil.getNowDateTime());
 		order.setCollectAuditSysid(SessionTool.getUserLogonInfo().getSysUserId());
 		order.setStatus(cfsPrjOrder.getStatus());
+		if(CfsConstant.PRJ_ORDER_STATUS_INVESTING.equals(cfsPrjOrder.getStatus())){
+			CfsCust cust = custService.queryCfsCustById(order.getCustId());
+			if(cust.getIsValid().equals(Byte.valueOf("0"))){
+				cust.setIsValid(Byte.valueOf("1"));
+				custService.updateCfsCust(cust);
+			}
+		}else{
+			CfsPrj cfsPrj = prjService.getPrjById(order.getPrjId());
+			cfsPrj.setRemainingAmount(cfsPrj.getRemainingAmount().add(order.getMoney()));
+			cfsPrj.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
+			cfsPrj.setMtime(DateTimeUtil.getNowDateTime());
+			prjService.updateCfsPrj(cfsPrj);
+		}
 		this.updatePrjOrder(order);
 	}
 
@@ -180,5 +196,10 @@ public class CfsPrOrderServiceImpl implements ICfsPrjOrderService {
 			}
 		}
 		return prjOrderDao.queryEntity( condition.getConditionList(), page);
+	}
+
+	@Override
+	public List<CfsPrjOrder> getOKPrjOrdersByPrjId(Long prjId) {
+		return prjOrderDao.getOKPrjOrdersByPrjId(prjId);
 	}
 }

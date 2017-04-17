@@ -1,24 +1,26 @@
 package com.upg.cfsettle.cust.core;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
-import com.upg.cfsettle.organization.core.IOrgAreaDao;
-import com.upg.cfsettle.organization.core.IOrgDeptDao;
-import com.upg.cfsettle.organization.core.IOrgTeamDao;
-import com.upg.cfsettle.util.CfsConstant;
-import com.upg.cfsettle.util.UtilConstant;
-import com.upg.ucars.basesystem.security.core.user.IUserDAO;
-import com.upg.ucars.framework.base.SessionTool;
-import com.upg.ucars.model.security.UserLogonInfo;
-import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.upg.cfsettle.mapping.prj.CfsPrjOrder;
 import com.upg.cfsettle.mapping.prj.CfsPrjRepayPlan;
+import com.upg.cfsettle.organization.core.IOrgAreaDao;
+import com.upg.cfsettle.organization.core.IOrgDeptDao;
+import com.upg.cfsettle.organization.core.IOrgTeamDao;
+import com.upg.cfsettle.util.UtilConstant;
+import com.upg.ucars.basesystem.security.core.user.IUserDAO;
 import com.upg.ucars.framework.annotation.Dao;
 import com.upg.ucars.framework.base.Page;
+import com.upg.ucars.framework.base.SessionTool;
 import com.upg.ucars.framework.base.SysBaseDao;
+import com.upg.ucars.model.security.UserLogonInfo;
 import com.upg.ucars.util.SQLCreater;
 import com.upg.ucars.util.StringUtil;
 
@@ -181,4 +183,14 @@ public class CfsPrjOrderDaoImpl extends SysBaseDao<CfsPrjOrder,Long> implements 
         }
         return Collections.EMPTY_LIST;
     }
+
+	@Override
+	public List<CfsPrjOrder> getOKPrjOrdersByPrjId(Long prjId) {
+		 String hql = "from CfsPrjOrder where prjId =? and status=4";
+	        List<CfsPrjOrder> list  = this.find(hql,prjId);
+	        if(list != null && list.size() >0){
+	            return list;
+	        }
+	        return Collections.EMPTY_LIST;
+	}
 }

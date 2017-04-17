@@ -93,4 +93,5 @@ public interface IPrjService extends IBaseService {
      */
 	HSSFWorkbook generatLoanData(OutputStream os, CfsPrj searchBean, String[] headers, String title, Page page);
 
+	void prjFailedAutoTask();
 }

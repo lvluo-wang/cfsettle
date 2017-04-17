@@ -66,6 +66,11 @@ public class CfsPrjOrderAuditLogServiceImpl implements ICfsPrjOrderAuditLogServi
         //审核驳回
         if(prjOrderAuditLog.getStatus().equals(CfsConstant.CONTRACT_LOG_STATUS_REJECT)){
             cfsPrjOrder.setStatus(CfsConstant.PRJ_ORDER_STATUS_REJECT);//退回重签
+            CfsPrj cfsPrj = prjService.getPrjById(cfsPrjOrder.getPrjId());
+			cfsPrj.setRemainingAmount(cfsPrj.getRemainingAmount().add(cfsPrjOrder.getMoney()));
+			cfsPrj.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
+			cfsPrj.setMtime(DateTimeUtil.getNowDateTime());
+			prjService.updateCfsPrj(cfsPrj);
         }
         cfsPrjOrder.setContractAuditTime(DateTimeUtil.getNowDateTime());
         cfsPrjOrder.setContractAuidtSysid(SessionTool.getUserLogonInfo().getSysUserId());

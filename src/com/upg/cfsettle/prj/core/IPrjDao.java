@@ -21,4 +21,6 @@ public interface IPrjDao extends IBaseDAO<CfsPrj,Long> {
 	List<CfsPrj> findRepayPlanPrj();
 
     List<CfsPrj> findAllSucceedPrjLastMonth();
+
+	List<CfsPrj> findFailedPrj();
 }

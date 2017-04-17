@@ -221,7 +221,7 @@ public class PrjServiceImpl implements IPrjService {
 	 * @param prj
 	 */
 	private void genRepayWayA(CfsPrj prj) {
-		List<CfsPrjOrder> orders = prjOrderService.getPrjOrdersByPrjId(prj.getId());
+		List<CfsPrjOrder> orders = prjOrderService.getOKPrjOrdersByPrjId(prj.getId());
 		List<RepayPlanInfo> planInfos = new ArrayList<RepayPlanInfo>();
 	    planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_PERIODS,prj.getStartBidTime(), prj.getBuildTime(),0L));
 		planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL, prj.getBuildTime(),DateTimeUtil.addDay(prj.getBuildTime(), prj.getTimeLimitDay()),1L));
@@ -242,7 +242,7 @@ public class PrjServiceImpl implements IPrjService {
 		}else{
 			countMonth = prj.getTimeLimit();
 		}
-		List<CfsPrjOrder> orders = prjOrderService.getPrjOrdersByPrjId(prj.getId());
+		List<CfsPrjOrder> orders = prjOrderService.getOKPrjOrdersByPrjId(prj.getId());
 		List<RepayPlanInfo> planInfos = new ArrayList<RepayPlanInfo>();
 		planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_PERIODS, prj.getStartBidTime(),prj.getBuildTime(),0L));
 		Date firstRepayDate = null;
@@ -277,7 +277,7 @@ public class PrjServiceImpl implements IPrjService {
 	 * @param prj
 	 */
 	private void genRepayWayC(CfsPrj prj) {
-		List<CfsPrjOrder> orders = prjOrderService.getPrjOrdersByPrjId(prj.getId());
+		List<CfsPrjOrder> orders = prjOrderService.getOKPrjOrdersByPrjId(prj.getId());
 		List<RepayPlanInfo> planInfos = new ArrayList<RepayPlanInfo>();
 		Integer countMonth = null;
 		if(UtilConstant.TIME_LIMIT_YEAR.equals(prj.getTimeLimitUnit())){
@@ -327,7 +327,7 @@ public class PrjServiceImpl implements IPrjService {
 	 * @param prj
 	 */
 	private void genRepayWayD(CfsPrj prj) {
-		List<CfsPrjOrder> orders = prjOrderService.getPrjOrdersByPrjId(prj.getId());
+		List<CfsPrjOrder> orders = prjOrderService.getOKPrjOrdersByPrjId(prj.getId());
 		List<RepayPlanInfo> planInfos = new ArrayList<RepayPlanInfo>();
 		Integer countMonth = null;
 		if(UtilConstant.TIME_LIMIT_YEAR.equals(prj.getTimeLimitUnit())){
@@ -540,5 +540,21 @@ public class PrjServiceImpl implements IPrjService {
 			dataRows.add(row);
 		}
  		return ExcelUtil.createHSSFWorkbook(title, headers, dataRows);
+	}
+
+	@Override
+	public void prjFailedAutoTask() {
+		List<CfsPrj> prjs = prjDao.findFailedPrj();
+		for(CfsPrj prj:prjs){
+			List<CfsPrjOrder> orders = prjOrderDao.getPrjOrdersByPrjId(prj.getId());
+			for(CfsPrjOrder order :orders){
+				order.setStatus(CfsConstant.PRJ_ORDER_STATUS_FAILED);
+				order.setRemark(DateTimeUtil.getCurDateTime()+"订单自动流标");
+			}
+			prjOrderDao.saveOrUpdateAll(orders);
+			prj.setRemark(DateTimeUtil.getCurDateTime()+"项目自动流标");
+			prj.setStatus(CfsConstant.PRJ_STATUS_FAILED);
+		}
+		prjDao.saveOrUpdateAll(prjs);
 	}
 }

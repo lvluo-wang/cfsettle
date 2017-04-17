@@ -5,11 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.upg.cfsettle.mapping.prj.CfsPrj;
+import com.upg.cfsettle.util.CfsConstant;
+import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.framework.annotation.Dao;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.QueryCondition;
 import com.upg.ucars.framework.base.SysBaseDao;
-import com.upg.ucars.model.ConditionBean;
 import com.upg.ucars.util.DateTimeUtil;
 import com.upg.ucars.util.SQLCreater;
 import com.upg.ucars.util.StringUtil;
@@ -92,4 +93,12 @@ public class PrjDaoImpl extends SysBaseDao<CfsPrj,Long> implements IPrjDao {
         //项目成立时间
         return this.find(hql, new Object[]{fromDate, toDate});
     }
+
+	@Override
+	public List<CfsPrj> findFailedPrj() {
+        String hql = "from CfsPrj prj where prj.endBidTime < ? and prj.demandAmount-prj.remainingAmount < prj.minLoanAmount and prj.status<>?";
+        Date now = DateTimeUtil.getNowDateTime();
+        Byte failed = CfsConstant.PRJ_STATUS_FAILED;
+        return this.find(hql,new Object[]{now,failed});
+	}
 }

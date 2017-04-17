@@ -52,4 +52,6 @@ public interface ICfsPrjOrderService extends IBaseService {
 	 */
 	List<CfsPrjOrder> findCommByCondition(CfsPrjOrder prjOrder, Page page);
 
+	List<CfsPrjOrder> getOKPrjOrdersByPrjId(Long prjId);
+
 }
