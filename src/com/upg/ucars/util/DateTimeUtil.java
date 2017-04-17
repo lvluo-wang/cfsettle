@@ -604,7 +604,7 @@ public class DateTimeUtil {
 	 *
 	 * @param date1 
 	 * @param date2
-	 * @return date1==date2返回0, date1大于date2返回1, date1小于date2返回-1 
+	 * @return date1==date2返回0, date1大于date2返回1,  date1小于date2返回-1
 	 */
 	public static int compareDate(Date date1, Date date2) {
 

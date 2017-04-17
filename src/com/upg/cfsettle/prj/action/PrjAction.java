@@ -108,6 +108,9 @@ public class PrjAction extends BaseAction {
         return "toBuild";
     }
 
+    /**
+     * 成立项目
+     */
     public void doBuild(){
         prjService.buildPrj(prj);
     }
@@ -131,6 +134,9 @@ public class PrjAction extends BaseAction {
         return setDatagridInputStreamData(list,getPg());
     }
 
+    /**
+     * 项目审核
+     */
     public void doReview(){
         prjService.auditPrjAndPrjExt(prj,prjExt);
     }

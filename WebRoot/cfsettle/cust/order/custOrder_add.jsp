@@ -50,7 +50,7 @@
                         </tr>
                         <tr>
                             <td class="title">投资金额:</td>
-                            <td><input name="prjOrder.money" class="easyui-validatebox" required="true" />
+                            <td><input name="prjOrder.money" class="easyui-validatebox" required="true" />元
                             </td>
                             <td class="title">投资时间:</td>
                             <td>

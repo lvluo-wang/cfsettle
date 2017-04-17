@@ -305,7 +305,7 @@ $.extend($.fn.validatebox.defaults.rules, {
 				return true;
 			}
         },
-		message: '请调整各佣金计提满足总比例'
+		message: '佣金计提总比例不等于区域经理+营业部+团队+客户经理佣金计提'
 	},
 
 	orgCode:{

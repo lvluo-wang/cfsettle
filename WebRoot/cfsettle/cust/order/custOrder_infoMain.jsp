@@ -26,9 +26,9 @@
 					</tr>
 					<td class="title">投资日期:</td>
 					<td colspan="3">
-						<input id="beginTime" name="searchBean.startDate" class="Wdate" value="<s:date format="yyyy-MM-dd" name=""/>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'endTime\',{d:-31})}',maxDate:'#F{$dp.$D(\'endTime\')}',onpicked:function(){endTime.focus();}})" />
+						<input id="beginTime" name="searchBean.startDate" class="Wdate" value="<s:date format="yyyy-MM-dd" name=""/>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:00',minDate:'#F{$dp.$D(\'endTime\',{d:-31})}',maxDate:'#F{$dp.$D(\'endTime\')}',onpicked:function(){endTime.focus();}})" />
 						-
-						<input id="endTime" name="searchBean.endDate" class="Wdate" value="<s:date format="yyyy-MM-dd" name=""/>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'beginTime\',{d:31})}',minDate:'#F{$dp.$D(\'beginTime\')}'})" />
+						<input id="endTime" name="searchBean.endDate" class="Wdate" value="<s:date format="yyyy-MM-dd" name=""/>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:00',maxDate:'#F{$dp.$D(\'beginTime\',{d:31})}',minDate:'#F{$dp.$D(\'beginTime\')}'})" />
 					</td>
 					<td class="title">服务员工: </td>
 					<td style="width: 20px;"><input name="searchBean.serviceSysName" /></td>
@@ -71,7 +71,7 @@
 	
 	<tiles:putAttribute name="end">
 	<script type="text/javascript">
-	var keys=["<%=UtilConstant.CFS_BANK_TYPE%>","<%=UtilConstant.CFS_PRJ_ORDER_STATUS%>"];
+	var keys=["<%=UtilConstant.CFS_BANK_TYPE%>","<%=UtilConstant.CFS_PRJ_ORDER_STATUS%>","<%=UtilConstant.CFS_BUSER_POS_CODE%>"];
 	var code=new XhhCodeUtil(keys);
 	code.loadData();
 
@@ -95,6 +95,9 @@
     function formateLeaveJob(value,field,row) {
 		if(row.BUSER_STATUS=='4'){
 		    return "待分配";
+		}
+		if(field == 'SERVICE_SYS_TYPE'){
+			return code.getValue("<%=UtilConstant.CFS_BUSER_POS_CODE%>",value);
 		}
 		return value;
     }
