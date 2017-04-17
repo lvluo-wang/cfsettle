@@ -1,3 +1,4 @@
+<%@page import="com.upg.ucars.util.DateTimeUtil"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@page import="com.upg.cfsettle.util.UtilConstant"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
@@ -40,6 +41,7 @@
 				<x:column title="实际募集金额(元)" field="ACT_AMOUNT" align="center" width="120"/>
 				<x:column title="项目利率" field="YEAR_RATE" align="center" width="60" formatter="formateRate"/>
 				<x:column title="项目期限" field="TIME_LIMIT" align="center" width="60" formatter="formateTimelimit"/>
+				<x:column title="还款时间" field="REPAY_DATE" align="center" width="90" formatter="format2Date"/>
 				<x:column title="回款本息(元)" field="PRI_INTEREST" align="center" width="100"/>
 				<x:column title="回款本金(元)" field="PRINCIPAL" align="center" width="100" />
 				<x:column title="回款利息(元)" field="YIELD" align="center" width="100"/>
@@ -104,9 +106,15 @@
 		
 	function toAdd(){
 		if(isSingleSelected(dataTable)) {
-			var selectedId = dataTable.getSelectedField("PLANID");
-			var url="<s:url value='/prj/payBack_toAdd.jhtml'/>?id="+selectedId;
-			redirectUrl(url);
+			var row = dataTable.getSelectedFirstRow();
+			var nowTime = parseInt("<%=DateTimeUtil.getNowSeconds()%>");
+	    	if(Date.parse(new Date(row.REPAY_DATE))/1000 <= nowTime){
+				var selectedId = dataTable.getSelectedField("PLANID");
+				var url="<s:url value='/prj/payBack_toAdd.jhtml'/>?id="+selectedId;
+				redirectUrl(url);
+	    	}else{
+	    		warning('回款日期未到,不能回款');
+	    	}
 		}
 	}
 

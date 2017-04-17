@@ -22,7 +22,7 @@
                 <tr>
                     <td class="title">投资项目:</td>
                     <td>${prj.prjName}</td>
-                    <td class="title">投资金额:</td>
+                    <td class="title">投资金额(元):</td>
                     <td>${cfsPrjOrder.money}</td>
                 </tr>
                 <tr>

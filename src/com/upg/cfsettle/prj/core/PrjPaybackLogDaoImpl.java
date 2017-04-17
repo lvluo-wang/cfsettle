@@ -39,7 +39,7 @@ public class PrjPaybackLogDaoImpl extends SysBaseDao<CfsPrjPaybackLog,Long> impl
                 sqlCreater.and("p.status =:status","status",status,true);
             }
         }
-        sqlCreater.orderBy("p.repay_periods",true);
+        sqlCreater.orderBy("p.repay_periods",false);
         return getMapListByStanderdSQL(sqlCreater.getSql(),sqlCreater.getParameterMap(),page);
 	}
 

@@ -44,7 +44,7 @@
 		                    <td class="title">实际募集金额(元):</td>
 		                    <td>${prj.demandAmount-prj.remainingAmount}</td>
 		                    <td class="title">已回款期数:</td>
-		                    <td>Y/M</td>
+		                    <td>${repayPlan.repayPeriods}/${totalPeriod}</td>
 		                </tr>
 		                <tr>
 		                    <td class="title">回款本息(元):</td>

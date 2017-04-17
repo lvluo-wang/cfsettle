@@ -50,7 +50,7 @@
                     <td class="title">剩余回款金额(元):</td>
                     <td>${prj.demandAmount-prj.remainingAmount-prj.payBackAmount}</td>
                     <td class="title">已回款期数:</td>
-                    <td>Y/M</td>
+                    <td>${repayPlan.repayPeriods}/${totalPeriod}</td>
                 </tr>
                 <tr>
                     <td class="title">收款账户名:</td>

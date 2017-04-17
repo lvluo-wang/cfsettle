@@ -47,6 +47,8 @@ public class PrjPayBackAction extends BaseAction {
     //用于项目详情中的回款记录查询
     private Long prjId;
     
+    private Integer totalPeriod;
+    
 
     public String main(){
         prjStatusList = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_PRJ_REPAY_PLAN_STATUS);
@@ -62,6 +64,7 @@ public class PrjPayBackAction extends BaseAction {
         repaymentTypeList = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_REPAYMENT_TYPE);
         timeLimitUnitList = CodeItemUtil.getCodeItemsByKey(UtilConstant.CFS_TIMELIMIT_UNIT);
         repayPlan =  prjRepayPlanService.getPrjRepayPlanById(getPKId());
+        totalPeriod = prjRepayPlanService.getTotalPeriodByPrjId(repayPlan.getPrjId());
         prj = prjService.getPrjById(repayPlan.getPrjId());
         prjExt = prjExtService.getPrjExtByPrjId(repayPlan.getPrjId());
         return SUCCESS;
@@ -74,6 +77,8 @@ public class PrjPayBackAction extends BaseAction {
 
     public String toView(){
         prj = prjService.getPrjById(getPKId());
+        repayPlan =  prjRepayPlanService.getPrjRepayPlanById(getPKId());
+        totalPeriod = prjRepayPlanService.getTotalPeriodByPrjId(repayPlan.getPrjId());
         prjExt = prjExtService.getPrjExtByPrjId(getPKId());
         return SUCCESS;
     }
@@ -175,4 +180,12 @@ public class PrjPayBackAction extends BaseAction {
     public void setPrjId(Long prjId) {
         this.prjId = prjId;
     }
+
+	public Integer getTotalPeriod() {
+		return totalPeriod;
+	}
+
+	public void setTotalPeriod(Integer totalPeriod) {
+		this.totalPeriod = totalPeriod;
+	}
 }

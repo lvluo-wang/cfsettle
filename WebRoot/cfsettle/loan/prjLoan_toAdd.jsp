@@ -30,8 +30,8 @@
                             <td>${prj.prjMobile}</td>
                         </tr>
                         <tr>
-                            <td class="title">募集金额:</td>
-                            <td>${prj.demandAmount}万</td>
+                            <td class="title">募集金额(元):</td>
+                            <td>${prj.demandAmount}</td>
                             <td class="title">项目期限:</td>
                             <td>
                             	${prj.timeLimit}
@@ -51,8 +51,8 @@
                         <tr>
                             <td class="title">还款方式:</td>
                             <td><x:codeItem codeNo="prj.repayWay" codeKey="<%=UtilConstant.CFS_REPAYMENT_TYPE %>"/></td>
-                            <td class="title">项目成立金额:</td>
-                            <td>${prj.minLoanAmount}万</td>
+                            <td class="title">项目成立金额(元):</td>
+                            <td>${prj.minLoanAmount}</td>
                         </tr>
                         <tr>
                             <td class="title">融资开标时间：</td>
