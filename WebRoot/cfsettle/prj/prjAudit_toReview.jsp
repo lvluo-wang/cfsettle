@@ -1,4 +1,5 @@
 <%@ page import="com.upg.cfsettle.util.UtilConstant" %>
+<%@ page import="com.upg.cfsettle.util.CfsConstant" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
@@ -159,9 +160,7 @@
                                 </s:if>
                             </div></td>
                             <td colspan="3">
-                                <input type="hidden" id="uploadFile_1" value="${prjExt.contractAttid}" name="prjExt.contractAttid" required="true"/>
-                                <br/><br/>
-                                <div id="upload_1"></div>
+                                <input type="hidden" id="uploadFile_1" value="${prjExt.contractAttid}" name="prjExt.contractAttid" />
                             </td>
                         </tr>
                         <tr>
@@ -174,9 +173,7 @@
                             </div>
                             </td>
                             <td colspan="2">
-                                <input type="hidden" id="uploadFile_2" value="${prjExt.periodAttid}" name="prjExt.periodAttid" required="true"/>
-                                <br/><br/>
-                                <div id="upload_2"></div>
+                                <input type="hidden" id="uploadFile_2" value="${prjExt.periodAttid}" name="prjExt.periodAttid" />
                             </td>
                         </tr>
                         <tr>
@@ -188,9 +185,7 @@
                                  </s:if>
                             </div></td>
                             <td colspan="2">
-                                <input type="hidden" id="uploadFile_3" value="${prjExt.guaranteAttid}" name="prjExt.guaranteAttid" required="true"/>
-                                <br/><br/>
-                                <div id="upload_3"></div>
+                                <input type="hidden" id="uploadFile_3" value="${prjExt.guaranteAttid}" name="prjExt.guaranteAttid" />
                             </td>
                         </tr>
                         <tr>
@@ -202,9 +197,7 @@
                                   </s:if>
                             </div></td>
                             <td colspan="2">
-                                <input type="hidden" id="uploadFile_4" value="${prjExt.spreadAttid}" name="prjExt.spreadAttid" required="true"/>
-                                <br/><br/>
-                                <div id="upload_4"></div>
+                                <input type="hidden" id="uploadFile_4" value="${prjExt.spreadAttid}" name="prjExt.spreadAttid" />
                             </td>
                         </tr>
 
@@ -246,13 +239,14 @@
                         </tr>
                         <tr>
                             <td colspan="4">
-                                <textarea name="prj.remark" cols="30" style="width: 100%" id="verifyDesc"></textarea>
+                                <textarea name="prj.remark" cols="30"  style="width: 100%" id="verifyDesc"></textarea>
                             </td>
                         </tr>
 
                         <tr>
                             <td style="text-align: center;" colspan="4">
                                 <x:button iconCls="icon-audit" text="审核通过" click="doApplyReview" effect="round"/>
+                                <x:button iconCls="icon-cancel" text="审核驳回" click="doApplyReject" effect="round"/>
                             </td>
                         </tr>
                     </table>
@@ -262,73 +256,14 @@
         </div>
     </tiles:putAttribute>
     <tiles:putAttribute name="end">
-        <script id="uploadTemplate" type="text/x-jsrender">
-        <s:include value="/platform/common/uploadFile.jsp">
-            <s:param name="refresh">y</s:param>
-            <s:param name="canEdit">true</s:param>
-            <s:param name="suffix">{{:index}}</s:param>
-            <s:param name="imgServer">false</s:param>
-            <s:param name="nowater">1</s:param>
-            <s:param name="callback">uploadFileCallBack</s:param>
-            <s:param name="opt">{'fileExt':'*.pdf','fileDesc':'pdf文件'}</s:param>
-        </s:include>
-        </script>
-
         <script type="text/javascript">
-
-
             $(function () {
                 $('#tt').css("height", $(document.body).height() - 50).tabs({});
-                //changePercent($("input[name='carLoan.rateType']")[0].value);
-                //addUploadTemplate();
-
             });
-
-            function addUploadTemplate() {
-                var index = 4;
-                for (var i = 1; i <= index; i++) {
-                    var signObj = {
-                        index: i
-                    };
-                    $("#upload_" + i).append($("#uploadTemplate").render(signObj));
-                }
-            }
-
-            function uploadFileCallBack(value, index) {
-                /*if(value.isSupported == 0){
-                 info("上传操作不支持此文件类型");
-                 return false;
-                 }*/
-                $('#uploadFile_' + index).val(value.id);
-
-                var attachmentItem = "<a href='#' class='_attach_info' attachId='"+ value.id +"' onclick=\"_downloadFile('" + value.id + "')\">" +value.name + "</a>";
-                attachmentItem +="&nbsp;&nbsp;<a href='#' onclick=\"_deleteFile('" + value.id + ","+index+"')\"><s:text name="del"/></a>";
-                attachmentItem += "<br/>";
-                $('#uploadName_'+index).html(attachmentItem);
-            }
-
-            function _deleteFile(attachmentId,index){
-                $.ajax({
-                    type:"POST",
-                    url:"<s:url value='/component/attachment_delete.jhtml'/>",
-                    dataType: 'json',
-                    cache:false,
-                    data:{id:attachmentId},
-                    error:function(result){
-                        printError(result);
-                    },
-                    success:function(){
-                        $('#uploadName_'+index).remove();
-                        $('#uploadFile_' + index).val('');
-                    }
-                });
-            }
 
             function doReturn() {
                 window.history.go(-1);
             }
-
-
 
             function AddRunningDiv(str) {
                 $("<div class=\"datagrid-mask\"></div>").css({
@@ -344,7 +279,12 @@
             }
 
             function doApplyReview() {
-                if ($("#prj_form").form("validate") && $("#prjExt_form").form("validate")) {
+                if ($("#prj_form").form("validate") && $("#prj_Ext").form("validate")) {
+                    var verifyDesc = $("#verifyDesc").val();
+                    if(verifyDesc == ''){
+                        info("请输入审核意见");
+                        return;
+                    }
                     var url = '<s:url value="/prj/prjAudit_doReview.jhtml"/>';
                     var param1 = formToObject("prj_form");
                     var param2 = formToObject("prjExt_form");
@@ -360,6 +300,28 @@
                         }
                     });
                 }
+            }
+
+            function doApplyReject() {
+                var verifyDesc = $("#verifyDesc").val();
+                if(verifyDesc == ''){
+                    info("请输入审核意见");
+                    return;
+                }
+                var url = '<s:url value="/prj/prjAudit_doReviewReject.jhtml"/>';
+                var param1 = formToObject("prj_form");
+                var param2 = formToObject("prjExt_form");
+                var param = $.extend(param1, param2);
+                AddRunningDiv("提交处理中，请稍候...");
+                doPost(url, param, function (result) {
+                    if (!printError(result)) {
+                        setTimeout("history.back()", 3000);
+                        info("提交成功!");
+                    } else {
+                        $(".datagrid-mask").remove();
+                        $(".datagrid-mask-msg").remove();
+                    }
+                });
             }
         </script>
     </tiles:putAttribute>

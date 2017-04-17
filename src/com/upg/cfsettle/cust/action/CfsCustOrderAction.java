@@ -13,6 +13,7 @@ import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.basesystem.security.core.user.IUserService;
 import com.upg.ucars.factory.DynamicPropertyTransfer;
 import com.upg.ucars.framework.base.BaseAction;
+import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.SessionTool;
 import com.upg.ucars.mapping.basesystem.security.Buser;
 import com.upg.ucars.model.security.UserLogonInfo;
@@ -104,7 +105,9 @@ public class CfsCustOrderAction extends BaseAction {
     }
 
     public String orderRepayList(){
-       return setDatagridInputStreamData(prjOrderRepayPlanService.findByOrderIdAndType(prjOrderId,Byte.valueOf("1")),getPg());
+        Page page = new Page();
+        page.setPageSize(50);
+       return setDatagridInputStreamData(prjOrderRepayPlanService.findByOrderIdAndType(prjOrderId,null),page);
 
     }
 

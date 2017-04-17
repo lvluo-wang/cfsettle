@@ -29,11 +29,14 @@ public class CfsPrjOrderRepayPlanDaoImpl extends SysBaseDao<CfsPrjOrderRepayPlan
                 " log.payback_audit_sysid as paybackAuditSysid," +
                 " from_unixtime(log.payback_time) as paybackTime" +
                 " from cfs_prj_order_repay_plan orderPlan left join cfs_prj_order_payback_log log" +
-                " on orderPlan.id=log.prj_order_repay_plan_id where orderPlan.prj_order_id=:prjOrderId and orderPlan.ptype=:ptype " +
-                " order by orderPlan.repay_periods asc";
+                " on orderPlan.id=log.prj_order_repay_plan_id where orderPlan.prj_order_id=:prjOrderId " ;
         Map<String,Object> param = new HashedMap();
         param.put("prjOrderId",prjOrderId);
-        param.put("ptype",ptype);
+        if(ptype != null){
+            param.put("ptype",ptype);
+            sql += " and orderPlan.ptype=:ptype ";
+        }
+        sql += " order by orderPlan.repay_periods asc ";
         List<CfsPrjOrderRepayPlan> prjOrderRepayPlanList = (List<CfsPrjOrderRepayPlan>) this.findListByMap(sql,param,null,CfsPrjOrderRepayPlan.class);
         if(prjOrderRepayPlanList != null && prjOrderRepayPlanList.size() >0){
             return prjOrderRepayPlanList;

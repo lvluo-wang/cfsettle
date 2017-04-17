@@ -153,7 +153,7 @@ public class PrjServiceImpl implements IPrjService {
         }
         try {
             BeanUtils.copyNoNullProperties(auditPrj,prj);
-            auditPrj.setStatus(CfsConstant.PRJ_STATUS_INVESTING);
+            //auditPrj.setStatus(CfsConstant.PRJ_STATUS_INVESTING);
             auditPrj.setMtime(DateTimeUtil.getNowDateTime());
             auditPrj.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
             prjDao.update(auditPrj);

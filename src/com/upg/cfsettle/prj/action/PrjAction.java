@@ -13,6 +13,7 @@ import com.upg.cfsettle.mapping.prj.CfsPrjLoanLog;
 import com.upg.cfsettle.prj.core.IPrjExtService;
 import com.upg.cfsettle.prj.core.IPrjLoanLogService;
 import com.upg.cfsettle.prj.core.IPrjService;
+import com.upg.cfsettle.util.CfsConstant;
 import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.factory.DynamicPropertyTransfer;
 import com.upg.ucars.framework.base.BaseAction;
@@ -135,9 +136,18 @@ public class PrjAction extends BaseAction {
     }
 
     /**
-     * 项目审核
+     * 项目审核通过
      */
     public void doReview(){
+        prj.setStatus(CfsConstant.PRJ_STATUS_INVESTING);
+        prjService.auditPrjAndPrjExt(prj,prjExt);
+    }
+
+    /**
+     * 项目审核拒绝
+     */
+    public void doReviewReject(){
+        prj.setStatus(CfsConstant.PRJ_STATUS_REFUSE);
         prjService.auditPrjAndPrjExt(prj,prjExt);
     }
 
