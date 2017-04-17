@@ -171,4 +171,14 @@ public class CfsPrjOrderDaoImpl extends SysBaseDao<CfsPrjOrder,Long> implements 
         }
         return Collections.EMPTY_LIST;
 	}
+
+    @Override
+    public List<CfsPrjOrder> getPrjOrdersByPrjIdDesc(Long prjId) {
+        String hql = "from CfsPrjOrder where prjId =? order by investTime desc";
+        List<CfsPrjOrder> list  = this.find(hql,prjId);
+        if(list != null && list.size() >0){
+            return list;
+        }
+        return Collections.EMPTY_LIST;
+    }
 }

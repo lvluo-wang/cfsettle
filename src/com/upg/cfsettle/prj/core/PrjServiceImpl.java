@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.upg.cfsettle.cust.core.ICfsPrjOrderDao;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -36,6 +37,7 @@ import com.upg.ucars.tools.imp.excel.ExcelUtil;
 import com.upg.ucars.util.BeanUtils;
 import com.upg.ucars.util.DateTimeUtil;
 import com.upg.ucars.util.StringUtil;
+import org.springframework.util.CollectionUtils;
 
 /**
  * Created by zuo on 2017/3/30.
@@ -57,6 +59,8 @@ public class PrjServiceImpl implements IPrjService {
     private ICfsPrjRepayPlanService prjRepayPlan;
     @Autowired
     private ICfsPrjOrderRepayPlanService prjOrderRepayPlan;
+	@Autowired
+	private ICfsPrjOrderDao prjOrderDao;
 
     @Override
     public List<Map<String, Object>> findByCondition(CfsPrj searchBean, Page page) {
@@ -450,6 +454,29 @@ public class PrjServiceImpl implements IPrjService {
 			UcarsHelper.throwServiceException("该项目实际募集金额小于项目成立金额");
 		}
 		updatePrj.setBuildTime(prj.getBuildTime());
+		//成立时间
+		Date buildTime = updatePrj.getBuildTime();
+		//融资开始时间
+		Date startBidTime = updatePrj.getStartBidTime();
+		if(DateTimeUtil.compareDate(buildTime,startBidTime) != 1){
+			UcarsHelper.throwServiceException("项目成立时间不能小于融资开始时间");
+		}
+		List<CfsPrjOrder> prjOrderList = prjOrderDao.getPrjOrdersByPrjIdDesc(updatePrj.getId());
+		if(!CollectionUtils.isEmpty(prjOrderList)){
+			for(CfsPrjOrder prjOrder : prjOrderList){
+				if(prjOrder.getStatus().equals(CfsConstant.PRJ_ORDER_STATUS_AUDIT)
+						|| prjOrder.getStatus().equals(CfsConstant.PRJ_ORDER_STATUS_PAY)
+						|| prjOrder.getServiceSysid().equals(CfsConstant.PRJ_ORDER_STATUS_REJECT)){
+					UcarsHelper.throwServiceException("存在未处理完成订单");
+				}
+			}
+			Date lastInvestTime = prjOrderList.get(0).getInvestTime();
+			if(DateTimeUtil.compareDate(buildTime,lastInvestTime) != 1){
+				UcarsHelper.throwServiceException("项目成立时间不能小于最后一笔订单的投资时间");
+			}
+		}else{
+			UcarsHelper.throwServiceException("项目订单不存在");
+		}
 		updatePrj.setMtime(DateTimeUtil.getNowDateTime());
 		updatePrj.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
 		updatePrj.setStatus(CfsConstant.PRJ_STATUS_TO_LOAN);

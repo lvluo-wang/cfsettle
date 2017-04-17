@@ -71,6 +71,9 @@ public class CfsPrOrderServiceImpl implements ICfsPrjOrderService {
         }
             CfsPrj prj = prjService.getPrjById(prjId);
             if(prj !=null){
+                if(DateTimeUtil.compareDate(prjOrder.getInvestTime(),prj.getStartBidTime()) !=1){
+                    UcarsHelper.throwServiceException("投资时间小于融资开始时间");
+                }
                 //投资中状态
                 if(prj.getStatus().equals(CfsConstant.PRJ_STATUS_INVESTING)){
                     if(prj.getRemainingAmount().compareTo(prjOrder.getMoney())<0){

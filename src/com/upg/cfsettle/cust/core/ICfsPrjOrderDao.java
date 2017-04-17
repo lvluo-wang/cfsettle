@@ -22,4 +22,6 @@ public interface ICfsPrjOrderDao extends IBaseDAO<CfsPrjOrder,Long> {
     CfsPrjOrder getPrjOrderByContractNo(String contractNo);
 
 	List<CfsPrjOrder> getPrjOrdersByPrjId(Long prjId);
+
+    List<CfsPrjOrder> getPrjOrdersByPrjIdDesc(Long prjId);
 }
