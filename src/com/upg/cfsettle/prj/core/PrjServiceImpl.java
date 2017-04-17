@@ -198,7 +198,7 @@ public class PrjServiceImpl implements IPrjService {
 	@Override
 	public void updateCfsPrj(CfsPrj prj) {
 		prj.setMtime(DateTimeUtil.getNowDateTime());
-		prj.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
+//		prj.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
 		prjDao.update(prj);
 	}
 
