@@ -55,7 +55,7 @@
 				<x:column title="购买金额" field="MONEY" align="center" width="150" formatter="formateMoney"/>
 				<x:column title="付款银行" field="PAY_BANK" align="center" width="80" formatter="formateBank"/>
 				<x:column title="付款卡号" field="PAY_ACCOUNT_NO" align="center" width="140"/>
-				<x:column title="预计还款时间" field="CURRENT_REPAY_DATE" align="center" width="140" formatter="formatTime"/>
+				<x:column title="预计还款时间" field="CURRENT_REPAY_DATE" align="center" width="140" formatter="format2Time"/>
 				<x:column title="服务员工类型" field="SERVICE_SYS_TYPE" align="left" width="90" formatter="formateLeaveJob"/>
 				<x:column title="服务员工姓名" field="SERVICE_SYS_NAME" align="center" width="150" formatter="formateLeaveJob" />
 				<x:column title="归属团队" field="OWNED_TEAM_NAME" align="center" width="140" formatter="formateLeaveJob"/>

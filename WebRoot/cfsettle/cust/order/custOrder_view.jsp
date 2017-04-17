@@ -114,7 +114,7 @@
                         <tr>
                             <td class="title">打印凭证</td>
                             <td colspan="3">
-                                <img id="payNotes" src="" alt="打印凭证" height="100px;" width="200px;">
+                                <img id="payNotes" src="" alt="打印凭证" height="100;" width="330px;">
                             </td>
                         </tr>
 
@@ -124,13 +124,14 @@
                             </td>
                         </tr>
                         <div class="func_data_area">
-                            <x:datagrid id="dataTableRepay"  url="/custOrder/custOrder_orderRepayList.jhtml?prjOrderid=${prjOrder.id}" height="120" pagebar="false" autoload="true" >
+                            <x:datagrid id="dataTableRepay"  url="/custOrder/custOrder_orderRepayList.jhtml?prjOrderId=${prjOrder.id}" height="120" pagebar="false" autoload="true" >
                                 <x:columns>
                                     <x:column title="预计还款时间" field="repayDate" align="center" width="150" />
                                     <x:column title="还款本金" field="principal" align="center" width="150"/>
                                     <x:column title="还款利息" field="yield" align="center" width="200" />
                                     <x:column title="还款本息" field="priInterest" align="center" width="200" />
-                                    <x:column title="还款期数" field="repayPeriods" align="center" width="200" />
+                                    <x:column title="还款期数" field="repayPeriod" align="center" width="200" />
+                                    <x:column title="还款状态" field="status" align="center" width="200" formatter="formateRepayStatus"/>
                                     <x:column title="实际还款时间" field="paybackTime" align="center" width="200" />
                                     <x:column title="还款审核人" field="paybackAuditName" align="center" width="200" />
                                 </x:columns>
@@ -151,6 +152,16 @@
 
             function doReturn() {
                 window.history.go(-1);
+            }
+
+            function formateRepayStatus(value) {
+                if (value == '1') {
+                    return '待还款';
+                } else if (value == '2') {
+                    return '已还款';
+                } else {
+                    return ''
+                }
             }
 
         </script>

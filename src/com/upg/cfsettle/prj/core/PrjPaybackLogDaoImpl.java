@@ -71,7 +71,8 @@ public class PrjPaybackLogDaoImpl extends SysBaseDao<CfsPrjPaybackLog,Long> impl
 
     @Override
     public BigDecimal getPrjRepayTotalAmount(Long prjId){
-        String sql = "select plan.* from cfs_prj_repay_plan plan where plan.prj_id=:prjId";
+        String sql = "select plan.pri_interest/100 as priInterest,plan.principal/100 as principal" +
+                " from cfs_prj_repay_plan plan where plan.prj_id=:prjId";
         Map<String,Object> param = new HashedMap();
         param.put("prjId",prjId);
         List<CfsPrjRepayPlan> list = (List<CfsPrjRepayPlan>) this.findListByMap(sql,param,null, CfsPrjRepayPlan.class);
@@ -79,7 +80,7 @@ public class PrjPaybackLogDaoImpl extends SysBaseDao<CfsPrjPaybackLog,Long> impl
         for(CfsPrjRepayPlan prjRepayPlan : list){
             amount=amount.add(prjRepayPlan.getPriInterest().add(prjRepayPlan.getPrincipal()));
         }
-        return amount.divide(new BigDecimal(100));
+        return amount;
     }
 
 

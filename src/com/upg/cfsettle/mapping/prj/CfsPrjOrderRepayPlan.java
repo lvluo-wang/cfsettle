@@ -33,10 +33,12 @@ public class CfsPrjOrderRepayPlan implements Serializable {
 	private Date ctime;
 	private Date mtime;
 
+	//显示所需
 	private Integer totalPeriods;
 	private Date paybackTime;
-	private Long paybackAuditSysid;
+	private Integer paybackAuditSysid;
 	private String paybackAuditName;
+	private Integer repayPeriod;
 
 
 	// Constructors
@@ -67,7 +69,7 @@ public class CfsPrjOrderRepayPlan implements Serializable {
 		this.mtime = mtime;
 	}
 
-	public CfsPrjOrderRepayPlan(Long id, Byte ptype, Long prjId, Long prjOrderId, Long repayPeriods, Date repayDate, BigDecimal priInterest, BigDecimal principal, BigDecimal yield, BigDecimal restPrincipal, Byte status, Long prjRepayPlanId, Long version, Date ctime, Date mtime, Date paybackTime, Long paybackAuditSysid) {
+	public CfsPrjOrderRepayPlan(Long id, Byte ptype, Long prjId, Long prjOrderId, Long repayPeriods, Date repayDate, BigDecimal priInterest, BigDecimal principal, BigDecimal yield, BigDecimal restPrincipal, Byte status, Long prjRepayPlanId, Long version, Date ctime, Date mtime, Date paybackTime, Integer paybackAuditSysid) {
 		this.id = id;
 		this.ptype = ptype;
 		this.prjId = prjId;
@@ -87,6 +89,13 @@ public class CfsPrjOrderRepayPlan implements Serializable {
 		this.paybackAuditSysid = paybackAuditSysid;
 	}
 
+	public Integer getRepayPeriod() {
+		return repayPeriod;
+	}
+
+	public void setRepayPeriod(Integer repayPeriod) {
+		this.repayPeriod = repayPeriod;
+	}
 
 	public Integer getTotalPeriods() {
 		return totalPeriods;
@@ -112,11 +121,11 @@ public class CfsPrjOrderRepayPlan implements Serializable {
 		this.paybackTime = paybackTime;
 	}
 
-	public Long getPaybackAuditSysid() {
+	public Integer getPaybackAuditSysid() {
 		return paybackAuditSysid;
 	}
 
-	public void setPaybackAuditSysid(Long paybackAuditSysid) {
+	public void setPaybackAuditSysid(Integer paybackAuditSysid) {
 		this.paybackAuditSysid = paybackAuditSysid;
 	}
 
