@@ -11,7 +11,6 @@ import java.util.List;
 
 /**
  * Created by zuo on 2017/3/28.
- *  组织结构区域管理
  */
 public class OrgAreaAction extends BaseAction {
 
