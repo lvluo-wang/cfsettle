@@ -35,7 +35,7 @@
                             <td>${cust.mobile}</td>
                         </tr>
                         <tr>
-                            <td class="title">投资金额</td>
+                            <td class="title">投资金额(元)</td>
                             <td>${prjOrder.money}</td>
                             <td class="title">投资状态</td>
                             <td><x:codeItem codeKey="<%=UtilConstant.CFS_PRJ_ORDER_STATUS%>"
@@ -66,11 +66,11 @@
                         <tr>
                             <td class="title">募集期利率</td>
                             <td>${prj.periodRate}%</td>
-                            <td class="title">项目成立金额</td>
+                            <td class="title">项目成立金额(元)</td>
                             <td>${prj.minLoanAmount}</td>
                         </tr>
                         <tr>
-                            <td class="title">募集期利息</td>
+                            <td class="title">募集期利息(元)</td>
                             <td>${raisePrjOrderRepayPlan.yield}</td>
                             <td class="title">募集期计息天数</td>
                             <td>${raiseDay}</td>
@@ -124,10 +124,10 @@
                 <x:datagrid id="dataTableRepay"  url="/custOrder/custOrder_orderRepayList.jhtml?prjOrderId=${prjOrder.id}" height="260" pagebar="false" autoload="true" >
                     <x:columns>
                         <x:column title="预计还款时间" field="repayDate" align="center" width="200" />
-                        <x:column title="还款本金" field="principal" align="center" width="100"/>
-                        <x:column title="还款利息" field="yield" align="center" width="100" />
-                        <x:column title="还款本息" field="priInterest" align="center" width="100" />
-                        <x:column title="还款期数" field="repayPeriod" align="center" width="100" />
+                        <x:column title="还款本金(元)" field="principal" align="center" width="100"/>
+                        <x:column title="还款利息(元)" field="yield" align="center" width="100" />
+                        <x:column title="还款本息(元)" field="priInterest" align="center" width="100" />
+                        <x:column title="还款期数" field="repayPeriod" align="center" width="100" formatter="formatPayTimes"/>
                         <x:column title="还款状态" field="status" align="center" width="80" formatter="formateRepayStatus"/>
                         <x:column title="实际还款时间" field="paybackTime" align="center" width="200" />
                         <x:column title="还款审核人" field="paybackAuditName" align="center" width="100" />
@@ -156,6 +156,13 @@
                     return ''
                 }
             }
+            
+            function formatPayTimes(val,field,row){
+    	      	if(val==0||val==""){
+    	      		return "募集期";
+    	      	}
+    	      	return "第"+val+"期";
+    	      }
 
         </script>
     </tiles:putAttribute>

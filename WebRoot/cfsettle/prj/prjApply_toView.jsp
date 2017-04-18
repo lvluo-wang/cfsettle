@@ -56,7 +56,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="title">募集金额:</td>
+                            <td class="title">募集金额(元):</td>
                             <td>${prj.demandAmount}
                             </td>
                             <td class="title">项目期限:</td>
@@ -80,7 +80,7 @@
                         <tr>
                             <td class="title">还款方式:</td>
                             <td><x:codeItem codeKey="<%=UtilConstant.CFS_REPAYMENT_TYPE%>" codeNo="prj.repayWay" /></td>
-                            <td class="title">项目成立金额:</td>
+                            <td class="title">项目成立金额(元):</td>
                             <td>${prj.minLoanAmount}
                             </td>
                         </tr>
@@ -170,9 +170,9 @@
                         <x:columns>
                             <x:column title="放款次数" field="loanTimes" align="center" width="150" />
                             <x:column title="放款时间" field="loanTime" align="center" width="150"/>
-                            <x:column title="放款金额" field="loanAmount" align="center" width="200" />
-                            <x:column title="已放款总额" field="loanedAmount" align="center" width="200" />
-                            <x:column title="剩余待放款" field="remainingLoanedAmount" align="center" width="200" />
+                            <x:column title="放款金额(元)" field="loanAmount" align="center" width="200" />
+                            <x:column title="已放款总额(元)" field="loanedAmount" align="center" width="200" />
+                            <x:column title="剩余待放款(元)" field="remainingLoanedAmount" align="center" width="200" />
                             <x:column title="放款录入人" field="sysUserName" align="center" width="200" />
                         </x:columns>
                     </x:datagrid>
@@ -184,9 +184,9 @@
                         <x:columns>
                             <x:column title="回款次数" field="REPAY_PERIODS" align="center" width="150" />
                             <x:column title="回款时间" field="PAYBACK_TIME" align="center" width="150"/>
-                            <x:column title="回款金额" field="PAYBACK_AMOUNT" align="center" width="150" />
-                            <x:column title="已回款总额" field="PAYBACK_TOTAL_AMOUNT" align="center" width="150" />
-                            <x:column title="剩余待回款" field="NEED_REPAY_AMOUNT" align="center" width="150" />
+                            <x:column title="回款金额(元)" field="PAYBACK_AMOUNT" align="center" width="150" />
+                            <x:column title="已回款总额(元)" field="PAYBACK_TOTAL_AMOUNT" align="center" width="150" />
+                            <x:column title="剩余待回款(元)" field="NEED_REPAY_AMOUNT" align="center" width="150" />
                             <x:column title="回款截止时间" field="REPAY_DATE" align="center" width="150" />
                             <x:column title="回款录入人" field="sysUserName" align="center" width="150" />
                         </x:columns>

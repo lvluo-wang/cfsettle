@@ -31,7 +31,7 @@
                     <td>${cust.mobile}</td>
                 </tr>
                 <tr>
-                    <td class="title">投资金额</td>
+                    <td class="title">投资金额(元)</td>
                     <td>${prjOrder.money}元</td>
                     <td class="title">投资时间</td>
                     <td><s:date name="prjOrder.investTime" format="yyyy-MM-dd HH:mm:ss"/></td>
