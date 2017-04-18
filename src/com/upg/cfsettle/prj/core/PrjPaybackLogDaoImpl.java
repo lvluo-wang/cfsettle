@@ -27,7 +27,7 @@ public class PrjPaybackLogDaoImpl extends SysBaseDao<CfsPrjPaybackLog,Long> impl
 	public List<Map<String, Object>> findByCondition(CfsPrjPaybackLog searchBean, Page page) {
 		String sql = "select p.`repay_periods`,from_unixtime(p.`repay_date`) as repay_date,from_unixtime(l.payback_time) as payback_time,l.payback_bank,"
 				+ "(l.`payback_amount`/100) as payback_amount,l.payback_account_name,l.`payback_account_no`,l.`payback_serial_num`,l.`status`,l.csysid,"
-				+ "l.`remark` from cfs_prj_repay_plan p left join cfs_prj_payback_log l on p.id = l.prj_repay_plan_id  where 1=1 ";
+				+ "l.`remark` from cfs_prj_repay_plan p left join cfs_prj_payback_log l on p.id = l.prj_repay_plan_id ";
         SQLCreater sqlCreater = new SQLCreater(sql,false);
         if(searchBean != null){
             Long prjId = searchBean.getPrjId();
