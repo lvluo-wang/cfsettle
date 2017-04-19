@@ -98,12 +98,10 @@ function initPage(){
 	}
 	
 	function doRoleFunc(){
-	       if(roleMainDG.getSelectedRowNum()>0){
+	       if(isSingleSelected(roleMainDG)){
 				var selectedId = roleMainDG.getSelectedIds();
 				var url = "<s:url value='/security/role_roleFuncMain.jhtml'/>?roleId="+selectedId;
 				redirectUrl(url,"role_func","<s:text name="set"/><s:text name="role"/><s:text name="sysfunc"/>");
-	       }else{
-	           info(global.notSelectInfo);
 	       }
 	}
 
