@@ -27,20 +27,20 @@
 		<x:datagrid id="dataTable" singleSelect="true" url="/orgDept/orgDeptManage_list.jhtml" autoload="true" form="mainQueryForm">
 			<x:columns>
 				<x:column title="" checkbox="true" field="ID" />
-				<x:column title="营业部名" field="DEPT_NAME" align="center" width="140"/>
-				<x:column title="营业部联系方式" field="DEPT_MOBILE" align="center" width="320"/>
-				<x:column title="营业部地址" field="DEPT_ADDR" align="left" width="320" />
-				<x:column title="归属区域" field="AREA_NAME" align="left" width="140"/>
-				<x:column title="添加时间" field="CTIME" align="left" width="140" formatter="formatTime"/>
-				<x:column title="是否开启" field="STATUS" align="left" width="140" formatter="formatIsActive"/>
+				<x:column title="营业部名" field="DEPT_NAME" align="center" width="160"/>
+				<x:column title="营业部联系方式" field="DEPT_MOBILE" align="center" width="90"/>
+				<x:column title="营业部地址" field="DEPT_ADDR" align="center" width="320" />
+				<x:column title="归属区域" field="AREA_NAME" align="center" width="120"/>
+				<x:column title="添加时间" field="CTIME" align="center" width="140" formatter="formatTime"/>
+				<x:column title="是否开启" field="STATUS" align="center" width="60" formatter="formatIsActive"/>
 			</x:columns>
 		</x:datagrid>
 	</tiles:putAttribute>
 
 	<tiles:putAttribute name="window">
 	<!-- 弹出窗口定义开始 -->
-	<div id="project_add_win" style="width:550px;height:240px;display:none;"></div>
-	<div id="project_edit_win" style="width:550px;height:240px;display:none;"></div>
+	<div id="project_add_win" style="width:550px;height:auto;display:none;"></div>
+	<div id="project_edit_win" style="width:550px;height:auto;display:none;"></div>
 	</tiles:putAttribute>
 	
 	<tiles:putAttribute name="end">

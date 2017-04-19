@@ -35,8 +35,8 @@
 				<x:column title="" checkbox="true" field="id" />
 				<x:column title="区域名" field="areaName" align="center" width="140"/>
 				<x:column title="管辖范围" field="overRange" align="center" width="320"/>
-				<x:column title="创建时间" field="ctime" align="left" width="320" />
-				<x:column title="状态" field="status" align="left" width="140" formatter="formatIsActive"/>
+				<x:column title="创建时间" field="ctime" align="center" width="140" />
+				<x:column title="是否开启" field="status" align="center" width="60" formatter="formatIsActive"/>
 			</x:columns>
 		</x:datagrid>
 	</tiles:putAttribute>
@@ -44,8 +44,8 @@
 
 	<tiles:putAttribute name="window">
 	<!-- 弹出窗口定义开始 -->
-	<div id="project_add_win" style="width:550px;height:240px;display:none;"></div>
-	<div id="project_edit_win" style="width:550px;height:240px;display:none;"></div>
+	<div id="project_add_win" style="width:550px;height:auto;display:none;"></div>
+	<div id="project_edit_win" style="width:550px;height:auto;display:none;"></div>
 	</tiles:putAttribute>
 	
 	<tiles:putAttribute name="end">

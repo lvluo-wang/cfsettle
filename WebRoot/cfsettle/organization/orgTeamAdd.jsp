@@ -32,7 +32,7 @@
 					<td class="title">是否开启:<font color="red">*</font>:</td>
 						<td colspan="3"><x:combobox name="orgTeam.status" list="isActiveList"
 								required="true" textField="codeName" valueField="codeNo"
-								cssStyle="width:180px;" /></td>
+								cssStyle="width:142px;" /></td>
 					</tr>
 				</tbody>
 			</table>
