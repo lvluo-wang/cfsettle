@@ -212,5 +212,12 @@ public abstract class BaseDAO<T,PK extends Serializable> extends AbstractHiberna
         }
 	}
 	
+	public List<T> queryEntityByCustomerHQL(String hql,List<ConditionBean> conditionList, List<OrderBean> orderList, Page page) throws DAOException{
+		QueryCondition qc = new QueryCondition(hql);
+		qc.addConditionList(conditionList);
+		qc.addOrderList(orderList);
+		List<T> list = super.queryByCondition(qc, page);
+		return list;
+	}
 	
 }

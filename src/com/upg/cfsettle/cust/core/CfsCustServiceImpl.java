@@ -24,7 +24,7 @@ public class CfsCustServiceImpl implements ICfsCustService{
 
 	@Override
 	public List<CfsCust> findByCondition(CfsCust searchBean, Page page) {
-		String hql = "from CfsCust cfsCust";
+		String hql = "select cfsCust from CfsCust cfsCust ,CfsCustBuserRelate relate where cfsCust.id =relate.custId ";
 		QueryCondition condition = new QueryCondition(hql);
 		if (searchBean != null) {
 			String realName = searchBean.getRealName();
@@ -43,8 +43,9 @@ public class CfsCustServiceImpl implements ICfsCustService{
 			if (isValid != null) {
 				condition.addCondition(new ConditionBean("cfsCust.isValid", ConditionBean.EQUAL, isValid));
 			}
+			condition.addCondition(new ConditionBean("relate.sysId", ConditionBean.EQUAL, SessionTool.getUserLogonInfo().getSysUserId()));
 		}
-		return cfsCustDao.queryEntity( condition.getConditionList(), page);
+		return cfsCustDao.queryEntityByCustomerHQL(hql,condition.getConditionList(),null,page);
 	}
 
 	@Override
