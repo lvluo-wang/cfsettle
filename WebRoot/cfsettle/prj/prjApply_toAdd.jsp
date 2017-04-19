@@ -290,10 +290,10 @@
             }
 
             function uploadFileCallBack(value,index){
-                /*if(value.isSupported == 0){
+                if(value.isSupported == 0){
                     info("上传操作不支持此文件类型");
                     return false;
-                }*/
+                }
                 $('#uploadFile_'+index).val(value.id);
                 var attachmentItem = "<a href='#' class='_attach_info' attachId='"+ value.id +"' onclick=\"_downloadFile('" + value.id + "')\">" +value.name + "</a>";
                 attachmentItem +="&nbsp;&nbsp;<a href='#' onclick=\"_deleteFile('" + value.id + ","+index+"')\"><s:text name="del"/></a>";

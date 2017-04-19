@@ -198,44 +198,9 @@
     </tiles:putAttribute>
     <tiles:putAttribute name="end">
         <script type="text/javascript">
-
-            function formateRemainIssueAmount(){
-               var demandAmount =  $('#demandAmount').val();
-                var remainingAmount = $('#remainingAmount').val();
-                var amount = demandAmount-remainingAmount;
-                var allLoanAmount = dataTableIssue.getAllFields("loanAmount")
-                var result;
-                if(allLoanAmount) {
-                    var arr = [];
-                    arr = allLoanAmount.split(',');
-                    for (var i in arr) {
-                        result = +i;
-                    }
-                    return amount - result;
-                }
-            }
-
-            function formateIssueAmount() {
-                var allLoanAmount = dataTableIssue.getAllFields("loanAmount");
-                alert(allLoanAmount);
-                var result;
-                if(allLoanAmount) {
-                    var arr = [];
-                    arr = allLoanAmount.split(',');
-                    for (var i in arr) {
-                        result = +i;
-                    }
-                    return  result;
-                }
-            }
-
             $(function () {
                 $('#tt').css("height", $(document.body).height() - 50).tabs({});
-                //changePercent($("input[name='carLoan.rateType']")[0].value);
-                //addUploadTemplate();
-
             });
-
 
             function doReturn() {
                 window.history.go(-1);

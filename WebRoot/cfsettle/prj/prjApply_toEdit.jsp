@@ -180,7 +180,7 @@
                                 <s:if test="prjExt.contractAttid !=null">
                                 <a href='#' class='_attach_info'
                                    onclick='_downloadFile("${prjExt.contractAttid}")'>${prjExt.contractName}</a>
-                                <a href='#' onclick='_deleteFile("${prjExt.contractAttid}",1)'><s:text name="del"/>
+                                <a href='#' onclick='_deleteFile(1)'><s:text name="del"/>
                                 </a>
                                 </s:if>
                             </div></td>
@@ -196,7 +196,7 @@
                                 <s:if test="prjExt.periodAttid != null">
                             <a href='#' class='_attach_info'
                                onclick='_downloadFile("${prjExt.periodAttid}")'>${prjExt.periodName}</a>
-                                 <a href='#' onclick='_deleteFile("${prjExt.periodAttid}",2)'><s:text name="del"/></a>
+                                 <a href='#' onclick='_deleteFile(2)'><s:text name="del"/></a>
                                 </s:if>
                             </div>
                             </td>
@@ -212,7 +212,7 @@
                                  <s:if test="prjExt.guaranteAttid != null">
                                 <a href='#' class='_attach_info'
                                    onclick='_downloadFile("${prjExt.guaranteAttid}")'>${prjExt.guaranteName}</a>
-                                 <a href='#' onclick='_deleteFile("${prjExt.guaranteAttid}",3)'><s:text name="del"/></a>
+                                 <a href='#' onclick='_deleteFile(3)'><s:text name="del"/></a>
                                  </s:if>
                             </div></td>
                             <td colspan="2">
@@ -227,7 +227,7 @@
                                   <s:if test="prjExt.spreadAttid != null">
                                  <a href='#' class='_attach_info'
                                     onclick='_downloadFile("${prjExt.spreadAttid}")'>${prjExt.spreadName}</a>
-                                 <a href='#' onclick='_deleteFile("${prjExt.spreadAttid}",4)'><s:text name="del"/></a>
+                                 <a href='#' onclick='_deleteFile(4)'><s:text name="del"/></a>
                                   </s:if>
                             </div></td>
                             <td colspan="2">
@@ -266,7 +266,6 @@
 
             $(function () {
                 $('#tt').css("height", $(document.body).height() - 50).tabs({});
-                //changePercent($("input[name='carLoan.rateType']")[0].value);
                 addUploadTemplate();
 
             });
@@ -282,40 +281,26 @@
             }
 
             function uploadFileCallBack(value, index) {
-                /*if(value.isSupported == 0){
+                if(value.isSupported == 0){
                  info("上传操作不支持此文件类型");
                  return false;
-                 }*/
+                 }
                 $('#uploadFile_' + index).val(value.id);
 
                 var attachmentItem = "<a href='#' class='_attach_info' attachId='"+ value.id +"' onclick=\"_downloadFile('" + value.id + "')\">" +value.name + "</a>";
-                attachmentItem +="&nbsp;&nbsp;<a href='#' onclick=\"_deleteFile('" + value.id + ","+index+"')\"><s:text name="del"/></a>";
+                attachmentItem +="&nbsp;&nbsp;<a href='#' onclick=\"_deleteFile("+index+"')\"><s:text name="del"/></a>";
                 attachmentItem += "<br/>";
                 $('#uploadName_'+index).html(attachmentItem);
             }
 
-            function _deleteFile(attachmentId,index){
-                $.ajax({
-                    type:"POST",
-                    url:"<s:url value='/component/attachment_delete.jhtml'/>",
-                    dataType: 'json',
-                    cache:false,
-                    data:{id:attachmentId},
-                    error:function(result){
-                        printError(result);
-                    },
-                    success:function(){
-                        $('#uploadName_'+index).remove();
-                        $('#uploadFile_' + index).val('');
-                    }
-                });
+            function _deleteFile(index){
+                $('#uploadName_'+index).empty();
+                $('#uploadFile_'+index).val('');
             }
 
             function doReturn() {
                 window.history.go(-1);
             }
-
-
 
             function AddRunningDiv(str) {
                 $("<div class=\"datagrid-mask\"></div>").css({
@@ -332,7 +317,6 @@
 
             function doApply() {
                 if ($("#prj_form").form("validate") && $("#prjExt_form").form("validate")) {
-
                     var url = '<s:url value="/prj/prjManage_doEdit.jhtml"/>';
                     var param1 = formToObject("prj_form");
                     var param2 = formToObject("prjExt_form");
