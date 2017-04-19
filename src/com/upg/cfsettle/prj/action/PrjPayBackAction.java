@@ -76,8 +76,8 @@ public class PrjPayBackAction extends BaseAction {
     }
 
     public String toView(){
-        prj = prjService.getPrjById(getPKId());
-        repayPlan =  prjRepayPlanService.getPrjRepayPlanById(getPKId());
+    	repayPlan =  prjRepayPlanService.getPrjRepayPlanById(getPKId());
+        prj = prjService.getPrjById(repayPlan.getPrjId());
         totalPeriod = prjRepayPlanService.getTotalPeriodByPrjId(repayPlan.getPrjId());
         prjExt = prjExtService.getPrjExtByPrjId(getPKId());
         return SUCCESS;

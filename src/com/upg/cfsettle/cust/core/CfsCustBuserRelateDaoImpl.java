@@ -1,16 +1,14 @@
 package com.upg.cfsettle.cust.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.upg.cfsettle.mapping.prj.CfsCustBuserRelate;
 import com.upg.ucars.constant.ErrorCodeConst;
 import com.upg.ucars.framework.annotation.Dao;
 import com.upg.ucars.framework.base.SysBaseDao;
 import com.upg.ucars.framework.exception.DAOException;
 import com.upg.ucars.framework.exception.ExceptionManager;
-import com.upg.ucars.mapping.basesystem.security.Buser;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Created by zuobaoshi on 2017/4/4.

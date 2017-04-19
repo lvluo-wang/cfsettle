@@ -97,7 +97,7 @@
 		if(isSelected(dataTable)){
 			$.messager.confirm(global.alert,global.prompt_delete, function(r){
 				if(r){
-					dataTable.call('<s:url value="/cust/cfscust_batchDelete.jhtml"/>',{ids:dataTable.getSelectedFields("id")});
+					dataTable.call('<s:url value="/cust/cfscust_batchDelete.jhtml"/>',{id:dataTable.getSelectedField("id")});
 				}
 			});
 		}

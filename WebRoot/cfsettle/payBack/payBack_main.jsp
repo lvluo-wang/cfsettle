@@ -120,7 +120,7 @@
 
 	function toView(){
 		if(isSingleSelected(dataTable)) {
-			var selectedId = dataTable.getSelectedField("ID");
+			var selectedId = dataTable.getSelectedField("PLANID");
             var status = dataTable.getSelectedField("STATUS");
             var url = "<s:url value='/prj/payBack_toView.jhtml'/>?id="+selectedId;
             redirectUrl(url);
