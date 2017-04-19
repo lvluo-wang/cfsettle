@@ -1,12 +1,11 @@
 package com.upg.cfsettle.cust.core;
 
-import com.upg.cfsettle.mapping.prj.CfsPrjOrderRepayPlan;
+import java.util.List;
+import java.util.Map;
+
 import com.upg.cfsettle.mapping.prj.CfsPrjRepayPlan;
 import com.upg.ucars.framework.base.IBaseDAO;
 import com.upg.ucars.framework.base.Page;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by zuobaoshi on 2017/4/2.
@@ -46,4 +45,6 @@ public interface ICfsPrjRepayPlanDao extends IBaseDAO<CfsPrjRepayPlan,Long> {
 	 * @return
 	 */
 	CfsPrjRepayPlan getPrjPlanByPrjIdAndPeriod(Long prjId, Long repayPeriod);
+
+	List<CfsPrjRepayPlan> getPrjPlanByPrjId(Long prjId);
 }

@@ -41,7 +41,7 @@
 		                    <td><s:date format="yyyy-MM-dd HH:mm:ss" name="prjOrder.investTime"/></td>
 		                </tr>
 		                <tr>
-		                    <td class="title">投资金额(元)：</td>
+		                    <td class="title">投资金额(元):</td>
 		                    <td>${prjOrder.money}</td>
 		                    <td class="title">计息天数:</td>
 		                    <td>${orderRepayPlan.countDay}</td>

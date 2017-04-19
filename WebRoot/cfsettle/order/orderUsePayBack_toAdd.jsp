@@ -47,19 +47,19 @@
 		                    <td><s:date format="yyyy-MM-dd HH:mm:ss" name="prjOrder.investTime"/></td>
 		                </tr>
 		                <tr>
-		                    <td class="title">投资金额：</td>
+		                    <td class="title">投资金额(元):</td>
 		                    <td>${prjOrder.money}</td>
 		                    <td class="title">项目还款时间:</td>
 		                    <td><s:date format="yyyy-MM-dd HH:mm:ss" name="prj.lastRepayTime"/></td>
 		                </tr>
 		                <tr>
-		                    <td class="title">还款本金:</td>
+		                    <td class="title">还款本金(元):</td>
 		                    <td>${orderRepayPlan.principal}</td>
 		                    <td class="title">还款利息(元):</td>
 		                    <td>${orderRepayPlan.yield}</td>
 		                </tr>
 		                <tr>
-		                    <td class="title">还款本息:</td>
+		                    <td class="title">还款本息(元):</td>
 		                    <td>${orderRepayPlan.priInterest}</td>
 		                    <td class="title">还款期数:</td>
 		                    <td>${orderRepayPlan.repayPeriods}/M</td>

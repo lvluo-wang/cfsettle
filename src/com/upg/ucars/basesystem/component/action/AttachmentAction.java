@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.upg.ucars.basesystem.UcarsHelper;
 import com.upg.ucars.basesystem.component.core.IAttachmentService;
 import com.upg.ucars.factory.DynamicPropertyTransfer;
 import com.upg.ucars.framework.base.BaseAction;
@@ -131,7 +132,7 @@ public class AttachmentAction extends BaseAction {
 				setDataStream(in);
 			} catch (Exception e) {
 				log.error(e.getMessage(), e);
-				throw new RuntimeException(e.getMessage());
+				UcarsHelper.throwActionException("查看附件不存在!!");
 			} finally {
 
 			}

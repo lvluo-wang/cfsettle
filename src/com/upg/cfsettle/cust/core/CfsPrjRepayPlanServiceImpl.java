@@ -60,4 +60,9 @@ public class CfsPrjRepayPlanServiceImpl implements ICfsPrjRepayPlanService {
 	public CfsPrjRepayPlan getPrjPlanByPrjIdAndPeriod(Long prjId, Long repayPeriod) {
         return prjRepayPlanDao.getPrjPlanByPrjIdAndPeriod(prjId,repayPeriod);
 	}
+
+	@Override
+	public List<CfsPrjRepayPlan> getPrjPlanByPrjId(Long prjId) {
+		return prjRepayPlanDao.getPrjPlanByPrjId(prjId);
+	}
 }

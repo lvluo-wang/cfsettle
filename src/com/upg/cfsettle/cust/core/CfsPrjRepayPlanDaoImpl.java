@@ -86,4 +86,11 @@ public class CfsPrjRepayPlanDaoImpl extends SysBaseDao<CfsPrjRepayPlan,Long> imp
         	return prjRepayPlanList.get(0);
         }
 	}
+
+	@Override
+	public List<CfsPrjRepayPlan> getPrjPlanByPrjId(Long prjId) {
+		String hql = "from CfsPrjRepayPlan plan where " +
+                "plan.prjId =?";
+		return this.find(hql,new Object[]{prjId});
+	}
 }

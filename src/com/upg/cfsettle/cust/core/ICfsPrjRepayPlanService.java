@@ -3,7 +3,6 @@ package com.upg.cfsettle.cust.core;
 import java.util.List;
 import java.util.Map;
 
-import com.upg.cfsettle.mapping.prj.CfsPrjOrderRepayPlan;
 import com.upg.cfsettle.mapping.prj.CfsPrjRepayPlan;
 import com.upg.ucars.framework.base.IBaseService;
 import com.upg.ucars.framework.base.Page;
@@ -30,4 +29,6 @@ public interface ICfsPrjRepayPlanService extends IBaseService {
 	CfsPrjRepayPlan getPrjRepayPlanById(Long id);
 
 	CfsPrjRepayPlan getPrjPlanByPrjIdAndPeriod(Long prjId, Long repayPeriod);
+
+	List<CfsPrjRepayPlan> getPrjPlanByPrjId(Long prjId);
 }

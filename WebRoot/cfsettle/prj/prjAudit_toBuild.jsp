@@ -13,7 +13,7 @@
                 <tr>
                     <td>项目成立时间:</td>
                     <td>
-                        <input name="prj.buildTime" class="Wdate easyui-validatebox" required="true"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:00',minDate:'${prj.startBidTime}'})" />
+                        <input name="prj.buildTime" class="Wdate easyui-validatebox" required="true"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'${prj.startBidTime}'})" />
                     </td>
                 </tr>
             </table>

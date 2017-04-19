@@ -10,11 +10,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.upg.cfsettle.cust.core.ICfsPrjOrderDao;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 
 import com.upg.cfsettle.common.CodeItemUtil;
+import com.upg.cfsettle.cust.core.ICfsPrjOrderDao;
 import com.upg.cfsettle.cust.core.ICfsPrjOrderRepayPlanService;
 import com.upg.cfsettle.cust.core.ICfsPrjOrderService;
 import com.upg.cfsettle.cust.core.ICfsPrjRepayPlanService;
@@ -37,7 +38,6 @@ import com.upg.ucars.tools.imp.excel.ExcelUtil;
 import com.upg.ucars.util.BeanUtils;
 import com.upg.ucars.util.DateTimeUtil;
 import com.upg.ucars.util.StringUtil;
-import org.springframework.util.CollectionUtils;
 
 /**
  * Created by zuo on 2017/3/30.
@@ -404,7 +404,7 @@ public class PrjServiceImpl implements IPrjService {
 				orderPlan.setPriInterest(yield.add(orderPlan.getPrincipal()));
 				orderPlan.setYield(yield);
 				orderPlan.setRestPrincipal(order.getMoney().subtract(orderPlan.getPrincipal()));
-				if(orderPlan.getPriInterest().intValue()==0l){
+				if(orderPlan.getPriInterest().doubleValue() == 0){
 					orderPlan.setStatus(UtilConstant.REPAY_STATUS_2);
 				}else{
 					orderPlan.setStatus(UtilConstant.REPAY_STATUS_1);
@@ -493,34 +493,37 @@ public class PrjServiceImpl implements IPrjService {
 
 	@Override
 	public void genPrjRepayPlan(final CfsPrj prj) {
-		if(CfsConstant.PRJ_REPAY_WAY_A.equals(prj.getRepayWay())){
-			UcarsHelper.asyncExecute(new Runnable() {
-				@Override
-				public void run() {
-					genRepayWayA(prj);
-				}
-			});
-		}else if(CfsConstant.PRJ_REPAY_WAY_B.equals(prj.getRepayWay())){
-			UcarsHelper.asyncExecute(new Runnable() {
-				@Override
-				public void run() {
-					genRepayWayB(prj);
-				}
-			});
-		}else if(CfsConstant.PRJ_REPAY_WAY_C.equals(prj.getRepayWay())){
-			UcarsHelper.asyncExecute(new Runnable() {
-				@Override
-				public void run() {
-					genRepayWayC(prj);
-				}
-			});
-		}else if(CfsConstant.PRJ_REPAY_WAY_D.equals(prj.getRepayWay())){
-			UcarsHelper.asyncExecute(new Runnable() {
-				@Override
-				public void run() {
-					genRepayWayD(prj);
-				}
-			});
+		List<CfsPrjRepayPlan> list = prjRepayPlan.getPrjPlanByPrjId(prj.getId());
+		if(CollectionUtils.isEmpty(list)){
+			if(CfsConstant.PRJ_REPAY_WAY_A.equals(prj.getRepayWay())){
+				UcarsHelper.asyncExecute(new Runnable() {
+					@Override
+					public void run() {
+						genRepayWayA(prj);
+					}
+				});
+			}else if(CfsConstant.PRJ_REPAY_WAY_B.equals(prj.getRepayWay())){
+				UcarsHelper.asyncExecute(new Runnable() {
+					@Override
+					public void run() {
+						genRepayWayB(prj);
+					}
+				});
+			}else if(CfsConstant.PRJ_REPAY_WAY_C.equals(prj.getRepayWay())){
+				UcarsHelper.asyncExecute(new Runnable() {
+					@Override
+					public void run() {
+						genRepayWayC(prj);
+					}
+				});
+			}else if(CfsConstant.PRJ_REPAY_WAY_D.equals(prj.getRepayWay())){
+				UcarsHelper.asyncExecute(new Runnable() {
+					@Override
+					public void run() {
+						genRepayWayD(prj);
+					}
+				});
+			}
 		}
 	}
 
