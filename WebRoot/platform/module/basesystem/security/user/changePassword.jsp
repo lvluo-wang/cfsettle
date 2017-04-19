@@ -52,6 +52,7 @@
 				if(r){
 					var url = "<s:url value='/security/user_changePassword.jhtml'/>";
 					windowFormSubmitAndClose(url,"changePwdForm","change_pwd");
+					logout();
 				}
 				
 			});

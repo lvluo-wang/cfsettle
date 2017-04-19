@@ -71,13 +71,13 @@
                             <td class="title">项目利率:</td>
                             <td>
                                 <input id="prjYearRate" name="prj.yearRate" value="${prj.yearRate}"
-                                       class="easyui-validatebox" required="true" validType="percentage"/>
+                                       class="easyui-validatebox" required="true" validType="positive_percentage"/>
                                 <span>%</span>
                             </td>
                             <td class="title">募集期利率:</td>
                             <td>
                                 <input id="periodRate" name="prj.periodRate" value="${prj.periodRate}"
-                                       class="easyui-validatebox" required="true" validType="percentage"/>
+                                       class="easyui-validatebox" required="true" validType="positive_percentage"/>
                                 <span>%</span>
                             </td>
                         </tr>

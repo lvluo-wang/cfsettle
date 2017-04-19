@@ -32,7 +32,7 @@ public class PrjDaoImpl extends SysBaseDao<CfsPrj,Long> implements IPrjDao {
         if(searchBean != null){
             String prjName = searchBean.getPrjName();
             if(!StringUtil.isEmpty(prjName)){
-                sqlCreater.and("prj.prj_name like :prjName","prjName",prjName,true);
+                sqlCreater.and("prj.prj_name like :prjName","prjName","%"+prjName+"%",true);
             }
             Byte status = searchBean.getStatus();
             if(status != null){

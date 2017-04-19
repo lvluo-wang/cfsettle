@@ -96,9 +96,14 @@
 
 	function toEdit() {
         if (isSingleSelected(dataTable)) {
-            var selectedId = dataTable.getSelectedField("ID");
-            var url = "<s:url value='/prj/prjManage_toEdit.jhtml'/>?id=" + selectedId;
-            redirectUrl(url);
+        	var row = dataTable.getSelectedFirstRow();
+        	if(row.STATUS == 1){
+	            var selectedId = dataTable.getSelectedField("ID");
+	            var url = "<s:url value='/prj/prjManage_toEdit.jhtml'/>?id=" + selectedId;
+	            redirectUrl(url);
+        	}else{
+        		warning('待审核项目才可以编辑');
+        	}
         }
     }
 
