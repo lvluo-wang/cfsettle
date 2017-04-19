@@ -102,27 +102,19 @@
 	}
 	function doSave() {
 		if ($("#editForm").form("validate")) {
-			$.messager.confirm(
-							global.alert,
-							global.update_confirm_info,
-							function(r) {
-								if (r) {
-									var url = "<s:url value='/security/user_updateUser.jhtml'/>";
-									var parm=formToObject("editForm");
-									doPost(url,parm,function(result){
-										if(result){
-											var o=str2obj(result);
-											if(o.error){
-												error(o.error);
-												return;
-											}
-										}
-										userMainDG.refresh();
-										$('#user_add_edit').window('close');
-									});
-								}
-							});
-
+			var url = "<s:url value='/security/user_updateUser.jhtml'/>";
+			var parm=formToObject("editForm");
+			doPost(url,parm,function(result){
+				if(result){
+					var o=str2obj(result);
+					if(o.error){
+						error(o.error);
+						return;
+					}
+				}
+				userMainDG.refresh();
+				$('#user_add_edit').window('close');
+			});
 		}
 
 	}
