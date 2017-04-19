@@ -21,10 +21,10 @@
 			<x:columns>
 				<x:column title="" checkbox="true" field="id" />
 				<x:column title="项目名称" field="prjName" align="center" width="140"/>
-				<x:column title="募集金额(万)" field="demandAmount" align="center" width="100"/>
+				<x:column title="募集金额(元)" field="demandAmount" align="center" width="100"/>
 				<x:column title="年化利率(%)" field="yearRate" align="left" width="70"/>
 				<x:column title="项目期限" field="timeLimit" align="center" width="80"  formatter="formatTimeUnit"/>
-				<x:column title="还款方式" field="repayWay" align="center" width="80" formatter="formatReapayWay"/>
+				<x:column title="还款方式" field="repayWay" align="center" width="120" formatter="formatReapayWay"/>
 				<x:column title="佣金总比例(%)" field="totalRate" align="center" width="80"/>
 				<x:column title="区域经理佣金比(%)" field="areaRate" align="center" width="100" />
 				<x:column title="营业部佣金比(%)" field="deptRate" align="center" width="100"/>

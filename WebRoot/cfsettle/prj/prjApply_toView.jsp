@@ -168,7 +168,7 @@
                 <div class="func_data_area">
                     <x:datagrid id="dataTableIssue" url="/prj/prjManage_loanIssue.jhtml?prjLoanLog.prjId=${prj.id}" height="120" pagebar="false" autoload="true" >
                         <x:columns>
-                            <x:column title="放款次数" field="loanTimes" align="center" width="150" />
+                            <x:column title="放款期数" field="loanTimes" align="center" width="150" />
                             <x:column title="放款时间" field="loanTime" align="center" width="150"/>
                             <x:column title="放款金额(元)" field="loanAmount" align="center" width="200" />
                             <x:column title="已放款总额(元)" field="loanedAmount" align="center" width="200" />
@@ -182,7 +182,7 @@
                 <div class="func_data_area">
                     <x:datagrid id="dataTableRepay" url="/prj/payBack_listPayBackLog.jhtml?prjId=${prj.id}" height="120" pagebar="false" autoload="true" >
                         <x:columns>
-                            <x:column title="回款次数" field="REPAY_PERIODS" align="center" width="150" />
+                            <x:column title="回款期数" field="REPAY_PERIODS" align="center" width="150" />
                             <x:column title="回款时间" field="PAYBACK_TIME" align="center" width="150"/>
                             <x:column title="回款金额(元)" field="PAYBACK_AMOUNT" align="center" width="150" />
                             <x:column title="已回款总额(元)" field="PAYBACK_TOTAL_AMOUNT" align="center" width="150" />

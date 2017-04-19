@@ -111,7 +111,7 @@
 	      	if(val==0||val==""){
 	      		return "募集期";
 	      	}
-	      	return "第"+val+"次";
+	      	return "第"+val+"期";
 	      }
 	         
 	      function doLoanAdd() {

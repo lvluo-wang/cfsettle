@@ -32,10 +32,10 @@ public class CodeItemDaoImpl extends SysBaseDao<FiCodeItem, Long> implements ICo
 			if(fiCodeItem!=null&&StringUtils.isNotEmpty(fiCodeItem.getCodeName())){
 				return fiCodeItem.getCodeName();
 			}else{
-				return "数据字典不存在！";
+				return "";
 			}
 		}else{
-			return "数据字典不存在！";
+			return "";
 		}
 	}
 

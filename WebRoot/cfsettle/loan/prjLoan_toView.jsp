@@ -114,7 +114,7 @@
             }
             
             function formatTimes(val){
-            	return "第"+val+"次";
+            	return "第"+val+"期";
             }
             
             function doLoanAdd() {
