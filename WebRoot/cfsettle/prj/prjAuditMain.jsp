@@ -70,7 +70,7 @@
     }
 
     function formateTimelimit(value,field,row) {
-	    var timeLimitUnit = code.getValue("<%=UtilConstant.CFS_TIMELIMIT_UNIT%>>",row.TIME_LIMIT_UNIT);
+	    var timeLimitUnit = code.getValue("<%=UtilConstant.CFS_TIMELIMIT_UNIT%>",row.TIME_LIMIT_UNIT);
 	    return value+timeLimitUnit;
 
     }
