@@ -124,7 +124,7 @@ public class PrjAction extends BaseAction {
     public String loanIssue(){
         List<CfsPrjLoanLog> list = loanLogService.findByCondition(prjLoanLog,getPg());
         CfsPrj prj = prjService.getPrjById(prjLoanLog.getPrjId());
-        BigDecimal remainingLoanedAmount = prj.getLoanedAmount().subtract(prj.getRemainingAmount()).subtract(prj.getLoanedAmount());
+        BigDecimal remainingLoanedAmount = prj.getDemandAmount().subtract(prj.getRemainingAmount()).subtract(prj.getLoanedAmount());
         for(CfsPrjLoanLog prjLoanLog : list){
             prjLoanLog.setLoanedAmount(prj.getLoanedAmount());
             prjLoanLog.setRemainingLoanedAmount(remainingLoanedAmount);

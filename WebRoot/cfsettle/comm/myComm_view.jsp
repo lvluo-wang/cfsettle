@@ -25,7 +25,9 @@
 					<td class="title">员工职位: </td>
 					<td><x:codeItem codeKey="<%=UtilConstant.CFS_BUSER_POS_CODE%>" codeNo="buser.posCode"/></td>
 					<td class="title">佣金计提金额(元): </td>
-					<td>${commInfo.commMoney}</td>
+					<td>
+					<x:currency value="${commInfo.commMoney}" scale="2" />
+					</td>
 				</tr>
 
 				</tbody>
@@ -39,9 +41,9 @@
 					<x:column title="投资时间" field="INVEST_TIME" align="center" width="140" formatter="formatTime"/>
 					<x:column title="客户名" field="REAL_NAME" align="center" width="100"/>
 					<x:column title="购买项目" field="PRJ_NAME" align="center" width="100"/>
-					<x:column title="购买金额" field="MONEY" align="center" width="100"/>
+					<x:column title="购买金额" field="MONEY" align="center" width="100" formatter="formatAmount"/>
 					<x:column title="佣金计提比例" field="COMM_RATE" align="center" width="90" formatter="formatCommRate"/>
-					<x:column title="佣金金额" field="COMM_ACCOUNT" align="center" width="90"/>
+					<x:column title="佣金金额" field="COMM_ACCOUNT" align="center" width="90" formatter="formatAmount"/>
 				</x:columns>
 			</x:datagrid>
 	</tiles:putAttribute>
@@ -58,6 +60,11 @@
 			function formatCommRate(value) {
 				return value+"%";
 			}
+
+			function formatAmount(value){
+				return formatCurrency(value);
+			}
+
 		</script>
 	</tiles:putAttribute>
 </tiles:insertDefinition>

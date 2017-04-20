@@ -28,7 +28,7 @@
 			<x:columns>
 				<x:column title="" checkbox="true" field="ID" />
 				<x:column title="项目名" field="PRJ_NAME" align="center" width="140"/>
-				<x:column title="计划募集金额(元)" field="DEMAND_AMOUNT" align="center" width="140"/>
+				<x:column title="计划募集金额(元)" field="DEMAND_AMOUNT" align="center" width="140" formatter="formatAmount"/>
 				<x:column title="实际募集金额(元)" field="REMAINING_AMOUNT" align="left" width="140" formatter="formateRaiseAmount" />
 				<x:column title="项目期限" field="TIME_LIMIT" align="left" width="80" formatter="formateTimelimit"/>
 				<x:column title="年利率" field="YEAR_RATE" align="left" width="80" formatter="formateRate"/>
@@ -56,8 +56,12 @@
 		 return code.getValue("<%=UtilConstant.CFS_PRJ_STATUS%>",value);
 	}
 
+	function formatAmount(value){
+		return formatCurrency(value);
+	}
+
 	function formateRaiseAmount(value,field,row) {
-	    return row.DEMAND_AMOUNT-value;
+	    return formatCurrency(row.DEMAND_AMOUNT-value);
 
     }
 

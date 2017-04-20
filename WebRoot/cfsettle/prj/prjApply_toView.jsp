@@ -57,7 +57,8 @@
                         </tr>
                         <tr>
                             <td class="title">募集金额(元):</td>
-                            <td>${prj.demandAmount}
+                            <td>
+                                <x:currency value="${prj.demandAmount}" scale="2" />
                             </td>
                             <td class="title">项目期限:</td>
                             <td>
@@ -81,7 +82,8 @@
                             <td class="title">还款方式:</td>
                             <td><x:codeItem codeKey="<%=UtilConstant.CFS_REPAYMENT_TYPE%>" codeNo="prj.repayWay" /></td>
                             <td class="title">项目成立金额(元):</td>
-                            <td>${prj.minLoanAmount}
+                            <td>
+                                <x:currency value="${prj.minLoanAmount}" scale="2" />
                             </td>
                         </tr>
                         <tr>
@@ -170,23 +172,22 @@
                         <x:columns>
                             <x:column title="放款期数" field="loanTimes" align="center" width="150" />
                             <x:column title="放款时间" field="loanTime" align="center" width="150"/>
-                            <x:column title="放款金额(元)" field="loanAmount" align="center" width="200" />
-                            <x:column title="已放款总额(元)" field="loanedAmount" align="center" width="200" />
-                            <x:column title="剩余待放款(元)" field="remainingLoanedAmount" align="center" width="200" />
+                            <x:column title="放款金额(元)" field="loanAmount" align="center" width="200" formatter="formatAmount"/>
+                            <x:column title="已放款总额(元)" field="loanedAmount" align="center" width="200" formatter="formatAmount" />
+                            <x:column title="剩余待放款(元)" field="remainingLoanedAmount" align="center" width="200" formatter="formatAmount"/>
                             <x:column title="放款录入人" field="sysUserName" align="center" width="200" />
                         </x:columns>
                     </x:datagrid>
                 </div>
-                    <%--//todo--%>
                 <h3>回款记录</h3>
                 <div class="func_data_area">
                     <x:datagrid id="dataTableRepay" url="/prj/payBack_listPayBackLog.jhtml?prjId=${prj.id}" height="120" pagebar="false" autoload="true" >
                         <x:columns>
                             <x:column title="回款期数" field="REPAY_PERIODS" align="center" width="150" />
                             <x:column title="回款时间" field="PAYBACK_TIME" align="center" width="150"/>
-                            <x:column title="回款金额(元)" field="PAYBACK_AMOUNT" align="center" width="150" />
-                            <x:column title="已回款总额(元)" field="PAYBACK_TOTAL_AMOUNT" align="center" width="150" />
-                            <x:column title="剩余待回款(元)" field="NEED_REPAY_AMOUNT" align="center" width="150" />
+                            <x:column title="回款金额(元)" field="PAYBACK_AMOUNT" align="center" width="150" formatter="formatAmount"/>
+                            <x:column title="已回款总额(元)" field="PAYBACK_TOTAL_AMOUNT" align="center" width="150" formatter="formatAmount"/>
+                            <x:column title="剩余待回款(元)" field="NEED_REPAY_AMOUNT" align="center" width="150" formatter="formatAmount"/>
                             <x:column title="回款截止时间" field="REPAY_DATE" align="center" width="150" />
                             <x:column title="回款录入人" field="sysUserName" align="center" width="150" />
                         </x:columns>
@@ -201,6 +202,10 @@
             $(function () {
                 $('#tt').css("height", $(document.body).height() - 50).tabs({});
             });
+
+            function formatAmount(value){
+                return formatCurrency(value);
+            }
 
             function doReturn() {
                 window.history.go(-1);

@@ -27,7 +27,7 @@
 			<x:columns>
 				<x:column title="" checkbox="true" field="id" />
 				<x:column title="佣金计提月份" field="commSettleDate" align="center" width="140" formatter="format2Month"/>
-				<x:column title="佣金总额" field="commMoney" align="center" width="70"/>
+				<x:column title="佣金总额" field="commMoney" align="center" width="70" formatter="formatAmount"/>
 				<x:column title="付款时间" field="payTime" align="left" width="120" />
 				<x:column title="状态" field="payStatus" align="center" width="150" formatter="formatterStatus"/>
 			</x:columns>
@@ -48,6 +48,10 @@
 
 	function formatterStatus(value) {
 		return code.getValue("<%=UtilConstant.CFS_COMM_PAY_STATUS%>",value);
+	}
+
+	function formatAmount(value){
+		return formatCurrency(value);
 	}
 	
 	function doQuery(){
