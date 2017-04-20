@@ -222,9 +222,15 @@ public class PrjServiceImpl implements IPrjService {
 	 */
 	private void genRepayWayA(CfsPrj prj) {
 		List<CfsPrjOrder> orders = prjOrderService.getOKPrjOrdersByPrjId(prj.getId());
+		Integer countMonth = 0;
+		if(UtilConstant.TIME_LIMIT_YEAR.equals(prj.getTimeLimitUnit())){
+			countMonth = prj.getTimeLimit()*12;
+		}else{
+			countMonth = prj.getTimeLimit();
+		}
 		List<RepayPlanInfo> planInfos = new ArrayList<RepayPlanInfo>();
 	    planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_PERIODS,prj.getStartBidTime(), prj.getBuildTime(),0L));
-		planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL, prj.getBuildTime(),DateTimeUtil.addDay(prj.getBuildTime(), prj.getTimeLimitDay()),1L));
+		planInfos.add(new RepayPlanInfo(UtilConstant.PTYPE_NORMAL, prj.getBuildTime(),DateTimeUtil.addMonth(prj.getBuildTime(), countMonth),1L));
 		List<CfsPrjOrderRepayPlan> orderPlans = genPrjOrderPlan(planInfos,prj,orders);
 		genPrjPlan(planInfos,orderPlans,prj);
 	}

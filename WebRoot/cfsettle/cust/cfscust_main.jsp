@@ -9,8 +9,8 @@
 		<x:button iconCls="icon-add" text="add" click="doAdd" />
 		<x:button iconCls="icon-edit" text="edit" click="doEdit" />
 		<x:button iconCls="icon-view" text="新增订单" click="toAddPrjOrder" />
-		<span class="separator"></span>
-		<x:button iconCls="icon-remove" text="del" click="doRemove" />
+		<%-- <span class="separator"></span>
+		<x:button iconCls="icon-remove" text="del" click="doRemove" /> --%>
 	</tiles:putAttribute>
 	<tiles:putAttribute name="query">
 			<form id="mainQueryForm" class="query_form">
