@@ -110,7 +110,7 @@ public class BuserServiceImpl implements IBuserService {
                 if (buser.getPosCode().equals(UtilConstant.CFS_AREA_MANAGER)) {
                     //区域经理
                     if (buser.getAreaId() != null) {
-                        CfsOrgArea area = areaDao.get(buser.getDeptId());
+                        CfsOrgArea area = areaDao.get(buser.getAreaId());
                         if (area != null) {
                             buserSale.setAreaName(area.getAreaName());
                         }
