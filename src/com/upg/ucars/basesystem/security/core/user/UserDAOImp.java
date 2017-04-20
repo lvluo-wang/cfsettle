@@ -347,12 +347,10 @@ public class UserDAOImp extends BaseDAO<Buser,Long> implements IUserDAO {
 
 	@Override
 	public List<Long> getUserIdByAreaId(Long deptId) {
-		String hql = "select u.userId from Buser u where u.areaId=? and u.posCode in (?)";
+		String hql = "select u.userId from Buser u where u.areaId=? and u.posCode in ('01','02','03','04')";
 		List<Long> list=null;
 		try {
-			list = getHibernateTemplate().find(hql,deptId,
-					new String[]{UtilConstant.CFS_TEAM_MANAGER,UtilConstant.CFS_CUST_MANAGER,UtilConstant.CFS_DEPT_MANAGER,
-					UtilConstant.CFS_AREA_MANAGER});
+			list = getHibernateTemplate().find(hql,deptId);
 		}catch(Throwable t){
 			ExceptionManager.throwException(DAOException.class, ErrorCodeConst.DB_OPERATION_ERROR, new String[]{hql.toString()}, t);
 		}

@@ -50,7 +50,7 @@
 		                    <td class="title">回款本息(元):</td>
 		                    <td>${prj.payBackAmount}</td>
 		                    <td class="title">回款截止时间:</td>
-		                    <td>${prj.lastRepayTime}</td>
+		                    <td><s:date format="yyyy-MM-dd" name="prj.lastRepayTime"/></td>
 		                </tr>
                     </table>
                 </form>
