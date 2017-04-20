@@ -83,7 +83,7 @@
                         <tr>
                             <td class="title">打印凭证: </td>
                             <td><div id="payNotesDiv"></div>
-                            <input type="hidden" id="payNotesAttid" name="prjOrder.payNotesAttid"  required="true" />
+                            <input type="hidden" id="payNotesAttid" name="prjOrder.payNotesAttid" class="easyui-validatebox"  required="true" />
                             </td>
                             <td colspan="3">
                                 <s:include value="/platform/common/uploadFile.jsp">
@@ -117,10 +117,10 @@
     <tiles:putAttribute name="end">
         <script type="text/javascript">
             function uploadFileCallBack(value,index){
-                /*if(value.isSupported == 0){
+                if(value.isSupported == 0){
                     info("上传操作不支持此文件类型");
                     return false;
-                }*/
+                }
                 var url = fileDownLoadUrl+"?id="+value.id;
                 var attachmentItem = "<img  alt=\"打印凭证\" src='"+url+"' height=\"100px\" width=\"200px\"/>";
                 attachmentItem +="&nbsp;&nbsp;<a href='#' onclick=\"_deleteFile('" + value.id + ","+index+"')\"><s:text name="del"/></a>";
@@ -165,6 +165,11 @@
 
             function doSave() {
                 if ($("#prjOrder_form").form("validate")) {
+                    var payNotesAttid = $('#payNotesAttid').val();
+                    if(payNotesAttid ==''){
+                        info("请上传打印凭证");
+                        return;
+                    }
                     var url = '<s:url value="/custOrder/custOrder_doAdd.jhtml"/>';
                     var param = formToObject("prjOrder_form");
                     AddRunningDiv("提交处理中，请稍候...");

@@ -381,5 +381,7 @@ public interface IUserService extends IBaseService {
 	 */
 	public List<Buser> getUserByDeptId(Long deptId);
 
+	List<Buser> getUserByAreaId(Long areaId);
+
 
 }

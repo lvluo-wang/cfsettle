@@ -1,10 +1,10 @@
-<%@page import="com.upg.cfsettle.util.CfsConstant"%>
 <%@ page import="com.upg.cfsettle.util.UtilConstant" %>
-<%@ page import="javax.rmi.CORBA.Util" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="x" uri="/xcars-tags"%>
+
+<%--所有订单--%>
 <tiles:insertDefinition name="FUNC_TOOL_QUERY_DATA">
 	<tiles:putAttribute name="tool">
 		<x:button iconCls="icon-view" text="订单详情" click="doView" />

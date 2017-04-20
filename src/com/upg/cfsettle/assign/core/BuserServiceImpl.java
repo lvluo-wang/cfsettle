@@ -51,9 +51,17 @@ public class BuserServiceImpl implements IBuserService {
             conditionList.add(new ConditionBean("user.userName", ConditionBean.LIKE, user.getUserName()));
         }
         UserLogonInfo logonInfo = SessionTool.getUserLogonInfo();
+        //团队长
+         if(logonInfo.getPosCode() != null && logonInfo.getPosCode().equals(UtilConstant.CFS_TEAM_MANAGER)){
+            conditionList.add(new ConditionBean("user.teamId", ConditionBean.EQUAL, logonInfo.getTeamId()));
+        }
         //营业部负责人
-        if(logonInfo.getPosCode() != null && logonInfo.getPosCode().equals(UtilConstant.CFS_DEPT_MANAGER)){
+        else if(logonInfo.getPosCode() != null && logonInfo.getPosCode().equals(UtilConstant.CFS_DEPT_MANAGER)){
             conditionList.add(new ConditionBean("user.deptId", ConditionBean.EQUAL, logonInfo.getDeptId()));
+        }
+        //区域经理
+        else if(logonInfo.getPosCode() != null && logonInfo.getPosCode().equals(UtilConstant.CFS_AREA_MANAGER)){
+            conditionList.add(new ConditionBean("user.areaId", ConditionBean.EQUAL, logonInfo.getAreaId()));
         }
         //管理员
         else if(logonInfo.getUserType() != null && logonInfo.getUserType().equals(Buser.TYPE_BRCH_GLOBAL_MANAGER)){

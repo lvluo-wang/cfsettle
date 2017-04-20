@@ -67,6 +67,11 @@ public class CustAssignAction extends BaseAction{
         return SUCCESS;
     }
 
+    public String salesMain(){
+        loginPosCode = SessionTool.getUserLogonInfo().getPosCode();
+        return SUCCESS;
+    }
+
     public String list(){
         return setDatagridInputStreamData(buserService.queryBuser(searchBean,getPg()),getPg());
     }
@@ -128,6 +133,11 @@ public class CustAssignAction extends BaseAction{
         if(!StringUtil.isEmpty(logoner.getPosCode()) && logoner.getPosCode().equals(UtilConstant.CFS_DEPT_MANAGER)){
             Long deptId = logoner.getDeptId();
             buserList = userService.getUserByDeptId(deptId);
+        }
+        //区域经理所在区域下所有员工
+        if(!StringUtil.isEmpty(logoner.getPosCode()) && logoner.getPosCode().equals(UtilConstant.CFS_AREA_MANAGER)){
+            Long areaId = logoner.getAreaId();
+            buserList = userService.getUserByAreaId(areaId);
         }
         //超级管理员分配营业部负责人及以上人员离职的客户
         if(logoner.getUserType().equals(Buser.TYPE_BRCH_GLOBAL_MANAGER)){

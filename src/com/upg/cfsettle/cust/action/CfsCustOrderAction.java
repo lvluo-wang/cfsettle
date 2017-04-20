@@ -70,7 +70,7 @@ public class CfsCustOrderAction extends BaseAction {
 
 
     public String list(){
-    	searchBean.setByLogonInfo(true);
+
         return setDatagridInputStreamData(prjOrderService.findByCondition(searchBean,getPg()),getPg());
     }
 

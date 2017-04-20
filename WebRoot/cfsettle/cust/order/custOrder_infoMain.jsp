@@ -5,6 +5,8 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="x" uri="/xcars-tags"%>
+
+<%--判断登录人能看到的订单--%>
 <tiles:insertDefinition name="FUNC_TOOL_QUERY_DATA">
 	<tiles:putAttribute name="tool">
 		<x:button iconCls="icon-view" text="订单详情" click="doView" />
@@ -51,7 +53,7 @@
 				<x:column title="合同编号" field="CONTRACT_NO" align="left" width="90"/>
 				<x:column title="投资时间" field="INVEST_TIME" align="center" width="150" formatter="formatTime" />
 				<x:column title="客户姓名" field="REAL_NAME" align="center" width="140"/>
-				<x:column title="客户手机" field="MOBILE" align="left" width="90"/>
+				<x:column title="客户手机" field="MOBILE" align="left" width="90" formatter="formatMobile"/>
 				<x:column title="购买项目" field="PRJ_NAME" align="center" width="150" />
 				<x:column title="购买金额(元)" field="MONEY" align="center" width="150" formatter="formateMoney"/>
 				<x:column title="付款银行" field="PAY_BANK" align="center" width="80" formatter="formateBank"/>
@@ -75,6 +77,14 @@
 	var keys=["<%=UtilConstant.CFS_BANK_TYPE%>","<%=UtilConstant.CFS_PRJ_ORDER_STATUS%>","<%=UtilConstant.CFS_BUSER_POS_CODE%>"];
 	var code=new XhhCodeUtil(keys);
 	code.loadData();
+
+	function formatMobile(value,field,row) {
+		var buserId = ${logonInfo.sysUserId};
+		if(buserId != row.SERVICE_SYSID){
+			return '-';
+		}
+		return value;
+	}
 
     function formatTime(value) {
         if(value == ""){

@@ -39,7 +39,7 @@ public class PrjDaoImpl extends SysBaseDao<CfsPrj,Long> implements IPrjDao {
                 sqlCreater.and("prj.status =:status","status",status,true);
             }
         }
-        sqlCreater.orderBy("prj.ctime",true);
+        sqlCreater.orderBy("prj.status",false);
         return getMapListByStanderdSQL(sqlCreater.getSql(),sqlCreater.getParameterMap(),page);
     }
 

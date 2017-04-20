@@ -22,7 +22,6 @@
 				<x:column title="归属区域" field="areaName" align="center" width="100" />
 				<x:column title="状态" field="status" align="center" width="80" formatter="userFormatter"/>
 				<x:column title="客户数量" field="custNum" align="center" width="80" formatter="userFormatter"/>
-				<x:column title="客户分配" field="userId" align="center" width="80" formatter="userFormatter"/>
 			</x:columns>
 		</x:datagrid>
 	</tiles:putAttribute>
@@ -30,7 +29,6 @@
 	<tiles:putAttribute name="window">
 	<!-- 弹出窗口定义开始 -->
 	<div id="project_add_win" style="width:750px;height:500px;display:none;"></div>
-	<div id="selectWin" style="width:300px;height:auto;display:none;"></div>
 	</tiles:putAttribute>
 	
 	<tiles:putAttribute name="end">
@@ -55,24 +53,9 @@
 			return "在职";
 		}else if(field == "custNum"){
 			return value+"人";
-		}else if(field == "userId"){
-			if(row.status == 4 && row.custNum > 0){
-				return "<a href='#' onclick='assignCust("+value+")'><font color=blue>待分配</font></a>";
-			}
-			if(row.status == 4 && row.custNum == 0){
-				return '已分配';
-			}
-			if(row.status != 4){
-				return "-"
-			}
 		}
 		return "";
 	}
-
-		function assignCust(value) {
-			var url="<s:url value='/assign/assignManage_toAssign.jhtml'/>?id="+value;
-			requestAtWindow(url,"project_add_win","客户分配");
-		}
 
 		function doView(){
 			if(isSingleSelected(dataTable)){

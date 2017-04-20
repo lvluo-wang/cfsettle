@@ -26,7 +26,7 @@
 					<td style="width: 20px;"><input name="orderBean.serviceSysName" /></td>
 					<td class="title">状态:</td>
 					<td style="width: 20px;" >
-						<x:combobox name="orderBean.status" list="orderStatusList" textField="codeName" valueField="codeNo"/>
+						<x:combobox name="orderBean.status" value="<%=CfsConstant.PRJ_ORDER_STATUS_AUDIT.toString()%>" list="orderStatusList" textField="codeName" valueField="codeNo"/>
 					</td>
 				</tr>
 				<tr>

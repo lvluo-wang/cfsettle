@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.upg.ucars.framework.base.SessionTool;
+import com.upg.ucars.model.security.UserLogonInfo;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -54,6 +56,8 @@ public class CfsCommSettleAction extends BaseAction {
 	private IUserService userService;
 	@Autowired
 	private IOrgDeptService deptService;
+
+	private UserLogonInfo logonInfo;
 	
 	
 	
@@ -71,6 +75,7 @@ public class CfsCommSettleAction extends BaseAction {
 	 * @return
 	 */
 	public String prjComm(){
+		logonInfo = SessionTool.getUserLogonInfo();
 		return "prjComm";
 	}
 	
@@ -237,5 +242,13 @@ public class CfsCommSettleAction extends BaseAction {
 
 	public void setOrgDept(CfsOrgDept orgDept) {
 		this.orgDept = orgDept;
+	}
+
+	public UserLogonInfo getLogonInfo() {
+		return logonInfo;
+	}
+
+	public void setLogonInfo(UserLogonInfo logonInfo) {
+		this.logonInfo = logonInfo;
 	}
 }

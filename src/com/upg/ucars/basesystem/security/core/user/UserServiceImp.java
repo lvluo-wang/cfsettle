@@ -1007,4 +1007,9 @@ public class UserServiceImp extends BaseService implements IUserService,ISecurit
 	public List<Buser> getUserByDeptId(Long deptId) {
 		return userDAO.getUserByDeptId(deptId);
 	}
+
+	@Override
+	public List<Buser> getUserByAreaId(Long areaId) {
+		return userDAO.getUserByAreaId(areaId);
+	}
 }
