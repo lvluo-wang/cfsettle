@@ -320,10 +320,10 @@ public class UserDAOImp extends BaseDAO<Buser,Long> implements IUserDAO {
 
 	@Override
 	public List<Long> getUserIdByTeamId(Long teamId) {
-		String hql = "select u.userId from Buser u where u.teamId=? and u.posCode in (?)";
+		String hql = "select u.userId from Buser u where u.teamId=? and u.posCode in ('01','02')";
 		List<Long> list=null;
 		try {
-			list = getHibernateTemplate().find(hql,teamId,new String[]{UtilConstant.CFS_TEAM_MANAGER,UtilConstant.CFS_CUST_MANAGER});
+			list = getHibernateTemplate().find(hql,teamId);
 		}catch(Throwable t){
 			ExceptionManager.throwException(DAOException.class, ErrorCodeConst.DB_OPERATION_ERROR, new String[]{hql.toString()}, t);
 		}
@@ -333,11 +333,10 @@ public class UserDAOImp extends BaseDAO<Buser,Long> implements IUserDAO {
 
 	@Override
 	public List<Long> getUserIdByDeptId(Long deptId) {
-		String hql = "select u.userId from Buser u where u.deptId=? and u.posCode in (?)";
+		String hql = "select u.userId from Buser u where u.deptId=? and u.posCode in ('01','02','03')";
 		List<Long> list=null;
 		try {
-			list = getHibernateTemplate().find(hql,deptId,
-					new String[]{UtilConstant.CFS_TEAM_MANAGER,UtilConstant.CFS_CUST_MANAGER,UtilConstant.CFS_DEPT_MANAGER});
+			list = getHibernateTemplate().find(hql,deptId);
 		}catch(Throwable t){
 			ExceptionManager.throwException(DAOException.class, ErrorCodeConst.DB_OPERATION_ERROR, new String[]{hql.toString()}, t);
 		}

@@ -78,7 +78,7 @@
 			}
 
 			function formateMoney(value) {
-				return value/100;
+				return formatCurrency(value/100);
 			}
 
 			function formateStatus(value) {

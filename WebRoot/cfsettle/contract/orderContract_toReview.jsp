@@ -32,7 +32,9 @@
                 </tr>
                 <tr>
                     <td class="title">投资金额(元)</td>
-                    <td>${prjOrder.money}元</td>
+                    <td>
+                    <x:currency value="prjOrder.money" scale="2" />
+                    </td>
                     <td class="title">投资时间</td>
                     <td><s:date name="prjOrder.investTime" format="yyyy-MM-dd HH:mm:ss"/></td>
                 </tr>
