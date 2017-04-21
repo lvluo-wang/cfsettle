@@ -5,94 +5,58 @@
 <%@ taglib prefix="x" uri="/WEB-INF/xcars-tags.tld" %>
 <tiles:insertDefinition name="WIN_FORM_BUTTON">
  	<tiles:putAttribute name="form">
-				<form method="post" id="addForm" class="busi_form" >	
-					<input type="hidden" id="logonInfo_branchId" value="${session.UserLogonInfo.branchId}"/>	
-					<s:hidden name="user.userId" />
-					<s:hidden name="user.brchId" id="brchValue"/>
-
-						<table>
-						 <colgroup>
-		                    <col width="35%"/>
-		                    <col width="65%"/>
-		                 </colgroup>
-						 <tbody>
-						 <tr>
-							<td class="title">岗位:</td>
-							<td>
-								<x:combobox name="user.posCode" id="pos_code_add" valueField="codeNo" textField="codeName" list="posCodeList" pleaseSelect="true" cssStyle="width:142px;" onchange="posCodeChange"/>
-							</td>
-						</tr>
-						<tr>
-							<td class="title">手机号码:</td>
-							<!-- validType="serialNumbertextLength[3,18]" invalidMessage="请输入3至18位字符" -->
-							<td><input name="user.userNo" value="${user.userNo}" class="easyui-validatebox" required="true" maxlength="20" validType="mobile"/><font color="red">*</font></td>
-						</tr>
-						
-						<tr>
-							<td class="title"><s:text name="user"/><s:text name="name"/>:</td>
-							<td><input name="user.userName" value="${user.userName}" class="easyui-validatebox" required="true" maxlength="20" validType="userName"/><font color="red">*</font></td>
-						</tr>
-						<tr>
-							<td class="title"><s:text name="user"/><s:text name="email"/>:</td>
-							<td><input name="user.email" value="${user.email}" class="easyui-validatebox" required="true" maxlength="50" validType="email"/><font color="red">*</font></td>
-						</tr>
-						
-						<tr>
-							<td class="title"><s:text name="user"/><s:text name="type"/>:</td>
-							<td>
-								<x:combobox id="user_userType" name="user.userType"  value="${user.userType}" valueField="codeNo" textField="codeName" list="userTypeList" pleaseSelect="false" cssStyle="width:142px;"/>
-							</td>
-						</tr>
-						<%
-							if( ! UserManager.isImplementation()){
-						%>
-								<!--
-								<tr id="brchDiv">
-									<td class="title"><s:text name="belong_branch"/>:</td>
-									<td><input class="formPannel_input" id="logonInfo_branchName" 
-										<s:if test="user != null ">
-											value="${branch.brchName}"  
-										</s:if>
-										<s:else>
-											value="${session.UserLogonInfo.branchName}"  
-										</s:else>
-									disabled="true"/></td>						
-								</tr>
-								-->
-								<tr id="chooseBrchDiv">
-									<td class="title"><s:text name="belong_branch"/>:</td>
-									<td>
-									<div class="searchBox">
-										<input id="brchName" readonly="readonly" name="brchName" value="${branch.brchName}" class="easyui-validatebox" required="true"/>
-										<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-search" onClick="chooseTreeBranch(chooseBranchCallback)"></a>
-									</div>
-									</td>			
-								</tr>
-						<%
-							}
-						%>
-							<tr>
-								<td class="title">归属/负责区域:</td>
-								<td>
-									<x:combobox id="user_area_id" name="user.areaId"  value="${user.areaId}" valueField="id" textField="areaName" list="userAreaList" pleaseSelect="true" onchange="loadDeptList" required="" cssStyle="width:142px;"/>
-								</td>
-							</tr>
-							<tr id="user_dept_tr">
-								<td class="title">归属/负责营业部:</td>
-								<td>
-									<x:combobox id="user_dept_id" name="user.deptId"  value="${user.deptId}" valueField="id" textField="deptName" list="userDeptList" pleaseSelect="true" onchange="loadTeamList" cssStyle="width:142px;"/>
-								</td>
-							</tr>
-							<tr id="user_team_tr">
-								<td class="title">归属/负责团队:</td>
-								<td>
-									<x:combobox id="user_team_id" name="user.teamId"  value="${user.teamId}" valueField="id" textField="teamName" list="userTeamList" pleaseSelect="true" cssStyle="width:142px;"/>
-								</td>
-							</tr>
-						</tbody>
-						
-						</table>
-				</form> 
+		<form method="post" id="addForm" class="busi_form" >	
+			<table>
+			 <colgroup>
+                   <col width="35%"/>
+                   <col width="65%"/>
+                </colgroup>
+			 <tbody>
+				 <tr>
+					<td class="title">岗位:</td>
+					<td>
+						<x:combobox name="user.posCode" id="pos_code_add" valueField="codeNo" textField="codeName" list="posCodeList" pleaseSelect="false" cssStyle="width:142px;" onchange="posCodeChange"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="title">手机号码:</td>
+					<!-- validType="serialNumbertextLength[3,18]" invalidMessage="请输入3至18位字符" -->
+					<td><input name="user.userNo" value="${user.userNo}" class="easyui-validatebox" required="true" maxlength="20" validType="mobile"/><font color="red">*</font></td>
+				</tr>
+				
+				<tr>
+					<td class="title"><s:text name="user"/><s:text name="name"/>:</td>
+					<td><input name="user.userName" value="${user.userName}" class="easyui-validatebox" required="true" maxlength="20" validType="userName"/><font color="red">*</font></td>
+				</tr>
+				<tr>
+					<td class="title"><s:text name="user"/><s:text name="email"/>:</td>
+					<td>
+						<input name="user.email" value="${user.email}" class="easyui-validatebox" required="true" maxlength="50" validType="email"/><font color="red">*</font>
+						<input name="user.userType" value="6" type="hidden" />
+						<input name="user.brchId" value="1" type="hidden" />
+					</td>
+				</tr>
+				<tr id="user_area_tr">
+					<td class="title" id="area_text">归属区域:</td>
+					<td>
+						<x:combobox id="user_area_id" name="user.areaId"  value="${user.areaId}" valueField="id" textField="areaName" list="userAreaList" pleaseSelect="true" onchange="loadDeptList" required="" cssStyle="width:142px;"/>
+					</td>
+				</tr>
+				<tr id="user_dept_tr">
+					<td class="title" id="dept_text">归属营业部:</td>
+					<td>
+						<x:combobox id="user_dept_id" name="user.deptId"  value="${user.deptId}" valueField="id" textField="deptName" list="userDeptList" pleaseSelect="true" onchange="loadTeamList" cssStyle="width:142px;"/>
+					</td>
+				</tr>
+				<tr id="user_team_tr">
+					<td class="title" id="team_text">归属团队:</td>
+					<td>
+						<x:combobox id="user_team_id" name="user.teamId"  value="${user.teamId}" valueField="id" textField="teamName" list="userTeamList" pleaseSelect="true" cssStyle="width:142px;"/>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</form> 
 	</tiles:putAttribute>
 			
 	<tiles:putAttribute name="button">
@@ -102,40 +66,6 @@
 	</tiles:putAttribute>
 	<tiles:putAttribute name="end">
 <script type="text/javascript">
-	function changeUserType(isInit){		
-		var userType = $("#user_userType").xcombobox("getValue");
-		if (userType=='6'){
-			$("#brchDiv").show();
-			$("#chooseBrchDiv").hide();
-			if(!isInit){
-				$("#brchValue").val($("#logonInfo_branchId").val());
-				$("#brchName").val($("#brchValue").val());				
-				$('#logonInfo_branchName').val('${session.UserLogonInfo.branchName}');
-			}
-		}else{
-			$("#brchDiv").hide();
-			$("#chooseBrchDiv").show();
-			if( ! isInit ){
-				$("#brchValue").val('');
-				$("#brchName").val('');
-			}
-		}
-		
-	}	
-	
-	//changeUserType(true);
-		
-	
-	//function chooseBranch() {
-	//	var url='<s:url value="/security/user_toChooseBrch.jhtml"/>';
-	//	requestAtWindow(url,"sel",'<s:text name="choose"/><s:text name="branch"/>');
-	//}
-	function chooseBranchCallback(row){
-		 if(row && row.brchName && row.brchId){
-				$("#brchName").val(row.brchName);
-				$("#brchValue").val(row.brchId);
-			}
-	}
 	
 	function doSave(){		
 		if($("#addForm").form("validate")){
@@ -171,14 +101,36 @@
 	
 	function posCodeChange(){
 		var posCode = $('#pos_code_add').xcombobox("getValue");
-		if(posCode=="03"){
-			$('#user_team_tr_add').hide();
-			$('#user_dept_tr_add').show();
+		if(posCode=="0"){
+			$('#user_area_tr').hide();
+			$('#user_area_id').xcombobox('setValue','');
+			$('#user_dept_tr').hide();
+			$('#user_dept_id').xcombobox('setValue','');
+			$('#user_team_tr').hide();
+			$('#user_team_id').xcombobox('setValue','');
+		}else if(posCode=="01"){
+			$('#team_text').text('归属团队');
+			$('#dept_text').text('归属营业部');
+			$('#user_area_tr').show();
+			$('#user_dept_tr').show();
+			$('#user_team_tr').show();
+		}else if(posCode=="02"){
+			$('#team_text').text('负责团队');
+			$('#dept_text').text('归属营业部');
+			$('#user_area_tr').show();
+			$('#user_dept_tr').show();
+			$('#user_team_tr').show();
+		}else if(posCode=="03"){
+			$('#dept_text').text('负责营业部');
+			$('#user_team_tr').hide();
+			$('#user_team_id').xcombobox('setValue','');
+			$('#user_area_tr').show();
+			$('#user_dept_tr').show();
 		}else if(posCode=="04"){
-			$('#user_dept_tr_add').hide();
-		}else{
-			$('#user_dept_tr_add').show();
-			$('#user_team_tr_add').show();
+			$('#user_dept_tr').hide();
+			$('#user_dept_id').xcombobox('setValue','');
+			$('#user_team_tr').hide();
+			$('#user_team_id').xcombobox('setValue','');
 		}
 	}
 </script>

@@ -17,7 +17,7 @@
 			 	<tr>
 					<td class="title">岗位:</td>
 					<td>
-						<x:combobox name="user.posCode"  valueField="codeNo" id="pos_code_edit" value="${user.posCode}" textField="codeName" list="posCodeList" pleaseSelect="true" cssStyle="width:142px;" onchange="posCodeEditChange"/>
+						<x:combobox name="user.posCode"  valueField="codeNo" id="pos_code_edit" value="${user.posCode}" textField="codeName" list="posCodeList" pleaseSelect="false" cssStyle="width:142px;" onchange="posCodeEditChange"/>
 					</td>
 				</tr>
 				<tr>
@@ -30,48 +30,30 @@
 				</tr>
 				<tr>
 					<td class="title"><s:text name="user"/><s:text name="email"/>:</td>
-					<td><input name="user.email" value="${user.email}" class="easyui-validatebox" required="true" maxlength="50" validType="email"/><font color="red">*</font></td>
-				</tr>
-						
-				<tr>
-					<td class="title"><s:text name="user" /><s:text name="type" />:</td>
 					<td>
-						<x:combobox id="user_userType" name="user.userType"  value="${user.userType}" valueField="codeNo" textField="codeName" list="userTypeList" pleaseSelect="false"/>
+						<input name="user.email" value="${user.email}" class="easyui-validatebox" required="true" maxlength="50" validType="email"/><font color="red">*</font>
+						<input name="user.userType" value="6" type="hidden" />
+						<input name="user.brchId" value="1" type="hidden" />
 					</td>
 				</tr>
-				<%
-							if( ! UserManager.isImplementation()){
-						%>
-								<tr id="chooseBrchDiv">
-									<td class="title"><s:text name="belong_branch"/>:</td>
-									<td>
-									<div class="searchBox">
-										<input id="brchName" readonly="readonly" name="brchName" value="${branch.brchName}" class="easyui-validatebox" required="true"/>
-										<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-search" onClick="chooseTreeBranch(chooseBranchCallback)"></a>
-									</div>
-									</td>			
-								</tr>
-						<%
-							}
-						%>
-						<tr>
-							<td class="title">归属/负责区域:</td>
-							<td>
-								<x:combobox id="user_area_edit_id" name="user.areaId"  value="${user.areaId}" valueField="id" textField="areaName" list="userAreaList" pleaseSelect="true" onchange="loadDeptEditList" required="" cssStyle="width:142px;"/>
-							</td>
-						</tr>
-						<tr id="user_dept_tr_edit">
-							<td class="title">归属/负责营业部:</td>
-							<td>
-								<x:combobox id="user_dept_edit_id" name="user.deptId"  value="${user.deptId}" valueField="id" textField="deptName" list="userDeptList" pleaseSelect="true" onchange="loadTeamEditList" cssStyle="width:142px;"/>
-							</td>
-						</tr>
-						<tr id="user_team_tr_edit">
-							<td class="title">归属/负责团队:</td>
-							<td>
-								<x:combobox id="user_team_edit_id" name="user.teamId"  value="${user.teamId}" valueField="id" textField="teamName" list="userTeamList" pleaseSelect="true" cssStyle="width:142px;"/>
-							</td>
-						</tr>
+				<tr>
+					<td class="title">归属/负责区域:</td>
+					<td>
+						<x:combobox id="user_area_edit_id" name="user.areaId"  value="${user.areaId}" valueField="id" textField="areaName" list="userAreaList" pleaseSelect="true" onchange="loadDeptEditList" required="" cssStyle="width:142px;"/>
+					</td>
+				</tr>
+				<tr id="user_dept_tr_edit">
+					<td class="title">归属/负责营业部:</td>
+					<td>
+						<x:combobox id="user_dept_edit_id" name="user.deptId"  value="${user.deptId}" valueField="id" textField="deptName" list="userDeptList" pleaseSelect="true" onchange="loadTeamEditList" cssStyle="width:142px;"/>
+					</td>
+				</tr>
+				<tr id="user_team_tr_edit">
+					<td class="title">归属/负责团队:</td>
+					<td>
+						<x:combobox id="user_team_edit_id" name="user.teamId"  value="${user.teamId}" valueField="id" textField="teamName" list="userTeamList" pleaseSelect="true" cssStyle="width:142px;"/>
+					</td>
+				</tr>
 				</tbody>
 			</table>
 		</form>

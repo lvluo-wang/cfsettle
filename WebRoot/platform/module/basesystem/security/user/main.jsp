@@ -85,7 +85,7 @@
 		
 	</tiles:putAttribute>
 	<tiles:putAttribute name="window">
-	<div id="user_add_edit"  style="width:480px;display:none;"></div>
+	<div id="user_add_edit"  style="width:480px;display:none;height: 280px"></div>
 	<div id="auditProcessView" style="width:500px;display:none;"></div>
 	<div id="user_role" style="width:400px;display:none;"></div>
 	</tiles:putAttribute>
