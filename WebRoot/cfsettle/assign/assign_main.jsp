@@ -22,7 +22,10 @@
 				<x:column title="归属区域" field="areaName" align="center" width="100" />
 				<x:column title="状态" field="status" align="center" width="80" formatter="userFormatter"/>
 				<x:column title="客户数量" field="custNum" align="center" width="80" formatter="userFormatter"/>
+				<s:if test="logonInfo.posCode==@com.upg.cfsettle.util.UtilConstant@CFS_DEPT_MANAGER
+				             || logonInfo.userType==@com.upg.ucars.mapping.basesystem.security.Buser@TYPE_BRCH_GLOBAL_MANAGER">
 				<x:column title="客户分配" field="userId" align="center" width="80" formatter="userFormatter"/>
+			</s:if>
 			</x:columns>
 		</x:datagrid>
 	</tiles:putAttribute>

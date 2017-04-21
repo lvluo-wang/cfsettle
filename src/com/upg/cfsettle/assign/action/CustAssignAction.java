@@ -49,7 +49,7 @@ public class CustAssignAction extends BaseAction{
 
     private Buser searchBean;
 
-    private String loginPosCode;
+    private UserLogonInfo logonInfo;
     private List<CfsCust> custList;
     private Long buserId;
     //可以多个cust
@@ -63,12 +63,7 @@ public class CustAssignAction extends BaseAction{
     private OrganizationBean organizationBean;
 
     public String main(){
-        loginPosCode = SessionTool.getUserLogonInfo().getPosCode();
-        return SUCCESS;
-    }
-
-    public String salesMain(){
-        loginPosCode = SessionTool.getUserLogonInfo().getPosCode();
+        logonInfo = SessionTool.getUserLogonInfo();
         return SUCCESS;
     }
 
@@ -85,7 +80,7 @@ public class CustAssignAction extends BaseAction{
     public String custList(){
         Page pg = new Page();
         pg.setCurrentPage(1);
-        pg.setPageSize(30);
+        pg.setPageSize(100);
         return setDatagridInputStreamData(custService.findAllCustByBuserId(buserId),pg);
     }
 
@@ -167,12 +162,13 @@ public class CustAssignAction extends BaseAction{
         this.searchBean = searchBean;
     }
 
-    public String getLoginPosCode() {
-        return loginPosCode;
+    public UserLogonInfo getLogonInfo() {
+        return logonInfo;
     }
 
-    public void setLoginPosCode(String loginPosCode) {
-        this.loginPosCode = loginPosCode;
+    public CustAssignAction setLogonInfo(UserLogonInfo logonInfo) {
+        this.logonInfo = logonInfo;
+        return this;
     }
 
     public List<CfsCust> getCustList() {
