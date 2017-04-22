@@ -1,13 +1,17 @@
 package com.upg.cfsettle.organization.action;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.upg.cfsettle.code.core.ICodeItemService;
 import com.upg.cfsettle.mapping.ficode.FiCodeItem;
 import com.upg.cfsettle.mapping.organization.CfsOrgArea;
 import com.upg.cfsettle.organization.core.IOrgAreaService;
 import com.upg.cfsettle.util.UtilConstant;
+import com.upg.ucars.basesystem.security.core.user.IUserService;
 import com.upg.ucars.framework.base.BaseAction;
-
-import java.util.List;
+import com.upg.ucars.mapping.basesystem.security.Buser;
 
 /**
  * Created by zuo on 2017/3/28.
@@ -23,6 +27,8 @@ public class OrgAreaAction extends BaseAction {
     private ICodeItemService codeItemService;
 
     private CfsOrgArea orgArea;
+    @Autowired
+    private IUserService userService;
 
 
     public String main()
@@ -57,8 +63,23 @@ public class OrgAreaAction extends BaseAction {
     public String toChoose(){
         return "toChoose";
     }
-
-
+    
+    public String getCombobox(){
+    	List<CfsOrgArea> list = orgAreaService.getCombobox(searchBean);
+    	return setInputStreamData(list);
+    }
+    
+    public String getComboboxEdit(){
+    	List<CfsOrgArea> list = orgAreaService.getCombobox(searchBean);
+    	Buser buser = userService.getUserById(getPKId());
+    	if(buser.getAreaId() != null){
+    		CfsOrgArea area = orgAreaService.getOrgAreaById(buser.getAreaId());
+    		if(area != null){
+    			list.add(area);
+    		}
+    	}
+    	return setInputStreamData(list);
+    }
     public CfsOrgArea getSearchBean() {
         return searchBean;
     }

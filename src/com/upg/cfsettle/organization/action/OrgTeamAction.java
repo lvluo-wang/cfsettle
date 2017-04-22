@@ -2,14 +2,17 @@ package com.upg.cfsettle.organization.action;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.upg.cfsettle.code.core.ICodeItemService;
 import com.upg.cfsettle.mapping.ficode.FiCodeItem;
-import com.upg.cfsettle.mapping.organization.CfsOrgDept;
 import com.upg.cfsettle.mapping.organization.CfsOrgTeam;
 import com.upg.cfsettle.organization.core.IOrgTeamService;
 import com.upg.cfsettle.organization.core.OrgTeamBean;
 import com.upg.cfsettle.util.UtilConstant;
+import com.upg.ucars.basesystem.security.core.user.IUserService;
 import com.upg.ucars.framework.base.BaseAction;
+import com.upg.ucars.mapping.basesystem.security.Buser;
 
 /**
  * Created by zuo on 2017/3/29.
@@ -25,6 +28,8 @@ public class OrgTeamAction extends BaseAction {
     private CfsOrgTeam orgTeam;
 
     private IOrgTeamService orgTeamService;
+    @Autowired
+    private IUserService userService;
 
 
     public String main(){
@@ -59,7 +64,19 @@ public class OrgTeamAction extends BaseAction {
     	List<CfsOrgTeam> list = orgTeamService.find(searchBean,null);
     	return setInputStreamData(list);
     }
-
+    
+    public String getComboboxEdit(){
+    	List<CfsOrgTeam> list = orgTeamService.find(searchBean,null);
+    	 Buser buser = userService.getUserById(getPKId());
+    		if(buser.getTeamId() != null){
+    			CfsOrgTeam team = orgTeamService.getOrgTeamById(buser.getTeamId());
+    			if(team != null){
+    				list.add(team);
+    			}
+    		}
+    	return setInputStreamData(list);
+    }
+    
     public List<FiCodeItem> getIsActiveList() {
         return isActiveList;
     }

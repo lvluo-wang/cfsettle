@@ -1,21 +1,23 @@
 package com.upg.cfsettle.organization.core;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.upg.cfsettle.mapping.organization.CfsOrgArea;
 import com.upg.cfsettle.mapping.organization.CfsOrgDept;
 import com.upg.cfsettle.organization.bean.OrganizationBean;
+import com.upg.cfsettle.util.UtilConstant;
+import com.upg.ucars.basesystem.security.core.user.IUserDAO;
 import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.QueryCondition;
 import com.upg.ucars.framework.base.SessionTool;
-import com.upg.ucars.mapping.basesystem.product.ReBrchProd;
 import com.upg.ucars.model.ConditionBean;
 import com.upg.ucars.util.DateTimeUtil;
-import com.upg.ucars.util.SQLCreater;
 import com.upg.ucars.util.StringUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by zuo on 2017/3/29.
@@ -28,6 +30,8 @@ public class OrgDeptServiceImpl implements IOrgDeptService {
 
     @Autowired
     private IOrgAreaDao orgAreaDao;
+    @Autowired
+    private IUserDAO userDAO;
 
     @Override
     public List<Map<String, Object>> findByCondition(CfsOrgDept searchBean, Page page) {
@@ -77,8 +81,22 @@ public class OrgDeptServiceImpl implements IOrgDeptService {
                 qc.addCondition(new ConditionBean("dept.id", ConditionBean.EQUAL,searchBean.getId()));
             }
         }
-        List list = this.orgDeptDao.queryByCondition(qc, page);
-        return list;
+        List<CfsOrgDept> list = this.orgDeptDao.queryByCondition(qc, page);
+        List<CfsOrgDept> result = new ArrayList<CfsOrgDept>();
+        if(searchBean  != null){
+        	if(UtilConstant.CFS_DEPT_MANAGER.equals(searchBean.getPosCode())){
+        		for(CfsOrgDept dept:list){
+        			if(userDAO.getUserByDeptIdAndPosCode(dept.getId(),UtilConstant.CFS_DEPT_MANAGER) == null){
+        				result.add(dept);
+        			}
+        		}
+        		return result;
+        	}else{
+        		return list;
+        	}
+        }else{
+        	return list;
+        }
     }
 
     @Override

@@ -6,8 +6,6 @@
 <tiles:insertDefinition name="WIN_FORM_BUTTON">
 	 <tiles:putAttribute name="form">
 		<form method="post" id="editForm" class="busi_form">
-		<s:hidden name="user.userId"/>
-		<s:hidden name="user.brchId" id="brchValue" />
 			<table>
 			    <colgroup>
                    <col width="35%"/>
@@ -18,6 +16,8 @@
 					<td class="title">岗位:</td>
 					<td>
 						<x:combobox name="user.posCode"  valueField="codeNo" id="pos_code_edit" value="${user.posCode}" textField="codeName" list="posCodeList" pleaseSelect="false" cssStyle="width:142px;" onchange="posCodeEditChange"/>
+						<input name="user.userId" value="${user.userId}" type="hidden" id="user_id"/>
+						<input name="user.brchId" value="${user.brchId}" type="hidden"/>
 					</td>
 				</tr>
 				<tr>
@@ -36,22 +36,22 @@
 						<input name="user.brchId" value="1" type="hidden" />
 					</td>
 				</tr>
-				<tr>
-					<td class="title">归属/负责区域:</td>
+				<tr id="user_area_tr_edit">
+					<td class="title" id="area_text_edit">归属区域:</td>
 					<td>
-						<x:combobox id="user_area_edit_id" name="user.areaId"  value="${user.areaId}" valueField="id" textField="areaName" list="userAreaList" pleaseSelect="true" onchange="loadDeptEditList" required="" cssStyle="width:142px;"/>
+						<x:combobox id="user_area_id_edit" name="user.areaId"  value="${user.areaId}" valueField="id" textField="areaName" list="userAreaList" pleaseSelect="true" onchange="loadDeptEditList" required="" cssStyle="width:142px;"/>
 					</td>
 				</tr>
 				<tr id="user_dept_tr_edit">
-					<td class="title">归属/负责营业部:</td>
+					<td class="title" id="dept_text_edit">归属营业部:</td>
 					<td>
-						<x:combobox id="user_dept_edit_id" name="user.deptId"  value="${user.deptId}" valueField="id" textField="deptName" list="userDeptList" pleaseSelect="true" onchange="loadTeamEditList" cssStyle="width:142px;"/>
+						<x:combobox id="user_dept_id_edit" name="user.deptId"  value="${user.deptId}" valueField="id" textField="deptName" list="userDeptList" pleaseSelect="true" onchange="loadTeamEditList" cssStyle="width:142px;"/>
 					</td>
 				</tr>
-				<tr id="user_team_tr_edit">
-					<td class="title">归属/负责团队:</td>
+				<tr id="user_team_tr_edit" >
+					<td class="title" id="team_text_edit">归属团队:</td>
 					<td>
-						<x:combobox id="user_team_edit_id" name="user.teamId"  value="${user.teamId}" valueField="id" textField="teamName" list="userTeamList" pleaseSelect="true" cssStyle="width:142px;"/>
+						<x:combobox id="user_team_id_edit" name="user.teamId"  value="${user.teamId}" valueField="id" textField="teamName" list="userTeamList" pleaseSelect="true" cssStyle="width:142px;"/>
 					</td>
 				</tr>
 				</tbody>
@@ -69,13 +69,29 @@
 	$(function(){
 		var posCode="${user.posCode}";
 		if(posCode=="03"){
+			$('#dept_text_edit').text('负责营业部');
+			$('#area_text_edit').text('归属区域');
+			loadDeptEditList();
 			$('#user_team_tr_edit').hide();
 		}else if(posCode=="04"){
+			loadAreaEditList();
 			$('#user_team_tr_edit').hide();
 			$('#user_dept_tr_edit').hide();
-		}else{
+		}else if(posCode=='02'){
+			$('#team_text_edit').text('负责团队');
+			$('#dept_text_edit').text('归属营业部');
+			loadTeamEditList();
 			$('#user_dept_tr_edit').show();
 			$('#user_team_tr_edit').show();
+		}else if(posCode=='01'){
+			$('#team_text_edit').text('归属团队');
+			$('#dept_text_edit').text('归属营业部');
+			$('#user_dept_tr_edit').show();
+			$('#user_team_tr_edit').show();
+		}else{
+			$('#user_area_tr_edit').hide();
+			$('#user_dept_tr_edit').hide();
+			$('#user_team_tr_edit').hide();
 		}
 	});
 	function chooseBranch() {
@@ -112,32 +128,58 @@
 	}
 	
 	function loadDeptEditList(){
-		var areaId = $("#user_area_edit_id").xcombobox("getValue");
-		$("#user_dept_edit_id").xcombobox("reload",{'url':'<s:url value="/orgDept/orgDeptManage_getCombobox.jhtml"/>?searchBean.ownedArea='+areaId+'&searchBean.status=1'});
+		var areaId = $("#user_area_id_edit").xcombobox("getValue");
+		var userId = $('#user_id').val();
+		$("#user_dept_id_edit").xcombobox("reload",{'url':'<s:url value="/orgDept/orgDeptManage_getCombobox.jhtml"/>?searchBean.ownedArea='+areaId+'&searchBean.status=1'+'&id='+userId});
 	}
 	
 	function loadTeamEditList(){
-		var teamId = $("#user_dept_edit_id").xcombobox("getValue");
-		$("#user_team_edit_id").xcombobox("reload",{'url':'<s:url value="/orgTeam/orgTeamManage_getCombobox.jhtml"/>?searchBean.ownedDept='+teamId+'&searchBean.status=1'});
+		var teamId = $("#user_dept_id_edit").xcombobox("getValue");
+		var userId = $('#user_id').val();
+		$("#user_team_id_edit").xcombobox("reload",{'url':'<s:url value="/orgTeam/orgTeamManage_getCombobox.jhtml"/>?searchBean.ownedDept='+teamId+'&searchBean.status=1'+'&id='+userId});
+	}
+	
+	function loadAreaEditList(){
+		var posCode = $('#pos_code_add').xcombobox("getValue");
+		var userId = $('#user_id').val();
+		$("#user_area_id_edit").xcombobox("reload",{'url':'<s:url value="/orgArea/orgAreaManage_getCombobox.jhtml"/>?searchBean.status=1'+'&searchBean.posCode='+posCode+'&id='+userId});
 	}
 	
 	function posCodeEditChange(){
 		var posCode = $('#pos_code_edit').xcombobox("getValue");
-		if(posCode=="03"){
-			$('#user_team_tr_edit').hide();
-			$('#user_team_edit_id').xcombobox("setValue",'');
-			$('#user_dept_tr_edit').show();
-			loadDeptEditList();
-		}else if(posCode=="04"){
-			$('#user_team_tr_edit').hide();
-			$('#user_team_edit_id').xcombobox("setValue",'');
+		if(posCode=="0"){
+			$('#user_area_tr_edit').hide();
+			$('#user_area_id_edit').xcombobox('setValue','');
 			$('#user_dept_tr_edit').hide();
-			$('#user_dept_edit_id').xcombobox("setValue",'');
-		}else{
+			$('#user_dept_id_edit').xcombobox('setValue','');
+			$('#user_team_tr_edit').hide();
+			$('#user_team_id_edit').xcombobox('setValue','');
+		}else if(posCode=="01"){
+			$('#team_text_edit').text('归属团队');
+			$('#dept_text_edit').text('归属营业部');
+			$('#user_area_tr_edit').show();
 			$('#user_dept_tr_edit').show();
 			$('#user_team_tr_edit').show();
-			loadDeptEditList();
+		}else if(posCode=="02"){
+			$('#team_text_edit').text('负责团队');
+			$('#dept_text_edit').text('归属营业部');
 			loadTeamEditList();
+			$('#user_area_tr_edit').show();
+			$('#user_dept_tr_edit').show();
+			$('#user_team_tr_edit').show();
+		}else if(posCode=="03"){
+			$('#dept_text_edit').text('负责营业部');
+			$('#user_team_tr_edit').hide();
+			loadDeptEditList();
+			$('#user_team_id_edit').xcombobox('setValue','');
+			$('#user_area_tr_edit').show();
+			$('#user_dept_tr_edit').show();
+		}else if(posCode=="04"){
+			loadAreaEditList();
+			$('#user_dept_tr_edit').hide();
+			$('#user_dept_id_edit').xcombobox('setValue','');
+			$('#user_team_tr_edit').hide();
+			$('#user_team_id_edit').xcombobox('setValue','');
 		}
 	}
 </script>

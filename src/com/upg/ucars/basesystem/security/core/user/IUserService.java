@@ -383,5 +383,11 @@ public interface IUserService extends IBaseService {
 
 	List<Buser> getUserByAreaId(Long areaId);
 
+	public Buser getUserByTeamIdAndPosCode(Long teamId, String posCode);
+
+	public Buser getUserByDeptIdAndPosCode(Long deptId, String posCode);
+
+	public Buser getUserByAreaIdAndPosCode(Long areaId, String posCode);
+
 
 }

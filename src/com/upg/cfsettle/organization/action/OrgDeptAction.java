@@ -1,13 +1,17 @@
 package com.upg.cfsettle.organization.action;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.upg.cfsettle.code.core.ICodeItemService;
 import com.upg.cfsettle.mapping.ficode.FiCodeItem;
 import com.upg.cfsettle.mapping.organization.CfsOrgDept;
 import com.upg.cfsettle.organization.core.IOrgDeptService;
 import com.upg.cfsettle.util.UtilConstant;
+import com.upg.ucars.basesystem.security.core.user.IUserService;
 import com.upg.ucars.framework.base.BaseAction;
-
-import java.util.List;
+import com.upg.ucars.mapping.basesystem.security.Buser;
 
 /**
  * Created by zuo on 2017/3/29.
@@ -25,6 +29,8 @@ public class OrgDeptAction extends BaseAction {
     private CfsOrgDept orgDept;
 
     private Long areaId;
+    @Autowired
+    private IUserService userService;
 
     public String main(){
         isActiveList = codeItemService.getCodeItemByKey(UtilConstant.YES_NO);
@@ -39,7 +45,20 @@ public class OrgDeptAction extends BaseAction {
     	List<CfsOrgDept> list = orgDeptService.find(searchBean,null);
     	return setInputStreamData(list);
     }
+    
+    public String getComboboxEdit(){
+    	List<CfsOrgDept> list = orgDeptService.find(searchBean,null);
+    	Buser buser = userService.getUserById(getPKId());
+    	if(buser.getDeptId() != null){
+    		CfsOrgDept dept = orgDeptService.getOrgDeptById(buser.getDeptId());
+    		if(dept != null){
+    			list.add(dept);
+    		}
+    	}
+    	return setInputStreamData(list);
+    }
 
+    
     public String toAdd(){
         isActiveList = codeItemService.getCodeItemByKey(UtilConstant.YES_NO);
         return ADD;

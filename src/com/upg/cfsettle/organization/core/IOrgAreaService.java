@@ -18,4 +18,6 @@ public interface IOrgAreaService extends IBaseService {
     void updateOrgArea(CfsOrgArea orgArea);
 
     CfsOrgArea getOrgAreaById(Long id);
+
+	List<CfsOrgArea> getCombobox(CfsOrgArea searchBean);
 }

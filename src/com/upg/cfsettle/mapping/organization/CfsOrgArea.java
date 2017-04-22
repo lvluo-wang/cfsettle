@@ -16,6 +16,7 @@ public class CfsOrgArea implements java.io.Serializable {
 	private Date ctime;
 	private Long msysid;
 	private Date mtime;
+	private String posCode;
 
 	public CfsOrgArea() {
 	}
@@ -102,5 +103,13 @@ public class CfsOrgArea implements java.io.Serializable {
 
 	public void setMtime(Date mtime) {
 		this.mtime = mtime;
+	}
+
+	public String getPosCode() {
+		return posCode;
+	}
+
+	public void setPosCode(String posCode) {
+		this.posCode = posCode;
 	}
 }

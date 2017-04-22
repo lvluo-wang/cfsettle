@@ -39,7 +39,7 @@
 				<tr id="user_area_tr">
 					<td class="title" id="area_text">归属区域:</td>
 					<td>
-						<x:combobox id="user_area_id" name="user.areaId"  value="${user.areaId}" valueField="id" textField="areaName" list="userAreaList" pleaseSelect="true" onchange="loadDeptList" required="" cssStyle="width:142px;"/>
+						<x:combobox id="user_area_id" name="user.areaId"  value="${user.areaId}" valueField="id" textField="areaName" list="userAreaList" pleaseSelect="true" onchange="loadDeptList" cssStyle="width:142px;"/>
 					</td>
 				</tr>
 				<tr id="user_dept_tr">
@@ -90,13 +90,20 @@
 	}
 	
 	function loadDeptList(){
+		var posCode = $('#pos_code_add').xcombobox("getValue");
 		var areaId = $("#user_area_id").xcombobox("getValue");
-		$("#user_dept_id").xcombobox("reload",{'url':'<s:url value="/orgDept/orgDeptManage_getCombobox.jhtml"/>?searchBean.ownedArea='+areaId+'&searchBean.status=1'});
+		$("#user_dept_id").xcombobox("reload",{'url':'<s:url value="/orgDept/orgDeptManage_getCombobox.jhtml"/>?searchBean.ownedArea='+areaId+'&searchBean.status=1'+'&searchBean.posCode='+posCode});
 	}
 	
 	function loadTeamList(){
+		var posCode = $('#pos_code_add').xcombobox("getValue");
 		var teamId = $("#user_dept_id").xcombobox("getValue");
-		$("#user_team_id").xcombobox("reload",{'url':'<s:url value="/orgTeam/orgTeamManage_getCombobox.jhtml"/>?searchBean.ownedDept='+teamId+'&searchBean.status=1'});
+		$("#user_team_id").xcombobox("reload",{'url':'<s:url value="/orgTeam/orgTeamManage_getCombobox.jhtml"/>?searchBean.ownedDept='+teamId+'&searchBean.status=1'+'&searchBean.posCode='+posCode});
+	}
+	
+	function loadAreaList(){
+		var posCode = $('#pos_code_add').xcombobox("getValue");
+		$("#user_area_id").xcombobox("reload",{'url':'<s:url value="/orgArea/orgAreaManage_getCombobox.jhtml"/>?searchBean.status=1'+'&searchBean.posCode='+posCode});
 	}
 	
 	function posCodeChange(){
@@ -117,16 +124,19 @@
 		}else if(posCode=="02"){
 			$('#team_text').text('负责团队');
 			$('#dept_text').text('归属营业部');
+			loadTeamList();
 			$('#user_area_tr').show();
 			$('#user_dept_tr').show();
 			$('#user_team_tr').show();
 		}else if(posCode=="03"){
 			$('#dept_text').text('负责营业部');
 			$('#user_team_tr').hide();
+			loadDeptList();
 			$('#user_team_id').xcombobox('setValue','');
 			$('#user_area_tr').show();
 			$('#user_dept_tr').show();
 		}else if(posCode=="04"){
+			loadAreaList();
 			$('#user_dept_tr').hide();
 			$('#user_dept_id').xcombobox('setValue','');
 			$('#user_team_tr').hide();

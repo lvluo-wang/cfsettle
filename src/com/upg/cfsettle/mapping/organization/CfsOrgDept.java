@@ -18,6 +18,7 @@ public class CfsOrgDept implements java.io.Serializable {
 	private Date ctime;
 	private Long msysid;
 	private Date mtime;
+	private String posCode;
 
 	private String areaName;
 
@@ -124,5 +125,13 @@ public class CfsOrgDept implements java.io.Serializable {
 
 	public void setAreaName(String areaName) {
 		this.areaName = areaName;
+	}
+
+	public String getPosCode() {
+		return posCode;
+	}
+
+	public void setPosCode(String posCode) {
+		this.posCode = posCode;
 	}
 }

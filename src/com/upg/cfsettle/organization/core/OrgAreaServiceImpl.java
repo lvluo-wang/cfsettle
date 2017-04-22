@@ -1,20 +1,22 @@
 package com.upg.cfsettle.organization.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
+
 import com.upg.cfsettle.mapping.organization.CfsOrgArea;
+import com.upg.cfsettle.util.UtilConstant;
+import com.upg.ucars.basesystem.security.core.user.IUserDAO;
 import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.QueryCondition;
 import com.upg.ucars.framework.base.SessionTool;
 import com.upg.ucars.model.ConditionBean;
 import com.upg.ucars.model.OrderBean;
-import com.upg.ucars.util.BeanUtils;
 import com.upg.ucars.util.DateTimeUtil;
 import com.upg.ucars.util.StringUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Created by zuo on 2017/3/28.
@@ -24,6 +26,8 @@ public class OrgAreaServiceImpl implements IOrgAreaService {
 
     @Autowired
     private IOrgAreaDao orgAreaDao;
+    @Autowired
+    private IUserDAO userDAO;
 
     @Override
     public List<CfsOrgArea> findByCondition(CfsOrgArea searchBean, Page pg) {
@@ -66,6 +70,25 @@ public class OrgAreaServiceImpl implements IOrgAreaService {
     public CfsOrgArea getOrgAreaById(Long id) {
         return orgAreaDao.get(id);
     }
+
+	@Override
+	public List<CfsOrgArea> getCombobox(CfsOrgArea searchBean) {
+		List<CfsOrgArea> list = this.findByCondition(searchBean, null);
+		List<CfsOrgArea> result = new ArrayList<CfsOrgArea>();
+		if(searchBean != null){
+			if(UtilConstant.CFS_AREA_MANAGER.equals(searchBean.getPosCode())){
+				for(CfsOrgArea area:list){
+					if(userDAO.getUserByAreaIdAndPosCode(area.getId(), UtilConstant.CFS_AREA_MANAGER) == null){
+						result.add(area);
+					}
+				}
+				return result;
+			}else{
+				return list;
+			}
+		}
+        return list;
+	}
 }
 
 

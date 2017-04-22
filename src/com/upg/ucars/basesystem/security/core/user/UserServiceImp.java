@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.upg.cfsettle.util.UtilConstant;
+import com.upg.ucars.basesystem.UcarsHelper;
 import com.upg.ucars.basesystem.audit.core.AuditTaskRevokeResult;
 import com.upg.ucars.basesystem.audit.core.IAuditCallBack;
 import com.upg.ucars.basesystem.audit.core.IAuditService;
@@ -542,6 +544,24 @@ public class UserServiceImp extends BaseService implements IUserService,ISecurit
 
 	public void updateUserStatus(Long userId, String userStatus) {
 		Buser user = this.userDAO.get(userId);
+		if("4".equals(user.getStatus())&&(!"4".equals(userStatus))){
+			if(UtilConstant.CFS_TEAM_MANAGER.equals(user.getPosCode())){
+				Buser buser = this.getUserByTeamIdAndPosCode(user.getTeamId(),UtilConstant.CFS_TEAM_MANAGER);
+				if(buser!= null&&!user.getUserId().equals(buser.getUserId())){
+					UcarsHelper.throwActionException("团队已有负责人"+buser.getUserName()+"不能恢复离职状态");
+				}
+			}else if(UtilConstant.CFS_DEPT_MANAGER.equals(user.getPosCode())){
+				Buser buser = this.getUserByDeptIdAndPosCode(user.getDeptId(),UtilConstant.CFS_DEPT_MANAGER);
+				if(buser!= null&&!user.getUserId().equals(buser.getUserId())){
+					UcarsHelper.throwActionException("营业部已有负责人"+buser.getUserName()+"不能恢复离职状态");
+				}
+			}else if(UtilConstant.CFS_AREA_MANAGER.equals(user.getPosCode())){
+				Buser buser = this.getUserByAreaIdAndPosCode(user.getAreaId(),UtilConstant.CFS_AREA_MANAGER);
+				if(buser!= null&&!user.getUserId().equals(buser.getUserId())){
+					UcarsHelper.throwActionException("区域已有负责人"+buser.getUserName()+"不能恢复离职状态");
+				}
+			}
+		}
 		user.setStatus(userStatus);
 		this.userDAO.update(user);
 	}
@@ -1011,5 +1031,21 @@ public class UserServiceImp extends BaseService implements IUserService,ISecurit
 	@Override
 	public List<Buser> getUserByAreaId(Long areaId) {
 		return userDAO.getUserByAreaId(areaId);
+	}
+
+	@Override
+	public Buser getUserByTeamIdAndPosCode(Long teamId, String posCode) {
+		return userDAO.getUserByTeamIdAndPosCode(teamId, posCode);
+	}
+
+	@Override
+	public Buser getUserByDeptIdAndPosCode(Long deptId, String posCode) {
+		return userDAO.getUserByDeptIdAndPosCode(deptId, posCode);
+	}
+
+	@Override
+	public Buser getUserByAreaIdAndPosCode(Long areaId, String posCode) {
+		return userDAO.getUserByAreaIdAndPosCode(areaId, posCode)
+				;
 	}
 }
