@@ -9,6 +9,7 @@ import com.upg.ucars.util.SQLCreater;
 
 import org.apache.commons.collections.map.HashedMap;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -48,5 +49,20 @@ public class CfsCommOrderRelateDaoImpl extends SysBaseDao<CfsCommOrderRelate,Lon
         sqlCreater.and("and comm.comm_id=:commId","commId",commId,true);
         sqlCreater.orderBy("prjOrder.ctime",true);
         return this.getMapListByStanderdSQL(sqlCreater.getSql(),sqlCreater.getParameterMap(),page);
+    }
+
+    @Override
+    public CfsCommOrderRelate findIsExits(CfsCommOrderRelate cfsCommOrderRelate){
+        String hql = "from CfsCommOrderRelate where prjId=? and prjOrderId=?" +
+                " and sysid=? and commRate=? and commAccount=? and commId is not null";
+        List<CfsCommOrderRelate> list = this.find(hql,new Object[]{cfsCommOrderRelate.getPrjId(),
+                cfsCommOrderRelate.getPrjOrderId(),
+                cfsCommOrderRelate.getSysid(),
+                cfsCommOrderRelate.getCommRate(),
+                cfsCommOrderRelate.getCommAccount()});
+        if(list != null && list.size()>0){
+            return list.get(0);
+        }
+        return null;
     }
 }

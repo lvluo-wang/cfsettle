@@ -1,8 +1,6 @@
 package com.upg.cfsettle.prj.core;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.upg.cfsettle.mapping.prj.CfsPrj;
 import com.upg.cfsettle.util.CfsConstant;
@@ -85,8 +83,13 @@ public class PrjDaoImpl extends SysBaseDao<CfsPrj,Long> implements IPrjDao {
                 " cfsPrj.buildTime>=? and cfsPrj.buildTime<=?";
         QueryCondition condition = new QueryCondition(hql);
         Date now = DateTimeUtil.getNowDateTime();
+        Calendar c = Calendar.getInstance();
+        // 得到本月的那一天
+        int today = c.get(c.DAY_OF_MONTH);
+        if(today !=1){
+            return Collections.EMPTY_LIST;
+        }
         Date lastDay = DateTimeUtil.getSpecifiedDayBefore(now);
-
         //lastDay 的这个月的第一天和最后一天
         Date fromDate = DateTimeUtil.getFirstDateOfMonth(lastDay);
         Date toDate = DateTimeUtil.getLastDateOfMonth(lastDay);

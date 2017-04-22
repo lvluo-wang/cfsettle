@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.upg.ucars.basesystem.UcarsHelper;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
@@ -156,7 +157,14 @@ public class CfsMyCommInfoServiceImpl implements ICfsMyCommInfoService{
 	private void saveCommOrderRelateList(CfsPrj prj, CfsPrjOrder prjOrder){
 		List<CfsCommOrderRelate> cfsCommOrderRelateList = calculateCommOrderRelate(prj,prjOrder);
 		if(!CollectionUtils.isEmpty(cfsCommOrderRelateList)){
-		      commOrderRelateDao.saveOrUpdateAll(cfsCommOrderRelateList);
+		      for(CfsCommOrderRelate cfsCommOrderRelate : cfsCommOrderRelateList){
+		      	CfsCommOrderRelate isExits = commOrderRelateDao.findIsExits(cfsCommOrderRelate);
+		      	if(isExits == null){
+		      		commOrderRelateDao.saveOrUpdate(cfsCommOrderRelate);
+				}else{
+					UcarsHelper.throwServiceException("佣金明细生成错误,CfsCommOrderRelate已存在"+isExits.toString());
+				}
+			  }
 		}
 	}
 

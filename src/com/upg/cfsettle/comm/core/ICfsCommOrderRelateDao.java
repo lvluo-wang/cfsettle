@@ -28,4 +28,11 @@ public interface ICfsCommOrderRelateDao extends IBaseDAO<CfsCommOrderRelate,Long
      */
 
     public List<Map<String, Object>> findCommDetailByCommId(Long commId, Page page);
+
+    /**
+     * 判断此订单的佣金明细是否已生成
+     * @param cfsCommOrderRelate
+     * @return
+     */
+    CfsCommOrderRelate findIsExits(CfsCommOrderRelate cfsCommOrderRelate);
 }

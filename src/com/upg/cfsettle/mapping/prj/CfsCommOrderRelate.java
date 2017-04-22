@@ -159,4 +159,23 @@ public class CfsCommOrderRelate implements Serializable {
 	public void setCommId(Long commId) {
 		this.commId = commId;
 	}
+
+	@Override
+	public String toString() {
+		return "CfsCommOrderRelate{" +
+				"id=" + id +
+				", sysid=" + sysid +
+				", commId=" + commId +
+				", prjId=" + prjId +
+				", prjOrderId=" + prjOrderId +
+				", commRate=" + commRate +
+				", commAccount=" + commAccount +
+				", remark='" + remark + '\'' +
+				", status=" + status +
+				", csysid=" + csysid +
+				", ctime=" + ctime +
+				", msysid=" + msysid +
+				", mtime=" + mtime +
+				'}';
+	}
 }
