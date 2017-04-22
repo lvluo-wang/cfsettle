@@ -135,6 +135,7 @@ public class CfsMyCommInfoServiceImpl implements ICfsMyCommInfoService{
 				CfsMyCommInfo myCommInfo = new CfsMyCommInfo();
 				myCommInfo.setSysid(sysId);
 				Buser buser = userDAO.get(sysId);
+				myCommInfo.setMobile(buser.getUserNo());
 				myCommInfo.setSysUserName(buser.getUserName());
 				myCommInfo.setPosCode(buser.getPosCode());
 				myCommInfo.setCommMoney(sumCommAmount);
