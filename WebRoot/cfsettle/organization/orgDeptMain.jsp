@@ -33,6 +33,7 @@
 				<x:column title="归属区域" field="AREA_NAME" align="center" width="120"/>
 				<x:column title="添加时间" field="CTIME" align="center" width="140" formatter="formatTime"/>
 				<x:column title="是否开启" field="STATUS" align="center" width="60" formatter="formatIsActive"/>
+				<x:column title="操作" field="havBuser" align="center" width="120" formatter="format2Set"/>
 			</x:columns>
 		</x:datagrid>
 	</tiles:putAttribute>
@@ -41,6 +42,7 @@
 	<!-- 弹出窗口定义开始 -->
 	<div id="project_add_win" style="width:550px;height:auto;display:none;"></div>
 	<div id="project_edit_win" style="width:550px;height:auto;display:none;"></div>
+	<div id="project_set_dept_buser" style="width:550px;height:auto;display:none;"></div>
 	</tiles:putAttribute>
 	
 	<tiles:putAttribute name="end">
@@ -83,6 +85,20 @@
 				}
 			});
 		}
+	}
+	
+	function format2Set(value,field, row){
+		if(row.havBuser == '0') {
+			return '<x:button iconCls="icon-add" text="设置管理员" click="doSetBuser(' + row.ID + ')" />';
+		} else {
+			return '<x:button iconCls="icon-edit" text="修改管理员" click="doSetBuser(' + row.ID + ')" />';
+		}
+	}
+	
+	function doSetBuser(deptId){
+         var url = "<s:url value='/orgDept/orgDeptManage_toSetBuser.jhtml'/>";
+         var param = {'searchBean.id':deptId,'searchBean.posCode':'03'}
+         requestAtWindow(url,"project_set_dept_buser","设置管理员",param,{closable:false});
 	}
 	
 	</script>

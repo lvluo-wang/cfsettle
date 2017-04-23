@@ -15,6 +15,7 @@ import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.QueryCondition;
 import com.upg.ucars.framework.base.SessionTool;
+import com.upg.ucars.mapping.basesystem.security.Buser;
 import com.upg.ucars.model.ConditionBean;
 import com.upg.ucars.util.DateTimeUtil;
 import com.upg.ucars.util.StringUtil;
@@ -35,7 +36,16 @@ public class OrgDeptServiceImpl implements IOrgDeptService {
 
     @Override
     public List<Map<String, Object>> findByCondition(CfsOrgDept searchBean, Page page) {
-        return orgDeptDao.findByCondition(searchBean,page);
+    	List<Map<String, Object>> maps = orgDeptDao.findByCondition(searchBean,page);
+    	for(Map<String, Object> map:maps){
+    		Buser buser = userDAO.getUserByDeptIdAndPosCode(Long.valueOf(map.get("ID").toString()), UtilConstant.CFS_DEPT_MANAGER);
+    		if(buser != null){
+    			map.put("havBuser", "1");
+    		}else{
+    			map.put("havBuser", "0");
+    		}
+    	}
+        return maps;
     }
 
     @Override

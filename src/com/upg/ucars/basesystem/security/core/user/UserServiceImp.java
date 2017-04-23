@@ -1048,4 +1048,9 @@ public class UserServiceImp extends BaseService implements IUserService,ISecurit
 		return userDAO.getUserByAreaIdAndPosCode(areaId, posCode)
 				;
 	}
+
+	@Override
+	public List<Buser> getCanSetBuser(String posCode) {
+		return userDAO.getCanSetBuser(posCode);
+	}
 }

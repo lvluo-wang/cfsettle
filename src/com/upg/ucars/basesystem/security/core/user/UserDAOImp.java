@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.upg.cfsettle.util.UtilConstant;
+
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -393,4 +394,25 @@ public class UserDAOImp extends BaseDAO<Buser,Long> implements IUserDAO {
 		}
 		return ret.size() >0 ? ret.get(0) : null;
 	}
+
+		@Override
+		public List<Buser> getCanSetBuser(String posCode) {
+			String hql = "";
+			if(UtilConstant.CFS_AREA_MANAGER.equals(posCode)){
+				hql = "from Buser where posCode=? and status<>4 and areaId is null";
+			}else if(UtilConstant.CFS_DEPT_MANAGER.equals(posCode)){
+				hql = "from Buser where posCode=? and status<>4 and deptId is null";
+			}else if(UtilConstant.CFS_TEAM_MANAGER.equals(posCode)){
+				hql = "from Buser where posCode=? and status<>4 and teamId is null";
+			}else{
+				hql = "from Buser where posCode=? and status<>4 and teamId is null";
+			}
+			List<Buser> ret = null;
+			try {
+				ret = getHibernateTemplate().find(hql,posCode);
+			}catch(Throwable t){
+				ExceptionManager.throwException(DAOException.class, ErrorCodeConst.DB_OPERATION_ERROR, new String[]{hql.toString()}, t);
+			}
+			return ret;
+		}
 }

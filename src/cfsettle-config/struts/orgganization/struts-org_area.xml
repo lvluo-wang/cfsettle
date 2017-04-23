@@ -11,6 +11,7 @@
 			<result name="edit">/cfsettle/organization/orgAreaEdit.jsp</result>
 			<result name="view">/cfsettle/organization/orgAreaView.jsp</result>
             <result name="toChoose">/cfsettle/organization/choose/chooseArea.jsp</result>
+            <result name="toSetBuser">/cfsettle/organization/setAreaBuser.jsp</result>
 		</action>
 	</package>
 </struts>

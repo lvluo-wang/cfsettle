@@ -17,6 +17,7 @@ import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.QueryCondition;
 import com.upg.ucars.framework.base.SessionTool;
+import com.upg.ucars.mapping.basesystem.security.Buser;
 import com.upg.ucars.model.ConditionBean;
 import com.upg.ucars.model.OrderBean;
 import com.upg.ucars.util.DateTimeUtil;
@@ -38,7 +39,16 @@ public class OrgTeamServiceImpl implements IOrgTeamService {
 
     @Override
     public List<Map<String, Object>> findByCondition(OrgTeamBean searchBean, Page page) {
-        return orgTeamDao.findByCondition(searchBean,page);
+    	List<Map<String, Object>> maps = orgTeamDao.findByCondition(searchBean,page);
+    	for(Map<String, Object> map:maps){
+    		Buser buser = userDAO.getUserByTeamIdAndPosCode(Long.valueOf(map.get("ID").toString()), UtilConstant.CFS_TEAM_MANAGER);
+    		if(buser != null){
+    			map.put("havBuser", 1L);
+    		}else{
+    			map.put("havBuser", 0L);
+    		}
+    	}
+        return maps;
     }
 
     @Override

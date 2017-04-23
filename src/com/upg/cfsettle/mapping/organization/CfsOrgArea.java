@@ -17,6 +17,8 @@ public class CfsOrgArea implements java.io.Serializable {
 	private Long msysid;
 	private Date mtime;
 	private String posCode;
+	private String havBuser;
+	private Long buserId;
 
 	public CfsOrgArea() {
 	}
@@ -111,5 +113,21 @@ public class CfsOrgArea implements java.io.Serializable {
 
 	public void setPosCode(String posCode) {
 		this.posCode = posCode;
+	}
+
+	public String getHavBuser() {
+		return havBuser;
+	}
+
+	public void setHavBuser(String havBuser) {
+		this.havBuser = havBuser;
+	}
+
+	public Long getBuserId() {
+		return buserId;
+	}
+
+	public void setBuserId(Long buserId) {
+		this.buserId = buserId;
 	}
 }

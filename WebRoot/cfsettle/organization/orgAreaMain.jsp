@@ -37,6 +37,7 @@
 				<x:column title="管辖范围" field="overRange" align="center" width="320"/>
 				<x:column title="创建时间" field="ctime" align="center" width="140" />
 				<x:column title="是否开启" field="status" align="center" width="60" formatter="formatIsActive"/>
+				<x:column title="操作" field="havBuser" align="center" width="120" formatter="format2Set"/>
 			</x:columns>
 		</x:datagrid>
 	</tiles:putAttribute>
@@ -46,6 +47,7 @@
 	<!-- 弹出窗口定义开始 -->
 	<div id="project_add_win" style="width:550px;height:auto;display:none;"></div>
 	<div id="project_edit_win" style="width:550px;height:auto;display:none;"></div>
+	<div id="project_set_area_buser" style="width:550px;height:auto;display:none;"></div>
 	</tiles:putAttribute>
 	
 	<tiles:putAttribute name="end">
@@ -92,6 +94,20 @@
 				}
 			});
 		}
+	}
+	
+	function format2Set(value,field, row){
+		if(row.havBuser == '0') {
+			return '<x:button iconCls="icon-add" text="设置管理员" click="doSetBuser(' + row.id + ')" />';
+		} else {
+			return '<x:button iconCls="icon-edit" text="修改管理员" click="doSetBuser(' + row.id + ')" />';
+		}
+	}
+	
+	function doSetBuser(areaId){
+         var url = "<s:url value='/orgArea/orgAreaManage_toSetBuser.jhtml'/>";
+         var param = {'searchBean.id':areaId,'searchBean.posCode':'04'}
+         requestAtWindow(url,"project_set_area_buser","设置管理员",param,{closable:false});
 	}
 	
 	</script>

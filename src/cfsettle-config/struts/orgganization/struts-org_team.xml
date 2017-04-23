@@ -10,6 +10,7 @@
 			<result name="add">/cfsettle/organization/orgTeamAdd.jsp</result>
 			<result name="edit">/cfsettle/organization/orgTeamEdit.jsp</result>
 			<result name="view">/cfsettle/organization/orgTeamView.jsp</result>
+			<result name="toSetBuser">/cfsettle/organization/setTeamBuser.jsp</result>
 		</action>
 	</package>
 </struts>

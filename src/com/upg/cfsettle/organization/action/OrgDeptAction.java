@@ -86,7 +86,20 @@ public class OrgDeptAction extends BaseAction {
     public String chooseList(){
         return setDatagridInputStreamData(orgDeptService.find(searchBean,getPg()),getPg());
     }
-
+    
+    public String toSetBuser(){
+    	searchBean = this.getSearchBean();
+    	return "toSetBuser";
+    }
+    
+    public String buserList(){
+    	List<Buser> list = userService.getCanSetBuser(searchBean.getPosCode());
+    	Buser buser = userService.getUserByDeptIdAndPosCode(searchBean.getId(), searchBean.getPosCode());
+    	if(buser != null){
+    		list.add(buser);
+    	}
+    	return setDatagridInputStreamData(list, getPg());
+    }
 
     public IOrgDeptService getOrgDeptService() {
         return orgDeptService;

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 
 import com.upg.cfsettle.mapping.organization.CfsOrgArea;
 import com.upg.cfsettle.util.UtilConstant;
@@ -13,6 +12,7 @@ import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.QueryCondition;
 import com.upg.ucars.framework.base.SessionTool;
+import com.upg.ucars.mapping.basesystem.security.Buser;
 import com.upg.ucars.model.ConditionBean;
 import com.upg.ucars.model.OrderBean;
 import com.upg.ucars.util.DateTimeUtil;
@@ -45,7 +45,18 @@ public class OrgAreaServiceImpl implements IOrgAreaService {
             }
         }
         condition.addOrder(new OrderBean("cfsOrgArea.ctime",true));
-        return orgAreaDao.queryEntity( condition.getConditionList(), pg);
+        List<CfsOrgArea> list= orgAreaDao.queryEntity( condition.getConditionList(), pg);
+        for(CfsOrgArea area :list){
+        	Buser buser = userDAO.getUserByAreaIdAndPosCode(area.getId(), UtilConstant.CFS_AREA_MANAGER);
+        	if(buser != null){
+        		area.setHavBuser("1");
+        		area.setBuserId(buser.getUserId());
+        	}else{
+        		area.setHavBuser("0");
+        		area.setBuserId(0L);
+        	}
+        }
+        return list;
     }
 
     @Override

@@ -77,6 +77,20 @@ public class OrgTeamAction extends BaseAction {
     	return setInputStreamData(list);
     }
     
+    public String toSetBuser(){
+    	searchBean = this.getSearchBean();
+    	return "toSetBuser";
+    }
+    
+    public String buserList(){
+    	List<Buser> list = userService.getCanSetBuser(searchBean.getPosCode());
+    	Buser buser = userService.getUserByTeamIdAndPosCode(searchBean.getTeamId(), searchBean.getPosCode());
+    	if(buser != null){
+    		list.add(buser);
+    	}
+    	return setDatagridInputStreamData(list, getPg());
+    }
+    
     public List<FiCodeItem> getIsActiveList() {
         return isActiveList;
     }

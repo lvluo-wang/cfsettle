@@ -64,6 +64,26 @@ public class OrgAreaAction extends BaseAction {
         return "toChoose";
     }
     
+    public String toSetBuser(){
+    	searchBean = this.getSearchBean();
+    	return "toSetBuser";
+    }
+    
+    public String buserList(){
+    	List<Buser> list = userService.getCanSetBuser(searchBean.getPosCode());
+    	Buser buser = userService.getUserByAreaIdAndPosCode(searchBean.getId(), searchBean.getPosCode());
+    	if(buser != null){
+    		list.add(buser);
+    	}
+    	return setDatagridInputStreamData(list, getPg());
+    }
+    
+    public void setBuser(){
+    	Buser buser = userService.getUserById(searchBean.getBuserId());
+    	buser.setAreaId(searchBean.getId());
+    	userService.updateUser(buser);
+    }
+    
     public String getCombobox(){
     	List<CfsOrgArea> list = orgAreaService.getCombobox(searchBean);
     	return setInputStreamData(list);

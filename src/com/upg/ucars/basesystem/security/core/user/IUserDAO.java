@@ -198,4 +198,6 @@ public interface IUserDAO extends IBaseDAO<Buser,Long> {
 	 */
 	Buser getUserByAreaIdAndPosCode(Long areaId,String posCode);
 
+	public List<Buser> getCanSetBuser(String posCode);
+
 }
