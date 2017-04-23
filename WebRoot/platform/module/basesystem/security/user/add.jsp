@@ -36,22 +36,10 @@
 						<input name="user.brchId" value="1" type="hidden" />
 					</td>
 				</tr>
-				<tr id="user_area_tr">
-					<td class="title" id="area_text">归属区域:</td>
-					<td>
-						<x:combobox id="user_area_id" name="user.areaId"  value="${user.areaId}" valueField="id" textField="areaName" list="userAreaList" pleaseSelect="true" onchange="loadDeptList" cssStyle="width:142px;"/>
-					</td>
-				</tr>
-				<tr id="user_dept_tr">
-					<td class="title" id="dept_text">归属营业部:</td>
-					<td>
-						<x:combobox id="user_dept_id" name="user.deptId"  value="${user.deptId}" valueField="id" textField="deptName" list="userDeptList" pleaseSelect="true" onchange="loadTeamList" cssStyle="width:142px;"/>
-					</td>
-				</tr>
 				<tr id="user_team_tr">
-					<td class="title" id="team_text">归属团队:</td>
+					<td class="title">归属团队:</td>
 					<td>
-						<x:combobox id="user_team_id" name="user.teamId"  value="${user.teamId}" valueField="id" textField="teamName" list="userTeamList" pleaseSelect="true" cssStyle="width:142px;"/>
+						<x:combobox  name="user.teamId"  id="user_team_id" value="${user.teamId}" valueField="id" textField="teamName" list="userTeamList" pleaseSelect="true" cssStyle="width:142px;"/>
 					</td>
 				</tr>
 			</tbody>
@@ -108,37 +96,9 @@
 	
 	function posCodeChange(){
 		var posCode = $('#pos_code_add').xcombobox("getValue");
-		if(posCode=="0"){
-			$('#user_area_tr').hide();
-			$('#user_area_id').xcombobox('setValue','');
-			$('#user_dept_tr').hide();
-			$('#user_dept_id').xcombobox('setValue','');
-			$('#user_team_tr').hide();
-			$('#user_team_id').xcombobox('setValue','');
-		}else if(posCode=="01"){
-			$('#team_text').text('归属团队');
-			$('#dept_text').text('归属营业部');
-			$('#user_area_tr').show();
-			$('#user_dept_tr').show();
+		if(posCode=="01"){
 			$('#user_team_tr').show();
-		}else if(posCode=="02"){
-			$('#team_text').text('负责团队');
-			$('#dept_text').text('归属营业部');
-			loadTeamList();
-			$('#user_area_tr').show();
-			$('#user_dept_tr').show();
-			$('#user_team_tr').show();
-		}else if(posCode=="03"){
-			$('#dept_text').text('负责营业部');
-			$('#user_team_tr').hide();
-			loadDeptList();
-			$('#user_team_id').xcombobox('setValue','');
-			$('#user_area_tr').show();
-			$('#user_dept_tr').show();
-		}else if(posCode=="04"){
-			loadAreaList();
-			$('#user_dept_tr').hide();
-			$('#user_dept_id').xcombobox('setValue','');
+		}else{
 			$('#user_team_tr').hide();
 			$('#user_team_id').xcombobox('setValue','');
 		}

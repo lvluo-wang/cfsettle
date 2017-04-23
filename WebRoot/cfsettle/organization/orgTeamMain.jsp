@@ -83,9 +83,9 @@
 	
 	function format2Set(value,field, row){
 		if(row.havBuser == '0') {
-			return '<x:button iconCls="icon-add" text="设置管理员" click="doSetBuser(' + row.id + ')" />';
+			return '<x:button iconCls="icon-add" text="设置管理员" click="doSetBuser(' + row.ID + ')" />';
 		} else {
-			return '<x:button iconCls="icon-edit" text="修改管理员" click="doSetBuser(' + row.id + ')" />';
+			return '<x:button iconCls="icon-edit" text="修改管理员" click="doSetBuser(' + row.ID + ')" />';
 		}
 	}
 	
