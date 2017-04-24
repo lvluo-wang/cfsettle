@@ -17,7 +17,6 @@ import com.upg.cfsettle.organization.core.IOrgAreaService;
 import com.upg.cfsettle.organization.core.IOrgDeptService;
 import com.upg.cfsettle.organization.core.IOrgTeamService;
 import com.upg.cfsettle.util.UtilConstant;
-import com.upg.ucars.basesystem.UcarsHelper;
 import com.upg.ucars.basesystem.dictionary.util.DictionaryUtil;
 import com.upg.ucars.basesystem.security.core.branch.IBranchService;
 import com.upg.ucars.basesystem.security.core.sysConfig.ISysConfigService;
@@ -267,22 +266,6 @@ public class UserAction extends BaseAction  {
 //		md5Pwd=DigestUtil.getMD5(DESKeyUtil.DecryptAES(config.getPwdInit()==null?SysConfig.DEFAULT_INIT_PWD:config.getPwdInit(), null));
 		user.setPassword(md5Pwd);
 		user.setRoleStatus(Buser.ROLE_STATUS_UN_ASSIGN);
-		if(UtilConstant.CFS_TEAM_MANAGER.equals(user.getPosCode())){
-			Buser buser = userService.getUserByTeamIdAndPosCode(user.getTeamId(),UtilConstant.CFS_TEAM_MANAGER);
-			if(buser!= null&&!user.getUserId().equals(buser.getUserId())){
-				UcarsHelper.throwActionException("团队已有负责人,请选择其他部门"+buser.getUserName());
-			}
-		}else if(UtilConstant.CFS_DEPT_MANAGER.equals(user.getPosCode())){
-			Buser buser = userService.getUserByDeptIdAndPosCode(user.getDeptId(),UtilConstant.CFS_DEPT_MANAGER);
-			if(buser!= null&&!user.getUserId().equals(buser.getUserId())){
-				UcarsHelper.throwActionException("营业部已有负责人,请选择其他营业部"+buser.getUserName());
-			}
-		}else if(UtilConstant.CFS_AREA_MANAGER.equals(user.getPosCode())){
-			Buser buser = userService.getUserByAreaIdAndPosCode(user.getAreaId(),UtilConstant.CFS_AREA_MANAGER);
-			if(buser!= null&&!user.getUserId().equals(buser.getUserId())){
-				UcarsHelper.throwActionException("区域已有负责人,请选择其他区域"+buser.getUserName());
-			}
-		}
 		this.userService.saveUser(user);
 	}
 	
@@ -411,22 +394,6 @@ public class UserAction extends BaseAction  {
 		retuser.setDeptId(user.getDeptId());
 		retuser.setTeamId(user.getTeamId());
 		retuser.setPosCode(user.getPosCode());
-		if(UtilConstant.CFS_TEAM_MANAGER.equals(user.getPosCode())){
-			Buser buser = userService.getUserByTeamIdAndPosCode(user.getTeamId(),UtilConstant.CFS_TEAM_MANAGER);
-			if(buser!= null&&!retuser.getUserId().equals(buser.getUserId())){
-				UcarsHelper.throwActionException("团队已有负责人,请选择其他部门"+buser.getUserName());
-			}
-		}else if(UtilConstant.CFS_DEPT_MANAGER.equals(user.getPosCode())){
-			Buser buser = userService.getUserByDeptIdAndPosCode(user.getDeptId(),UtilConstant.CFS_DEPT_MANAGER);
-			if(buser!= null&&!retuser.getUserId().equals(buser.getUserId())){
-				UcarsHelper.throwActionException("营业部已有负责人,请选择其他营业部"+buser.getUserName());
-			}
-		}else if(UtilConstant.CFS_AREA_MANAGER.equals(user.getPosCode())){
-			Buser buser = userService.getUserByAreaIdAndPosCode(user.getAreaId(),UtilConstant.CFS_AREA_MANAGER);
-			if(buser!= null&&!retuser.getUserId().equals(buser.getUserId())){
-				UcarsHelper.throwActionException("区域已有负责人,请选择其他区域"+buser.getUserName());
-			}
-		}
 		Long brchId=user.getBrchId();
 		if(brchId!=null){
 			Branch brch=branchService.getBranchByBrchId(brchId);

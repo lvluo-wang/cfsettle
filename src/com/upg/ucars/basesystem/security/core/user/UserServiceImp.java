@@ -544,24 +544,6 @@ public class UserServiceImp extends BaseService implements IUserService,ISecurit
 
 	public void updateUserStatus(Long userId, String userStatus) {
 		Buser user = this.userDAO.get(userId);
-		if("4".equals(user.getStatus())&&(!"4".equals(userStatus))){
-			if(UtilConstant.CFS_TEAM_MANAGER.equals(user.getPosCode())){
-				Buser buser = this.getUserByTeamIdAndPosCode(user.getTeamId(),UtilConstant.CFS_TEAM_MANAGER);
-				if(buser!= null&&!user.getUserId().equals(buser.getUserId())){
-					UcarsHelper.throwActionException("团队已有负责人"+buser.getUserName()+"不能恢复离职状态");
-				}
-			}else if(UtilConstant.CFS_DEPT_MANAGER.equals(user.getPosCode())){
-				Buser buser = this.getUserByDeptIdAndPosCode(user.getDeptId(),UtilConstant.CFS_DEPT_MANAGER);
-				if(buser!= null&&!user.getUserId().equals(buser.getUserId())){
-					UcarsHelper.throwActionException("营业部已有负责人"+buser.getUserName()+"不能恢复离职状态");
-				}
-			}else if(UtilConstant.CFS_AREA_MANAGER.equals(user.getPosCode())){
-				Buser buser = this.getUserByAreaIdAndPosCode(user.getAreaId(),UtilConstant.CFS_AREA_MANAGER);
-				if(buser!= null&&!user.getUserId().equals(buser.getUserId())){
-					UcarsHelper.throwActionException("区域已有负责人"+buser.getUserName()+"不能恢复离职状态");
-				}
-			}
-		}
 		user.setStatus(userStatus);
 		this.userDAO.update(user);
 	}
@@ -913,6 +895,19 @@ public class UserServiceImp extends BaseService implements IUserService,ISecurit
 				if(MemberInfo.NOT_OPEN.equals(mi.getIsOpen())){
 					//接入点未开启，不允许登录
 					ExceptionManager.throwException(LoginException.class, ErrorCodeConst.LOGON_ERR_MEMBER_NOT_OPEN);
+				}
+				
+				if(UtilConstant.CFS_AREA_MANAGER.equals(retUser.getPosCode())&&retUser.getAreaId()==null){
+					ExceptionManager.throwException(LoginException.class, "未设置管理区域,请联系管理员设置");
+				}
+				if(UtilConstant.CFS_DEPT_MANAGER.equals(retUser.getPosCode())&&retUser.getDeptId()==null){
+					ExceptionManager.throwException(LoginException.class, "未设置营业部,请联系管理员设置");
+				}
+				if(UtilConstant.CFS_TEAM_MANAGER.equals(retUser.getPosCode())&&retUser.getTeamId()==null){
+					ExceptionManager.throwException(LoginException.class, "未设置管理部门,请联系管理员设置");
+				}
+				if(UtilConstant.CFS_CUST_MANAGER.equals(retUser.getPosCode())&&retUser.getTeamId()==null){
+					ExceptionManager.throwException(LoginException.class, "未设置归属部门,请联系管理员设置");
 				}
 				logonInfo.setBranchId(brchId);
 				logonInfo.setBranchName(brch.getBrchName());

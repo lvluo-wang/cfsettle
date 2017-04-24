@@ -86,7 +86,7 @@ public class OrgAreaAction extends BaseAction {
     	if("1".equals(searchBean.getHavBuser())){
     		Buser buser = userService.getUserById(newBuserId);
     		buser.setAreaId(searchBean.getId());
-    		if(oldBuserId != null){
+    		if(oldBuserId != null&&!(newBuserId.equals(oldBuserId))){
     			Buser buser2 = userService.getUserById(oldBuserId);
     			buser2.setAreaId(null);
     			userService.updateUser(buser2);

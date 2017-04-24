@@ -15,7 +15,7 @@
 			 	<tr>
 					<td class="title">岗位:</td>
 					<td>
-						<x:combobox name="user.posCode"  valueField="codeNo" id="pos_code_edit" value="${user.posCode}" textField="codeName" list="posCodeList" pleaseSelect="false" cssStyle="width:142px;" onchange="posCodeEditChange"/>
+						<x:combobox name="user.posCode"  valueField="codeNo" id="pos_code_edit" value="${user.posCode}" textField="codeName" list="posCodeList" pleaseSelect="false" cssStyle="width:142px;"/>
 						<input name="user.userId" value="${user.userId}" type="hidden" id="user_id"/>
 						<input name="user.brchId" value="${user.brchId}" type="hidden"/>
 					</td>
@@ -34,12 +34,6 @@
 						<input name="user.email" value="${user.email}" class="easyui-validatebox" required="true" maxlength="50" validType="email"/><font color="red">*</font>
 						<input name="user.userType" value="6" type="hidden" />
 						<input name="user.brchId" value="1" type="hidden" />
-					</td>
-				</tr>
-				<tr id="user_team_tr_edit" >
-					<td class="title">归属团队:</td>
-					<td>
-						<x:combobox id="user_team_id_edit" name="user.teamId"  value="${user.teamId}" valueField="id" textField="teamName" list="userTeamList" pleaseSelect="true" cssStyle="width:142px;"/>
 					</td>
 				</tr>
 				</tbody>

@@ -2,6 +2,7 @@ package com.upg.cfsettle.organization.action;
 
 import java.util.List;
 
+import org.apache.cxf.staxutils.DepthXMLStreamReader;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.upg.cfsettle.code.core.ICodeItemService;
@@ -107,17 +108,21 @@ public class OrgDeptAction extends BaseAction {
     
     public void setBuser(){
     	if("1".equals(searchBean.getHavBuser())){
+    		CfsOrgDept dept = orgDeptService.getOrgDeptById(searchBean.getId());
     		Buser buser = userService.getUserById(newBuserId);
     		buser.setDeptId(searchBean.getId());
-    		if(oldBuserId != null){
+    		buser.setAreaId(dept.getOwnedArea());
+    		if(oldBuserId != null&&!(newBuserId.equals(oldBuserId))){
     			Buser buser2 = userService.getUserById(oldBuserId);
     			buser2.setDeptId(null);
+    			buser2.setAreaId(null);
     			userService.updateUser(buser2);
     		}
     		userService.updateUser(buser);
     	}else{
     		Buser buser = userService.getUserById(oldBuserId);
     		buser.setDeptId(null);
+    		buser.setAreaId(null);
     		userService.updateUser(buser);
     	}
     }

@@ -100,16 +100,23 @@ public class OrgTeamAction extends BaseAction {
     public void setBuser(){
     	if("1".equals(searchBean.getHavBuser())){
     		Buser buser = userService.getUserById(newBuserId);
+    		CfsOrgTeam team = orgTeamService.getOrgTeamById(searchBean.getTeamId());
     		buser.setTeamId(searchBean.getTeamId());
-    		if(oldBuserId != null){
+    		buser.setDeptId(team.getOwnedDept());
+    		buser.setAreaId(team.getOwnedArea());
+    		if(oldBuserId != null&&!(newBuserId.equals(oldBuserId))){
     			Buser buser2 = userService.getUserById(oldBuserId);
     			buser2.setTeamId(null);
+    			buser2.setDeptId(null);
+        		buser2.setAreaId(null);
     			userService.updateUser(buser2);
     		}
     		userService.updateUser(buser);
     	}else{
     		Buser buser = userService.getUserById(oldBuserId);
     		buser.setTeamId(null);
+    		buser.setDeptId(null);
+    		buser.setAreaId(null);
     		userService.updateUser(buser);
     	}
     }
@@ -135,12 +142,16 @@ public class OrgTeamAction extends BaseAction {
     		for(Long id:oldBuserIds){
     			Buser buser = userService.getUserById(id);
     			buser.setTeamId(null);
+    			buser.setDeptId(null);
+    			buser.setAreaId(null);
     			userService.updateUser(buser);
     		}
-    		
+    		CfsOrgTeam team = orgTeamService.getOrgTeamById(searchBean.getTeamId());
     		for(Long id:newBuserIds){
     			Buser buser = userService.getUserById(id);
     			buser.setTeamId(searchBean.getTeamId());
+    			buser.setDeptId(team.getOwnedDept());
+        		buser.setAreaId(team.getOwnedArea());
     			userService.updateUser(buser);
     		}
     	}else{
@@ -148,6 +159,8 @@ public class OrgTeamAction extends BaseAction {
     		for(Long id:oldBuserIds){
     			Buser buser = userService.getUserById(id);
     			buser.setTeamId(null);
+    			buser.setDeptId(null);
+    			buser.setAreaId(null);
     			userService.updateUser(buser);
     		}
     	}

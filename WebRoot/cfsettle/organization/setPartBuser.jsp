@@ -8,13 +8,13 @@
         <x:button icon="icon-no" text="取消" click="cancelPartBuser" />
     </tiles:putAttribute>
      <tiles:putAttribute name="query">
-        <form id="chooseBuserForm">
+        <form id="chooseBuserPartForm">
             <input type="hidden" name="searchBean.posCode" value="${searchBean.posCode}">
             <input type="hidden" name="searchBean.teamId" value="${searchBean.teamId}" id="chooseId">
         </form>
     </tiles:putAttribute>
     <tiles:putAttribute name="data">
-        <x:datagrid id="chooseBuseraTable" url="/orgTeam/orgTeamManage_partBuser.jhtml" autoload="true" form="chooseBuserForm" pagebar="false">
+        <x:datagrid id="chooseBuserPartTable" url="/orgTeam/orgTeamManage_partBuser.jhtml" autoload="true" form="chooseBuserPartForm" pagebar="false">
             <x:columns>
                 <x:column field="userId" checkbox="true"/>
                 <x:column field="userNo" title="手机号码" width="100"/>
@@ -29,10 +29,10 @@
      	    var url = '<s:url value="/orgTeam/orgTeamManage_setPartBuser.jhtml"/>';
 	   	    var buserId;
 	   	    var status;
-	   	    var num = chooseBuseraTable.getSelectedRowNum();
+	   	    var num = chooseBuserPartTable.getSelectedRowNum();
 	   	    if(num >=1){
 	   	    	status='1';
-	   	    	buserId = chooseBuseraTable.getSelectedFields('userId');
+	   	    	buserId = chooseBuserPartTable.getSelectedFields('userId');
 	   	    }else{
 	   	    	status='0';
 	   	    	if(data.length ==0){
@@ -54,7 +54,7 @@
         	   closeWindow("project_set_part_buser");
            }
            
-           chooseBuseraTable.onLoadSuccess=function(datas){
+           chooseBuserPartTable.onLoadSuccess=function(datas){
            var chooseId = $('#chooseId').val();
    		   for (var i=0;i<datas.length;i++) {
 				if (datas[i].teamId ==chooseId ) {
