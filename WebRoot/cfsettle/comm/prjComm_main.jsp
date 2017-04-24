@@ -25,8 +25,8 @@
 				<x:column title="年化利率(%)" field="yearRate" align="left" width="70"/>
 				<x:column title="项目期限" field="timeLimit" align="center" width="80"  formatter="formatTimeUnit"/>
 				<x:column title="还款方式" field="repayWay" align="center" width="120" formatter="formatReapayWay"/>
-				<x:column title="佣金总比例(%)" field="totalRate" align="center" width="80"/>
 				<s:if test="logonInfo.posCode==@com.upg.cfsettle.util.UtilConstant@CFS_AREA_MANAGER">
+					<x:column title="佣金总比例(%)" field="totalRate" align="center" width="80"/>
 					<x:column title="区域经理佣金比(%)" field="areaRate" align="center" width="100" />
 					<x:column title="营业部佣金比(%)" field="deptRate" align="center" width="100"/>
 					<x:column title="团队长佣金比(%)" field="teamRate" align="center" width="100"/>
