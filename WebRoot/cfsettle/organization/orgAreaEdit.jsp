@@ -27,7 +27,7 @@
 					<td class="title">状态<font color="red">*</font>:</td>
 						<td colspan="3"><x:combobox name="orgArea.status" list="isActiveList" value="${orgArea.status}"
 								required="true" textField="codeName" valueField="codeNo"
-								cssStyle="width:142px;" /></td>
+								cssStyle="width:142px;" pleaseSelect="false"/></td>
 					</tr>
 				</tbody>
 			</table>
