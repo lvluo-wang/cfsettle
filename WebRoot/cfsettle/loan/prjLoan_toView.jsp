@@ -28,6 +28,8 @@
                 <tr>
                     <td class="title">项目联系电话:</td>
                     <td>${prj.prjMobile}</td>
+                     <td class="title">剩余放款金额(元):</td>
+                    <td>${prj.demandAmount-prj.loanedAmount}</td>
                 </tr>
                 <tr>
                     <td class="title">项目期限:</td>
