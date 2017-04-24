@@ -17,6 +17,8 @@ public class OrgTeamBean implements Serializable{
     private Long ownedDept;
     private Byte status;
     private String posCode;
+    
+    private String havBuser;
 
     public OrgTeamBean(Byte status) {
         this.status = status;
@@ -81,5 +83,13 @@ public class OrgTeamBean implements Serializable{
 
 	public void setPosCode(String posCode) {
 		this.posCode = posCode;
+	}
+
+	public String getHavBuser() {
+		return havBuser;
+	}
+
+	public void setHavBuser(String havBuser) {
+		this.havBuser = havBuser;
 	}
 }

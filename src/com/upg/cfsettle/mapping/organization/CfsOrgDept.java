@@ -19,6 +19,8 @@ public class CfsOrgDept implements java.io.Serializable {
 	private Long msysid;
 	private Date mtime;
 	private String posCode;
+	
+	private String havBuser;
 
 	private String areaName;
 
@@ -129,6 +131,14 @@ public class CfsOrgDept implements java.io.Serializable {
 
 	public String getPosCode() {
 		return posCode;
+	}
+
+	public String getHavBuser() {
+		return havBuser;
+	}
+
+	public void setHavBuser(String havBuser) {
+		this.havBuser = havBuser;
 	}
 
 	public void setPosCode(String posCode) {

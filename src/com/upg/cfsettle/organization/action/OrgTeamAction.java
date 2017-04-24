@@ -30,6 +30,11 @@ public class OrgTeamAction extends BaseAction {
     private IOrgTeamService orgTeamService;
     @Autowired
     private IUserService userService;
+    
+    private Long oldBuserId;
+    
+    private Long newBuserId;
+
 
 
     public String main(){
@@ -91,6 +96,23 @@ public class OrgTeamAction extends BaseAction {
     	return setDatagridInputStreamData(list, getPg());
     }
     
+    public void setBuser(){
+    	if("1".equals(searchBean.getHavBuser())){
+    		Buser buser = userService.getUserById(newBuserId);
+    		buser.setTeamId(searchBean.getTeamId());
+    		if(oldBuserId != null){
+    			Buser buser2 = userService.getUserById(oldBuserId);
+    			buser2.setTeamId(null);
+    			userService.updateUser(buser2);
+    		}
+    		userService.updateUser(buser);
+    	}else{
+    		Buser buser = userService.getUserById(oldBuserId);
+    		buser.setTeamId(null);
+    		userService.updateUser(buser);
+    	}
+    }
+    
     public List<FiCodeItem> getIsActiveList() {
         return isActiveList;
     }
@@ -130,4 +152,20 @@ public class OrgTeamAction extends BaseAction {
     public void setOrgTeamService(IOrgTeamService orgTeamService) {
         this.orgTeamService = orgTeamService;
     }
+
+	public Long getOldBuserId() {
+		return oldBuserId;
+	}
+
+	public void setOldBuserId(Long oldBuserId) {
+		this.oldBuserId = oldBuserId;
+	}
+
+	public Long getNewBuserId() {
+		return newBuserId;
+	}
+
+	public void setNewBuserId(Long newBuserId) {
+		this.newBuserId = newBuserId;
+	}
 }

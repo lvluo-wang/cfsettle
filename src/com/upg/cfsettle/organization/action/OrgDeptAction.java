@@ -31,6 +31,10 @@ public class OrgDeptAction extends BaseAction {
     private Long areaId;
     @Autowired
     private IUserService userService;
+    
+    private Long oldBuserId;
+    
+    private Long newBuserId;
 
     public String main(){
         isActiveList = codeItemService.getCodeItemByKey(UtilConstant.YES_NO);
@@ -100,6 +104,23 @@ public class OrgDeptAction extends BaseAction {
     	}
     	return setDatagridInputStreamData(list, getPg());
     }
+    
+    public void setBuser(){
+    	if("1".equals(searchBean.getHavBuser())){
+    		Buser buser = userService.getUserById(newBuserId);
+    		buser.setDeptId(searchBean.getId());
+    		if(oldBuserId != null){
+    			Buser buser2 = userService.getUserById(oldBuserId);
+    			buser2.setDeptId(null);
+    			userService.updateUser(buser2);
+    		}
+    		userService.updateUser(buser);
+    	}else{
+    		Buser buser = userService.getUserById(oldBuserId);
+    		buser.setDeptId(null);
+    		userService.updateUser(buser);
+    	}
+    }
 
     public IOrgDeptService getOrgDeptService() {
         return orgDeptService;
@@ -148,4 +169,20 @@ public class OrgDeptAction extends BaseAction {
     public void setAreaId(Long areaId) {
         this.areaId = areaId;
     }
+
+	public Long getOldBuserId() {
+		return oldBuserId;
+	}
+
+	public void setOldBuserId(Long oldBuserId) {
+		this.oldBuserId = oldBuserId;
+	}
+
+	public Long getNewBuserId() {
+		return newBuserId;
+	}
+
+	public void setNewBuserId(Long newBuserId) {
+		this.newBuserId = newBuserId;
+	}
 }

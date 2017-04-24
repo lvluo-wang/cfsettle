@@ -29,6 +29,10 @@ public class OrgAreaAction extends BaseAction {
     private CfsOrgArea orgArea;
     @Autowired
     private IUserService userService;
+    
+    private Long oldBuserId;
+    
+    private Long newBuserId;
 
 
     public String main()
@@ -79,9 +83,20 @@ public class OrgAreaAction extends BaseAction {
     }
     
     public void setBuser(){
-    	Buser buser = userService.getUserById(searchBean.getBuserId());
-    	buser.setAreaId(searchBean.getId());
-    	userService.updateUser(buser);
+    	if("1".equals(searchBean.getHavBuser())){
+    		Buser buser = userService.getUserById(newBuserId);
+    		buser.setAreaId(searchBean.getId());
+    		if(oldBuserId != null){
+    			Buser buser2 = userService.getUserById(oldBuserId);
+    			buser2.setAreaId(null);
+    			userService.updateUser(buser2);
+    		}
+    		userService.updateUser(buser);
+    	}else{
+    		Buser buser = userService.getUserById(oldBuserId);
+    		buser.setAreaId(null);
+    		userService.updateUser(buser);
+    	}
     }
     
     public String getCombobox(){
@@ -139,4 +154,20 @@ public class OrgAreaAction extends BaseAction {
     public void setOrgArea(CfsOrgArea orgArea) {
         this.orgArea = orgArea;
     }
+
+	public Long getOldBuserId() {
+		return oldBuserId;
+	}
+
+	public void setOldBuserId(Long oldBuserId) {
+		this.oldBuserId = oldBuserId;
+	}
+
+	public Long getNewBuserId() {
+		return newBuserId;
+	}
+
+	public void setNewBuserId(Long newBuserId) {
+		this.newBuserId = newBuserId;
+	}
 }
