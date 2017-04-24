@@ -304,4 +304,37 @@ public class CfsMyCommInfoServiceImpl implements ICfsMyCommInfoService{
 		}
  		return ExcelUtil.createHSSFWorkbook(title, headers, dataRows);
 	}
+
+	@Override
+	public List<CfsMyCommInfo> findByCommInfoCondition(CfsMyCommInfo searchBean, Page page) {
+		String hql = "from CfsMyCommInfo cfsMyCommInfo";
+		QueryCondition condition = new QueryCondition(hql);
+		if (searchBean != null) {
+			String commSettleDateStr = searchBean.getCommSettleDateStr();
+			if (!StringUtil.isEmpty(commSettleDateStr)) {
+				String fromDateStr = commSettleDateStr+"-1 00:00:00";
+				Date fromDate = DateTimeUtil.getStringToDate(fromDateStr);
+				condition.addCondition(new ConditionBean("cfsMyCommInfo.commSettleDate", ConditionBean.MORE_AND_EQUAL, fromDate));
+				Date toDate = DateTimeUtil.getLastDateOfMonth(fromDate);
+				condition.addCondition(new ConditionBean("cfsMyCommInfo.commSettleDate", ConditionBean.LESS_AND_EQUAL, toDate));
+			}
+			Byte payStatus = searchBean.getPayStatus();
+			if (payStatus != null) {
+				condition.addCondition(new ConditionBean("cfsMyCommInfo.payStatus", ConditionBean.EQUAL, payStatus));
+			}
+			String sysUserName = searchBean.getSysUserName();
+			if (StringUtil.isEmpty(sysUserName)) {
+				condition.addCondition(new ConditionBean("cfsMyCommInfo.sysUserName", ConditionBean.LIKE, sysUserName));
+			}
+			String posCode = searchBean.getPosCode();
+			if (StringUtil.isEmpty(posCode)) {
+				condition.addCondition(new ConditionBean("cfsMyCommInfo.posCode", ConditionBean.EQUAL, posCode));
+			}
+			String mobile = searchBean.getMobile();
+			if (StringUtil.isEmpty(mobile)) {
+				condition.addCondition(new ConditionBean("cfsMyCommInfo.mobile", ConditionBean.LIKE, mobile));
+			}
+		}
+		return cfsMyCommInfoDao.queryEntity( condition.getConditionList(), page);
+	}
 }
