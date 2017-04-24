@@ -27,16 +27,22 @@
 				<x:column title="还款方式" field="repayWay" align="center" width="120" formatter="formatReapayWay"/>
 				<x:column title="佣金总比例(%)" field="totalRate" align="center" width="80"/>
 				<s:if test="logonInfo.posCode==@com.upg.cfsettle.util.UtilConstant@CFS_AREA_MANAGER">
-				<x:column title="区域经理佣金比(%)" field="areaRate" align="center" width="100" />
+					<x:column title="区域经理佣金比(%)" field="areaRate" align="center" width="100" />
+					<x:column title="营业部佣金比(%)" field="deptRate" align="center" width="100"/>
+					<x:column title="团队长佣金比(%)" field="teamRate" align="center" width="100"/>
+					<x:column title="客户经理佣金比(%)" field="sysuserRate" align="center" width="100"/>
 				</s:if>
 				<s:if test="logonInfo.posCode==@com.upg.cfsettle.util.UtilConstant@CFS_DEPT_MANAGER">
-				<x:column title="营业部佣金比(%)" field="deptRate" align="center" width="100"/>
+					<x:column title="营业部佣金比(%)" field="deptRate" align="center" width="100"/>
+					<x:column title="团队长佣金比(%)" field="teamRate" align="center" width="100"/>
+					<x:column title="客户经理佣金比(%)" field="sysuserRate" align="center" width="100"/>
 				</s:if>
 				<s:if test="logonInfo.posCode==@com.upg.cfsettle.util.UtilConstant@CFS_TEAM_MANAGER">
-				<x:column title="团队长佣金比(%)" field="teamRate" align="center" width="100"/>
+					<x:column title="团队长佣金比(%)" field="teamRate" align="center" width="100"/>
+					<x:column title="客户经理佣金比(%)" field="sysuserRate" align="center" width="100"/>
 				</s:if>
 				<s:if test="logonInfo.posCode==@com.upg.cfsettle.util.UtilConstant@CFS_CUST_MANAGER">
-				<x:column title="客户经理佣金比(%)" field="sysuserRate" align="center" width="100"/>
+					<x:column title="客户经理佣金比(%)" field="sysuserRate" align="center" width="100"/>
 				</s:if>
 			</x:columns>
 		</x:datagrid>

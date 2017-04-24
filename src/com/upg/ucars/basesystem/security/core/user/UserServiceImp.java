@@ -898,16 +898,16 @@ public class UserServiceImp extends BaseService implements IUserService,ISecurit
 				}
 				
 				if(UtilConstant.CFS_AREA_MANAGER.equals(retUser.getPosCode())&&retUser.getAreaId()==null){
-					ExceptionManager.throwException(LoginException.class, "未设置管理区域,请联系管理员设置");
+					UcarsHelper.throwServiceException("未设置管理区域,请联系管理员设置");
 				}
 				if(UtilConstant.CFS_DEPT_MANAGER.equals(retUser.getPosCode())&&retUser.getDeptId()==null){
-					ExceptionManager.throwException(LoginException.class, "未设置营业部,请联系管理员设置");
+					UcarsHelper.throwServiceException("未设置营业部,请联系管理员设置");
 				}
 				if(UtilConstant.CFS_TEAM_MANAGER.equals(retUser.getPosCode())&&retUser.getTeamId()==null){
-					ExceptionManager.throwException(LoginException.class, "未设置管理部门,请联系管理员设置");
+					UcarsHelper.throwServiceException("未设置管理部门,请联系管理员设置");
 				}
 				if(UtilConstant.CFS_CUST_MANAGER.equals(retUser.getPosCode())&&retUser.getTeamId()==null){
-					ExceptionManager.throwException(LoginException.class, "未设置归属部门,请联系管理员设置");
+					UcarsHelper.throwServiceException("未设置归属部门,请联系管理员设置");
 				}
 				logonInfo.setBranchId(brchId);
 				logonInfo.setBranchName(brch.getBrchName());
