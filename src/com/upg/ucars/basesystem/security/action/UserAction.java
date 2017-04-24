@@ -390,9 +390,11 @@ public class UserAction extends BaseAction  {
 		retuser.setUserType(user.getUserType());
 		retuser.setUserNo(user.getUserNo());
 		retuser.setEmail(user.getEmail());
-		retuser.setAreaId(user.getAreaId());
-		retuser.setDeptId(user.getDeptId());
-		retuser.setTeamId(user.getTeamId());
+		if(!retuser.getPosCode().equals(user.getPosCode())){
+			retuser.setAreaId(null);
+			retuser.setDeptId(null);
+			retuser.setTeamId(null);
+		}
 		retuser.setPosCode(user.getPosCode());
 		Long brchId=user.getBrchId();
 		if(brchId!=null){
