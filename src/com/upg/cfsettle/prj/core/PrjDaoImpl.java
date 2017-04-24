@@ -81,18 +81,17 @@ public class PrjDaoImpl extends SysBaseDao<CfsPrj,Long> implements IPrjDao {
     public List<CfsPrj> findAllSucceedPrjLastMonth() {
         String hql = "from CfsPrj cfsPrj where cfsPrj.status not in (1,2,8) and" +
                 " cfsPrj.buildTime>=? and cfsPrj.buildTime<=?";
-        QueryCondition condition = new QueryCondition(hql);
         Date now = DateTimeUtil.getNowDateTime();
-        Calendar c = Calendar.getInstance();
-        // 得到本月的那一天
-        int today = c.get(c.DAY_OF_MONTH);
-        if(today !=1){
-            return Collections.EMPTY_LIST;
-        }
-        Date lastDay = DateTimeUtil.getSpecifiedDayBefore(now);
-        //lastDay 的这个月的第一天和最后一天
-        Date fromDate = DateTimeUtil.getFirstDateOfMonth(lastDay);
-        Date toDate = DateTimeUtil.getLastDateOfMonth(lastDay);
+//        Calendar c = Calendar.getInstance();
+//        // 得到本月的那一天
+//        int today = c.get(c.DAY_OF_MONTH);
+//        if(today !=1){
+//            return Collections.EMPTY_LIST;
+//        }
+//        Date lastDay = DateTimeUtil.getSpecifiedDayBefore(now);
+        //当前时间个月的第一天和最后一天
+        Date fromDate = DateTimeUtil.getFirstDayOfLastMonth(now);
+        Date toDate = DateTimeUtil.getLastDayOfLastMonth(now);
         //项目成立时间
         return this.find(hql, new Object[]{fromDate, toDate});
     }

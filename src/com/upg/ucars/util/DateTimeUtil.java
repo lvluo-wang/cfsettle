@@ -475,10 +475,54 @@ public class DateTimeUtil {
 		c.set(Calendar.MILLISECOND, 0);
 		return c.getTime();
 	}
-     
-     
 
-     /**
+	/**
+	 * 获取指定日期的的上个月第一天
+	 * @param theDate
+	 * @return
+	 */
+	public static Date getFirstDayOfLastMonth(Date theDate){
+		GregorianCalendar gcLast = (GregorianCalendar) Calendar.getInstance();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(theDate);
+		calendar.add(Calendar.MONTH, -1);
+		Date date = calendar.getTime();
+		gcLast.setTime(date);
+		gcLast.set(Calendar.DAY_OF_MONTH, 1);
+		gcLast.set(Calendar.HOUR_OF_DAY, 0);
+		gcLast.set(Calendar.MINUTE, 0);
+		gcLast.set(Calendar.SECOND, 0);
+		gcLast.set(Calendar.MILLISECOND, 0);
+		return gcLast.getTime();
+	}
+
+	/**
+	 * 获取指定日期的的上个月最后一天
+	 * @param theDate
+	 * @return
+	 */
+	public static Date getLastDayOfLastMonth(Date theDate){
+		Calendar cal = Calendar.getInstance();
+		GregorianCalendar gcLast = (GregorianCalendar) Calendar.getInstance();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(theDate);
+		calendar.add(Calendar.MONTH, -1);
+		Date date = calendar.getTime();
+		gcLast.setTime(date);
+		gcLast.set(Calendar.DAY_OF_MONTH, 1);
+		calendar.add(cal.MONTH, 1);
+		calendar.set(cal.DATE, 1);
+		calendar.add(cal.DATE, -1);
+		calendar.set(Calendar.HOUR_OF_DAY, 23);
+		calendar.set(Calendar.MINUTE, 59);
+		calendar.set(Calendar.SECOND, 59);
+		calendar.set(Calendar.MILLISECOND, 0);
+		return calendar.getTime();
+	}
+
+
+
+	/**
 	 * 计算某日期之后N天的日期
 	 * 
 	 * @param theDate

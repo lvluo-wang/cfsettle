@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.upg.cfsettle.util.CfsConstant;
 import com.upg.ucars.basesystem.UcarsHelper;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,17 +119,26 @@ public class CfsMyCommInfoServiceImpl implements ICfsMyCommInfoService{
 	@Override
 	public synchronized  void runCommTask() {
 		//计算上一个月的佣金
+		//查询出上个月成立的项目
 		List<CfsPrj> prjList = prjService.findAllSucceedPrjLastMonth();
 		if(!CollectionUtils.isEmpty(prjList)){
 			for(CfsPrj prj : prjList){
 				List<CfsPrjOrder> orderList = prjOrderService.getPrjOrdersByPrjId(prj.getId());
 				for(CfsPrjOrder prjOrder : orderList){
-					saveCommOrderRelateList(prj,prjOrder);
+					Byte orderStatus = prjOrder.getStatus();
+					if(!(orderStatus.equals(CfsConstant.PRJ_ORDER_STATUS_AUDIT)
+							|| orderStatus.equals(CfsConstant.PRJ_ORDER_STATUS_PAY)
+							|| orderStatus.equals(CfsConstant.PRJ_ORDER_STATUS_REJECT)
+							|| orderStatus.equals(CfsConstant.PRJ_ORDER_STATUS_FAILED))){
+						//根据订单生成佣金明细
+						saveCommOrderRelateList(prj,prjOrder);
+					}
 				}
 			}
+			//根据服务员工统计commId是null,待还款的佣金明细总和
 			List<Map<String, Object>> result = commOrderRelateDao.findTotalAmountGroupBySysId();
 			Date now = DateTimeUtil.getNowDateTime();
-			Date date = DateTimeUtil.getSpecifiedDayBefore(now);
+			Date date = DateTimeUtil.getLastDayOfLastMonth(now);
 			for(Map<String,Object> map :result){
 				Long sysId = Long.valueOf(map.get("SYSID").toString());
 				BigDecimal sumCommAmount = (BigDecimal) map.get("SUM_COMM_AMOUNT");
