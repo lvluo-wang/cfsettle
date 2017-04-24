@@ -9,6 +9,7 @@ import org.apache.commons.lang3.time.DateUtils;
 
 import com.upg.ucars.basesystem.UcarsHelper;
 import com.upg.ucars.util.DateTimeUtil;
+import com.upg.ucars.util.StringUtil;
 /**
  * 
  * 鑫合汇后台工具类
@@ -73,6 +74,18 @@ public class CfsUtils {
 		fee=actualAmount.multiply(rate.divide(new BigDecimal("100"),4,BigDecimal.ROUND_FLOOR)).
                 multiply(timeLimitDay).divide(BigDecimal.valueOf(360), 2, BigDecimal.ROUND_FLOOR);
 		return fee;
+	}
+	
+	public static List<Long> StringToLong(String ids) {
+		if (StringUtil.isEmpty(ids))
+			return new ArrayList<Long>(0);
+		ids = ids.replace(',', ':');
+		String[] idarr = ids.split(":");
+		ArrayList<Long> list = new ArrayList<Long>(idarr.length);
+		for (String str : idarr) {
+			list.add(Long.valueOf(str));
+		}
+		return list;
 	}
 
 }

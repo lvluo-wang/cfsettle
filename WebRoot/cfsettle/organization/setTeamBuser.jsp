@@ -34,6 +34,10 @@
 		   	    	status='1';
 		   	    	buserId = chooseBuseraTable.getSelectedField('userId');
 		   	    }else{
+		   	    	if(data ==null){
+		   	    		warning('请选择一个用户');
+		   	    		return;
+		   	    	}
 		   	    	status='0';
 		   	    	buserId = null;
 		   	    }

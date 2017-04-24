@@ -200,4 +200,6 @@ public interface IUserDAO extends IBaseDAO<Buser,Long> {
 
 	public List<Buser> getCanSetBuser(String posCode);
 
+	public List<Buser> getUserByTeamId(Long teamId);
+
 }

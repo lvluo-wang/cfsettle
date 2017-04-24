@@ -415,4 +415,11 @@ public class UserDAOImp extends BaseDAO<Buser,Long> implements IUserDAO {
 			}
 			return ret;
 		}
+
+		@Override
+		public List<Buser> getUserByTeamId(Long teamId) {
+			String hql = "select u from Buser u where u.teamId=? and u.status !=4" +
+					" and u.posCode ='01'";
+			return find(hql,teamId);
+		}
 }

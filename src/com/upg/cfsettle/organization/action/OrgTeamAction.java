@@ -9,6 +9,7 @@ import com.upg.cfsettle.mapping.ficode.FiCodeItem;
 import com.upg.cfsettle.mapping.organization.CfsOrgTeam;
 import com.upg.cfsettle.organization.core.IOrgTeamService;
 import com.upg.cfsettle.organization.core.OrgTeamBean;
+import com.upg.cfsettle.util.CfsUtils;
 import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.basesystem.security.core.user.IUserService;
 import com.upg.ucars.framework.base.BaseAction;
@@ -110,6 +111,45 @@ public class OrgTeamAction extends BaseAction {
     		Buser buser = userService.getUserById(oldBuserId);
     		buser.setTeamId(null);
     		userService.updateUser(buser);
+    	}
+    }
+    
+    public String toPartBuser(){
+    	searchBean = this.getSearchBean();
+    	return "toPartBuser";
+    }
+    
+    public String partBuser(){
+    	List<Buser> list = userService.getCanSetBuser(searchBean.getPosCode());
+    	List<Buser> beList= userService.getUserByTeamId(searchBean.getTeamId());
+    	for(Buser buser :beList){
+    		list.add(buser);
+    	}
+    	return setDatagridInputStreamData(list, getPg());
+    }
+    
+    public void setPartBuser(){
+    	if("1".equals(searchBean.getHavBuser())){
+    		List<Long> newBuserIds = CfsUtils.StringToLong(searchBean.getNewBuserStr());
+    		List<Long> oldBuserIds = CfsUtils.StringToLong(searchBean.getOldBuserStr());
+    		for(Long id:oldBuserIds){
+    			Buser buser = userService.getUserById(id);
+    			buser.setTeamId(null);
+    			userService.updateUser(buser);
+    		}
+    		
+    		for(Long id:newBuserIds){
+    			Buser buser = userService.getUserById(id);
+    			buser.setTeamId(searchBean.getTeamId());
+    			userService.updateUser(buser);
+    		}
+    	}else{
+    		List<Long> oldBuserIds = CfsUtils.StringToLong(searchBean.getOldBuserStr());
+    		for(Long id:oldBuserIds){
+    			Buser buser = userService.getUserById(id);
+    			buser.setTeamId(null);
+    			userService.updateUser(buser);
+    		}
     	}
     }
     

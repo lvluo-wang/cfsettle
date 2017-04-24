@@ -1053,4 +1053,9 @@ public class UserServiceImp extends BaseService implements IUserService,ISecurit
 	public List<Buser> getCanSetBuser(String posCode) {
 		return userDAO.getCanSetBuser(posCode);
 	}
+
+	@Override
+	public List<Buser> getUserByTeamId(Long teamId) {
+		return userDAO.getUserByTeamId(teamId);
+	}
 }

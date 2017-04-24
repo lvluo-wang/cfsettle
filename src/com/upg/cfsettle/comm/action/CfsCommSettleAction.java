@@ -94,7 +94,7 @@ public class CfsCommSettleAction extends BaseAction {
 	 * @return
 	 */
 	public String list(){
-		return setDatagridInputStreamData(myCommInfoService.findByCondition(searchBean, getPg()), getPg());
+		return setDatagridInputStreamData(myCommInfoService.findByCommInfoCondition(searchBean, getPg()), getPg());
 	}
 
 

@@ -390,6 +390,7 @@ public interface IUserService extends IBaseService {
 	public Buser getUserByAreaIdAndPosCode(Long areaId, String posCode);
 
 	public List<Buser> getCanSetBuser(String posCode);
-
+	
+	List<Buser> getUserByTeamId(Long teamId);
 
 }

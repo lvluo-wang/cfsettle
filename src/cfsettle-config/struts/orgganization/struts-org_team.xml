@@ -11,6 +11,7 @@
 			<result name="edit">/cfsettle/organization/orgTeamEdit.jsp</result>
 			<result name="view">/cfsettle/organization/orgTeamView.jsp</result>
 			<result name="toSetBuser">/cfsettle/organization/setTeamBuser.jsp</result>
+			<result name="toPartBuser">/cfsettle/organization/setPartBuser.jsp</result>
 		</action>
 	</package>
 </struts>

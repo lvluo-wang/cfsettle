@@ -4,17 +4,17 @@
 <%@ taglib prefix="x" uri="/WEB-INF/xcars-tags.tld" %>
 <tiles:insertDefinition name="WIN_TOOL_QUERY_DATA">
     <tiles:putAttribute name="tool">
-        <x:button icon="icon-yes" text="设置" click="chooseBuser" />
-        <x:button icon="icon-no" text="关闭" click="cancelBuser" />
+        <x:button icon="icon-yes" text="设置" click="choosePartBuser" />
+        <x:button icon="icon-no" text="取消" click="cancelPartBuser" />
     </tiles:putAttribute>
      <tiles:putAttribute name="query">
         <form id="chooseBuserForm">
             <input type="hidden" name="searchBean.posCode" value="${searchBean.posCode}">
-            <input type="hidden" name="searchBean.id" value="${searchBean.id}" id="chooseId">
+            <input type="hidden" name="searchBean.teamId" value="${searchBean.teamId}" id="chooseId">
         </form>
     </tiles:putAttribute>
     <tiles:putAttribute name="data">
-        <x:datagrid id="chooseBuseraTable" singleSelect="true" url="/orgArea/orgAreaManage_buserList.jhtml" autoload="true" form="chooseBuserForm" pagebar="false">
+        <x:datagrid id="chooseBuseraTable" url="/orgTeam/orgTeamManage_partBuser.jhtml" autoload="true" form="chooseBuserForm" pagebar="false">
             <x:columns>
                 <x:column field="userId" checkbox="true"/>
                 <x:column field="userNo" title="手机号码" width="100"/>
@@ -24,41 +24,41 @@
     </tiles:putAttribute>
     <tiles:putAttribute name="end">
         <script type="text/javascript">
-           var data = null;
-           function chooseBuser(){
-        	    var url = '<s:url value="/orgArea/orgAreaManage_setBuser.jhtml"/>';
-        	    var buserId;
-        	    var status;
-        	    var num = chooseBuseraTable.getSelectedRowNum();
-        	    if(num ==1){
-        	    	status='1';
-        	    	buserId = chooseBuseraTable.getSelectedField('userId');
-        	    }else{
-        	    	if(data ==null){
-		   	    		warning('请选择一个用户');
-		   	    		return;
-		   	    	}
-        	    	status='0';
-        	    	buserId = null;
-        	    }
-				var param={'newBuserId':buserId,'searchBean.id':$('#chooseId').val(),'searchBean.havBuser':status,'oldBuserId':data};
-				doPost(url,param ,function(result) {
-					if (!printError(result)) {
-						closeWindow("project_set_area_buser");
-						dataTable.refresh();
-					}
-				});
-           }
+        var data = new Array();
+        function choosePartBuser(){
+     	    var url = '<s:url value="/orgTeam/orgTeamManage_setPartBuser.jhtml"/>';
+	   	    var buserId;
+	   	    var status;
+	   	    var num = chooseBuseraTable.getSelectedRowNum();
+	   	    if(num >=1){
+	   	    	status='1';
+	   	    	buserId = chooseBuseraTable.getSelectedFields('userId');
+	   	    }else{
+	   	    	status='0';
+	   	    	if(data.length ==0){
+	   	    		warning('请选择一个用户');
+	   	    		return;
+	   	    	}
+	   	    	buserId = null;
+	   	    }
+			var param={'searchBean.newBuserStr':buserId,'searchBean.teamId':$('#chooseId').val(),'searchBean.havBuser':status,'searchBean.oldBuserStr':data.toString()};
+			doPost(url,param ,function(result) {
+				if (!printError(result)) {
+					closeWindow("project_set_part_buser");
+					dataTable.refresh();
+				}
+			});
+        }
            
-           function cancelBuser(){
-        	   closeWindow("project_set_area_buser");
+           function cancelPartBuser(){
+        	   closeWindow("project_set_part_buser");
            }
            
            chooseBuseraTable.onLoadSuccess=function(datas){
            var chooseId = $('#chooseId').val();
    		   for (var i=0;i<datas.length;i++) {
-				if (datas[i].areaId ==chooseId ) {
-					data = datas[i].userId;
+				if (datas[i].teamId ==chooseId ) {
+					data.push(datas[i].userId);
 					var ckObj = $("#cb_"+this.id+"_"+i);
 					ckObj[0].checked=!ckObj[0].checked;
 					$("#tr_"+this.id+"_"+i).addClass("datagrid-row-selected");

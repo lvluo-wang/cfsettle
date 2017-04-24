@@ -19,6 +19,10 @@ public class OrgTeamBean implements Serializable{
     private String posCode;
     
     private String havBuser;
+    
+    private String oldBuserStr;
+    
+    private String newBuserStr;
 
     public OrgTeamBean(Byte status) {
         this.status = status;
@@ -91,5 +95,21 @@ public class OrgTeamBean implements Serializable{
 
 	public void setHavBuser(String havBuser) {
 		this.havBuser = havBuser;
+	}
+
+	public String getOldBuserStr() {
+		return oldBuserStr;
+	}
+
+	public void setOldBuserStr(String oldBuserStr) {
+		this.oldBuserStr = oldBuserStr;
+	}
+
+	public String getNewBuserStr() {
+		return newBuserStr;
+	}
+
+	public void setNewBuserStr(String newBuserStr) {
+		this.newBuserStr = newBuserStr;
 	}
 }
