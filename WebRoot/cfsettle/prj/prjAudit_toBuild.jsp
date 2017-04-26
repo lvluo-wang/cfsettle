@@ -30,11 +30,13 @@
             function doBuild() {
                 if ($("#prj_form").form("validate")) {
                     var url = "<s:url value='/prj/prjAudit_doBuild.jhtml'/>";
+                    dataTable.addRunningDiv('还款计划生成中,请稍后...');
+                    closeWindow("project_build_win");
                     doPost(url, formToObject("prj_form"),
                         function(result) {
                             if (!printError(result)) {
+                            	dataTable.removeRunningDiv();
                                 info("提交成功");
-                                closeWindow("project_build_win");
                                 dataTable.refresh();
                             }
                         });

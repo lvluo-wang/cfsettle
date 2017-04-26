@@ -436,11 +436,11 @@ public class PrjServiceImpl implements IPrjService {
 					plan.setYield(plan.getYield().add(orderPlan.getYield()));
 					plan.setRestPrincipal(plan.getRestPrincipal().add(orderPlan.getRestPrincipal()));
 					orderPlan.setPrjRepayPlanId(plan.getId());
-//					plan.setCsysid(SessionTool.getUserLogonInfo().getSysUserId());
+					plan.setCsysid(SessionTool.getUserLogonInfo().getSysUserId());
 					prjOrderRepayPlan.addPrjOrderRepayPlan(orderPlan);
 				}
 			}
-//			plan.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
+			plan.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
 			if(plan.getPriInterest().longValue() ==0l){
 				plan.setStatus(UtilConstant.REPAY_STATUS_2);
 			}
@@ -502,33 +502,54 @@ public class PrjServiceImpl implements IPrjService {
 		List<CfsPrjRepayPlan> list = prjRepayPlan.getPrjPlanByPrjId(prj.getId());
 		if(CollectionUtils.isEmpty(list)){
 			if(CfsConstant.PRJ_REPAY_WAY_A.equals(prj.getRepayWay())){
-				UcarsHelper.asyncExecute(new Runnable() {
-					@Override
-					public void run() {
-						genRepayWayA(prj);
-					}
-				});
+//				UcarsHelper.asyncExecute(new Runnable() {
+//					@Override
+//					public void run() {
+//						genRepayWayA(prj);
+//					}
+//				});
+				try {
+					genRepayWayA(prj);
+				} catch (Exception e) {
+					UcarsHelper.throwServiceException("项目成立出错,请联系管理员");
+				}
+				
 			}else if(CfsConstant.PRJ_REPAY_WAY_B.equals(prj.getRepayWay())){
-				UcarsHelper.asyncExecute(new Runnable() {
-					@Override
-					public void run() {
-						genRepayWayB(prj);
-					}
-				});
+//				UcarsHelper.asyncExecute(new Runnable() {
+//					@Override
+//					public void run() {
+//						genRepayWayB(prj);
+//					}
+//				});
+				try {
+					genRepayWayB(prj);
+				} catch (Exception e) {
+					UcarsHelper.throwServiceException("项目成立出错,请联系管理员");
+				}
 			}else if(CfsConstant.PRJ_REPAY_WAY_C.equals(prj.getRepayWay())){
-				UcarsHelper.asyncExecute(new Runnable() {
-					@Override
-					public void run() {
-						genRepayWayC(prj);
-					}
-				});
+//				UcarsHelper.asyncExecute(new Runnable() {
+//					@Override
+//					public void run() {
+//						genRepayWayC(prj);
+//					}
+//				});
+				try {
+					genRepayWayC(prj);
+				} catch (Exception e) {
+					UcarsHelper.throwServiceException("项目成立出错,请联系管理员");
+				}
 			}else if(CfsConstant.PRJ_REPAY_WAY_D.equals(prj.getRepayWay())){
-				UcarsHelper.asyncExecute(new Runnable() {
-					@Override
-					public void run() {
-						genRepayWayD(prj);
-					}
-				});
+//				UcarsHelper.asyncExecute(new Runnable() {
+//					@Override
+//					public void run() {
+//						genRepayWayD(prj);
+//					}
+//				});
+				try {
+					genRepayWayD(prj);
+				} catch (Exception e) {
+					UcarsHelper.throwServiceException("项目成立出错,请联系管理员");
+				}
 			}
 		}
 	}
