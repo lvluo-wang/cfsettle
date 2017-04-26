@@ -52,9 +52,9 @@
 				<x:column title="" checkbox="true" field="uid" />
 				<x:column title="客户姓名" field="realName" align="center" width="100"/>
 				<x:column title="性别" field="sex" align="center" width="40" formatter="formatSex"/>
-				<s:if test='logonInfo.userType==@com.upg.ucars.mapping.basesystem.security.Buser@TYPE_BRCH_GLOBAL_MANAGER'>
-				<x:column title="客户手机" field="mobile" align="left" width="90"/>
-			    </s:if>
+				<%--<s:if test='logonInfo.userType==@com.upg.ucars.mapping.basesystem.security.Buser@TYPE_BRCH_GLOBAL_MANAGER'>--%>
+				<%--<x:column title="客户手机" field="mobile" align="left" width="90"/>--%>
+			    <%--</s:if>--%>
 				<x:column title="身份证号" field="idCard" align="center" width="150" />
 				<x:column title="添加时间" field="ctime" align="center" width="150" formatter="formatTime"/>
 				<x:column title="归属员工类型" field="posCode" align="center" width="100" formatter="formatPosCode"/>

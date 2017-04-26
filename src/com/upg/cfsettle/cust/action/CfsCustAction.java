@@ -121,7 +121,7 @@ public class CfsCustAction extends BaseAction {
 	}
 
 	public String infoMain(){
-		getSearchConditon();;
+		getSearchConditon();
 		return "infoMain";
 	}
 
