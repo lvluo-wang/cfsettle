@@ -9,13 +9,15 @@
 			<form id="mainQueryForm" class="query_form">
 			<table>
 				<tr>
+					<td class="title">合同编号: </td>
+					<td><input name="searchBean.contractNo" /></td>
 					<td class="title">客户姓名: </td>
 					<td>
 						<input name="searchBean.realName" style="width:130px"/>
 						<input name="searchBean.isPeriod" type="hidden" value="1"/>
 					</td>
-					<td class="title">客户手机: </td>
-					<td><input name="searchBean.mobile" style="width:130px"/></td>
+					<!-- <td class="title">客户手机: </td>
+					<td><input name="searchBean.mobile" style="width:130px"/></td> -->
 					<td class="title">项目名: </td>
 					<td><input name="searchBean.prjName" style="width:130px"/></td>
 					<td class="title">还款状态:</td>

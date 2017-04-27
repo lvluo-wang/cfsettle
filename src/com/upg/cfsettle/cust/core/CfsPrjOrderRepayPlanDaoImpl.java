@@ -56,6 +56,10 @@ public class CfsPrjOrderRepayPlanDaoImpl extends SysBaseDao<CfsPrjOrderRepayPlan
             if(!StringUtil.isEmpty(realName)){
                 sqlCreater.and("c.real_name like:realName","realName","%"+realName+"%",true);
             }
+            String contractNo = searchBean.getContractNo();
+            if(!StringUtil.isEmpty(contractNo)){
+                sqlCreater.and("o.contract_no like:contractNo","contractNo","%"+contractNo+"%",true);
+            }
             String mobile = searchBean.getMobile();
             if(!StringUtil.isEmpty(mobile)){
                 sqlCreater.and("c.mobile =:mobile","mobile",mobile,true);

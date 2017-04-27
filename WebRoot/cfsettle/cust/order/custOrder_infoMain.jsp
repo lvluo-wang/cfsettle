@@ -53,7 +53,7 @@
 				<x:column title="合同编号" field="CONTRACT_NO" align="left" width="90"/>
 				<x:column title="投资时间" field="INVEST_TIME" align="center" width="150" formatter="formatTime" />
 				<x:column title="客户姓名" field="REAL_NAME" align="center" width="140"/>
-				<x:column title="客户手机" field="MOBILE" align="left" width="90" formatter="formatMobile"/>
+				<%-- <x:column title="客户手机" field="MOBILE" align="left" width="90" formatter="formatMobile"/> --%>
 				<x:column title="购买项目" field="PRJ_NAME" align="center" width="150" />
 				<x:column title="购买金额(元)" field="MONEY" align="center" width="150" formatter="formateMoney"/>
 				<x:column title="付款银行" field="PAY_BANK" align="center" width="80" formatter="formateBank"/>

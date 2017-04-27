@@ -54,6 +54,8 @@ public class CfsPrjOrderPaybackLog implements Serializable {
 	
 	private Date perPayDate;
 	
+	private String contractNo;
+	
 	
 
 	// Constructors
@@ -314,5 +316,13 @@ public class CfsPrjOrderPaybackLog implements Serializable {
 
 	public void setPerPayDate(Date perPayDate) {
 		this.perPayDate = perPayDate;
+	}
+
+	public String getContractNo() {
+		return contractNo;
+	}
+
+	public void setContractNo(String contractNo) {
+		this.contractNo = contractNo;
 	}
 }
