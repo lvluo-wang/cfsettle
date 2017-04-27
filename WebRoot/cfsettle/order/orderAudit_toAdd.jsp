@@ -38,7 +38,7 @@
                     </td>
                     <td class="title">资金流水编号:</td>
                     <td>
-                    	<input name="cfsPrjOrder.paySerialNum" type="text" class="easyui-validatebox" maxLength="50" required="true"/>
+                    	<input name="cfsPrjOrder.paySerialNum" type="text" class="easyui-validatebox" maxLength="50" id="paySerialNum_validate"/>
                     	<input name="cfsPrjOrder.id" type="hidden" value="${cfsPrjOrder.id}"/>
                     </td>
                 </tr>
@@ -68,6 +68,17 @@
 	function doAddSave(status) {
 		var url="<s:url value='/order/orderAudit_doAudit.jhtml'/>";
 		if ($("#cfsOrderAuditForm").form("validate")) {
+			if(status ==4){
+				if($('#paySerialNum_validate').val()==''||$('#paySerialNum_validate').val()==null){
+					warning('请输入资金流水编号');
+					return;
+				}
+				
+				if($('#order_pay_notes_id').val()==''||$('#order_pay_notes_id').val()==null){
+					warning('请上传打款凭证');
+					return;
+				}
+			}
 			var param = formToObject("cfsOrderAuditForm");
 			param['cfsPrjOrder.status'] = status;
 			doPost(url, param,function(result) {

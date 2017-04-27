@@ -155,7 +155,7 @@ public class CfsCustDaoImpl extends SysBaseDao<CfsCust, Long> implements ICfsCus
             custInfo.setSysIdLong(custInfo.getSysId().longValue());
             if(custInfo.getSysId() != null){
                 Buser buser = userDAO.get(Long.valueOf(custInfo.getSysId()));
-                if(buser != null){
+                if(buser != null&&buser.getPosCode() != null){
                     if (buser.getPosCode().equals(UtilConstant.CFS_CUST_MANAGER)
                             || buser.getPosCode().equals(UtilConstant.CFS_TEAM_MANAGER)) {
                         //客户经理、团队长
