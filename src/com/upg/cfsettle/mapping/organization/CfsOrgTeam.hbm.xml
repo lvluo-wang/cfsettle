@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+"http://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 2017-3-29 11:24:06 by Hibernate Tools 5.2.1.Final -->
 <hibernate-mapping>
     <class name="com.upg.cfsettle.mapping.organization.CfsOrgTeam" table="cfs_org_team" dynamic-update="true">
