@@ -21,6 +21,17 @@ public class CustOrderBean {
     private String serviceSysType;
     //来自有数据权限的订单信息列表
     private boolean byLogonInfo;
+    //只能看自己名下的订单信息
+    private boolean myselfInfo;
+
+    public boolean isMyselfInfo() {
+        return myselfInfo;
+    }
+
+    public CustOrderBean setMyselfInfo(boolean myselfInfo) {
+        this.myselfInfo = myselfInfo;
+        return this;
+    }
 
     public boolean isByLogonInfo() {
         return byLogonInfo;

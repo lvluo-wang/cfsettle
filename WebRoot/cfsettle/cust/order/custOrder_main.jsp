@@ -22,7 +22,7 @@
 					<td class="title">合同编号: </td>
 					<td style="width: 20px;"><input name="searchBean.contractNo" /></td>
 					<td class="title">状态:</td>
-					<td style="width: 20px;" >
+					<td style="width: 20px;">
 						<x:combobox name="searchBean.status" list="orderStatusList" textField="codeName" valueField="codeNo"/>
 					</td>
 					</tr>

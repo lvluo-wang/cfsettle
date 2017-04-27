@@ -70,7 +70,9 @@ public class CfsCustOrderAction extends BaseAction {
 
 
     public String list(){
-    	searchBean.setByLogonInfo(true);
+    	searchBean.setByLogonInfo(false);
+        searchBean.setMyselfInfo(true);
+        //只能看自己名下的订单,管理员除外
         return setDatagridInputStreamData(prjOrderService.findByCondition(searchBean,getPg()),getPg());
     }
 
@@ -114,6 +116,7 @@ public class CfsCustOrderAction extends BaseAction {
 
     public String infoMain(){
         logonInfo = SessionTool.getUserLogonInfo();
+        orderStatusList = codeItemService.getCodeItemByKey(UtilConstant.CFS_PRJ_ORDER_STATUS);
         buserPosCodeList = codeItemService.getCodeItemByKey(UtilConstant.CFS_BUSER_POS_CODE);
         return "orderInfo";
     }
@@ -125,6 +128,7 @@ public class CfsCustOrderAction extends BaseAction {
      */
     public String orderInfoList(){
         searchBean.setByLogonInfo(true);
+        searchBean.setMyselfInfo(false);
         List<Map<String,Object>> list = prjOrderService.findByCondition(searchBean,getPg());
         for(Map<String,Object> map :list){
             if(map.containsKey("SERVICE_SYSID") && map.get("SERVICE_SYSID")!=null){
