@@ -126,8 +126,11 @@ public class CfsPrjOrderDaoImpl extends SysBaseDao<CfsPrjOrder,Long> implements 
 //                sqlCreater.and("prj_order.status in (:orderStatus)","orderStatus",orderStatus,true);
 //            }
             boolean isByLogonInfo = searchBean.isByLogonInfo();
-            if(isByLogonInfo && buserIds.size() > 0){
+            /*if(isByLogonInfo && buserIds.size() > 0){
                 sqlCreater.and(" relate.sys_id in (:buserIds)","buserIds",buserIds,true);
+            }*/
+            if(isByLogonInfo && buserIds.size() > 0){
+                sqlCreater.and(" relate.sys_id in (:buserIds)","buserIds",SessionTool.getUserLogonInfo().getSysUserId(),true);
             }
         }
         sqlCreater.orderBy("prj_order.invest_time",true);
