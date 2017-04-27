@@ -8,6 +8,10 @@ import java.util.Date;
  */
 public class CfsOrgArea implements java.io.Serializable {
 
+	/**
+	 * TODO（用一句话描述这个变量表示什么）
+	 */
+	private static final long serialVersionUID = 7208798067982842272L;
 	private Long id;
 	private String areaName;
 	private String overRange;

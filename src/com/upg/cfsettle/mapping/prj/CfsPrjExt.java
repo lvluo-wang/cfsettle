@@ -9,6 +9,10 @@ import java.util.Date;
 public class CfsPrjExt implements java.io.Serializable {
 
 
+	/**
+	 * TODO（用一句话描述这个变量表示什么）
+	 */
+	private static final long serialVersionUID = 6494921747164316960L;
 	private Long prjId;
 	private String tenantName;
 	private String tenantBank;

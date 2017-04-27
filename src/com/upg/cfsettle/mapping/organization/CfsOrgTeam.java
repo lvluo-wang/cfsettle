@@ -8,6 +8,10 @@ import java.util.Date;
  */
 public class CfsOrgTeam implements java.io.Serializable {
 
+	/**
+	 * TODO（用一句话描述这个变量表示什么）
+	 */
+	private static final long serialVersionUID = -7413986776460890299L;
 	private Long id;
 	private String teamName;
 	private Long ownedArea;
