@@ -31,7 +31,7 @@
 				<tr>
 					<td class="title"><s:text name="user"/><s:text name="email"/>:</td>
 					<td>
-						<input name="user.email" value="${user.email}" class="easyui-validatebox" required="true" maxlength="50" validType="email"/><font color="red">*</font>
+						<input name="user.email" value="${user.email}" class="easyui-validatebox" maxlength="50" validType="email"/><font color="red">*</font>
 						<input name="user.userType" value="6" type="hidden" />
 						<input name="user.brchId" value="1" type="hidden" />
 					</td>
