@@ -1273,3 +1273,7 @@ function onAfterPasteInt(ob) {
 		ob.value = ob.value.replace(/\D/g, '')
 	}
 }
+
+function showPic(pic){
+	viewPicture(pic.src);
+}

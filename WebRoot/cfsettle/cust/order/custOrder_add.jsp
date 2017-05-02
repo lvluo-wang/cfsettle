@@ -80,16 +80,53 @@
                                        class="easyui-validatebox" required="true" validType=""/>
                             </td>
                         </tr>
+                        <s:if test="cust.cardFace==null">
+	                        <tr>
+								<td class="title">身份证正面: </td>
+								<td>
+									<input name="cust.cardFace" type="hidden" id="cfscust_face_card_id_order"/>
+									<img id="id_card_face_pic_order" alt="身份证正面" src="http://" height="50px" width="200px" onclick="showPic(this)"/>
+								</td>
+								<td colspan="2">
+									<s:include value="/platform/common/uploadFile.jsp">
+										<s:param name="refresh">y</s:param>
+										<s:param name="suffix">1</s:param>
+										<s:param name="imgServer">true</s:param>
+										<s:param name="nowater">1</s:param>
+										<s:param name="callback">idCardFaceCallBack</s:param>
+										<s:param name="opt">{'fileExt':'*.gif;*.jpg;*.png;*.jpeg','fileDesc':'图片文件'}</s:param>
+									</s:include></td>
+							</tr>
+                        </s:if>
+                        <s:if test="cust.cardBack==null">
+							<tr>
+								<td class="title">身份证反面: </td>
+								<td>
+									<input name="cust.cardBack" type="hidden" id="cfscust_back_card_id_order"/>
+									<img id="id_card_back_pic_order" alt="身份证正面" src="http://" height="50px" width="200px" onclick="showPic(this)"/>
+								</td>
+								<td colspan="2">
+									<s:include value="/platform/common/uploadFile.jsp">
+										<s:param name="refresh">y</s:param>
+										<s:param name="suffix">2</s:param>
+										<s:param name="imgServer">true</s:param>
+										<s:param name="nowater">1</s:param>
+										<s:param name="callback">idCardBackCallBack</s:param>
+										<s:param name="opt">{'fileExt':'*.gif;*.jpg;*.png;*.jpeg','fileDesc':'图片文件'}</s:param>
+									</s:include></td>
+							</tr>
+                        </s:if>
                         <tr>
                             <td class="title">打印凭证: </td>
-                            <td><div id="payNotesDiv"></div>
-                            <input type="hidden" id="payNotesAttid" name="prjOrder.payNotesAttid" class="easyui-validatebox"  required="true" />
+                            <td>
+                            	<input type="hidden" id="payNotesAttid" name="prjOrder.payNotesAttid" class="easyui-validatebox"  required="true" />
+                            	<img id="payNotesDiv" alt="身份证正面" src="http://" height="50px" width="200px" onclick="showPic(this)"/>
                             </td>
                             <td colspan="3">
                                 <s:include value="/platform/common/uploadFile.jsp">
                                     <s:param name="refresh">y</s:param>
                                     <s:param name="canEdit">true</s:param>
-                                    <s:param name="suffix">1</s:param>
+                                    <s:param name="suffix">3</s:param>
                                     <s:param name="imgServer">false</s:param>
                                     <s:param name="nowater">1</s:param>
                                     <s:param name="callback">uploadFileCallBack</s:param>
@@ -117,17 +154,19 @@
     <tiles:putAttribute name="end">
         <script type="text/javascript">
             function uploadFileCallBack(value,index){
-                if(value.isSupported == 0){
-                    info("上传操作不支持此文件类型");
-                    return false;
-                }
-                var url = fileDownLoadUrl+"?id="+value.id;
-                var attachmentItem = "<img  alt=\"打印凭证\" src='"+url+"' height=\"100px\" width=\"200px\"/>";
-                attachmentItem +="&nbsp;&nbsp;<a href='#' onclick=\"_deleteFile('" + value.id + ","+index+"')\"><s:text name="del"/></a>";
-                attachmentItem += "<br/>";
-                $('#payNotesDiv').append(attachmentItem);
-                $('#payNotesAttid').val(value.id);
+            	$('#payNotesDiv').attr('src',fileDownLoadUrl+"?id="+value.id);
+        		$('#payNotesAttid').val(value.id);
             }
+            
+            function idCardFaceCallBack(value) { 
+        		$('#id_card_face_pic_order').attr('src',fileDownLoadUrl+"?id="+value.id);
+        		$('#cfscust_face_card_id_order').val(value.id);
+        	}
+        	
+        	function idCardBackCallBack(value) { 
+        		$('#id_card_back_pic_order').attr('src',fileDownLoadUrl+"?id="+value.id);
+        		$('#cfscust_back_card_id_order').val(value.id);
+        	}
 
             function _deleteFile(attachmentId,index){
                 $.ajax({
@@ -168,6 +207,14 @@
                     var payNotesAttid = $('#payNotesAttid').val();
                     if(payNotesAttid ==''){
                         info("请上传打印凭证");
+                        return;
+                    }
+                    if($('#id_card_face_pic_order').lenght>0&&$('#id_card_face_pic_order').val==''){
+                        info("请上传身份证正面");
+                        return;
+                    }
+                    if($('#id_card_back_pic_order').lenght>0&&$('#id_card_back_pic_order').val==''){
+                        info("请上传身份证反面");
                         return;
                     }
                     var url = '<s:url value="/custOrder/custOrder_doAdd.jhtml"/>';

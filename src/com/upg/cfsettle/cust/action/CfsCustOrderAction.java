@@ -1,7 +1,17 @@
 package com.upg.cfsettle.cust.action;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.upg.cfsettle.code.core.ICodeItemService;
-import com.upg.cfsettle.cust.core.*;
+import com.upg.cfsettle.cust.core.CustOrderBean;
+import com.upg.cfsettle.cust.core.ICfsCustService;
+import com.upg.cfsettle.cust.core.ICfsPrjOrderRepayPlanService;
+import com.upg.cfsettle.cust.core.ICfsPrjOrderService;
+import com.upg.cfsettle.cust.core.ICfsPrjRepayPlanService;
 import com.upg.cfsettle.mapping.ficode.FiCodeItem;
 import com.upg.cfsettle.mapping.prj.CfsCust;
 import com.upg.cfsettle.mapping.prj.CfsPrj;
@@ -19,11 +29,6 @@ import com.upg.ucars.mapping.basesystem.security.Buser;
 import com.upg.ucars.model.security.UserLogonInfo;
 import com.upg.ucars.util.DateTimeUtil;
 import com.upg.ucars.util.PropertyTransVo;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by zuobaoshi on 2017/4/2.
@@ -104,6 +109,15 @@ public class CfsCustOrderAction extends BaseAction {
     }
 
     public void doAdd(){
+    	CfsCust cfsCust = custService.queryCfsCustById(prjOrder.getCustId());
+    	if(cfsCust.getCardBack() ==null){
+    		cfsCust.setCardBack(cust.getCardBack());
+    		custService.updateCfsCust(cfsCust);
+    	}
+    	if(cfsCust.getCardFace() ==null){
+    		cfsCust.setCardFace(cust.getCardFace());
+    		custService.updateCfsCust(cfsCust);
+    	}
         prjOrderService.addPrjOrder(prjOrder);
     }
 

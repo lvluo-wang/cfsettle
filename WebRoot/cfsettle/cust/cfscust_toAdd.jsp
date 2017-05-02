@@ -22,7 +22,7 @@
 					<td class="title">身份证正面: </td>
 					<td>
 						<input name="cfsCust.cardFace" type="hidden" id="cfscust_face_card_id"/>
-						<img id="id_card_face_pic" alt="身份证正面" src="http://" height="100px" width="200px"/>
+						<img id="id_card_face_pic" alt="身份证正面" src="http://" height="100px" width="200px" onclick="showPic(this)"/>
 					</td>
 					<td colspan="2">
 						<s:include value="/platform/common/uploadFile.jsp">
@@ -38,7 +38,7 @@
 					<td class="title">身份证反面: </td>
 					<td>
 						<input name="cfsCust.cardBack" type="hidden" id="cfscust_back_card_id"/>
-						<img id="id_card_back_pic" alt="身份证正面" src="http://" height="100px" width="200px"/>
+						<img id="id_card_back_pic" alt="身份证正面" src="http://" height="100px" width="200px" onclick="showPic(this)"/>
 					</td>
 					<td colspan="2">
 						<s:include value="/platform/common/uploadFile.jsp">
