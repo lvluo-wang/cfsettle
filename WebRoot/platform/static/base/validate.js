@@ -281,7 +281,34 @@ $.extend($.fn.validatebox.defaults.rules, {
     	},
     	message:global.valid_compareDate
     },
-    orgCode:{
+	compareNum: {
+		validator: function (value, param) {
+			if(value&&param) {
+				var amount = $('#' + param[0]).val();
+				return  parseInt(amount) >=parseInt(value);
+			}else{
+				return true;
+			}
+		}, 
+		message: '项目成立金额不能大于募集金额'
+	},
+    compareSum:{
+        validator: function (value,param) {
+			if(value&&param){
+				var sum=0;
+				for(var i=0;i<param.length;i++){
+					var val = parseFloat($('#' + param[i]).val()).toFixed(2);
+					sum += parseFloat(val);
+				}
+                return  parseFloat(sum).toFixed(2) == parseFloat(value);
+            }else{
+				return true;
+			}
+        },
+		message: '佣金计提总比例不等于区域经理+营业部+团队+客户经理佣金计提'
+	},
+
+	orgCode:{
     	validator: function (value, param) {
         	if (value){
         		return /^[A-Za-z0-9]{8}-[A-Za-z0-9]{1}/.test(value);

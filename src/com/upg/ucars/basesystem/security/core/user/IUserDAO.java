@@ -147,5 +147,59 @@ public interface IUserDAO extends IBaseDAO<Buser,Long> {
 	 * @throws DAOException
 	 */
 	public List<Sysfunc> queryUserFunc(Long userId,String userRoleStatus) throws DAOException;
-	
+
+
+	List<Buser> getUserByDeptId(Long deptId);
+
+	List<Buser> getUserByAreaId(Long areaId);
+
+	/**
+	 * 获得团队下的所有员工
+	 * @param teamId
+	 * @return
+	 */
+	public List<Long> getUserIdByTeamId(Long teamId);
+
+	/**
+	 * 获得营业部下的所有员工
+	 * @param deptId
+	 * @return
+	 */
+	public List<Long> getUserIdByDeptId(Long deptId);
+
+	/**
+	 * 获得该区域下的所有的员工
+	 * @param areaId
+	 * @return
+	 */
+	public List<Long> getUserIdByAreaId(Long areaId);
+
+	/**
+	 * 团队长
+	 * @param teamId
+	 * @param posCode
+	 * @return
+	 */
+	Buser getUserByTeamIdAndPosCode(Long teamId,String posCode);
+
+	/**
+	 * 营业部负责人
+	 * @param deptId
+	 * @param posCode
+	 * @return
+	 */
+	Buser getUserByDeptIdAndPosCode(Long deptId,String posCode);
+
+	/**
+	 * 区域经理
+	 * @param areaId
+	 * @param posCode
+	 * @return
+	 */
+	Buser getUserByAreaIdAndPosCode(Long areaId,String posCode);
+
+	public List<Buser> getCanSetBuser(String posCode);
+
+	public List<Buser> getUserByTeamId(Long teamId);
+
 }

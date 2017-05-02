@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.upg.cfsettle.util.UtilConstant;
+import com.upg.ucars.basesystem.UcarsHelper;
 import com.upg.ucars.basesystem.audit.core.AuditTaskRevokeResult;
 import com.upg.ucars.basesystem.audit.core.IAuditCallBack;
 import com.upg.ucars.basesystem.audit.core.IAuditService;
@@ -154,6 +156,7 @@ public class UserServiceImp extends BaseService implements IUserService,ISecurit
 		
 		user.setPassword(DigestUtil.getMD5(newPwd));
 		user.setPwdChgDt(new Date(System.currentTimeMillis()));
+		user.setIsChangePwd(Byte.valueOf("1"));
 		this.userDAO.update(user);		
 		
 	}
@@ -893,12 +896,29 @@ public class UserServiceImp extends BaseService implements IUserService,ISecurit
 					//接入点未开启，不允许登录
 					ExceptionManager.throwException(LoginException.class, ErrorCodeConst.LOGON_ERR_MEMBER_NOT_OPEN);
 				}
+				
+				if(UtilConstant.CFS_AREA_MANAGER.equals(retUser.getPosCode())&&retUser.getAreaId()==null){
+					UcarsHelper.throwServiceException("未设置管理区域,请联系管理员设置");
+				}
+				if(UtilConstant.CFS_DEPT_MANAGER.equals(retUser.getPosCode())&&retUser.getDeptId()==null){
+					UcarsHelper.throwServiceException("未设置营业部,请联系管理员设置");
+				}
+				if(UtilConstant.CFS_TEAM_MANAGER.equals(retUser.getPosCode())&&retUser.getTeamId()==null){
+					UcarsHelper.throwServiceException("未设置管理部门,请联系管理员设置");
+				}
+				if(UtilConstant.CFS_CUST_MANAGER.equals(retUser.getPosCode())&&retUser.getTeamId()==null){
+					UcarsHelper.throwServiceException("未设置归属部门,请联系管理员设置");
+				}
 				logonInfo.setBranchId(brchId);
 				logonInfo.setBranchName(brch.getBrchName());
 				logonInfo.setMiNo(brch.getMiNo());
 				logonInfo.setBranchNo(brch.getBrchNo());
 				logonInfo.setBranchTreeCode(brch.getTreeCode());
 				logonInfo.setBranchParentTreeCode(brch.getParentTreeCode());
+				logonInfo.setAreaId(retUser.getAreaId());
+				logonInfo.setDeptId(retUser.getDeptId());
+				logonInfo.setTeamId(retUser.getTeamId());
+				logonInfo.setPosCode(retUser.getPosCode());
 				if(Buser.TYPE_BRCH_GLOBAL_MANAGER.equals(userType)){
 					roleList=userDAO.getRoleIdsByUserId(retUser.getUserId());
 				}else{
@@ -998,4 +1018,39 @@ public class UserServiceImp extends BaseService implements IUserService,ISecurit
 		return userDAO.getUserListByIds(idList);
 	}
 
+	@Override
+	public List<Buser> getUserByDeptId(Long deptId) {
+		return userDAO.getUserByDeptId(deptId);
+	}
+
+	@Override
+	public List<Buser> getUserByAreaId(Long areaId) {
+		return userDAO.getUserByAreaId(areaId);
+	}
+
+	@Override
+	public Buser getUserByTeamIdAndPosCode(Long teamId, String posCode) {
+		return userDAO.getUserByTeamIdAndPosCode(teamId, posCode);
+	}
+
+	@Override
+	public Buser getUserByDeptIdAndPosCode(Long deptId, String posCode) {
+		return userDAO.getUserByDeptIdAndPosCode(deptId, posCode);
+	}
+
+	@Override
+	public Buser getUserByAreaIdAndPosCode(Long areaId, String posCode) {
+		return userDAO.getUserByAreaIdAndPosCode(areaId, posCode)
+				;
+	}
+
+	@Override
+	public List<Buser> getCanSetBuser(String posCode) {
+		return userDAO.getCanSetBuser(posCode);
+	}
+
+	@Override
+	public List<Buser> getUserByTeamId(Long teamId) {
+		return userDAO.getUserByTeamId(teamId);
+	}
 }

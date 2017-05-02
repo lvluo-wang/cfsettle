@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-3-30 10:19:12 by Hibernate Tools 5.2.1.Final -->
+<hibernate-mapping>
+    <class name="com.upg.cfsettle.mapping.prj.CfsPrj" table="cfs_prj" dynamic-update="true">
+        <id name="id" type="long">
+            <column name="id"/>
+            <generator class="identity"/>
+        </id>
+
+        <property name="yearRate" type="java.math.BigDecimal">
+            <column name="year_rate" precision="9" scale="4">
+                    </column>
+        </property>
+
+        <property name="prjName" type="string">
+            <column name="prj_name" length="100">
+            </column>
+        </property>
+
+        <property name="prjUseName" type="string">
+            <column name="prj_use_name" length="100">
+            </column>
+        </property>
+
+        <property name="prjMobile" type="string">
+            <column name="prj_mobile" length="100">
+            </column>
+        </property>
+
+        <property name="demandAmount" type="cent">
+            <column name="demand_amount" precision="20" scale="0">
+            </column>
+        </property>
+        <property name="remainingAmount" type="cent">
+            <column name="remaining_amount" precision="20" scale="0">
+            </column>
+        </property>
+        <property name="timeLimit" type="java.lang.Integer">
+            <column name="time_limit">
+            </column>
+        </property>
+        <property name="timeLimitUnit" type="string">
+            <column name="time_limit_unit" length="10">
+            </column>
+        </property>
+        <property name="timeLimitDay" type="java.lang.Integer">
+            <column name="time_limit_day">
+            </column>
+        </property>
+        <property name="periodRate" type="java.math.BigDecimal">
+            <column name="period_rate" precision="9" scale="4">
+            </column>
+        </property>
+        <property name="status" type="java.lang.Byte">
+            <column name="status">
+            </column>
+        </property>
+        <property name="repayWay" type="string">
+            <column name="repay_way" length="10">
+            </column>
+        </property>
+        <property name="startBidTime" type="secDate">
+            <column name="start_bid_time">
+            </column>
+        </property>
+        <property name="endBidTime" type="secDate">
+            <column name="end_bid_time">
+            </column>
+        </property>
+        <property name="buildTime" type="secDate">
+            <column name="build_Time">
+            </column>
+        </property>
+        <property name="lastRepayTime" type="secDate">
+            <column name="last_repay_time">
+            </column>
+        </property>
+        <property name="minLoanAmount" type="cent">
+            <column name="min_loan_amount" precision="20" scale="0">
+            </column>
+        </property>
+        <property name="loanedAmount" type="cent">
+            <column name="loaned_amount" precision="20" scale="0">
+            </column>
+        </property>
+        <property name="loanTime" type="secDate">
+            <column name="loan_time">
+            </column>
+        </property>
+        <property name="loanTimes" type="long">
+            <column name="loan_times">
+            </column>
+        </property>
+        <property name="payBackAmount" type="cent">
+            <column name="pay_back_amount" precision="20" scale="0">
+            </column>
+        </property>
+        <property name="payBackTimes" type="long">
+            <column name="pay_back_times">
+            </column>
+        </property>
+        <property name="totalRate" type="cent">
+            <column name="total_rate" precision="20" scale="0">
+            </column>
+        </property>
+        <property name="areaRate" type="cent">
+            <column name="area_rate" precision="20" scale="0">
+            </column>
+        </property>
+        <property name="deptRate" type="cent">
+            <column name="dept_rate" precision="20" scale="0">
+            </column>
+        </property>
+        <property name="teamRate" type="cent">
+            <column name="team_rate" precision="20" scale="0">
+            </column>
+        </property>
+        <property name="sysuserRate" type="cent">
+            <column name="sysuser_rate" precision="20" scale="0">
+            </column>
+        </property>
+        <property name="remark" type="string">
+            <column name="remark" length="500">
+            </column>
+        </property>
+        <property name="csysid" type="long" update="false">
+            <column name="csysid"/>
+        </property>
+        <property name="ctime" type="secDate" update="false">
+            <column name="ctime"/>
+        </property>
+        <property name="msysid" type="long">
+            <column name="msysid"/>
+        </property>
+        <property name="mtime" type="secDate">
+            <column name="mtime"/>
+        </property>
+    </class>
+</hibernate-mapping>

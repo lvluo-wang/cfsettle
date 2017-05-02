@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-3-28 14:26:51 by Hibernate Tools 5.2.1.Final -->
+<hibernate-mapping>
+    <class name="com.upg.cfsettle.mapping.organization.CfsOrgArea" table="cfs_org_area" dynamic-update="true">
+        <id name="id" type="long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="areaName" type="string">
+            <column name="area_name" length="50">
+            </column>
+        </property>
+        <property name="overRange" type="string">
+            <column name="over_range" length="200">
+            </column>
+        </property>
+        <property name="status" type="java.lang.Byte">
+            <column name="status">
+            </column>
+        </property>
+        <property name="csysid" type="long">
+            <column name="csysid" />
+        </property>
+        <property name="ctime" type="secDate" update="false">
+            <column name="ctime" />
+        </property>
+        <property name="msysid" type="long">
+            <column name="msysid" />
+        </property>
+        <property name="mtime" type="secDate">
+            <column name="mtime" />
+        </property>
+    </class>
+</hibernate-mapping>

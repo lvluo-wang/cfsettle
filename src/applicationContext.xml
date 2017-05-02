@@ -114,6 +114,14 @@
      				<property name="typeName" value="secDate"/>
      				<property name="typeClass" value="com.upg.ucars.framework.base.hibernate.SecondDateType"/>
      			</bean>
+     			<bean class="org.springframework.orm.hibernate3.TypeDefinitionBean">
+     				<property name="typeName" value="cent"/>
+     				<property name="typeClass" value="com.upg.ucars.framework.base.hibernate.CentMoneyType"/>
+     			</bean>
+     			<bean class="org.springframework.orm.hibernate3.TypeDefinitionBean">
+     				<property name="typeName" value="wanCent"/>
+     				<property name="typeClass" value="com.upg.ucars.framework.base.hibernate.WanCentMoneyType"/>
+     			</bean>
      		</list>
      	</property>
      	
@@ -173,15 +181,15 @@
 	 <!-- ucars datasource -->	 	
 	 <bean id="localDataSource" parent="dataSourceParent">
 	   <property name="url">
-        	 <!--<value>jdbc:oracle:thin:@127.0.0.1:1521:ubsp</value> -->
-        	 <value>jdbc:log4jdbc:mysql://127.0.0.1:3306/cfadmin?characterEncoding=utf-8&amp;useOldAliasMetadataBehavior=true&amp;autoReconnect=true</value>
+        	 <!--<value>jdbc:oracle:thin:@121.196.206.54:1521:ubsp</value> -->
+        	 <value>jdbc:log4jdbc:mysql://121.196.206.54:3306/cfadmin?characterEncoding=utf-8&amp;useOldAliasMetadataBehavior=true&amp;autoReconnect=true</value>
         	  <!--<value>jdbc:log4jdbc:oracle:thin:@10.10.28.182:1522:orcl11</value> -->
 	   </property>
 		<property name="username">
-			<value>root</value>
+			<value>zlc_remote</value>
 		</property>
 		<property name="password">
-			 <value>123456</value>
+			 <value>wYmZwqLcH4N88Txd44baoWASiAI</value>
 		</property>
 		<property name="testOnBorrow" value="true"/>
 	 	<property name="testWhileIdle" value="true"/>

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.upg.cfsettle.util.UtilConstant;
+
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -18,7 +20,6 @@ import com.upg.ucars.mapping.basesystem.security.ReUserRole;
 import com.upg.ucars.mapping.basesystem.security.Role;
 import com.upg.ucars.mapping.basesystem.security.Sysfunc;
 import com.upg.ucars.util.StringUtil;
-
 
 
 public class UserDAOImp extends BaseDAO<Buser,Long> implements IUserDAO {
@@ -303,5 +304,148 @@ public class UserDAOImp extends BaseDAO<Buser,Long> implements IUserDAO {
 		}
 		return ret == null ? new ArrayList<Buser>(0) : ret;
 	}
-	
+
+	@Override
+	public List<Buser> getUserByDeptId(Long deptId) {
+		String hql = "select u from Buser u where u.deptId=? and u.status !=4" +
+				" and u.posCode in ('01','02','03')";
+		return find(hql,deptId);
+	}
+
+	@Override
+	public List<Buser> getUserByAreaId(Long areaId) {
+		String hql = "select u from Buser u where u.areaId=? and u.status !=4" +
+				" and u.posCode in ('01','02','03','04')";
+		return find(hql,areaId);
+	}
+
+	@Override
+	public List<Long> getUserIdByTeamId(Long teamId) {
+		StringBuilder hql = new StringBuilder("select u.userId from Buser u where u.teamId=? and u.posCode in (");
+		List<Long> list=null;
+		try {
+			String posCodeArr[] = new String[]{UtilConstant.CFS_TEAM_MANAGER,UtilConstant.CFS_CUST_MANAGER};
+			int length = posCodeArr.length;
+			for( int i = 0 ; i < length; i++ ){
+				hql.append("'"+posCodeArr[i]+"'");
+				if( i < length - 1 ){
+					hql.append(",");
+				}
+			}
+			hql.append(")");
+			list = getHibernateTemplate().find(hql.toString(),teamId);
+		}catch(Throwable t){
+			ExceptionManager.throwException(DAOException.class, ErrorCodeConst.DB_OPERATION_ERROR, new String[]{hql.toString()}, t);
+		}
+
+		return list == null ? new ArrayList<Long>(0) : list;
+	}
+
+	@Override
+	public List<Long> getUserIdByDeptId(Long deptId) {
+		StringBuilder hql = new StringBuilder("select u.userId from Buser u where u.deptId=? and u.posCode in (");
+		List<Long> list=null;
+		try {
+			String posCodeArr[] = new String[]{UtilConstant.CFS_TEAM_MANAGER,UtilConstant.CFS_CUST_MANAGER,UtilConstant.CFS_DEPT_MANAGER};
+			int length = posCodeArr.length;
+			for( int i = 0 ; i < length; i++ ){
+				hql.append("'"+posCodeArr[i]+"'");
+				if( i < length - 1 ){
+					hql.append(",");
+				}
+			}
+			hql.append(")");
+			list = getHibernateTemplate().find(hql.toString(),deptId);
+		}catch(Throwable t){
+			ExceptionManager.throwException(DAOException.class, ErrorCodeConst.DB_OPERATION_ERROR, new String[]{hql.toString()}, t);
+		}
+
+		return list == null ? new ArrayList<Long>(0) : list;
+	}
+
+	@Override
+	public List<Long> getUserIdByAreaId(Long areaId) {
+		StringBuilder hql = new StringBuilder("select u.userId from Buser u where u.areaId=? and u.posCode in (");
+		List<Long> list=null;
+		try {
+			String posCodeArr[] = new String[]{UtilConstant.CFS_TEAM_MANAGER,UtilConstant.CFS_CUST_MANAGER,UtilConstant.CFS_DEPT_MANAGER,UtilConstant.CFS_AREA_MANAGER};
+			int length = posCodeArr.length;
+			for( int i = 0 ; i < length; i++ ){
+				hql.append("'"+posCodeArr[i]+"'");
+				if( i < length - 1 ){
+					hql.append(",");
+				}
+			}
+			hql.append(")");
+			list = getHibernateTemplate().find(hql.toString(),areaId);
+		}catch(Throwable t){
+			ExceptionManager.throwException(DAOException.class, ErrorCodeConst.DB_OPERATION_ERROR, new String[]{hql.toString()}, t);
+		}
+
+		return list == null ? new ArrayList<Long>(0) : list;
+	}
+
+	@Override
+	public Buser getUserByTeamIdAndPosCode(Long teamId, String posCode) {
+		String hql = "from Buser where teamId=? and posCode=? and status<>4";
+		List<Buser> ret = null;
+		try{
+			ret = getHibernateTemplate().find(hql,new Object[]{teamId,posCode});
+		}catch(Throwable t){
+			ExceptionManager.throwException(DAOException.class, ErrorCodeConst.DB_OPERATION_ERROR, new String[]{hql.toString()}, t);
+		}
+		return ret.size() >0 ? ret.get(0) : null;
+	}
+
+	@Override
+	public Buser getUserByDeptIdAndPosCode(Long deptId, String posCode) {
+		String hql = "from Buser where deptId=? and posCode=? and status<>4";
+		List<Buser> ret = null;
+		try {
+			ret = getHibernateTemplate().find(hql, new Object[]{deptId, posCode});
+		} catch (Throwable t) {
+			ExceptionManager.throwException(DAOException.class, ErrorCodeConst.DB_OPERATION_ERROR, new String[]{hql.toString()}, t);
+		}
+		return ret.size() > 0 ? ret.get(0) : null;
+	}
+
+		@Override
+	public Buser getUserByAreaIdAndPosCode(Long areaId, String posCode) {
+		String hql = "from Buser where areaId=? and posCode=? and status<>4";
+		List<Buser> ret = null;
+		try{
+			ret = getHibernateTemplate().find(hql,new Object[]{areaId,posCode});
+		}catch(Throwable t){
+			ExceptionManager.throwException(DAOException.class, ErrorCodeConst.DB_OPERATION_ERROR, new String[]{hql.toString()}, t);
+		}
+		return ret.size() >0 ? ret.get(0) : null;
+	}
+
+		@Override
+		public List<Buser> getCanSetBuser(String posCode) {
+			String hql = "";
+			if(UtilConstant.CFS_AREA_MANAGER.equals(posCode)){
+				hql = "from Buser where posCode=? and status<>4 and areaId is null";
+			}else if(UtilConstant.CFS_DEPT_MANAGER.equals(posCode)){
+				hql = "from Buser where posCode=? and status<>4 and deptId is null";
+			}else if(UtilConstant.CFS_TEAM_MANAGER.equals(posCode)){
+				hql = "from Buser where posCode=? and status<>4 and teamId is null";
+			}else{
+				hql = "from Buser where posCode=? and status<>4 and teamId is null";
+			}
+			List<Buser> ret = null;
+			try {
+				ret = getHibernateTemplate().find(hql,posCode);
+			}catch(Throwable t){
+				ExceptionManager.throwException(DAOException.class, ErrorCodeConst.DB_OPERATION_ERROR, new String[]{hql.toString()}, t);
+			}
+			return ret;
+		}
+
+		@Override
+		public List<Buser> getUserByTeamId(Long teamId) {
+			String hql = "select u from Buser u where u.teamId=? and u.status !=4" +
+					" and u.posCode ='01'";
+			return find(hql,teamId);
+		}
 }

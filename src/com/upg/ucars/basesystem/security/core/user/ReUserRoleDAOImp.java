@@ -91,5 +91,7 @@ public class ReUserRoleDAOImp extends BaseDAO<ReUserRole, Long> implements
 				+ "where r.roleId= ur.roleId and ur.userId=u.userId and ur.status=? and r.roleId=? and u.brchId=?";
 		return find(hql,new Object[]{Buser.RE_ROLE_STATUS_CHECK,roleId,brchId});
 	}
-//
+
+
+	//
 }

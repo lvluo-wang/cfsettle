@@ -11,6 +11,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
@@ -23,9 +25,15 @@ import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
+import com.upg.ucars.basesystem.UcarsHelper;
+import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -35,6 +43,7 @@ import org.apache.poi.xssf.model.SharedStringsTable;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFDataFormat;
 import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jdom.Attribute;
@@ -49,6 +58,9 @@ import org.xml.sax.helpers.XMLReaderFactory;
 import com.upg.ucars.framework.exception.SysException;
 import com.upg.ucars.util.LogUtil;
 import com.upg.ucars.util.XmlUtil;
+
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * 
  * 功能说明：TODO(excel 文件处理工具类，支持文件xls/xlsx解析及文件导出，解析和导出都需要配置文件)
@@ -647,4 +659,250 @@ public class ExcelUtil {
 			parser.setContentHandler(handler);
 			return parser;
 		}
+	 
+	 public static HSSFWorkbook createHSSFWorkbook(String title, String[] headers, List<List<Object>> dataRows) {
+			HSSFWorkbook workbook = new HSSFWorkbook();
+			workbook = (HSSFWorkbook) processWorkbook(workbook, title, headers, dataRows);
+			return workbook;
+		}
+
+		private static Workbook processWorkbook(Workbook workbook, String title, String[] headers,
+				List<List<Object>> dataRows) {
+			CreationHelper createHelper = workbook.getCreationHelper();
+			Sheet sheet = workbook.createSheet(title);
+			sheet.setDefaultColumnWidth(23);
+			CellStyle style = workbook.createCellStyle();
+			Font font = workbook.createFont();
+			font.setFontHeightInPoints((short) 12);
+			font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+			style.setFont(font);
+
+			Row row = sheet.createRow(0);
+			for (int i = 0; i < headers.length; i++) {
+				Cell cell = row.createCell(i);
+				cell.setCellStyle(style);
+				RichTextString text = null;
+				if (workbook instanceof HSSFWorkbook) {
+					text = new HSSFRichTextString(headers[i]);
+				} else {
+					text = new XSSFRichTextString(headers[i]);
+				}
+				cell.setCellValue(text);
+			}
+
+			int index = 0;
+			for (List<Object> dataRow : dataRows) {
+				index++;
+				row = sheet.createRow(index);
+				int cellIndex = 0;
+				for (Object data : dataRow) {
+					Cell cell = row.createCell(cellIndex++);
+					if (data instanceof String) {
+						cell.setCellValue(data == null ? null : data.toString());
+					} else if (data instanceof Double) {
+						cell.setCellValue(data == null ? null : (Double) data);
+					} else if (data instanceof Date) {
+						cell.setCellValue(data == null ? null : (Date) data);
+						CellStyle dateCellStyle = workbook.createCellStyle();
+						dateCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("yyyy/MM/dd"));
+						cell.setCellStyle(dateCellStyle);
+					} else if (data instanceof Calendar) {
+						cell.setCellValue(data == null ? null : (Calendar) data);
+					} else if (data instanceof RichTextString) {
+						cell.setCellValue(data == null ? null : (RichTextString) data);
+					} else if (data instanceof Boolean) {
+						cell.setCellValue(data == null ? null : (Boolean) data);
+					} else {
+						cell.setCellValue(data == null ? null : data.toString());
+					}
+				}
+			}
+			return workbook;
+		}
+
+		public static XSSFWorkbook createXSSFWorkbook(String title, String[] headers, List<List<Object>> dataRows) {
+			XSSFWorkbook workbook = new XSSFWorkbook();
+			workbook = (XSSFWorkbook) processWorkbook(workbook, title, headers, dataRows);
+			return workbook;
+		}
+
+	/**
+	 * 生成2003版EXCEL文件
+	 *
+	 * @param encoding
+	 * @param fileName
+	 * @param response
+	 */
+	public static void createExcel2003(String encoding, String fileName,
+									   HttpServletResponse response, String sheetName,
+									   Map<String, Integer> excelHeaders,
+									   List<Map<String, Object>> excelDatas) {
+		try {
+			OutputStream outputStream = response.getOutputStream();
+			response.reset();
+			response.setCharacterEncoding(encoding);
+			response.setContentType("application/msexcel");
+			response.setHeader("Content-disposition", "attachment; filename="
+					+ new String(fileName.getBytes("GB2312"), "ISO_8859_1")
+					+ ".xls");
+
+			HSSFWorkbook book = new HSSFWorkbook();
+			HSSFSheet sheet = book.createSheet(sheetName);
+			HSSFRow row = sheet.createRow(0);
+			// 设置字体
+			HSSFFont font = book.createFont();
+			font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD); // 宽度
+			HSSFDataFormat format = book.createDataFormat();
+
+			HSSFCellStyle cellStyle = book.createCellStyle();
+			cellStyle.setFont(font);
+			cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 水平布局：居中
+			cellStyle.setWrapText(true);
+
+			HSSFCellStyle cellStyle2 = book.createCellStyle();
+			cellStyle2.setDataFormat(format.getFormat("#,##0.00"));
+			cellStyle2.setWrapText(true);
+
+			for (String title : excelHeaders.keySet()) {
+				Integer columncount = excelHeaders.get(title);
+				sheet.setColumnWidth(columncount, 5000);
+				HSSFCell cell = row.createCell(columncount);
+				cell.setCellValue(title);
+				cell.setCellStyle(cellStyle);// 设置单元格样式
+				cell.setCellType(HSSFCell.CELL_TYPE_STRING);// 指定单元格格式：数值、公式或字符串
+			}
+
+			Integer rowNum = 1;
+			for (Map<String, Object> excelData : excelDatas) {
+				row = sheet.createRow(rowNum);
+				for (String key : excelData.keySet()) {
+					Object val = excelData.get(key);
+					Integer columnNum = excelHeaders.get(key);
+					if (val instanceof BigDecimal) {
+						HSSFCell cell = row.createCell(columnNum);
+						cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);// 指定单元格格式：数值、公式或字符串
+						DecimalFormat numFormat = new DecimalFormat("#,##0.00");
+						cell.setCellValue(numFormat.format(val == null ? 0.00
+								: ((BigDecimal) val).doubleValue()));
+						cell.setCellValue(val == null ? 0.00
+								: ((BigDecimal) val).doubleValue());
+					} else {
+						HSSFCell cell = row.createCell(columnNum);
+						cell.setCellValue(val == null ? "" : val.toString());
+						cell.setCellType(HSSFCell.CELL_TYPE_STRING);// 指定单元格格式：数值、公式或字符串
+					}
+				}
+				rowNum++;
+			}
+
+			book.write(outputStream);
+		} catch (IOException e) {
+			UcarsHelper.throwServiceException("生成EXCEL文件异常");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 生成2003版EXCEL文件(数据库字段必须和EXACL的字段对应)
+	 *
+	 * @author AMARKY
+	 * @param encoding
+	 *            编码
+	 * @param filePath
+	 *            文件路径
+	 * @param response
+	 *            输入流
+	 * @param fileName
+	 *            文件名
+	 * @param sheetName
+	 *            单元格名称
+	 * @param excelHeaders
+	 *            文件头map
+	 * @param excelDatas
+	 *            数据
+	 * @param temp
+	 *            中间过度的map 没有通过struts的方法上传文件
+	 */
+	public static void createExcel2003Add(String encoding, String filePath,
+										  HttpServletResponse response, String fileName, String sheetName,
+										  Map<String, Integer> excelHeaders,
+										  List<Map<String, Object>> excelDatas, Map<String, String> temp) {
+		FileOutputStream fileOutputStream = null;
+		OutputStream outputStream = null;
+		try {
+			HSSFWorkbook book = new HSSFWorkbook();
+			HSSFSheet sheet = book.createSheet(sheetName);
+			HSSFRow row = sheet.createRow(0);
+			// 设置字体
+			HSSFFont font = book.createFont();
+			font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD); // 宽度
+			HSSFDataFormat format = book.createDataFormat();
+
+			HSSFCellStyle cellStyle = book.createCellStyle();
+			cellStyle.setFont(font);
+			cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 水平布局：居中
+			cellStyle.setWrapText(true);
+
+			HSSFCellStyle cellStyle2 = book.createCellStyle();
+			cellStyle2.setDataFormat(format.getFormat("#,##0.00"));
+			cellStyle2.setWrapText(true);
+
+			for (String title : excelHeaders.keySet()) {
+				Integer columncount = excelHeaders.get(title);
+				sheet.setColumnWidth(columncount, 5000);
+				HSSFCell cell = row.createCell(columncount);
+				cell.setCellValue(title);
+				cell.setCellStyle(cellStyle);// 设置单元格样式
+				cell.setCellType(HSSFCell.CELL_TYPE_STRING);// 指定单元格格式：数值、公式或字符串
+			}
+
+			Integer rowNum = 1;
+			for (Map<String, Object> excelData : excelDatas) {
+				row = sheet.createRow(rowNum);
+				for (String key : excelData.keySet()) {
+					Object val = excelData.get(key);
+					String newKey = temp.get(key);
+					Integer columnNum = excelHeaders.get(newKey);
+					if (val instanceof BigDecimal) {
+						HSSFCell cell = row.createCell(columnNum);
+						cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);// 指定单元格格式：数值、公式或字符串
+						DecimalFormat numFormat = new DecimalFormat("#,##0.00");
+						cell.setCellValue(numFormat.format(val == null ? 0.00
+								: ((BigDecimal) val).doubleValue()));
+						cell.setCellValue(val == null ? 0.00
+								: ((BigDecimal) val).doubleValue());
+					} else {
+						HSSFCell cell = row.createCell(columnNum);
+						cell.setCellValue(val == null ? "" : val.toString());
+						cell.setCellType(HSSFCell.CELL_TYPE_STRING);// 指定单元格格式：数值、公式或字符串
+					}
+				}
+				rowNum++;
+			}
+			if (filePath != null && response == null) {
+				fileOutputStream = new FileOutputStream(
+						filePath
+								+ (new String(fileName.getBytes("GB2312"),
+								"ISO_8859_1") + ".xls"));
+				book.write(outputStream);
+			} else if (response != null && filePath == null) {
+				outputStream = response.getOutputStream();
+			}
+		} catch (IOException e) {
+			UcarsHelper.throwServiceException("生成EXCEL文件异常");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (fileOutputStream != null) {
+					fileOutputStream.close();
+				} else if (outputStream != null) {
+					outputStream.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

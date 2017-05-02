@@ -9,7 +9,7 @@ import java.util.Date;
  * @date 2011-1-27 上午09:21:22
  *
  */
-public class Buser implements java.io.Serializable {
+public class  Buser implements java.io.Serializable {
 	/**
 	 * 实施人员
 	 */
@@ -80,6 +80,8 @@ public class Buser implements java.io.Serializable {
 	 * 用户编号
 	 */
 	private String userNo;
+	
+	private String posCode;
 	public String getEmail() {
 		return email;
 	}
@@ -138,13 +140,26 @@ public class Buser implements java.io.Serializable {
 	private transient String brchIdDesc;//字段的描述
 	
 	private String roleStatus;//角色状态：0-未分配，1-分配待审核，2-已分配
+	
+	private Long areaId;
+	
+	private Long deptId;
+	
+	private Long teamId;
+	
+	private Byte isChangePwd;
+	
 	public Buser() {
 	}
-	
-	
+
+	public Buser(Long userId, String posCode) {
+		this.userId = userId;
+		this.posCode = posCode;
+	}
+
 	public Buser(Long userId, String userName, String userNo, String password,
-			String userType, Long brchId, String status, Date lastLoginTm,
-			String lastLoginIP, Date pwdChgDt, Long pwdErrNum) {
+				 String userType, Long brchId, String status, Date lastLoginTm,
+				 String lastLoginIP, Date pwdChgDt, Long pwdErrNum) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
@@ -284,5 +299,48 @@ public class Buser implements java.io.Serializable {
 	}
 
 
-	
+	public Long getAreaId() {
+		return areaId;
+	}
+
+	public void setAreaId(Long areaId) {
+		this.areaId = areaId;
+	}
+
+
+	public Long getDeptId() {
+		return deptId;
+	}
+
+	public void setDeptId(Long deptId) {
+		this.deptId = deptId;
+	}
+
+	public Long getTeamId() {
+		return teamId;
+	}
+
+	public void setTeamId(Long teamId) {
+		this.teamId = teamId;
+	}
+
+
+	public Byte getIsChangePwd() {
+		return isChangePwd;
+	}
+
+
+	public void setIsChangePwd(Byte isChangePwd) {
+		this.isChangePwd = isChangePwd;
+	}
+
+
+	public String getPosCode() {
+		return posCode;
+	}
+
+
+	public void setPosCode(String posCode) {
+		this.posCode = posCode;
+	}
 }

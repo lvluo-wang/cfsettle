@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-3-29 11:23:48 by Hibernate Tools 5.2.1.Final -->
+<hibernate-mapping>
+    <class name="com.upg.cfsettle.mapping.organization.CfsOrgDept" table="cfs_org_dept" dynamic-update="true">
+        <id name="id" type="long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="deptName" type="string">
+            <column name="dept_name" length="50">
+            </column>
+        </property>
+        <property name="ownedArea" type="long">
+            <column name="owned_area">
+            </column>
+        </property>
+        <property name="deptMobile" type="string">
+            <column name="dept_mobile" length="20">
+            </column>
+        </property>
+        <property name="deptAddr" type="string">
+            <column name="dept_addr" length="150">
+            </column>
+        </property>
+        <property name="status" type="java.lang.Byte">
+            <column name="status">
+            </column>
+        </property>
+        <property name="csysid" type="long">
+            <column name="csysid" />
+        </property>
+        <property name="ctime" type="secDate" update="false">
+            <column name="ctime" />
+        </property>
+        <property name="msysid" type="long">
+            <column name="msysid" />
+        </property>
+        <property name="mtime" type="secDate">
+            <column name="mtime" />
+        </property>
+    </class>
+</hibernate-mapping>

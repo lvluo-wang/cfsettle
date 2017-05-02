@@ -459,10 +459,70 @@ public class DateTimeUtil {
       	c.set(Calendar.MILLISECOND, 0);
       	return c.getTime();
       }
-     
-     
 
-     /**
+	/**
+	 * 获取指定日期的的当月最后一天
+	 * @param theDate
+	 * @return
+	 */
+	public static Date getLastDateOfMonth(Date theDate){
+		Calendar c= new GregorianCalendar();
+		c.setTime(theDate);
+		c.set(Calendar.DAY_OF_MONTH, c.getActualMaximum(Calendar.DAY_OF_MONTH));
+		c.set(Calendar.HOUR_OF_DAY, 23);
+		c.set(Calendar.MINUTE, 59);
+		c.set(Calendar.SECOND, 59);
+		c.set(Calendar.MILLISECOND, 0);
+		return c.getTime();
+	}
+
+	/**
+	 * 获取指定日期的的上个月第一天
+	 * @param theDate
+	 * @return
+	 */
+	public static Date getFirstDayOfLastMonth(Date theDate){
+		GregorianCalendar gcLast = (GregorianCalendar) Calendar.getInstance();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(theDate);
+		calendar.add(Calendar.MONTH, -1);
+		Date date = calendar.getTime();
+		gcLast.setTime(date);
+		gcLast.set(Calendar.DAY_OF_MONTH, 1);
+		gcLast.set(Calendar.HOUR_OF_DAY, 0);
+		gcLast.set(Calendar.MINUTE, 0);
+		gcLast.set(Calendar.SECOND, 0);
+		gcLast.set(Calendar.MILLISECOND, 0);
+		return gcLast.getTime();
+	}
+
+	/**
+	 * 获取指定日期的的上个月最后一天
+	 * @param theDate
+	 * @return
+	 */
+	public static Date getLastDayOfLastMonth(Date theDate){
+		Calendar cal = Calendar.getInstance();
+		GregorianCalendar gcLast = (GregorianCalendar) Calendar.getInstance();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(theDate);
+		calendar.add(Calendar.MONTH, -1);
+		Date date = calendar.getTime();
+		gcLast.setTime(date);
+		gcLast.set(Calendar.DAY_OF_MONTH, 1);
+		calendar.add(cal.MONTH, 1);
+		calendar.set(cal.DATE, 1);
+		calendar.add(cal.DATE, -1);
+		calendar.set(Calendar.HOUR_OF_DAY, 23);
+		calendar.set(Calendar.MINUTE, 59);
+		calendar.set(Calendar.SECOND, 59);
+		calendar.set(Calendar.MILLISECOND, 0);
+		return calendar.getTime();
+	}
+
+
+
+	/**
 	 * 计算某日期之后N天的日期
 	 * 
 	 * @param theDate
@@ -588,7 +648,7 @@ public class DateTimeUtil {
 	 *
 	 * @param date1 
 	 * @param date2
-	 * @return date1==date2返回0, date1大于date2返回1, date1小于date2返回-1 
+	 * @return date1==date2返回0, date1大于date2返回1,  date1小于date2返回-1
 	 */
 	public static int compareDate(Date date1, Date date2) {
 
@@ -829,5 +889,16 @@ public class DateTimeUtil {
         c.set(Calendar.DATE, day - 1);  
   
         return c.getTime();  
-    }  
+    }
+    
+    //获取组合日期
+    public static Date getMixedDate(Integer year,Integer month,Integer day){
+		Calendar cal = Calendar.getInstance();
+		// 不加下面2行，就是取当前时间前一个月的第一天及最后一天
+		cal.set(Calendar.YEAR,year);
+		cal.set(Calendar.MONTH, month);
+		cal.set(Calendar.DAY_OF_MONTH, day);
+		return  cal.getTime();//当前月第一天
+	}
 }
+

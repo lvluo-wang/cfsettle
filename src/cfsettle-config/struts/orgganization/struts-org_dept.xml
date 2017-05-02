@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="orgDept" namespace="/orgDept" extends="pkg-base">
+		<action name="orgDeptManage_*" class="com.upg.cfsettle.organization.action.OrgDeptAction" method="{1}">
+			<result name="main">/cfsettle/organization/orgDeptMain.jsp</result>
+			<result name="add">/cfsettle/organization/orgDeptAdd.jsp</result>
+			<result name="edit">/cfsettle/organization/orgDeptEdit.jsp</result>
+			<result name="view">/cfsettle/organization/orgDeptView.jsp</result>
+            <result name="toChoose">/cfsettle/organization/choose/chooseDept.jsp</result>
+            <result name="toSetBuser">/cfsettle/organization/setDeptBuser.jsp</result>
+		</action>
+	</package>
+</struts>

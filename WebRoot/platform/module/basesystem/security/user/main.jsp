@@ -1,3 +1,4 @@
+<%@page import="com.upg.cfsettle.util.UtilConstant"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
@@ -16,7 +17,7 @@
 			<x:button icon="icon-search" click="doUserFunc" text="view,sysfunc"/>
 			<x:button icon="icon-reload" click="doResetPassword" text="resetPassword"/>
 			<x:button icon="icon-ok" click="changeStatus(2)" text="user.status.outLine"/>
-			<x:button icon="icon-no" click="changeStatus(4)" text="user.status.close"/>
+			<x:button icon="icon-no" click="changeStatus(4)" text="离职"/>
 			</s:if>
 		<s:else>
 			<x:button id="main_setOffline" icon="icon-set" click="setOffline" text="user.setOfflineStatus"/>
@@ -33,19 +34,19 @@
 		<tiles:putAttribute name="query">
 			<form id="mainQueryForm" class="query_form">
 				<table><tr>
-					<td><s:text name="no"/>:</td>
+					<td>手机号码:</td>
 					<td><input style="width:100px;" name="user.userNo" id="main_user_userNo"/></td>
 					<td><s:text name="name"/>:</td>
 					<td><input style="width:100px;" name="user.userName" id="main_user_userName"/></td>
 					<s:if test='userTypeIsBrch=="1"'>
-					<td><s:text name="brch"/>:</td>
+					<%-- <td><s:text name="brch"/>:</td>
 					<td>
 						<div class="searchBox">
 							<input class="inputSel" id="main_user_brch_name" disabled="disabled" />
 							<x:button click="chooseTreeBranch(mainQueryBranchCallback)" text="" icon="icon-search"/>
 							<input id="main_user_brch_id" type="hidden" name="user.brchId" />
 						</div>
-					</td>
+					</td> --%>
 					<td><s:text name="role"/><s:text name="name"/>:</td>
 					<td><input name="searchBean.roleName" ></input></td>
 					</s:if>
@@ -65,17 +66,14 @@
 		<x:datagrid id="userMainDG" pagesize="20" url="/security/user_listUsers.jhtml?olp=${olp}" form="mainQueryForm" >
 			<x:columns>
 				<x:column title="" field="userId" checkbox="true" width="20" />
-				<s:if test='userTypeIsBrch=="1"'>
-					<x:column title="branch" field="brchIdDesc" width="150" align="left"/>
-				</s:if>
 				<s:if test='userTypeIsSaas=="1"'>
 					<x:column title="memberInfo.miName" field="miNo" width="100" align="left" formatter="userFormatter"/>
 				</s:if>
-				
-				<x:column title="no" field="userNo" width="100" align="left" />
+				<x:column title="手机号码" field="userNo" width="100" align="left" />
 				<x:column title="name" field="userName" width="100" align="left" />
 				<x:column title="type" field="userType" width="100" align="left" formatter="userFormatter" />
 				<x:column title="email" field="email" width="200" align="left"/>
+				<x:column title="岗位" field="posCode" width="90" align="center" formatter="formatPosCode"/>
 				<x:column title="status" field="status" width="50" align="left" formatter="userFormatter"/>
 				<x:column title="roleStatus" field="roleStatus" width="100" align="left" formatter="userFormatter"/>
 			</x:columns>
@@ -83,7 +81,7 @@
 		
 	</tiles:putAttribute>
 	<tiles:putAttribute name="window">
-	<div id="user_add_edit"  style="width:480px;display:none;"></div>
+	<div id="user_add_edit"  style="width:480px;display:none;height:auto"></div>
 	<div id="auditProcessView" style="width:500px;display:none;"></div>
 	<div id="user_role" style="width:400px;display:none;"></div>
 	</tiles:putAttribute>
@@ -92,6 +90,8 @@
 var keys=['B016','B002','B003'];
 var code=new CodeUtil(keys);
 code.loadData();
+var xhhCode = new XhhCodeUtil(["<%=UtilConstant.CFS_BUSER_POS_CODE%>"]);
+xhhCode.loadData();
 function userFormatter(value,field,row,rowIndex){
 	if(field == "userType"){
 		return code.getValue("B002",value);
@@ -110,6 +110,9 @@ function initPage(){
 
 }
 
+function formatPosCode(val){
+	return xhhCode.getValue("<%=UtilConstant.CFS_BUSER_POS_CODE%>",val);
+}
 	
 	function mainDoSearch(){
 		userMainDG.load();	
@@ -117,8 +120,13 @@ function initPage(){
 
 	function changeStatus(status){
        var num = userMainDG.getSelectedRowNum();
-       if(num>0){
+       if(isSingleSelected(userMainDG)){
    		var selectedIds = userMainDG.getSelectedIds();
+   		var oldStatus = userMainDG.getSelectedField('status');
+   		if(oldStatus==4&&status==2){
+   			warning('已离职用户不能离线');
+   			return;
+   		}
 		if(selectedIds){
 			var url="<s:url value='/security/user_batchChangeStatus.jhtml' />?ids="+selectedIds+"&user.status="+status;
 			doPost(url,{},function(result){
@@ -153,7 +161,7 @@ function initPage(){
 					return;
 				}
 	           var selectedId = userMainDG.getSelectedField("userId");
-	           var url="<s:url value='/security/user_toAdd.jhtml' />?id="+selectedId;
+	           var url="<s:url value='/security/user_toEdit.jhtml' />?id="+selectedId;
 	           requestAtWindow(url,"user_add_edit","<s:text name="edit"/><s:text name="user"/>");
 	       }else{
 	           info(global.notSelectInfo);

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="prj" namespace="/prj" extends="pkg-base">
+        <action name="/prjManage_*" class="com.upg.cfsettle.prj.action.PrjAction" method="{1}">
+            <result name="main">/cfsettle/prj/prjMain.jsp</result>
+            <result name="add">/cfsettle/prj/prjApply_toAdd.jsp</result>
+            <result name="edit">/cfsettle/prj/prjApply_toEdit.jsp</result>
+            <result name="view">/cfsettle/prj/prjApply_toView.jsp</result>
+        </action>
+        <action name="/prjAudit_*" class="com.upg.cfsettle.prj.action.PrjAction" method="{1}">
+            <result name="auditMain">/cfsettle/prj/prjAuditMain.jsp</result>
+            <result name="toReview">/cfsettle/prj/prjAudit_toReview.jsp</result>
+            <result name="toBuild">/cfsettle/prj/prjAudit_toBuild.jsp</result>
+        </action>
+        <action name="/prjLoan_*" class="com.upg.cfsettle.prj.action.PrjLoanAction" method="{1}">
+            <result name="success">/cfsettle/loan/prjLoan_{1}.jsp</result>
+        </action>
+        <action name="/payBack_*" class="com.upg.cfsettle.prj.action.PrjPayBackAction" method="{1}">
+            <result name="success">/cfsettle/payBack/payBack_{1}.jsp</result>
+        </action>
+    </package>
+</struts>

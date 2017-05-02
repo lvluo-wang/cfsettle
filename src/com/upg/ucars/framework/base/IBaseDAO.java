@@ -182,4 +182,16 @@ public interface IBaseDAO<T,PK extends java.io.Serializable> {
 	 * @author alw
 	 */
 	public T readByVersion(PK keyno,Number version)throws DAOException;
+	
+	/**
+	 * 自定义hql
+	 * @author renzhuolun
+	 * @date 2017年4月19日 下午8:57:52
+	 * @param hql
+	 * @param conditionList
+	 * @param orderList
+	 * @param page
+	 * @return
+	 */
+	public List<T> queryEntityByCustomerHQL(String hql,List<ConditionBean> conditionList, List<OrderBean> orderList, Page page);
 }

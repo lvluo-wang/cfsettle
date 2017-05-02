@@ -1,5 +1,5 @@
 /**
- * 通用脚本
+O * 通用脚本
  * @author cuckoo
  */	
 	
@@ -1106,6 +1106,18 @@ function format2Date(value){
 	}
 	return ret;
 }
+
+function format2Month(value){
+	var ret = "";
+	try{
+		var date = convertDateFromJson(value);
+		if (date) {
+			ret=DateFormat.format(date,"yyyy-MM");
+		}
+	}catch(e){
+	}
+	return ret;
+}
 function format2Minute(value){
 	var ret = "";
 	try{
@@ -1127,6 +1139,13 @@ function format2Time(value){
 	}catch(e){
 	}
 	return ret;
+}
+
+function formatTimeStamp(value){
+	if(value == ""){
+        return '';
+	}
+	return DateFormat.format(new Date(value*1000),"yyyy-MM-dd hh:mm:ss");  
 }
 function ucarsValidate(jq){
 	if (jq) {
@@ -1253,4 +1272,8 @@ function onAfterPasteInt(ob) {
 	} else {
 		ob.value = ob.value.replace(/\D/g, '')
 	}
+}
+
+function showPic(pic){
+	viewPicture(pic.src);
 }

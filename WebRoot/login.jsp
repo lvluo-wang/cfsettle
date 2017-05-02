@@ -66,7 +66,7 @@
 	  <form id="frm">
       <ul class="listTxt">
       	<li><input id="userNo" type="text" class="inputSy easyui-validatebox" required="true" value="<%=userNo%>" ghosttext="账号"/></li>
-      	<li><input id="pwd" type="password" class="inputSy easyui-validatebox" required="true" ghosttext="密码" value="888888x" /></li>
+      	<li><input id="pwd" type="password" class="inputSy easyui-validatebox" required="true" ghosttext="密码"/></li>
       	<li id="inputlt">
 			<input id="mi" type="text" class="inputSy down" ghosttext="接入点"/>
 			<input id="mi_no" name="miNo" type="hidden" />
