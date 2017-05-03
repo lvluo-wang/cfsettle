@@ -152,8 +152,13 @@ public class CfsCustDaoImpl extends SysBaseDao<CfsCust, Long> implements ICfsCus
 
     private void addOrganization(List<CfsCustInfo> reslut) {
         for(CfsCustInfo custInfo : reslut){
-            custInfo.setSysIdLong(custInfo.getSysId().longValue());
             if(custInfo.getSysId() != null){
+                custInfo.setSysIdLong(custInfo.getSysId().longValue());
+                UserLogonInfo logonInfo = SessionTool.getUserLogonInfo();
+                if(!(logonInfo.getUserType().equals(Buser.TYPE_BRCH_GLOBAL_MANAGER)
+                        || custInfo.getSysIdLong() == logonInfo.getSysUserId())){
+                    custInfo.setIdCard("-");
+                }
                 Buser buser = userDAO.get(Long.valueOf(custInfo.getSysId()));
                 if(buser != null&&buser.getPosCode() != null){
                     if (buser.getPosCode().equals(UtilConstant.CFS_CUST_MANAGER)
