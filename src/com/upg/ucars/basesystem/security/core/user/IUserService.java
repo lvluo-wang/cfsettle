@@ -1,6 +1,9 @@
 package com.upg.ucars.basesystem.security.core.user;
 
+import java.io.OutputStream;
 import java.util.List;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.upg.ucars.framework.base.IBaseService;
 import com.upg.ucars.framework.base.Page;
@@ -392,5 +395,7 @@ public interface IUserService extends IBaseService {
 	public List<Buser> getCanSetBuser(String posCode);
 	
 	List<Buser> getUserByTeamId(Long teamId);
+
+	public HSSFWorkbook generatBuserData(OutputStream os, Buser user, String[] headers, String title, Page page);
 
 }

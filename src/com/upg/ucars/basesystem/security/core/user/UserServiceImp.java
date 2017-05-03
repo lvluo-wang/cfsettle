@@ -1,5 +1,6 @@
 package com.upg.ucars.basesystem.security.core.user;
 
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,7 +8,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
+import com.upg.cfsettle.common.CodeItemUtil;
 import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.basesystem.UcarsHelper;
 import com.upg.ucars.basesystem.audit.core.AuditTaskRevokeResult;
@@ -51,6 +54,7 @@ import com.upg.ucars.mapping.basesystem.security.Sysfunc;
 import com.upg.ucars.model.ConditionBean;
 import com.upg.ucars.model.OrderBean;
 import com.upg.ucars.model.security.UserLogonInfo;
+import com.upg.ucars.tools.imp.excel.ExcelUtil;
 import com.upg.ucars.util.DESKeyUtil;
 import com.upg.ucars.util.DateTimeUtil;
 import com.upg.ucars.util.DigestUtil;
@@ -1052,5 +1056,42 @@ public class UserServiceImp extends BaseService implements IUserService,ISecurit
 	@Override
 	public List<Buser> getUserByTeamId(Long teamId) {
 		return userDAO.getUserByTeamId(teamId);
+	}
+
+	@Override
+	public HSSFWorkbook generatBuserData(OutputStream os, Buser bu,String[] headers, String title, Page page) {
+		List<ConditionBean> buserConditionList = new ArrayList<ConditionBean>();
+		if( bu != null ){
+			String userName = bu.getUserName();
+			if( userName != null && userName.trim().length() > 0){
+				buserConditionList.add(new ConditionBean("userName", ConditionBean.LIKE, userName.trim()));
+			}
+			String userNo = bu.getUserNo();
+			if( userNo != null && userNo.trim().length() > 0 ){
+				buserConditionList.add(new ConditionBean("userNo", ConditionBean.LIKE, userNo.trim()));
+			}
+			String status = bu.getStatus();
+			if( status != null && status.trim().length() > 0 ){
+				buserConditionList.add(new ConditionBean("status", status.trim()));
+			}
+			String roleStatus = bu.getRoleStatus();
+			if( roleStatus != null && ! "-1".equals(roleStatus) ){
+				buserConditionList.add(new ConditionBean("roleStatus", roleStatus.trim()));
+			}
+		}
+		
+		buserConditionList.add(new ConditionBean("userId", ConditionBean.MORE, 10L));
+		List<Buser> userList = userDAO.queryEntity(buserConditionList, null);
+		List<List<Object>> dataRows = new ArrayList<List<Object>>();
+		for(Buser buser:userList){
+			List<Object> row = new ArrayList<Object>();
+			row.add(buser.getUserNo());
+			row.add(buser.getUserName());
+			row.add("普通用户");
+			row.add(buser.getEmail());
+			row.add(CodeItemUtil.getCodeNameByKey(UtilConstant.CFS_BUSER_POS_CODE, buser.getPosCode()));
+			dataRows.add(row);
+		}
+ 		return ExcelUtil.createHSSFWorkbook(title, headers, dataRows);
 	}
 }
