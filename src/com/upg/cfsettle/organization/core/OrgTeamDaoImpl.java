@@ -42,6 +42,7 @@ public class OrgTeamDaoImpl extends SysBaseDao<CfsOrgTeam,Long> implements IOrgT
                 sqlCreater.and("team.status =:status","status",ownedArea,true);
             }
         }
+        sqlCreater.orderBy("team.status",true);
         sqlCreater.orderBy("team.ctime",true);
         return getMapListByStanderdSQL(sqlCreater.getSql(),sqlCreater.getParameterMap(),page);
     }
