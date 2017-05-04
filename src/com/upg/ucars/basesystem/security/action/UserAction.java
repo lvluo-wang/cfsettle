@@ -1,10 +1,15 @@
 package com.upg.ucars.basesystem.security.action;
 
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -616,6 +621,27 @@ public class UserAction extends BaseAction  {
 		user = userService.getUserById(SessionTool.getUserLogonInfo().getSysUserId());
 		return setInputStreamData(user);
 	}
+	
+	 public void doExport() throws Exception{
+    	HttpServletResponse response = getHttpResponse();
+		HSSFWorkbook workbook = null;
+		OutputStream os = null;
+		try {
+			os = response.getOutputStream(); // 取得输出流
+			response.reset();// 清空输出流
+			String fileName = "员工信息" + DateTimeUtil.getCurDate() + ".xls";
+			response.setHeader("Content-disposition","attachment; filename=" + java.net.URLEncoder.encode(fileName, "UTF-8"));// 设定输出文件头
+			response.setContentType("application/msexcel");// 定义输出类型
+			String title = "员工信息";
+			String[] headers = new String[] {"手机号码", "名称", "类型","电子邮件","岗位"};
+			workbook = userService.generatBuserData(os,user,headers,title,getPg());
+			workbook.write(os);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			os.flush();
+		}
+    }
 	
 	public void setUserService(IUserService userService) {
 		this.userService = userService;

@@ -1,6 +1,5 @@
 <%@page import="com.upg.cfsettle.util.CfsConstant"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@page import="net.easytodo.keel.util.SecurityUtils"%>
 <%@ page import="com.upg.cfsettle.util.UtilConstant" %>
 <%@ page import="com.upg.ucars.mapping.basesystem.security.Buser" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
@@ -55,7 +54,7 @@
 				<%--<s:if test='logonInfo.userType==@com.upg.ucars.mapping.basesystem.security.Buser@TYPE_BRCH_GLOBAL_MANAGER'>--%>
 				<%--<x:column title="客户手机" field="mobile" align="left" width="90"/>--%>
 			    <%--</s:if>--%>
-				<x:column title="身份证号" field="idCard" align="center" width="150" />
+				<x:column title="身份证号" field="idCard" align="center" width="150"/>
 				<x:column title="添加时间" field="ctime" align="center" width="150" formatter="formatTime"/>
 				<x:column title="归属员工类型" field="posCode" align="center" width="100" formatter="formatPosCode"/>
 				<x:column title="归属员工姓名" field="userName" align="center" width="100" formatter="formatBuser"/>
