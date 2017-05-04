@@ -34,6 +34,7 @@ public class OrgDeptDaoImpl extends SysBaseDao<CfsOrgDept,Long> implements IOrgD
                 sqlCreater.and("dept.status=:status","status",status,true);
             }
         }
+        sqlCreater.orderBy("dept.status",true);
         sqlCreater.orderBy("dept.ctime",true);
         return getMapListByStanderdSQL(sqlCreater.getSql(),sqlCreater.getParameterMap(),page);
     }

@@ -44,8 +44,9 @@ public class OrgAreaServiceImpl implements IOrgAreaService {
                 condition.addCondition(new ConditionBean("cfsOrgArea.id",ConditionBean.EQUAL,searchBean.getId()));
             }
         }
-        condition.addOrder(new OrderBean("cfsOrgArea.ctime",true));
-        List<CfsOrgArea> list= orgAreaDao.queryEntity( condition.getConditionList(), pg);
+        List<OrderBean> orderList = new ArrayList<OrderBean>();
+        orderList.add(new OrderBean("cfsOrgArea.status",false));
+        List<CfsOrgArea> list= orgAreaDao.queryEntity(condition.getConditionList(),orderList, pg);
         for(CfsOrgArea area :list){
         	Buser buser = userDAO.getUserByAreaIdAndPosCode(area.getId(), UtilConstant.CFS_AREA_MANAGER);
         	if(buser != null){
