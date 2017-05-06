@@ -1,10 +1,8 @@
 package com.upg.cfsettle.comm.action;
 
-import com.upg.cfsettle.comm.core.CfsMyCommInfoServiceImpl;
 import com.upg.cfsettle.comm.core.ICfsMyCommInfoService;
 import com.upg.ucars.basesystem.autotask.core.AbstractMemberAutoTask;
 import com.upg.ucars.model.BooleanResult;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created by zuobaoshi on 2017/4/12.
