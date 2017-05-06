@@ -4,7 +4,10 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="x" uri="/xcars-tags"%>
-<tiles:insertDefinition name="FUNC_QUERY_DATA">
+<tiles:insertDefinition name="FUNC_TOOL_QUERY_DATA">
+	<tiles:putAttribute name="tool">
+		<x:button iconCls="icon-down" text="导出Excel" click="doExport"/>
+	</tiles:putAttribute>
 	<tiles:putAttribute name="query">
 			<form id="mainQueryForm" class="query_form">
 			<table>
@@ -117,6 +120,17 @@
 	function doQuery(){
 		dataTable.load();
 	}
+	
+	function doExport(){
+		$.messager.confirm(global.alert,"确认要导出记录么?", function(r){
+			if(r){
+				var param = formToObject("mainQueryForm");
+				var url = '<s:url value="/order/orderUse_doExport.jhtml"/>';
+				redirectUrl(url,param);
+			}
+		});
+	}
+
 	</script>
 	</tiles:putAttribute>
 </tiles:insertDefinition>

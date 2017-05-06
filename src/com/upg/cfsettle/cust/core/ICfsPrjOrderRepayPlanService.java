@@ -1,7 +1,10 @@
 package com.upg.cfsettle.cust.core;
 
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.upg.cfsettle.mapping.prj.CfsPrjOrderPaybackLog;
 import com.upg.cfsettle.mapping.prj.CfsPrjOrderRepayPlan;
@@ -50,4 +53,31 @@ public interface ICfsPrjOrderRepayPlanService extends IBaseService {
 	void updatePrjOrderRepayPlan(CfsPrjOrderRepayPlan plan);
 	
 	List<CfsPrjOrderRepayPlan> findByOrderId(Long prjOrderId);
+
+	
+	/**
+	 * 用款期还款导出
+	 * @author renzhuolun
+	 * @date 2017年5月6日 下午1:26:17
+	 * @param os
+	 * @param searchBean
+	 * @param headers
+	 * @param title
+	 * @param pg
+	 * @return
+	 */
+	HSSFWorkbook generatUsePayBackData(OutputStream os, CfsPrjOrderPaybackLog searchBean, String[] headers, String title, Page pg);
+
+	/**
+	 * 募集款期还款导出
+	 * @author renzhuolun
+	 * @date 2017年5月6日 下午1:26:37
+	 * @param os
+	 * @param searchBean
+	 * @param headers
+	 * @param title
+	 * @param pg
+	 * @return
+	 */
+	HSSFWorkbook generatPeriodPayBackData(OutputStream os, CfsPrjOrderPaybackLog searchBean, String[] headers, String title, Page pg);
 }

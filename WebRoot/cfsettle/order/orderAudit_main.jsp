@@ -8,6 +8,7 @@
 	<tiles:putAttribute name="tool">
 		<x:button iconCls="icon-audit" text="收款审核" click="doAudit" />
 		<x:button iconCls="icon-view" text="收款详情" click="toView" />
+		<x:button iconCls="icon-down" text="导出Excel" click="doExport"/>
 	</tiles:putAttribute>
 	<tiles:putAttribute name="query">
 		<form id="mainQueryForm" class="query_form">
@@ -109,6 +110,16 @@
 			var url="<s:url value='/order/orderAudit_toView.jhtml'/>?id="+selectedId;
 			requestAtWindow(url,"project_edit_win","<s:text name='view'/>");
 		}
+	}
+	
+	function doExport(){
+		$.messager.confirm(global.alert,"确认要导出记录么?", function(r){
+			if(r){
+				var param = formToObject("mainQueryForm");
+				var url = '<s:url value="/order/orderAudit_doExport.jhtml"/>';
+				redirectUrl(url,param);
+			}
+		});
 	}
 	</script>
 	</tiles:putAttribute>
