@@ -197,9 +197,9 @@ public class CfsMyCommInfoServiceImpl implements ICfsMyCommInfoService{
 		switch (posCode){
 			case UtilConstant.CFS_CUST_MANAGER:
 				 sysUser = userDAO.get(prjOrder.getServiceSysid());
-				 teamUser = userDAO.getUserByTeamIdAndPosCode(prjOrder.getOwnedTeam(),UtilConstant.CFS_TEAM_MANAGER);
-				 deptUser = userDAO.getUserByDeptIdAndPosCode(prjOrder.getOwnedDept(),UtilConstant.CFS_DEPT_MANAGER);
-				 areaUser = userDAO.getUserByAreaIdAndPosCode(prjOrder.getOwnedArea(),UtilConstant.CFS_AREA_MANAGER);
+				if(sysUser.getTeamId() !=null) teamUser = userDAO.getUserByTeamIdAndPosCode(sysUser.getTeamId(),UtilConstant.CFS_TEAM_MANAGER);
+				if(sysUser.getDeptId() !=null) deptUser = userDAO.getUserByDeptIdAndPosCode(sysUser.getDeptId(),UtilConstant.CFS_DEPT_MANAGER);
+				if(sysUser.getAreaId() !=null) areaUser = userDAO.getUserByAreaIdAndPosCode(sysUser.getAreaId(),UtilConstant.CFS_AREA_MANAGER);
 				if(sysUser!=null) buserList.add(sysUser);
 				if(teamUser!=null) buserList.add(teamUser);
 				if(deptUser!=null) buserList.add(deptUser);
@@ -207,8 +207,8 @@ public class CfsMyCommInfoServiceImpl implements ICfsMyCommInfoService{
 				break;
 			case UtilConstant.CFS_TEAM_MANAGER:
 				 sysUser = userDAO.get(prjOrder.getServiceSysid());
-				 deptUser = userDAO.getUserByDeptIdAndPosCode(prjOrder.getOwnedDept(),UtilConstant.CFS_DEPT_MANAGER);
-				 areaUser = userDAO.getUserByAreaIdAndPosCode(prjOrder.getOwnedArea(),UtilConstant.CFS_AREA_MANAGER);
+				if(sysUser.getDeptId() !=null) deptUser = userDAO.getUserByDeptIdAndPosCode(sysUser.getDeptId(),UtilConstant.CFS_DEPT_MANAGER);
+				if(sysUser.getAreaId() !=null) areaUser = userDAO.getUserByAreaIdAndPosCode(sysUser.getAreaId(),UtilConstant.CFS_AREA_MANAGER);
 				if(sysUser!=null) buserList.add(sysUser);
 				buserList.add(new Buser(prjOrder.getServiceSysid(),UtilConstant.CFS_CUST_MANAGER));
 				if(deptUser!=null) buserList.add(deptUser);
@@ -217,7 +217,7 @@ public class CfsMyCommInfoServiceImpl implements ICfsMyCommInfoService{
 			case UtilConstant.CFS_DEPT_MANAGER:
 				sysUser = userDAO.get(prjOrder.getServiceSysid());
 				buserList.add(new Buser(prjOrder.getServiceSysid(),UtilConstant.CFS_CUST_MANAGER));
-				areaUser = userDAO.getUserByAreaIdAndPosCode(prjOrder.getOwnedArea(),UtilConstant.CFS_AREA_MANAGER);
+				if(sysUser.getAreaId() !=null) areaUser = userDAO.getUserByAreaIdAndPosCode(sysUser.getAreaId(),UtilConstant.CFS_AREA_MANAGER);
 				if(sysUser!=null) buserList.add(sysUser);
 				if(areaUser!=null) buserList.add(areaUser);
 				break;
@@ -234,19 +234,19 @@ public class CfsMyCommInfoServiceImpl implements ICfsMyCommInfoService{
 			if(!StringUtil.isEmpty(buser.getPosCode())){
 				if(buser.getPosCode().equals(UtilConstant.CFS_CUST_MANAGER)){
 					commRate = sysUserRate;
-					commAmount = amount.multiply(commRate).setScale(2);
+					commAmount = amount.multiply(commRate).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
 				}
 			if(buser.getPosCode().equals(UtilConstant.CFS_TEAM_MANAGER)){
 				commRate = teamRate;
-				commAmount = amount.multiply(commRate).setScale(2);
+				commAmount = amount.multiply(commRate).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
 			}
 			if(buser.getPosCode().equals(UtilConstant.CFS_DEPT_MANAGER)){
 				commRate = deptRate;
-				commAmount = amount.multiply(commRate).setScale(2);
+				commAmount = amount.multiply(commRate).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
 			}
 			if(buser.getPosCode().equals(UtilConstant.CFS_AREA_MANAGER)){
 				commRate = areaRate;
-				commAmount = amount.multiply(commRate).setScale(2);
+				commAmount = amount.multiply(commRate).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
 			}
 			cfsCommOrderRelate = setValueCommOrderRelate(commAmount,commRate,buser.getUserId(),prj.getId(),prjOrder.getId());
 			cfsCommOrderRelateList.add(cfsCommOrderRelate);

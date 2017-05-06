@@ -89,7 +89,7 @@ public class PrjDaoImpl extends SysBaseDao<CfsPrj,Long> implements IPrjDao {
 //            return Collections.EMPTY_LIST;
 //        }
 //        Date lastDay = DateTimeUtil.getSpecifiedDayBefore(now);
-        //当前时间个月的第一天和最后一天
+        //当前时间上个月的第一天和最后一天
         Date fromDate = DateTimeUtil.getFirstDayOfLastMonth(now);
         Date toDate = DateTimeUtil.getLastDayOfLastMonth(now);
         //项目成立时间
