@@ -10,6 +10,7 @@
 		<x:button iconCls="icon-view" text="回款详情" click="toView"/>
 		<x:button iconCls="icon-reload" text="本周截止回款" click="queryWeek"/>
 		<x:button iconCls="icon-reload" text="本月截止回款" click="queryMonth"/>
+		<x:button iconCls="icon-down" text="导出Excel" click="doExport"/>
 	</tiles:putAttribute>
 	<tiles:putAttribute name="query">
 			<form id="mainQueryForm" class="query_form">
@@ -125,6 +126,16 @@
             var url = "<s:url value='/prj/payBack_toView.jhtml'/>?id="+selectedId;
             redirectUrl(url);
 		}
+	}
+	
+	function doExport(){
+		$.messager.confirm(global.alert,"确认要导出记录么?", function(r){
+			if(r){
+				var param = formToObject("mainQueryForm");
+				var url = '<s:url value="/prj/payBack_doExport.jhtml"/>';
+				redirectUrl(url,param);
+			}
+		});
 	}
 
 	</script>

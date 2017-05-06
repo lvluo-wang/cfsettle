@@ -1,7 +1,10 @@
 package com.upg.cfsettle.cust.core;
 
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.upg.cfsettle.mapping.prj.CfsPrjRepayPlan;
 import com.upg.ucars.framework.base.IBaseService;
@@ -31,4 +34,6 @@ public interface ICfsPrjRepayPlanService extends IBaseService {
 	CfsPrjRepayPlan getPrjPlanByPrjIdAndPeriod(Long prjId, Long repayPeriod);
 
 	List<CfsPrjRepayPlan> getPrjPlanByPrjId(Long prjId);
+
+	HSSFWorkbook generatPrjPayBackData(OutputStream os, CfsPrjRepayPlan searchBean, String[] headers, String title, Page pg);
 }

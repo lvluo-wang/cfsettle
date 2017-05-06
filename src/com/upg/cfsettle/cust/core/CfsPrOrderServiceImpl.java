@@ -1,11 +1,16 @@
 package com.upg.cfsettle.cust.core;
 
+import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.upg.cfsettle.common.CodeItemUtil;
 import com.upg.cfsettle.mapping.organization.CfsOrgArea;
 import com.upg.cfsettle.mapping.organization.CfsOrgDept;
 import com.upg.cfsettle.mapping.organization.CfsOrgTeam;
@@ -18,6 +23,7 @@ import com.upg.cfsettle.organization.core.IOrgDeptDao;
 import com.upg.cfsettle.organization.core.IOrgTeamDao;
 import com.upg.cfsettle.prj.core.IPrjService;
 import com.upg.cfsettle.util.CfsConstant;
+import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.basesystem.UcarsHelper;
 import com.upg.ucars.basesystem.security.core.user.IUserService;
 import com.upg.ucars.framework.annotation.Service;
@@ -27,6 +33,7 @@ import com.upg.ucars.framework.base.SessionTool;
 import com.upg.ucars.mapping.basesystem.security.Buser;
 import com.upg.ucars.model.ConditionBean;
 import com.upg.ucars.model.security.UserLogonInfo;
+import com.upg.ucars.tools.imp.excel.ExcelUtil;
 import com.upg.ucars.util.DateTimeUtil;
 import com.upg.ucars.util.StringUtil;
 
@@ -201,5 +208,27 @@ public class CfsPrOrderServiceImpl implements ICfsPrjOrderService {
 	@Override
 	public List<CfsPrjOrder> getOKPrjOrdersByPrjId(Long prjId) {
 		return prjOrderDao.getOKPrjOrdersByPrjId(prjId);
+	}
+
+	@Override
+	public HSSFWorkbook generatOrderAuidtData(OutputStream os, CustOrderBean searchBean, String[] headers, String title, Page pg) {
+		List<List<Object>> dataRows = new ArrayList<List<Object>>();
+		List<Map<String, Object>> dataList = this.findByCondition(searchBean, null);
+		Iterator<Map<String, Object>> it = dataList.iterator();
+		while(it.hasNext()){
+			List<Object> row = new ArrayList<Object>();
+			Map<String, Object> exportData = it.next();
+			row.add(exportData.get("CONTRACT_NO"));
+			row.add(exportData.get("INVEST_TIME"));
+			row.add(exportData.get("REAL_NAME"));
+			row.add(exportData.get("PRJ_NAME"));
+			row.add(exportData.get("MONEY"));
+			row.add(exportData.get("PAY_BANK"));
+			row.add(exportData.get("PAY_ACCOUNT_NO"));
+			row.add(exportData.get("SERVICE_SYS_NAME"));
+			row.add(CodeItemUtil.getCodeNameByKey(UtilConstant.CFS_PRJ_ORDER_STATUS,exportData.get("STATUS").toString()));
+			dataRows.add(row);
+		}
+ 		return ExcelUtil.createHSSFWorkbook(title, headers, dataRows);
 	}
 }

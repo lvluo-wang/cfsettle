@@ -1,7 +1,10 @@
 package com.upg.cfsettle.cust.core;
 
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.upg.cfsettle.mapping.prj.CfsPrjOrder;
 import com.upg.ucars.framework.base.IBaseService;
@@ -53,5 +56,7 @@ public interface ICfsPrjOrderService extends IBaseService {
 	List<CfsPrjOrder> findCommByCondition(CfsPrjOrder prjOrder, Page page);
 
 	List<CfsPrjOrder> getOKPrjOrdersByPrjId(Long prjId);
+
+	HSSFWorkbook generatOrderAuidtData(OutputStream os, CustOrderBean searchBean, String[] headers, String title, Page pg);
 
 }

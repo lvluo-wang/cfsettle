@@ -1,8 +1,13 @@
 package com.upg.cfsettle.order.action;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.upg.cfsettle.common.CodeItemUtil;
@@ -24,6 +29,7 @@ import com.upg.ucars.basesystem.security.core.user.IUserService;
 import com.upg.ucars.factory.DynamicPropertyTransfer;
 import com.upg.ucars.framework.base.BaseAction;
 import com.upg.ucars.mapping.basesystem.security.Buser;
+import com.upg.ucars.util.DateTimeUtil;
 import com.upg.ucars.util.PropertyTransVo;
 
 @SuppressWarnings("serial")
@@ -142,6 +148,28 @@ private CfsPrjOrderPaybackLog searchBean;
     	trans.add(new PropertyTransVo("csysid", Buser.class, "userId", "userName","sysUserName"));
 		return setDatagridInputStreamData(DynamicPropertyTransfer.transform(list, trans), getPg());
 	}
+	
+	public void doExport() throws Exception{
+    	HttpServletResponse response = getHttpResponse();
+		HSSFWorkbook workbook = null;
+		OutputStream os = null;
+		try {
+			os = response.getOutputStream(); // 取得输出流
+			response.reset();// 清空输出流
+			String fileName = "用款期还款" + DateTimeUtil.getCurDate() + ".xls";
+			response.setHeader("Content-disposition","attachment; filename=" + java.net.URLEncoder.encode(fileName, "UTF-8"));// 设定输出文件头
+			response.setContentType("application/msexcel");// 定义输出类型
+			String title = "用款期还款";
+			String[] headers = new String[] {"合同编号", "客户名", "购买项目","投资时间","项目启动时间","还款时间", "计息天数","用款期利率(%)", 
+					"待付本息(元)", "待付本金(元)","待付利息(元)","回款期数","剩余本金(元)", "购买金额(元)","项目状态","状态"};
+			workbook = orderPlanService.generatUsePayBackData(os, searchBean,headers,title,getPg());
+			workbook.write(os);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			os.flush();
+		}
+    }
 
 	public CfsPrjOrderPaybackLog getSearchBean() {
 		return searchBean;

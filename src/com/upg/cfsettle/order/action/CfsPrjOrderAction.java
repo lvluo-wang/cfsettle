@@ -1,8 +1,13 @@
 package com.upg.cfsettle.order.action;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.upg.cfsettle.common.CodeItemUtil;
@@ -20,6 +25,7 @@ import com.upg.cfsettle.util.UtilConstant;
 import com.upg.ucars.factory.DynamicPropertyTransfer;
 import com.upg.ucars.framework.base.BaseAction;
 import com.upg.ucars.mapping.basesystem.security.Buser;
+import com.upg.ucars.util.DateTimeUtil;
 import com.upg.ucars.util.PropertyTransVo;
 
 @SuppressWarnings("serial")
@@ -161,6 +167,29 @@ public class CfsPrjOrderAction extends BaseAction {
 	public String listComm(){
 		return setDatagridInputStreamData(prjOrderService.findCommByCondition(prjOrder, getPg()), getPg());
 	}
+	
+	
+	public void doExport() throws Exception{
+    	HttpServletResponse response = getHttpResponse();
+		HSSFWorkbook workbook = null;
+		OutputStream os = null;
+		/*searchBean.setStatus(LcsConstant.FUND_ORDER_BOOK_AUDIT);*/
+		try {
+			os = response.getOutputStream(); // 取得输出流
+			response.reset();// 清空输出流
+			String fileName = "投资收款审核" + DateTimeUtil.getCurDate() + ".xls";
+			response.setHeader("Content-disposition","attachment; filename=" + java.net.URLEncoder.encode(fileName, "UTF-8"));// 设定输出文件头
+			response.setContentType("application/msexcel");// 定义输出类型
+			String title = "投资收款审核";
+			String[] headers = new String[] {"合同编号", "投资时间", "客户姓名","购买项目","购买金额(元)","付款银行", "付款卡号","服务员工","状态"};
+			workbook = prjOrderService.generatOrderAuidtData(os, searchBean,headers,title,getPg());
+			workbook.write(os);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			os.flush();
+		}
+    }
 	
 	public CustOrderBean getSearchBean() {
 		return searchBean;
