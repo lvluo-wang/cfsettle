@@ -50,6 +50,17 @@
 	function doCancel(){
 		history.back();
 	}
+	
+	function formatTime(value) {
+		if(value == ""){
+			return '';
+		}
+		return DateFormat.format(new Date(value*1000),"yyyy-MM-dd hh:mm:ss");
+	}
+
+	function formatCommRate(value) {
+		return value+"%";
+	}
 	</script>
 	</tiles:putAttribute>
 </tiles:insertDefinition>
