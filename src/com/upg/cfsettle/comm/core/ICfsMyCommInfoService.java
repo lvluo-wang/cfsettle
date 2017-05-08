@@ -91,6 +91,6 @@ public interface ICfsMyCommInfoService extends IBaseService {
 	 */
 	HSSFWorkbook generatSettleData(OutputStream os, CfsMyCommInfo searchBean, String[] headers, String title, Page pg);
 
-	List<?> findByCommInfoCondition(CfsMyCommInfo searchBean, Page pg);
+	List<CfsMyCommInfo> findByCommInfoCondition(CfsMyCommInfo searchBean, Page pg);
 
 }
