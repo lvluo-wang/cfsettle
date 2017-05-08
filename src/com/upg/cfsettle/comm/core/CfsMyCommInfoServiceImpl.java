@@ -290,7 +290,7 @@ public class CfsMyCommInfoServiceImpl implements ICfsMyCommInfoService{
 	@Override
 	public HSSFWorkbook generatSettleData(OutputStream os, CfsMyCommInfo searchBean, String[] headers, String title, Page pg) {
 		List<List<Object>> dataRows = new ArrayList<List<Object>>();
-		List<CfsMyCommInfo> dataList = this.findByCondition(searchBean, null);
+		List<CfsMyCommInfo> dataList = this.findByCommInfoCondition(searchBean, null);
 		for(CfsMyCommInfo commInfo :dataList){
 			List<Object> row = new ArrayList<Object>();
 			row.add(CodeItemUtil.getCodeNameByKey(UtilConstant.CFS_BUSER_POS_CODE,commInfo.getPosCode()));
