@@ -36,6 +36,7 @@
 				<x:column title="客户姓名" field="realName" align="center" width="140"/>
 				<x:column title="性别" field="sex" align="center" width="40" formatter="formatSex"/>
 				<x:column title="客户手机" field="mobile" align="left" width="90"/>
+				<x:column title="联系地址" field="address" align="left" width="230"/>
 				<x:column title="身份证号" field="idCard" align="center" width="150" />
 				<x:column title="添加时间" field="ctime" align="center" width="150"/>
 				<x:column title="验证" field="isValid" align="center" width="80" formatter="formatYesNo"/>
