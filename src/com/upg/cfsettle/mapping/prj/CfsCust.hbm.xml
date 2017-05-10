@@ -25,6 +25,11 @@
                 <comment>身份证号</comment>
             </column>
         </property>
+        <property name="address" type="java.lang.String">
+            <column name="address" length="500">
+                <comment>联系地址</comment>
+            </column>
+        </property>
         <property name="sex" type="java.lang.Byte">
             <column name="sex">
                 <comment>客户性别</comment>
