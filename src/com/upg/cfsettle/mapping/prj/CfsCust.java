@@ -19,6 +19,7 @@ public class CfsCust implements Serializable {
 	private String realName;
 	private String mobile;
 	private String idCard;
+	private String address;
 	private Byte sex;
 	private Long cardFace;
 	private Long cardBack;
@@ -146,5 +147,13 @@ public class CfsCust implements Serializable {
 
 	public void setIsValid(Byte isValid) {
 		this.isValid = isValid;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 }

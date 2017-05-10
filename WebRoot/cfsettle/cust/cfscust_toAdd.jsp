@@ -19,6 +19,10 @@
 					<td ><x:combobox name="cfsCust.sex" list="sexList" required="true" textField="codeName" valueField="codeNo" cssStyle="width:142px;" pleaseSelect="false"/></td>
 				</tr>
 				<tr>
+					<td class="title">联系地址<font color="red">*</font>:</td>
+					<td colspan="3"><input name="cfsCust.address" class="easyui-validatebox" maxLength="21" required="true" style="width: 420px"></td>
+				</tr>
+				<tr>
 					<td class="title">身份证正面: </td>
 					<td>
 						<input name="cfsCust.cardFace" type="hidden" id="cfscust_face_card_id"/>

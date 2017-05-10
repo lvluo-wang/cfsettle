@@ -23,10 +23,14 @@
 					<td ><x:combobox name="cfsCust.sex" list="sexList" required="true" textField="codeName" valueField="codeNo" value="${cfsCust.sex}" cssStyle="width:142px;" pleaseSelect="false"/></td>
 				</tr>
 				<tr>
+					<td class="title">联系地址<font color="red">*</font>:</td>
+					<td colspan="3"><input name="cfsCust.address" class="easyui-validatebox" maxLength="21" required="true" value="${cfsCust.address}" style="width: 420px"></td>
+				</tr>
+				<tr>
 					<td class="title">身份证正面: </td>
 					<td>
 						<input name="cfsCust.cardFace" type="hidden" id="cfscust_face_card_id_edit" value="${cfsCust.cardFace}"/>
-						<img id="id_card_face_pic_edit" alt="身份证正面" src="http://" height="100px" width="200px"/>
+						<img id="id_card_face_pic_edit" alt="身份证正面" src="http://" height="100px" width="200px" onclick="showPic(this)"/>
 					</td>
 					<td colspan="2">
 						<s:include value="/platform/common/uploadFile.jsp">
@@ -42,7 +46,7 @@
 					<td class="title">身份证反面: </td>
 					<td>
 						<input name="cfsCust.cardBack" type="hidden" id="cfscust_back_card_id_edit" value="${cfsCust.cardBack}"/>
-						<img id="id_card_back_pic_edit" alt="身份证正面" src="http://" height="100px" width="200px"/>
+						<img id="id_card_back_pic_edit" alt="身份证正面" src="http://" height="100px" width="200px" onclick="showPic(this)"/>
 					</td>
 					<td colspan="2">
 						<s:include value="/platform/common/uploadFile.jsp">
