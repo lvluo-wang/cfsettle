@@ -77,7 +77,7 @@
                                        class="easyui-validatebox" required="true" validType=""/>
                             </td>
                             <td class="title">合同编号:</td>
-                           	<td><input name="prjOrder.contractNo" class="easyui-validatebox" required="true" /></td>
+                           	<td><input name="prjOrder.contractNo" class="easyui-validatebox"/></td>
                         </tr>
                         <s:if test="cust.cardFace==null">
 	                        <tr>
@@ -116,7 +116,7 @@
 							</tr>
                         </s:if>
                         <tr>
-                            <td class="title">打印凭证: </td>
+                            <td class="title">打款凭证: </td>
                             <td>
                             	<input type="hidden" id="payNotesAttid" name="prjOrder.payNotesAttid" class="easyui-validatebox"  required="true" />
                             	<img id="payNotesDiv" alt="身份证正面" src="http://" height="50px" width="200px" onclick="showPic(this)"/>
@@ -203,7 +203,7 @@
 
             function doSave() {
                 if ($("#prjOrder_form").form("validate")) {
-                    var payNotesAttid = $('#payNotesAttid').val();
+                    /* var payNotesAttid = $('#payNotesAttid').val();
                     if(payNotesAttid ==''){
                         info("请上传打印凭证");
                         return;
@@ -215,7 +215,7 @@
                     if($('#id_card_back_pic_order').lenght>0&&$('#id_card_back_pic_order').val==''){
                         info("请上传身份证反面");
                         return;
-                    }
+                    } */
                     var url = '<s:url value="/custOrder/custOrder_doAdd.jhtml"/>';
                     var param = formToObject("prjOrder_form");
                     AddRunningDiv("提交处理中，请稍候...");
