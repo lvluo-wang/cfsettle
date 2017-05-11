@@ -39,13 +39,10 @@
                         </tr>
                         <tr>
                             <td class="title">投资项目:</td>
-                            <td>
+                            <td colspan="3">
                                 <x:combobox name="prjOrder.prjId" class="easyui-validatebox" required="true"
                                             list="prjList" textField="prjName" valueField="id"
-                                            pleaseSelect="false"/>
-                            </td>
-                            <td class="title">合同编号:</td>
-                            <td><input name="prjOrder.contractNo" class="easyui-validatebox" required="true" />
+                                            pleaseSelect="false" cssStyle="width:380px;"/>
                             </td>
                         </tr>
                         <tr>
@@ -79,6 +76,8 @@
                                 <input name="prjOrder.payAccountNo"
                                        class="easyui-validatebox" required="true" validType=""/>
                             </td>
+                            <td class="title">合同编号:</td>
+                           	<td><input name="prjOrder.contractNo" class="easyui-validatebox" required="true" /></td>
                         </tr>
                         <s:if test="cust.cardFace==null">
 	                        <tr>

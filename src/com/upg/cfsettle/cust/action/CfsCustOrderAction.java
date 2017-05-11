@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.upg.cfsettle.code.core.ICodeItemService;
+import com.upg.cfsettle.common.CodeItemUtil;
 import com.upg.cfsettle.cust.core.CustOrderBean;
 import com.upg.cfsettle.cust.core.ICfsCustService;
 import com.upg.cfsettle.cust.core.ICfsPrjOrderRepayPlanService;
@@ -104,6 +105,11 @@ public class CfsCustOrderAction extends BaseAction {
         cust = custService.queryCfsCustById(getPKId());
         //募资中prj
         prjList = prjService.findPrjByStatus(CfsConstant.PRJ_STATUS_INVESTING);
+        for(CfsPrj cfsPrj:prjList){
+        	String prjName = cfsPrj.getTimeLimit()+CodeItemUtil.getCodeNameByKey(UtilConstant.CFS_TIMELIMIT_UNIT, cfsPrj.getTimeLimitUnit())+"-"+
+        			cfsPrj.getYearRate()+"%-"+CodeItemUtil.getCodeNameByKey(UtilConstant.CFS_REPAYMENT_TYPE, cfsPrj.getRepayWay());
+        	cfsPrj.setPrjName(cfsPrj.getPrjName()+"-"+prjName);
+        }
         bankList = codeItemService.getCodeItemByKey(UtilConstant.CFS_BANK_TYPE);
         return ADD;
     }
