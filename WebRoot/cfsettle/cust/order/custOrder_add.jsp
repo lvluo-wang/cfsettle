@@ -205,7 +205,7 @@
                 if ($("#prjOrder_form").form("validate")) {
                     /* var payNotesAttid = $('#payNotesAttid').val();
                     if(payNotesAttid ==''){
-                        info("请上传打印凭证");
+                        info("请上传打款凭证");
                         return;
                     }
                     if($('#id_card_face_pic_order').lenght>0&&$('#id_card_face_pic_order').val==''){

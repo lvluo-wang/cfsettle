@@ -116,9 +116,9 @@
                             <td>${prjOrder.collectAuditSysName}</td>
                         </tr>
                         <tr>
-                            <td class="title">打印凭证</td>
+                            <td class="title">打款凭证</td>
                             <td colspan="3">
-                                <img id="payNotes" src="" alt="打印凭证" height="100;" width="330px;" onclick="showPic(this)">
+                                <img id="payNotes" src="" alt="打款凭证" height="100;" width="330px;" onclick="showPic(this)">
                             </td>
                         </tr>
                     </table>
