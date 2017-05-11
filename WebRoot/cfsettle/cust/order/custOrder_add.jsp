@@ -74,10 +74,10 @@
                             <td class="title">付款卡号:</td>
                             <td>
                                 <input name="prjOrder.payAccountNo"
-                                       class="easyui-validatebox" required="true" validType=""/>
+                                       class="easyui-validatebox" required="true"/>
                             </td>
                             <td class="title">合同编号:</td>
-                           	<td><input name="prjOrder.contractNo" class="easyui-validatebox"/></td>
+                           	<td><input name="prjOrder.contractNo" class="easyui-validatebox" required="true"/></td>
                         </tr>
                         <s:if test="cust.cardFace==null">
 	                        <tr>
@@ -118,7 +118,7 @@
                         <tr>
                             <td class="title">打款凭证: </td>
                             <td>
-                            	<input type="hidden" id="payNotesAttid" name="prjOrder.payNotesAttid" class="easyui-validatebox"  required="true" />
+                            	<input type="hidden" id="payNotesAttid" name="prjOrder.payNotesAttid" class="easyui-validatebox"/>
                             	<img id="payNotesDiv" alt="身份证正面" src="http://" height="50px" width="200px" onclick="showPic(this)"/>
                             </td>
                             <td colspan="3">
