@@ -3,9 +3,11 @@ package com.upg.cfsettle.cust.core;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 
 import com.upg.cfsettle.mapping.prj.CfsCust;
 import com.upg.cfsettle.mapping.prj.CfsCustBuserRelate;
+import com.upg.ucars.basesystem.UcarsHelper;
 import com.upg.ucars.framework.annotation.Service;
 import com.upg.ucars.framework.base.Page;
 import com.upg.ucars.framework.base.QueryCondition;
@@ -67,11 +69,17 @@ public class CfsCustServiceImpl implements ICfsCustService{
 		cust.setMtime(DateTimeUtil.getNowDateTime());
 		cust.setMsysid(SessionTool.getUserLogonInfo().getSysUserId());
 		cust.setIsValid(Byte.valueOf("0"));//默认未验证
-		cfsCustDao.save(cust);
-		CfsCustBuserRelate relate = new CfsCustBuserRelate(cust.getId(), SessionTool.getUserLogonInfo().getSysUserId(), 
-				SessionTool.getUserLogonInfo().getSysUserId(), DateTimeUtil.getNowDateTime());
-		custBuserRelateDao.save(relate);
-		
+		QueryCondition condition = new QueryCondition();
+		condition.addCondition(new ConditionBean("cfsCust.idCard", ConditionBean.EQUAL, cust.getIdCard()));
+		List<CfsCust> custs = cfsCustDao.queryEntity(condition.getConditionList(),null);
+		if(CollectionUtils.isEmpty(custs)){
+			cfsCustDao.save(cust);
+			CfsCustBuserRelate relate = new CfsCustBuserRelate(cust.getId(), SessionTool.getUserLogonInfo().getSysUserId(), 
+					SessionTool.getUserLogonInfo().getSysUserId(), DateTimeUtil.getNowDateTime());
+			custBuserRelateDao.save(relate);
+		}else{
+			UcarsHelper.throwServiceException("该用户已添加,不能重复添加");
+		}
 	}
 
 	@Override
