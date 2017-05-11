@@ -324,8 +324,9 @@
                     AddRunningDiv("提交处理中，请稍候...");
                     doPost(url, param, function (result) {
                         if (!printError(result)) {
-                            setTimeout("history.back()", 3000);
                             info("提交成功!");
+                            var url2="<s:url value='/prj/prjManage_main.jhtml'/>";
+                    		redirectUrl(url2);
                         } else {
                             $(".datagrid-mask").remove();
                             $(".datagrid-mask-msg").remove();
