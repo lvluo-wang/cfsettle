@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+	
+	<context:component-scan base-package="com.upg" name-generator="com.upg.ucars.framework.name.ComponentNameGenerator">
+		<context:include-filter type="annotation" expression="com.upg.ucars.framework.annotation.Service"/>
+		<context:include-filter type="annotation" expression="com.upg.ucars.framework.annotation.Dao"/>
+	</context:component-scan>
+	
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate"> 
+		<property name="sessionFactory"><ref bean="sessionFactory"/></property> 
+		<property name="jdbcExceptionTranslator"><ref bean="jdbcExceptionTranslator"/></property> 
+	</bean>
+	<bean id="jdbcExceptionTranslator" class="org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator"> 
+		<property name="dataSource"><ref bean="localDataSource"/></property> 
+	</bean>
+ 		
+   <!-- 配置拦截器 
+   <bean id="methodExcuteInterceptor" class="com.upg.ucars.framework.log.core.MethodExcuteTimer"/>
+	<bean id="MysqlTransactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">     
+        <property name="transactionManager" ref="MysqlTransactionManager"/>     
+     	<property name="transactionAttributes">
+			<props>
+				<prop key="add*">PROPAGATION_REQUIRES_NEW</prop>
+				<prop key="find*">PROPAGATION_REQUIRES_NEW</prop>
+        	</props>
+		</property>
+    </bean>
+    <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator" >    
+ 		<property name="beanNames">
+ 			<list>       	
+ 			    <value>userService</value>
+ 			    <value>sysfuncService</value>		      	
+        	</list>
+ 		</property>   
+        <property name="interceptorNames">     
+           <list>     
+               <value>transactionInterceptor</value>   
+               <value>methodExcuteInterceptor</value>  
+           </list>
+       </property>
+   </bean> 
+    -->
+    <!-- 异常拦截器  记录异常日志-->
+    <bean id="xcarsExceptionInterceptor" class="com.upg.ucars.framework.exception.core.ExceptionLogAOP"/>
+	<!--  事务管理 -->
+ 	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true" propagation="SUPPORTS" />
+			<tx:method name="find*" read-only="true" propagation="SUPPORTS" />
+			<tx:method name="query*" read-only="true" propagation="SUPPORTS" />
+			<tx:method name="autoGenCode"  propagation="REQUIRES_NEW" />
+			<!-- 
+			<tx:method name="updateAfterCommuTrans"  propagation="REQUIRES_NEW" />
+			<tx:method name="updateAfterMZCommuTrans"  propagation="REQUIRES_NEW" />
+			<tx:method name="updateAfterCZCommuTrans"  propagation="REQUIRES_NEW" />
+			<tx:method name="createAcctFlowNewSession"  propagation="REQUIRES_NEW" />
+			<tx:method name="buildAcctRecord"  propagation="REQUIRES_NEW" />
+			<tx:method name="deleteAcctRecord"  propagation="REQUIRES_NEW" />
+			<tx:method name="buildNegativeAcctRecord"  propagation="REQUIRES_NEW" />
+			 -->
+			<tx:method name="clearEndProcessInstance"  propagation="REQUIRES_NEW" />
+			<tx:method name="*" read-only="false" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:pointcut id="txServiceFosc" expression="(execution (* com.upg.demo..*Service*.*(..)) or execution (* com.upg.ucars..*Service*.*(..))) 
+		and !execution (* com.upg..action.*.*(..))" />
+		<aop:advisor pointcut-ref="txServiceFosc" advice-ref="txAdvice" />
+		<aop:advisor pointcut-ref="txServiceFosc" advice-ref="xcarsExceptionInterceptor" />
+	</aop:config>
+	
+	<bean id="myEntityInterceptor" class="com.upg.ucars.framework.interceptor.HibernateEntityInterceptor" />
+	
+	<bean id="sessionFactoryParent" abstract="true" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="entityInterceptor">   
+               <ref bean="myEntityInterceptor"/>   
+        </property>
+        <property name="hibernateProperties">
+     		<props>     			
+     			<!--<prop key="hibernate.dialect">org.hibernate.dialect.DB2Dialect</prop> --> 
+     			<prop key="hibernate.dialect">com.upg.ucars.framework.dialect.MySQLDialect</prop>   			
+     			<prop key="connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</prop>
+     			<prop key="hibernate.show_sql">false</prop>
+     			<prop key="hibernate.format_sql">false</prop>		
+     			<!-- <prop key="hibernate.default_schema">xcars</prop> -->
+     			<prop key="hibernate.jdbc.use_scrollable.resultset">true</prop> 
+     			<prop key="hibernate.cache.use_query_cache">true</prop>
+     			<prop key="hibernate.cache.use_second_level_cache">true</prop>      
+	            <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+	            <prop key="hibernate.query.factory_class">org.hibernate.hql.ast.ASTQueryTranslatorFactory</prop>
+     		</props>     	  	
+     	</property>
+     	<property name="typeDefinitions">
+     		<list>
+     			<bean class="org.springframework.orm.hibernate3.TypeDefinitionBean">
+     				<property name="typeName" value="xclob"/>
+     				<property name="typeClass" value="org.springframework.orm.hibernate3.support.ClobStringType"/>
+     			</bean>
+     			<bean class="org.springframework.orm.hibernate3.TypeDefinitionBean">
+     				<property name="typeName" value="secDate"/>
+     				<property name="typeClass" value="com.upg.ucars.framework.base.hibernate.SecondDateType"/>
+     			</bean>
+     			<bean class="org.springframework.orm.hibernate3.TypeDefinitionBean">
+     				<property name="typeName" value="cent"/>
+     				<property name="typeClass" value="com.upg.ucars.framework.base.hibernate.CentMoneyType"/>
+     			</bean>
+     			<bean class="org.springframework.orm.hibernate3.TypeDefinitionBean">
+     				<property name="typeName" value="wanCent"/>
+     				<property name="typeClass" value="com.upg.ucars.framework.base.hibernate.WanCentMoneyType"/>
+     			</bean>
+     		</list>
+     	</property>
+     	
+     	  
+	</bean>
+	
+	<bean id="sessionFactory" parent="sessionFactoryParent" >
+     	<property name="dataSource">
+     		<ref local="localDataSource"/>
+     	</property>     	
+     	<property name="mappingLocations">
+     	  <list>
+     	 	<value>classpath*:/org/jbpm/**/*.hbm.xml</value>
+     	    <value>classpath*:/com/upg/ucars/**/*.hbm.xml</value>
+     	    <value>classpath*:/com/upg/finance/mapping/local/**/*.hbm.xml</value>
+     	    <value>classpath*:/com/upg/cfsettle/mapping/**/*.hbm.xml</value>
+     	  </list>
+     	</property>
+     	<property name="packagesToScan" value="com.upg"/>
+    </bean>
+    <!--明文： class="org.apache.commons.dbcp.BasicDataSource"  密文： class="com.upg.ucars.framework.base.ExBasicDataSource"  -->    
+    
+    
+    <bean id="dataSourceParent" abstract="true" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    	<property name="driverClassName" >
+	   		<!-- <value>oracle.jdbc.OracleDriver</value> -->
+	   		<value>net.sf.log4jdbc.DriverSpy</value>
+	   </property>
+	   <!-- 
+		<property name="initialSize">
+			<value>8</value>
+		</property>
+		
+		<property name="maxActive">
+			<value>8</value>
+		</property>
+		
+		<property name="maxWait">
+			<value>30000</value>
+		</property>
+		<property name="maxIdle">
+			<value>8</value>
+		</property>
+		<property name="minIdle">
+			<value>4</value>
+		</property>
+		 -->
+	   	<property name="testOnBorrow" value="true"/>
+	 	<property name="testWhileIdle" value="true"/>
+		<property name="validationQuery" value="select 1 from dual"/>
+    </bean>
+    
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+    	<property name="dataSource" ref="localDataSource"/>
+    </bean>
+    
+	 <!-- ucars datasource -->	 	
+	 <bean id="localDataSource" parent="dataSourceParent">
+	   <property name="url">
+        	 <!--<value>jdbc:oracle:thin:@121.196.206.54:1521:ubsp</value> -->
+        	 <value>jdbc:log4jdbc:mysql://115.159.70.162:3306/cfadmin?characterEncoding=utf-8&amp;useOldAliasMetadataBehavior=true&amp;autoReconnect=true</value>
+        	  <!--<value>jdbc:log4jdbc:oracle:thin:@10.10.28.182:1522:orcl11</value> -->
+	   </property>
+		<property name="username">
+			<value>zuo</value>
+		</property>
+		<property name="password">
+			 <value>zuo123456</value>
+		</property>
+		<property name="testOnBorrow" value="true"/>
+	 	<property name="testWhileIdle" value="true"/>
+		<property name="validationQuery" value="select 1 from dual"/>
+	 </bean>
+	
+	<import resource="applicationContext_xhh.xml"/>
+		 
+	<import resource="platform-config/spring/spring-platform-config.xml"/>
+	<import resource="platform-config/spring/spring-demo-config.xml"/>
+	<import resource="finance-config/spring/spring-finance-config.xml"/>
+
+
+</beans>
